@@ -3,7 +3,7 @@
 
 #include "IO/FileSystem.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 class LocalFileSystem final : public FileSystem {
  public:
@@ -14,6 +14,7 @@ class LocalFileSystem final : public FileSystem {
   bool ClearDirectory(const std::string& pPath) override;
   bool DirectoryHasEntries(const std::string& pPath) const override;
   std::vector<DirectoryEntry> ListFilesRecursive(const std::string& pRootPath) const override;
+  std::vector<DirectoryEntry> ListDirectoriesRecursive(const std::string& pRootPath) const override;
   std::vector<DirectoryEntry> ListFiles(const std::string& pRootPath) const override;
   std::unique_ptr<FileReadStream> OpenReadStream(const std::string& pPath) const override;
   std::unique_ptr<FileWriteStream> OpenWriteStream(const std::string& pPath) override;
@@ -23,6 +24,6 @@ class LocalFileSystem final : public FileSystem {
   std::string StemName(const std::string& pPath) const override;
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_IO_LOCAL_FILE_SYSTEM_HPP_

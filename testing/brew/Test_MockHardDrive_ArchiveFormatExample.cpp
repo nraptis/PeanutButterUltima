@@ -25,7 +25,7 @@ bool ExpectBytes(const std::vector<unsigned char>& pExpected,
   return true;
 }
 
-bool ReadAllBytes(const peanutbutter::ultima::testing::MockHardDrive& pHardDrive,
+bool ReadAllBytes(const peanutbutter::testing::MockHardDrive& pHardDrive,
                   const std::string& pPath,
                   std::vector<unsigned char>& pBytes) {
   pBytes.assign(pHardDrive.GetFileLength(pPath), 0);
@@ -35,7 +35,7 @@ bool ReadAllBytes(const peanutbutter::ultima::testing::MockHardDrive& pHardDrive
 }  // namespace
 
 int main() {
-  using peanutbutter::ultima::testing::MockHardDrive;
+  using peanutbutter::testing::MockHardDrive;
 
   MockHardDrive aHardDrive;
   bool aPassed = true;

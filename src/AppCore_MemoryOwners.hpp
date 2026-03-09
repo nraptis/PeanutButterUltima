@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
@@ -10,7 +11,7 @@
 #include "AppCore.hpp"
 #include "Memory/HeapBuffer.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 struct SourceFileEntry {
   std::string mSourcePath;
@@ -22,7 +23,9 @@ struct SourceFileEntry {
 // This keeps pack-side reads bounded even when source files are very large.
 class LogicalRecordStreamer {
  public:
-  LogicalRecordStreamer(const FileSystem& pFileSystem, const std::vector<SourceFileEntry>& pFiles);
+  LogicalRecordStreamer(const FileSystem& pFileSystem,
+                        const std::vector<SourceFileEntry>& pFiles,
+                        const std::vector<std::string>& pEmptyDirectories);
 
   bool Read(unsigned char* pBuffer, std::size_t pMaxBytes, std::size_t& pBytesRead);
 
@@ -33,15 +36,23 @@ class LogicalRecordStreamer {
     kPathBytes,
     kContentLengthBytes,
     kContentBytes,
+    kFileTerminatorLengthBytes,
+    kManifestEntryLengthBytes,
+    kManifestEntryBytes,
   };
 
   const FileSystem& mFileSystem;
   const std::vector<SourceFileEntry>& mFiles;
+  const std::vector<std::string>& mEmptyDirectories;
   std::size_t mFileIndex = 0;
+  std::size_t mManifestDirectoryIndex = 0;
+  bool mManifestTerminatorWritten = false;
   Phase mPhase = Phase::kPathLength;
   std::size_t mPhaseOffset = 0;
   std::uint64_t mContentOffset = 0;
   unsigned char mPathLengthBytes[2] = {};
+  unsigned char mFileTerminatorLengthBytes[2] = {};
+  unsigned char mManifestEntryLengthBytes[2] = {};
   unsigned char mContentLengthBytes[6] = {};
   std::unique_ptr<FileReadStream> mReadStream;
 };
@@ -153,6 +164,7 @@ class PageReader {
   std::size_t mPhysicalOffset = 0;
   std::size_t mCurrentPageStart = 0;
   std::size_t mCurrentPageLength = 0;
+  const unsigned char* mCurrentPageData = nullptr;
   bool mPageLoaded = false;
   bool mUseEncryption = false;
   std::unique_ptr<FileReadStream> mReadStream;
@@ -167,9 +179,10 @@ class RecordParser {
  public:
   RecordParser(FileSystem& pFileSystem, const std::string& pDestinationDirectory, bool pWriteFiles);
 
-  bool Parse(PageReader& pReader);
+  bool Parse(PageReader& pReader, const std::function<void(std::uint64_t, std::size_t)>& pOnProgress = {});
   std::uint64_t ProcessedBytes() const;
   std::size_t FilesProcessed() const;
+  std::size_t EmptyDirectoriesProcessed() const;
   const UnpackFailureInfo& Failure() const;
 
  private:
@@ -178,6 +191,8 @@ class RecordParser {
     kPathBytes,
     kContentLengthBytes,
     kContentBytes,
+    kManifestFolderLengthBytes,
+    kManifestFolderBytes,
     kFinished,
   };
 
@@ -202,7 +217,9 @@ class RecordParser {
   std::uint64_t mContentOffset = 0;
   std::uint64_t mProcessedBytes = 0;
   std::size_t mFilesProcessed = 0;
+  std::size_t mEmptyDirectoriesProcessed = 0;
   std::uint64_t mRemainingBytesAfterCurrentChunk = 0;
+  bool mTrailingNonZeroInCurrentChunk = false;
   UnpackFailureInfo mFailure;
   std::string mCurrentRelativePath;
   std::vector<std::size_t> mArchivePayloadLengths;
@@ -210,12 +227,13 @@ class RecordParser {
   std::size_t mCursorPhysicalOffset = 0;
   bool mCursorInitialized = false;
   unsigned char mPathLengthBytes[2] = {};
+  unsigned char mManifestFolderLengthBytes[2] = {};
   unsigned char mContentLengthBytes[6] = {};
   unsigned char mPathBytes[peanutbutter::MAX_VALID_FILE_PATH_LENGTH] = {};
   HeapBuffer mReadBuffer;
   std::unique_ptr<FileWriteStream> mWriteStream;
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_APP_CORE_MEMORY_OWNERS_HPP_

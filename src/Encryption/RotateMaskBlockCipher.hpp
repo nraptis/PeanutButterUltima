@@ -6,7 +6,7 @@
 
 #include "Encryption/Crypt.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 class RotateMaskBlockCipher final : public Crypt {
  public:
@@ -88,6 +88,6 @@ class RotateMaskBlockCipher final : public Crypt {
 
 using RotateMaskBlockCipher12 = RotateMaskBlockCipher;
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_ENCRYPTION_ROTATE_MASK_BLOCK_CIPHER_HPP_

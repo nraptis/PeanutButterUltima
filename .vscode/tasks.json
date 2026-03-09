@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configure PeanutButterUltima Debug",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "-S",
+        ".",
+        "-B",
+        "build-debug",
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "Build PeanutButterUltima Debug",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "build-debug",
+        "--config",
+        "Debug",
+        "--target",
+        "PeanutButterUltima"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": [
+        "Configure PeanutButterUltima Debug"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    }
+  ]
+}

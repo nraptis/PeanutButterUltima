@@ -1,6 +1,6 @@
 #include "Encryption/Crypt.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 namespace {
 
@@ -79,4 +79,4 @@ bool XorCrypt::UnsealData(const unsigned char* pSource,
               pErrorMessage);
 }
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter

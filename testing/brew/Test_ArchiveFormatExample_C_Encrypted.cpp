@@ -7,10 +7,10 @@
 
 namespace {
 
-using peanutbutter::ultima::RotateMaskBlockCipher;
-using peanutbutter::ultima::testing::Execute_BundleAndUnbundle;
-using peanutbutter::ultima::testing::MockFileSystem;
-using peanutbutter::ultima::testing::ToBytes;
+using peanutbutter::RotateMaskBlockCipher;
+using peanutbutter::testing::Execute_BundleAndUnbundle;
+using peanutbutter::testing::MockFileSystem;
+using peanutbutter::testing::ToBytes;
 
 }  // namespace
 

@@ -4,11 +4,11 @@
 #include "Test_IntegerFailureCaseCommon.hpp"
 
 int main() {
-  using peanutbutter::ultima::testing::ArchiveMutator;
-  using peanutbutter::ultima::testing::RunUnbundleIntegerFailureCase;
-  using peanutbutter::ultima::testing::SeedMultiArchiveIntegerFailureInputTree;
+  using peanutbutter::testing::ArchiveMutator;
+  using peanutbutter::testing::RunUnbundleIntegerFailureCase;
+  using peanutbutter::testing::SeedMultiArchiveIntegerFailureInputTree;
 
-  const ArchiveMutator aMutator = [](peanutbutter::ultima::ByteVector& pBytes, std::string* pErrorMessage) {
+  const ArchiveMutator aMutator = [](peanutbutter::ByteVector& pBytes, std::string* pErrorMessage) {
     const std::size_t aOffset = peanutbutter::SB_PLAIN_TEXT_HEADER_LENGTH + peanutbutter::SB_L1_LENGTH;
     if (pBytes.size() < aOffset + peanutbutter::SB_RECOVERY_HEADER_LENGTH) {
       if (pErrorMessage != nullptr) {

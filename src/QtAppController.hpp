@@ -5,7 +5,7 @@
 
 #include "AppCore.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 class AppShell {
  public:
@@ -31,6 +31,12 @@ class QtAppController final : public QObject {
   template <typename tOperation>
   void LaunchOperation(tOperation pOperation);
   void FinishOperation(const OperationResult& pResult);
+  template <typename tRequest, typename tCheck, typename tRun, typename tDestinationAccessor>
+  void TriggerFileFlow(const std::string& pOperationName,
+                       const tRequest& pRequest,
+                       tCheck pCheck,
+                       tRun pRun,
+                       tDestinationAccessor pDestinationAccessor);
 
  private:
   AppShell& mShell;
@@ -38,6 +44,6 @@ class QtAppController final : public QObject {
   bool mBusy = false;
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_QT_APP_CONTROLLER_HPP_

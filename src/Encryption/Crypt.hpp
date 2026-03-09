@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <string>
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 enum class CryptMode {
   kNormal = 0,
@@ -65,6 +65,6 @@ class XorCrypt final : public Crypt {
                   CryptMode pMode) const override;
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_ENCRYPTION_CRYPT_HPP_

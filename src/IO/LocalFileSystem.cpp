@@ -5,7 +5,7 @@
 #include <memory>
 #include <utility>
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 namespace {
 
@@ -39,15 +39,21 @@ std::string LocalStemName(const std::string& pPath) {
 class LocalFileReadStream final : public FileReadStream {
  public:
   explicit LocalFileReadStream(std::string pPath)
-      : mPath(std::move(pPath)) {
+      : mPath(std::move(pPath)),
+        mInput(std::filesystem::path(mPath), std::ios::binary) {
     const std::filesystem::path aPath(mPath);
     std::error_code aError;
     if (!std::filesystem::exists(aPath, aError) || aError || !std::filesystem::is_regular_file(aPath, aError) || aError) {
+      mInput.close();
+      return;
+    }
+    if (!mInput.is_open()) {
       return;
     }
     mLength = static_cast<std::size_t>(std::filesystem::file_size(aPath, aError));
     if (aError) {
       mLength = 0;
+      mInput.close();
       return;
     }
     mReady = true;
@@ -71,18 +77,25 @@ class LocalFileReadStream final : public FileReadStream {
     if (pLength == 0) {
       return true;
     }
-
-    std::ifstream aInput(std::filesystem::path(mPath), std::ios::binary);
-    if (!aInput.is_open()) {
+    if (!mInput.is_open()) {
       return false;
     }
-    aInput.seekg(static_cast<std::streamoff>(pOffset), std::ios::beg);
-    aInput.read(reinterpret_cast<char*>(pDestination), static_cast<std::streamsize>(pLength));
-    return aInput.good() || aInput.gcount() == static_cast<std::streamsize>(pLength);
+    mInput.clear();
+    mInput.seekg(static_cast<std::streamoff>(pOffset), std::ios::beg);
+    if (!mInput.good()) {
+      return false;
+    }
+
+    mInput.read(reinterpret_cast<char*>(pDestination), static_cast<std::streamsize>(pLength));
+    if (mInput.gcount() != static_cast<std::streamsize>(pLength)) {
+      return false;
+    }
+    return true;
   }
 
  private:
   std::string mPath;
+  mutable std::ifstream mInput;
   std::size_t mLength = 0;
   bool mReady = false;
 };
@@ -180,6 +193,22 @@ std::vector<DirectoryEntry> LocalFileSystem::ListFilesRecursive(const std::strin
   return aEntries;
 }
 
+std::vector<DirectoryEntry> LocalFileSystem::ListDirectoriesRecursive(const std::string& pRootPath) const {
+  std::vector<DirectoryEntry> aEntries;
+  const std::filesystem::path aRoot(pRootPath);
+  if (!std::filesystem::is_directory(aRoot)) {
+    return aEntries;
+  }
+  for (const auto& aEntry : std::filesystem::recursive_directory_iterator(aRoot)) {
+    if (!aEntry.is_directory()) {
+      continue;
+    }
+    aEntries.push_back(
+        {aEntry.path().lexically_normal().generic_string(), std::filesystem::relative(aEntry.path(), aRoot).generic_string(), true});
+  }
+  return aEntries;
+}
+
 std::vector<DirectoryEntry> LocalFileSystem::ListFiles(const std::string& pRootPath) const {
   std::vector<DirectoryEntry> aEntries;
   const std::filesystem::path aRoot(pRootPath);
@@ -223,4 +252,4 @@ std::string LocalFileSystem::StemName(const std::string& pPath) const {
   return LocalStemName(pPath);
 }
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter

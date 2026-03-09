@@ -13,7 +13,7 @@
 
 namespace {
 
-using namespace peanutbutter::ultima;
+using namespace peanutbutter;
 
 struct ExpectedArchive {
   ByteVector mBytes;
@@ -27,7 +27,7 @@ bool Fail(const std::string& pMessage) {
 void PrintArchiveBytes(const ByteVector& pBytes, const std::string& pLabel) {
   std::cerr << pLabel << " = {\n  ";
   for (std::size_t aIndex = 0; aIndex < pBytes.size(); ++aIndex) {
-    std::cerr << "0x" << peanutbutter::ultima::testing::ToHex(pBytes, aIndex, 1);
+    std::cerr << "0x" << peanutbutter::testing::ToHex(pBytes, aIndex, 1);
     if (aIndex + 1 != pBytes.size()) {
       std::cerr << ", ";
     }
@@ -39,12 +39,12 @@ void PrintArchiveBytes(const ByteVector& pBytes, const std::string& pLabel) {
 }
 
 bool ValidateExpectedHeaders(const std::vector<ExpectedArchive>& pExpectedArchives) {
-  using peanutbutter::ultima::testing::Read_ArchiveHeader;
-  using peanutbutter::ultima::testing::Read_RecoveryHeader;
-  using peanutbutter::ultima::testing::TestArchiveHeader;
-  using peanutbutter::ultima::testing::TestRecoveryHeader;
-  using peanutbutter::ultima::testing::Validate_ArchiveHeader;
-  using peanutbutter::ultima::testing::Validate_RecoveryHeader;
+  using peanutbutter::testing::Read_ArchiveHeader;
+  using peanutbutter::testing::Read_RecoveryHeader;
+  using peanutbutter::testing::TestArchiveHeader;
+  using peanutbutter::testing::TestRecoveryHeader;
+  using peanutbutter::testing::Validate_ArchiveHeader;
+  using peanutbutter::testing::Validate_RecoveryHeader;
 
   constexpr unsigned long long kExpectedArchiveIdentifier = 0x1fd423f6e2995a96ULL;
 
@@ -84,10 +84,10 @@ bool ValidateExpectedHeaders(const std::vector<ExpectedArchive>& pExpectedArchiv
 }  // namespace
 
 int main() {
-  using peanutbutter::ultima::testing::Execute_BundleAndUnbundle;
-  using peanutbutter::ultima::testing::MockFileSystem;
-  using peanutbutter::ultima::testing::ToBytes;
-  using peanutbutter::ultima::testing::Validate_Archive;
+  using peanutbutter::testing::Execute_BundleAndUnbundle;
+  using peanutbutter::testing::MockFileSystem;
+  using peanutbutter::testing::ToBytes;
+  using peanutbutter::testing::Validate_Archive;
 
   const std::vector<ExpectedArchive> aExpectedArchives = {
       {ByteVector{0x1e, 0xab, 0x1d, 0xf0, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,

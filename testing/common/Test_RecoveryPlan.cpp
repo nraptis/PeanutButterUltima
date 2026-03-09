@@ -7,7 +7,7 @@
 #include "Test_Utils.hpp"
 #include "Test_Wrappers.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 namespace {
 
@@ -280,4 +280,4 @@ bool CollectAllRecoveryHeaders(const FileSystem& pFileSystem,
                                    pErrorMessage);
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

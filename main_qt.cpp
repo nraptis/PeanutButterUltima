@@ -161,7 +161,7 @@ std::uint64_t configArchiveSizeValue(const QJsonObject& pObject, std::uint64_t p
   return aValue.isDouble() ? static_cast<std::uint64_t>(aValue.toDouble()) : pFallback;
 }
 
-class FakeAppShellQt final : public peanutbutter::ultima::AppShell {
+class FakeAppShellQt final : public peanutbutter::AppShell {
  public:
   FakeAppShellQt(QWidget* pWindow,
                  QStackedLayout* pContentStack,
@@ -213,11 +213,11 @@ class FakeAppShellQt final : public peanutbutter::ultima::AppShell {
     QMessageBox::warning(mWindow, QString::fromStdString(pTitle), QString::fromStdString(pMessage));
   }
 
-  peanutbutter::ultima::DestinationAction PromptDestinationAction(
+  peanutbutter::DestinationAction PromptDestinationAction(
       const std::string& pOperationName,
       const std::string& pDestinationPath) override {
     if (mWindow == nullptr) {
-      return peanutbutter::ultima::DestinationAction::Cancel;
+      return peanutbutter::DestinationAction::Cancel;
     }
 
     QMessageBox aBox(mWindow);
@@ -229,12 +229,12 @@ class FakeAppShellQt final : public peanutbutter::ultima::AppShell {
     QPushButton* const aMergeButton = aBox.addButton("Merge", QMessageBox::AcceptRole);
     aBox.exec();
     if (aBox.clickedButton() == aClearButton) {
-      return peanutbutter::ultima::DestinationAction::Clear;
+      return peanutbutter::DestinationAction::Clear;
     }
     if (aBox.clickedButton() == aMergeButton) {
-      return peanutbutter::ultima::DestinationAction::Merge;
+      return peanutbutter::DestinationAction::Merge;
     }
-    return peanutbutter::ultima::DestinationAction::Cancel;
+    return peanutbutter::DestinationAction::Cancel;
   }
 
  private:
@@ -531,21 +531,21 @@ int main(int argc, char* argv[]) {
                         action_buttons_row,
                         action_spinner_row,
                         debug_console);
-  peanutbutter::ultima::LocalFileSystem aFileSystem;
-  //peanutbutter::ultima::RotateMaskBlockCipher12 aCrypt(kQtRotateMask, kQtRotateShift);
-  peanutbutter::ultima::PassthroughCrypt aCrypt;
+  peanutbutter::LocalFileSystem aFileSystem;
+  peanutbutter::RotateMaskBlockCipher12 aCrypt(kQtRotateMask, kQtRotateShift);
+  //peanutbutter::PassthroughCrypt aCrypt;
   
 
-  peanutbutter::ultima::FunctionLogger aLogger([&aShell](const std::string& pMessage, bool pIsError) {
+  peanutbutter::FunctionLogger aLogger([&aShell](const std::string& pMessage, bool pIsError) {
     aShell.AppendLog(QString::fromStdString(pIsError ? "[error] " + pMessage : pMessage));
   });
-  peanutbutter::ultima::RuntimeSettings aSettings;
+  peanutbutter::RuntimeSettings aSettings;
   aSettings.mArchiveFileLength =
       archive_size_combo->currentData().value<qulonglong>() > 0
           ? static_cast<std::size_t>(archive_size_combo->currentData().value<qulonglong>())
           : aSettings.mArchiveFileLength;
-  peanutbutter::ultima::ApplicationCore aCore(aFileSystem, aCrypt, aLogger, aSettings);
-  peanutbutter::ultima::QtAppController aEntryPoint(aShell, aCore, &window);
+  peanutbutter::ApplicationCore aCore(aFileSystem, aCrypt, aLogger, aSettings);
+  peanutbutter::QtAppController aEntryPoint(aShell, aCore, &window);
 
   QObject::connect(source_clear_button, &QToolButton::clicked, source_edit, &QLineEdit::clear);
   QObject::connect(archive_clear_button, &QToolButton::clicked, archive_edit, &QLineEdit::clear);
@@ -581,7 +581,7 @@ int main(int argc, char* argv[]) {
   QObject::connect(pack_button, &QPushButton::clicked, &window, [&]() {
     aSettings.mArchiveFileLength = static_cast<std::size_t>(archive_size_combo->currentData().value<qulonglong>());
     aCore.SetSettings(aSettings);
-    peanutbutter::ultima::BundleRequest aRequest;
+    peanutbutter::BundleRequest aRequest;
     aRequest.mSourceDirectory = source_edit->text().toStdString();
     aRequest.mDestinationDirectory = archive_edit->text().toStdString();
     aRequest.mArchivePrefix = file_prefix_edit->text().toStdString();
@@ -593,7 +593,7 @@ int main(int argc, char* argv[]) {
   });
   QObject::connect(unpack_button, &QPushButton::clicked, &window, [&]() {
     aCore.SetSettings(aSettings);
-    peanutbutter::ultima::UnbundleRequest aRequest;
+    peanutbutter::UnbundleRequest aRequest;
     aRequest.mArchiveDirectory = archive_edit->text().toStdString();
     aRequest.mDestinationDirectory = unarchive_edit->text().toStdString();
     aRequest.mPasswordOne = password1_edit->text().toStdString();
@@ -603,14 +603,14 @@ int main(int argc, char* argv[]) {
   });
   QObject::connect(sanity_button, &QPushButton::clicked, &window, [&]() {
     aCore.SetSettings(aSettings);
-    peanutbutter::ultima::ValidateRequest aRequest;
+    peanutbutter::ValidateRequest aRequest;
     aRequest.mLeftDirectory = source_edit->text().toStdString();
     aRequest.mRightDirectory = unarchive_edit->text().toStdString();
     aEntryPoint.TriggerSanityFlow(aRequest);
   });
   QObject::connect(recover_button, &QPushButton::clicked, &window, [&]() {
     aCore.SetSettings(aSettings);
-    peanutbutter::ultima::RecoverRequest aRequest;
+    peanutbutter::RecoverRequest aRequest;
     aRequest.mArchiveDirectory = archive_edit->text().toStdString();
     aRequest.mRecoveryStartFilePath = recovery_edit->text().toStdString();
     aRequest.mDestinationDirectory = unarchive_edit->text().toStdString();

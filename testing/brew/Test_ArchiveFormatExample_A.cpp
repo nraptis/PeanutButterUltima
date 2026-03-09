@@ -13,7 +13,7 @@
 
 namespace {
 
-using namespace peanutbutter::ultima;
+using namespace peanutbutter;
 
 struct ExpectedArchive {
   std::string mName;
@@ -26,12 +26,12 @@ bool Fail(const std::string& pMessage) {
 }
 
 bool ValidateExpectedHeaders(const std::vector<ExpectedArchive>& pExpectedArchives) {
-  using peanutbutter::ultima::testing::Read_ArchiveHeader;
-  using peanutbutter::ultima::testing::Read_RecoveryHeader;
-  using peanutbutter::ultima::testing::TestArchiveHeader;
-  using peanutbutter::ultima::testing::TestRecoveryHeader;
-  using peanutbutter::ultima::testing::Validate_ArchiveHeader;
-  using peanutbutter::ultima::testing::Validate_RecoveryHeader;
+  using peanutbutter::testing::Read_ArchiveHeader;
+  using peanutbutter::testing::Read_RecoveryHeader;
+  using peanutbutter::testing::TestArchiveHeader;
+  using peanutbutter::testing::TestRecoveryHeader;
+  using peanutbutter::testing::Validate_ArchiveHeader;
+  using peanutbutter::testing::Validate_RecoveryHeader;
 
   constexpr unsigned long long kExpectedArchiveIdentifier = 0x1fd423f6e2995a96ULL;
 
@@ -71,10 +71,10 @@ bool ValidateExpectedHeaders(const std::vector<ExpectedArchive>& pExpectedArchiv
 }  // namespace
 
 int main() {
-  using peanutbutter::ultima::testing::Execute_BundleAndUnbundle;
-  using peanutbutter::ultima::testing::MockFileSystem;
-  using peanutbutter::ultima::testing::ToBytes;
-  using peanutbutter::ultima::testing::Validate_Archive;
+  using peanutbutter::testing::Execute_BundleAndUnbundle;
+  using peanutbutter::testing::MockFileSystem;
+  using peanutbutter::testing::ToBytes;
+  using peanutbutter::testing::Validate_Archive;
 
   const std::vector<ExpectedArchive> aExpectedArchives = {
       {"archive_1.PBTR",

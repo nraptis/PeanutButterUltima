@@ -11,8 +11,8 @@
 
 namespace {
 
-using namespace peanutbutter::ultima;
-using peanutbutter::ultima::testing::MockFileSystem;
+using namespace peanutbutter;
+using peanutbutter::testing::MockFileSystem;
 
 ByteVector ToBytes(const std::string& pText) {
   return ByteVector(pText.begin(), pText.end());

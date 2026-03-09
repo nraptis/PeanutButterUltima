@@ -4,7 +4,7 @@
 
 #include "Test_Utils.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 bool Validate_ArchiveHeader(TestArchiveHeader pArchiveHeader,
                             unsigned long long pArchiveIndex,
@@ -50,4 +50,4 @@ bool Validate_ArchiveHeader(TestArchiveHeader pArchiveHeader,
   return true;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

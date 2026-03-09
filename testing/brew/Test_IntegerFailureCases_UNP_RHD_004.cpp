@@ -4,11 +4,11 @@
 #include "Test_IntegerFailureCaseCommon.hpp"
 
 int main() {
-  using peanutbutter::ultima::testing::ArchiveMutator;
-  using peanutbutter::ultima::testing::RunUnbundleIntegerFailureCase;
-  using peanutbutter::ultima::testing::SeedMultiArchiveIntegerFailureInputTree;
+  using peanutbutter::testing::ArchiveMutator;
+  using peanutbutter::testing::RunRecoverIntegerFailureCase;
+  using peanutbutter::testing::SeedMultiArchiveIntegerFailureInputTree;
 
-  const ArchiveMutator aMutator = [](peanutbutter::ultima::ByteVector& pBytes, std::string* pErrorMessage) {
+  const ArchiveMutator aMutator = [](peanutbutter::ByteVector& pBytes, std::string* pErrorMessage) {
     const std::size_t aOffset = peanutbutter::SB_PLAIN_TEXT_HEADER_LENGTH + peanutbutter::SB_L1_LENGTH;
     if (pBytes.size() < aOffset + peanutbutter::SB_RECOVERY_HEADER_LENGTH) {
       if (pErrorMessage != nullptr) {
@@ -16,7 +16,7 @@ int main() {
       }
       return false;
     }
-    pBytes[aOffset + 0] = 48;
+    pBytes[aOffset + 0] = 60;
     pBytes[aOffset + 1] = 0x00;
     pBytes[aOffset + 2] = 0x00;
     pBytes[aOffset + 3] = 0x00;
@@ -26,7 +26,7 @@ int main() {
   };
 
   std::string aError;
-  if (!RunUnbundleIntegerFailureCase("UNP_RHD_004", SeedMultiArchiveIntegerFailureInputTree, aMutator, &aError)) {
+  if (!RunRecoverIntegerFailureCase("RCV_RHD_001", SeedMultiArchiveIntegerFailureInputTree, aMutator, &aError)) {
     std::cerr << aError << "\n";
     return 1;
   }

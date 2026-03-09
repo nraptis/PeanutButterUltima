@@ -4,7 +4,7 @@
 
 #include "Test_Utils.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 namespace {
 
@@ -112,23 +112,26 @@ bool RebuildArchivesForMutation(MockFileSystem& pFileSystem, std::string* pError
   return true;
 }
 
-bool MutateFirstArchive(MockFileSystem& pFileSystem, const ArchiveMutator& pMutator, std::string* pErrorMessage) {
+bool MutateArchiveAtIndex(MockFileSystem& pFileSystem,
+                          std::size_t pArchiveIndex,
+                          const ArchiveMutator& pMutator,
+                          std::string* pErrorMessage) {
   std::vector<DirectoryEntry> aArchives = pFileSystem.ListFiles("/archives");
   std::sort(aArchives.begin(), aArchives.end(),
             [](const DirectoryEntry& pLeft, const DirectoryEntry& pRight) { return pLeft.mPath < pRight.mPath; });
-  if (aArchives.empty()) {
+  if (aArchives.empty() || pArchiveIndex >= aArchives.size()) {
     return Fail("Mutation setup failed: no archives were produced.", pErrorMessage);
   }
 
   ByteVector aBytes;
-  if (!pFileSystem.ReadFile(aArchives.front().mPath, aBytes)) {
-    return Fail("Mutation setup failed: could not read first archive.", pErrorMessage);
+  if (!pFileSystem.ReadFile(aArchives[pArchiveIndex].mPath, aBytes)) {
+    return Fail("Mutation setup failed: could not read selected archive.", pErrorMessage);
   }
   if (!pMutator(aBytes, pErrorMessage)) {
     return false;
   }
-  if (!pFileSystem.WriteFile(aArchives.front().mPath, aBytes)) {
-    return Fail("Mutation setup failed: could not rewrite first archive.", pErrorMessage);
+  if (!pFileSystem.WriteFile(aArchives[pArchiveIndex].mPath, aBytes)) {
+    return Fail("Mutation setup failed: could not rewrite selected archive.", pErrorMessage);
   }
   return true;
 }
@@ -141,10 +144,15 @@ void SeedBasicIntegerFailureInputTree(MockFileSystem& pFileSystem) {
 }
 
 void SeedMultiArchiveIntegerFailureInputTree(MockFileSystem& pFileSystem) {
+  const std::string aLarge1(peanutbutter::SB_L3_LENGTH, 'A');
+  const std::string aLarge2(peanutbutter::SB_L3_LENGTH, 'B');
+  pFileSystem.AddFile("/input/a.bin", ToBytes(aLarge1));
+  pFileSystem.AddFile("/input/b.bin", ToBytes(aLarge2));
+}
+
+void SeedManifestIntegerFailureInputTree(MockFileSystem& pFileSystem) {
   pFileSystem.AddFile("/input/a.txt", ToBytes("alpha"));
-  pFileSystem.AddFile("/input/b.txt", ToBytes("beta"));
-  pFileSystem.AddFile("/input/c.txt", ToBytes("gamma"));
-  pFileSystem.AddFile("/input/d.txt", ToBytes("delta"));
+  pFileSystem.EnsureDirectory("/input/empty_dir");
 }
 
 bool RunUnbundleIntegerFailureCase(const std::string& pExpectedCode,
@@ -164,7 +172,7 @@ bool RunUnbundleIntegerFailureCase(const std::string& pExpectedCode,
   if (!RebuildArchivesForMutation(aFileSystem, pErrorMessage)) {
     return false;
   }
-  if (!MutateFirstArchive(aFileSystem, pMutator, pErrorMessage)) {
+  if (!MutateArchiveAtIndex(aFileSystem, 0, pMutator, pErrorMessage)) {
     return false;
   }
 
@@ -191,7 +199,9 @@ bool RunUnbundleIntegerFailureCase(const std::string& pExpectedCode,
 bool RunRecoverIntegerFailureCase(const std::string& pExpectedCode,
                                   const InputSeeder& pSeedInput,
                                   const ArchiveMutator& pMutator,
-                                  std::string* pErrorMessage) {
+                                  std::string* pErrorMessage,
+                                  std::size_t pMutationArchiveIndex,
+                                  std::size_t pRecoveryStartArchiveIndex) {
   MockFileSystem aFileSystem;
   if (pSeedInput) {
     pSeedInput(aFileSystem);
@@ -205,7 +215,7 @@ bool RunRecoverIntegerFailureCase(const std::string& pExpectedCode,
   if (!RebuildArchivesForMutation(aFileSystem, pErrorMessage)) {
     return false;
   }
-  if (!MutateFirstArchive(aFileSystem, pMutator, pErrorMessage)) {
+  if (!MutateArchiveAtIndex(aFileSystem, pMutationArchiveIndex, pMutator, pErrorMessage)) {
     return false;
   }
 
@@ -218,14 +228,14 @@ bool RunRecoverIntegerFailureCase(const std::string& pExpectedCode,
   std::vector<DirectoryEntry> aArchives = aFileSystem.ListFiles("/archives");
   std::sort(aArchives.begin(), aArchives.end(),
             [](const DirectoryEntry& pLeft, const DirectoryEntry& pRight) { return pLeft.mPath < pRight.mPath; });
-  if (aArchives.empty()) {
+  if (aArchives.empty() || pRecoveryStartArchiveIndex >= aArchives.size()) {
     return Fail("Recover integer-failure case setup failed: no archives were produced.", pErrorMessage);
   }
 
   RecoverRequest aRecoverRequest;
   aRecoverRequest.mArchiveDirectory = "/archives";
   aRecoverRequest.mDestinationDirectory = "/output";
-  aRecoverRequest.mRecoveryStartFilePath = aArchives.front().mPath;
+  aRecoverRequest.mRecoveryStartFilePath = aArchives[pRecoveryStartArchiveIndex].mPath;
 
   const OperationResult aResult = aCore.RunRecover(aRecoverRequest, DestinationAction::Clear);
   if (aResult.mSucceeded) {
@@ -237,4 +247,4 @@ bool RunRecoverIntegerFailureCase(const std::string& pExpectedCode,
   return true;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

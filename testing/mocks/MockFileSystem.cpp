@@ -2,11 +2,11 @@
 
 #include <memory>
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 namespace {
 
-class MockFileReadStream final : public peanutbutter::ultima::FileReadStream {
+class MockFileReadStream final : public peanutbutter::FileReadStream {
  public:
   MockFileReadStream(const MockHardDrive& pHardDrive, std::string pPath)
       : mHardDrive(&pHardDrive),
@@ -29,7 +29,7 @@ class MockFileReadStream final : public peanutbutter::ultima::FileReadStream {
   std::string mPath;
 };
 
-class MockFileWriteStream final : public peanutbutter::ultima::FileWriteStream {
+class MockFileWriteStream final : public peanutbutter::FileWriteStream {
  public:
   MockFileWriteStream(MockHardDrive& pHardDrive, std::string pPath)
       : mHardDrive(&pHardDrive),
@@ -94,8 +94,8 @@ bool MockFileSystem::DirectoryHasEntries(const std::string& pPath) const {
   return mHardDrive.DirectoryHasEntries(pPath);
 }
 
-std::vector<peanutbutter::ultima::DirectoryEntry> MockFileSystem::ListFilesRecursive(const std::string& pRootPath) const {
-  std::vector<peanutbutter::ultima::DirectoryEntry> aEntries;
+std::vector<peanutbutter::DirectoryEntry> MockFileSystem::ListFilesRecursive(const std::string& pRootPath) const {
+  std::vector<peanutbutter::DirectoryEntry> aEntries;
   const std::string aRoot = mHardDrive.Normalize(pRootPath);
   const std::string aPrefix = aRoot == "/" ? "/" : aRoot + "/";
   for (const std::string& aPath : mHardDrive.ListFilesRecursive(pRootPath)) {
@@ -104,8 +104,18 @@ std::vector<peanutbutter::ultima::DirectoryEntry> MockFileSystem::ListFilesRecur
   return aEntries;
 }
 
-std::vector<peanutbutter::ultima::DirectoryEntry> MockFileSystem::ListFiles(const std::string& pRootPath) const {
-  std::vector<peanutbutter::ultima::DirectoryEntry> aEntries;
+std::vector<peanutbutter::DirectoryEntry> MockFileSystem::ListDirectoriesRecursive(const std::string& pRootPath) const {
+  std::vector<peanutbutter::DirectoryEntry> aEntries;
+  const std::string aRoot = mHardDrive.Normalize(pRootPath);
+  const std::string aPrefix = aRoot == "/" ? "/" : aRoot + "/";
+  for (const std::string& aPath : mHardDrive.ListDirectoriesRecursive(pRootPath)) {
+    aEntries.push_back({aPath, aPath.substr(aPrefix.size()), true});
+  }
+  return aEntries;
+}
+
+std::vector<peanutbutter::DirectoryEntry> MockFileSystem::ListFiles(const std::string& pRootPath) const {
+  std::vector<peanutbutter::DirectoryEntry> aEntries;
   const std::string aRoot = mHardDrive.Normalize(pRootPath);
   const std::string aPrefix = aRoot == "/" ? "/" : aRoot + "/";
   for (const std::string& aPath : mHardDrive.ListFiles(pRootPath)) {
@@ -114,11 +124,11 @@ std::vector<peanutbutter::ultima::DirectoryEntry> MockFileSystem::ListFiles(cons
   return aEntries;
 }
 
-std::unique_ptr<peanutbutter::ultima::FileReadStream> MockFileSystem::OpenReadStream(const std::string& pPath) const {
+std::unique_ptr<peanutbutter::FileReadStream> MockFileSystem::OpenReadStream(const std::string& pPath) const {
   return std::make_unique<MockFileReadStream>(mHardDrive, pPath);
 }
 
-std::unique_ptr<peanutbutter::ultima::FileWriteStream> MockFileSystem::OpenWriteStream(const std::string& pPath) {
+std::unique_ptr<peanutbutter::FileWriteStream> MockFileSystem::OpenWriteStream(const std::string& pPath) {
   return std::make_unique<MockFileWriteStream>(mHardDrive, pPath);
 }
 
@@ -138,12 +148,12 @@ std::string MockFileSystem::StemName(const std::string& pPath) const {
   return mHardDrive.StemName(pPath);
 }
 
-void MockFileSystem::AddFile(const std::string& pPath, const peanutbutter::ultima::ByteVector& pContents) {
+void MockFileSystem::AddFile(const std::string& pPath, const peanutbutter::ByteVector& pContents) {
   mHardDrive.PutFile(pPath, pContents);
 }
 
 bool MockFileSystem::ReadTextFile(const std::string& pPath, std::string& pContents) const {
-  peanutbutter::ultima::ByteVector aBytes;
+  peanutbutter::ByteVector aBytes;
   if (!ReadFile(pPath, aBytes)) {
     return false;
   }
@@ -151,4 +161,4 @@ bool MockFileSystem::ReadTextFile(const std::string& pPath, std::string& pConten
   return true;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

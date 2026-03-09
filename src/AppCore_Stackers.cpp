@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 namespace {
 
@@ -141,8 +141,30 @@ std::vector<SourceFileEntry> CollectSourceEntries(const FileSystem& pFileSystem,
   return aRecords;
 }
 
+std::vector<std::string> CollectEmptyDirectoryEntries(const FileSystem& pFileSystem,
+                                                      const std::string& pSourceDirectory) {
+  std::vector<DirectoryEntry> aDirectories = pFileSystem.ListDirectoriesRecursive(pSourceDirectory);
+  std::sort(aDirectories.begin(), aDirectories.end(),
+            [](const DirectoryEntry& pLeft, const DirectoryEntry& pRight) {
+              return pLeft.mRelativePath < pRight.mRelativePath;
+            });
+
+  std::vector<std::string> aEmptyDirectories;
+  for (const DirectoryEntry& aDirectory : aDirectories) {
+    if (aDirectory.mRelativePath.empty()) {
+      continue;
+    }
+    if (!pFileSystem.DirectoryHasEntries(aDirectory.mPath)) {
+      aEmptyDirectories.push_back(aDirectory.mRelativePath);
+    }
+  }
+  return aEmptyDirectories;
+}
+
 std::vector<ArchiveHeaderRecord> ScanArchiveDirectory(const FileSystem& pFileSystem,
-                                                      const std::string& pArchiveDirectory) {
+                                                      const std::string& pArchiveDirectory,
+                                                      const std::string* pDiscoveryRecoveryStartPath,
+                                                      std::optional<std::size_t>* pDiscoveryRecoveryStartIndex) {
   std::vector<ArchiveHeaderRecord> aArchives;
   for (const DirectoryEntry& aEntry : pFileSystem.ListFiles(pArchiveDirectory)) {
     if (aEntry.mIsDirectory) {
@@ -163,7 +185,7 @@ std::vector<ArchiveHeaderRecord> ScanArchiveDirectory(const FileSystem& pFileSys
       continue;
     }
 
-    aArchives.push_back({aEntry.mPath, pFileSystem.FileName(aEntry.mPath), aHeader});
+    aArchives.push_back({aEntry.mPath, pFileSystem.FileName(aEntry.mPath), aHeader, aStream->GetLength() - kArchiveHeaderLength});
   }
 
   std::sort(aArchives.begin(), aArchives.end(),
@@ -176,6 +198,19 @@ std::vector<ArchiveHeaderRecord> ScanArchiveDirectory(const FileSystem& pFileSys
               }
               return pLeft.mName < pRight.mName;
             });
+
+  if (pDiscoveryRecoveryStartIndex != nullptr) {
+    pDiscoveryRecoveryStartIndex->reset();
+    if (pDiscoveryRecoveryStartPath != nullptr && !pDiscoveryRecoveryStartPath->empty()) {
+      const std::string aFileName = pFileSystem.FileName(*pDiscoveryRecoveryStartPath);
+      for (std::size_t aIndex = 0; aIndex < aArchives.size(); ++aIndex) {
+        if (aArchives[aIndex].mPath == *pDiscoveryRecoveryStartPath || aArchives[aIndex].mName == aFileName) {
+          *pDiscoveryRecoveryStartIndex = aIndex;
+          break;
+        }
+      }
+    }
+  }
   return aArchives;
 }
 
@@ -218,13 +253,7 @@ std::optional<std::size_t> FindArchiveIndex(const FileSystem& pFileSystem,
 std::optional<std::size_t> FindArchiveHeaderIndex(const FileSystem& pFileSystem,
                                                   const std::vector<ArchiveHeaderRecord>& pArchives,
                                                   const std::string& pPath) {
-  const std::string aFileName = pFileSystem.FileName(pPath);
-  for (std::size_t aIndex = 0; aIndex < pArchives.size(); ++aIndex) {
-    if (pArchives[aIndex].mPath == pPath || pArchives[aIndex].mName == aFileName) {
-      return aIndex;
-    }
-  }
-  return std::nullopt;
+  return FindArchiveIndex(pFileSystem, pArchives, pPath);
 }
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter

@@ -6,7 +6,7 @@
 
 #include "Test_Wrappers.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 bool Validate_ArchiveHeader(TestArchiveHeader pArchiveHeader,
                             unsigned long long pArchiveIndex,
@@ -17,6 +17,6 @@ bool Validate_ArchiveHeader(TestArchiveHeader pArchiveHeader,
                             bool pArchiveIdentifierSkip,
                             std::string* pErrorMessage);
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing
 
 #endif  // PEANUT_BUTTER_ULTIMA_VALIDATE_ARCHIVE_HEADER_HPP_

@@ -1,6 +1,6 @@
 #include "IO/FileSystem.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 bool FileSystem::ReadFile(const std::string& pPath, ByteVector& pContents) const {
   pContents.clear();
@@ -27,4 +27,4 @@ bool FileSystem::WriteFile(const std::string& pPath, const unsigned char* pConte
   return aStream->Close();
 }
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter

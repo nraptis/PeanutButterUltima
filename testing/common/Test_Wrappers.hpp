@@ -9,7 +9,7 @@
 
 #include "AppCore.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 struct TestArchiveHeader {
   std::uint32_t mMagicHeaderBytes = 0;
@@ -23,7 +23,7 @@ struct TestArchiveHeader {
   std::uint32_t mMagicFooterBytes = 0;
 
   bool Equals(const TestArchiveHeader& pOther, std::string* pErrorMessage) const;
-  bool Equals(const peanutbutter::ultima::ArchiveHeader& pOther, std::string* pErrorMessage) const;
+  bool Equals(const peanutbutter::ArchiveHeader& pOther, std::string* pErrorMessage) const;
 };
 
 struct TestRecoveryHeader {
@@ -35,21 +35,21 @@ struct TestRecoveryHeader {
 
 struct TestFile {
   std::string mPath;
-  peanutbutter::ultima::ByteVector mBytes;
+  peanutbutter::ByteVector mBytes;
 
   TestFile() = default;
-  TestFile(std::string pPath, peanutbutter::ultima::ByteVector pBytes);
+  TestFile(std::string pPath, peanutbutter::ByteVector pBytes);
 
   bool Equals(const TestFile& pOther, std::string* pErrorMessage) const;
 };
 
 struct TestBlockL1 {
   std::array<unsigned char, peanutbutter::SB_RECOVERY_HEADER_LENGTH> mRecoveryHeaderBytes = {0, 0, 0, 0, 0, 0};
-  peanutbutter::ultima::ByteVector mPayloadBytes;
+  peanutbutter::ByteVector mPayloadBytes;
 
   TestBlockL1() = default;
   TestBlockL1(std::array<unsigned char, peanutbutter::SB_RECOVERY_HEADER_LENGTH> pRecoveryHeaderBytes,
-              peanutbutter::ultima::ByteVector pPayloadBytes);
+              peanutbutter::ByteVector pPayloadBytes);
 
   bool Equals(const TestBlockL1& pOther, std::string* pErrorMessage) const;
 };
@@ -73,16 +73,16 @@ struct TestArchive {
   TestArchive(std::string pPath, TestArchiveHeader pHeader);
 
   bool Load(const std::string& pFilePath,
-            const peanutbutter::ultima::FileSystem& pFileSystem,
+            const peanutbutter::FileSystem& pFileSystem,
             std::string* pErrorMessage);
-  bool Load(const peanutbutter::ultima::ByteVector& pBytes, std::string* pErrorMessage);
+  bool Load(const peanutbutter::ByteVector& pBytes, std::string* pErrorMessage);
   bool Equals(const TestArchive& pOther, std::string* pErrorMessage) const;
 };
 
-peanutbutter::ultima::ByteVector ToBytes(const TestBlockL1& pBlock);
-peanutbutter::ultima::ByteVector ToBytes(const TestBlockL3& pBlock);
-peanutbutter::ultima::ByteVector ToBytes(const TestArchive& pArchive);
+peanutbutter::ByteVector ToBytes(const TestBlockL1& pBlock);
+peanutbutter::ByteVector ToBytes(const TestBlockL3& pBlock);
+peanutbutter::ByteVector ToBytes(const TestArchive& pArchive);
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing
 
 #endif  // PEANUT_BUTTER_ULTIMA_TEST_WRAPPERS_HPP_

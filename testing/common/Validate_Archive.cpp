@@ -3,7 +3,7 @@
 #include "Test_Utils.hpp"
 #include "Test_Wrappers.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 bool Validate_Archive(const ByteVector& pExpectedBytes,
                       const ByteVector& pActualBytes,
@@ -46,4 +46,4 @@ bool Validate_Archive(const ByteVector& pExpectedBytes,
   return true;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

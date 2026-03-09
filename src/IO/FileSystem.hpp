@@ -8,7 +8,7 @@
 #include "IO/FileReadStream.hpp"
 #include "IO/FileWriteStream.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 using ByteVector = std::vector<unsigned char>;
 
@@ -28,6 +28,7 @@ class FileSystem {
   virtual bool ClearDirectory(const std::string& pPath) = 0;
   virtual bool DirectoryHasEntries(const std::string& pPath) const = 0;
   virtual std::vector<DirectoryEntry> ListFilesRecursive(const std::string& pRootPath) const = 0;
+  virtual std::vector<DirectoryEntry> ListDirectoriesRecursive(const std::string& pRootPath) const = 0;
   virtual std::vector<DirectoryEntry> ListFiles(const std::string& pRootPath) const = 0;
   virtual std::unique_ptr<FileReadStream> OpenReadStream(const std::string& pPath) const = 0;
   virtual std::unique_ptr<FileWriteStream> OpenWriteStream(const std::string& pPath) = 0;
@@ -40,6 +41,6 @@ class FileSystem {
   bool WriteFile(const std::string& pPath, const unsigned char* pContents, std::size_t pLength);
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_IO_FILE_SYSTEM_HPP_

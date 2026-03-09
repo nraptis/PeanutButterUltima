@@ -10,9 +10,9 @@
 
 namespace {
 
-using namespace peanutbutter::ultima;
-using peanutbutter::ultima::testing::MockFileSystem;
-using peanutbutter::ultima::testing::TestFile;
+using namespace peanutbutter;
+using peanutbutter::testing::MockFileSystem;
+using peanutbutter::testing::TestFile;
 
 std::string Pad2(int pValue) {
   if (pValue < 10) {

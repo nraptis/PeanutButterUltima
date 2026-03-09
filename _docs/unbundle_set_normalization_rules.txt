@@ -1,0 +1,22 @@
+
+When we unbundle, we get a list of all archives in directory ARCL.
+
+Unbundling does an important early step.
+
+We read each archive header (not the whole file, the clear text header)
+
+We may have archives from different pack-jobs (which 99.999999% likely have different archive_id)
+
+the two important header fields here:
+1.) archive_id
+2.) archive_index (I am 37 of 2000, this will be 37)
+
+flow_1:
+* for Recover, we already have a "recover file" RC, so we filter down ARCL to archives with the same archive_id as RC.archive_id
+* we need to be sure to sort the list by archive_index
+* we need to be sure to only keep RC and archives where archive_index > RC.archive_index
+
+flow_2:
+* For unbundle, we pick the lowest archive_index from the list, this is our "start archive" ST
+* we filter down ARCL to archives with the same archive_id as ST.archive_id
+* we need to be sure to sort the list by archive_index

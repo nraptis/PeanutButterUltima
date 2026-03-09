@@ -4,13 +4,13 @@
 
 #include "Test_Utils.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
-TestFile::TestFile(std::string pPath, peanutbutter::ultima::ByteVector pBytes)
+TestFile::TestFile(std::string pPath, peanutbutter::ByteVector pBytes)
     : mPath(std::move(pPath)), mBytes(std::move(pBytes)) {}
 
 TestBlockL1::TestBlockL1(std::array<unsigned char, peanutbutter::SB_RECOVERY_HEADER_LENGTH> pRecoveryHeaderBytes,
-                         peanutbutter::ultima::ByteVector pPayloadBytes)
+                         peanutbutter::ByteVector pPayloadBytes)
     : mRecoveryHeaderBytes(std::move(pRecoveryHeaderBytes)), mPayloadBytes(std::move(pPayloadBytes)) {}
 
 TestBlockL3::TestBlockL3(std::vector<TestBlockL1> pBlockList) : mBlockList(std::move(pBlockList)) {}
@@ -21,9 +21,9 @@ TestArchive::TestArchive(std::string pPath, TestArchiveHeader pHeader)
     : mPath(std::move(pPath)), mHeader(std::move(pHeader)) {}
 
 bool TestArchive::Load(const std::string& pFilePath,
-                       const peanutbutter::ultima::FileSystem& pFileSystem,
+                       const peanutbutter::FileSystem& pFileSystem,
                        std::string* pErrorMessage) {
-  peanutbutter::ultima::ByteVector aBytes;
+  peanutbutter::ByteVector aBytes;
   if (!pFileSystem.ReadFile(pFilePath, aBytes)) {
     return Fail("TestArchive.Load failed: could not read archive bytes from path '" + pFilePath + "'.",
                 pErrorMessage);
@@ -32,7 +32,7 @@ bool TestArchive::Load(const std::string& pFilePath,
   return Load(aBytes, pErrorMessage);
 }
 
-bool TestArchive::Load(const peanutbutter::ultima::ByteVector& pBytes, std::string* pErrorMessage) {
+bool TestArchive::Load(const peanutbutter::ByteVector& pBytes, std::string* pErrorMessage) {
   TestArchiveHeader aHeader;
   if (!Read_ArchiveHeader(pBytes, aHeader, pErrorMessage)) {
     if (pErrorMessage != nullptr && !pErrorMessage->empty()) {
@@ -104,7 +104,7 @@ bool TestArchiveHeader::Equals(const TestArchiveHeader& pOther, std::string* pEr
   return true;
 }
 
-bool TestArchiveHeader::Equals(const peanutbutter::ultima::ArchiveHeader& pOther,
+bool TestArchiveHeader::Equals(const peanutbutter::ArchiveHeader& pOther,
                                std::string* pErrorMessage) const {
   if (mRecoveryFlag != static_cast<unsigned long long>(pOther.mRecoveryEnabled ? 1 : 0)) {
     return Fail("TestArchiveHeader.Equals(ArchiveHeader) failed: recovery flag mismatch.", pErrorMessage);
@@ -187,25 +187,25 @@ bool TestArchive::Equals(const TestArchive& pOther, std::string* pErrorMessage) 
   return true;
 }
 
-peanutbutter::ultima::ByteVector ToBytes(const TestBlockL1& pBlock) {
-  peanutbutter::ultima::ByteVector aBytes;
+peanutbutter::ByteVector ToBytes(const TestBlockL1& pBlock) {
+  peanutbutter::ByteVector aBytes;
   aBytes.reserve(kDemoRecoveryHeaderLength + pBlock.mPayloadBytes.size());
   aBytes.insert(aBytes.end(), pBlock.mRecoveryHeaderBytes.begin(), pBlock.mRecoveryHeaderBytes.end());
   aBytes.insert(aBytes.end(), pBlock.mPayloadBytes.begin(), pBlock.mPayloadBytes.end());
   return aBytes;
 }
 
-peanutbutter::ultima::ByteVector ToBytes(const TestBlockL3& pBlock) {
-  peanutbutter::ultima::ByteVector aBytes;
+peanutbutter::ByteVector ToBytes(const TestBlockL3& pBlock) {
+  peanutbutter::ByteVector aBytes;
   for (const TestBlockL1& aBlockL1 : pBlock.mBlockList) {
-    const peanutbutter::ultima::ByteVector aBlockBytes = ToBytes(aBlockL1);
+    const peanutbutter::ByteVector aBlockBytes = ToBytes(aBlockL1);
     aBytes.insert(aBytes.end(), aBlockBytes.begin(), aBlockBytes.end());
   }
   return aBytes;
 }
 
-peanutbutter::ultima::ByteVector ToBytes(const TestArchive& pArchive) {
-  peanutbutter::ultima::ByteVector aBytes;
+peanutbutter::ByteVector ToBytes(const TestArchive& pArchive) {
+  peanutbutter::ByteVector aBytes;
   aBytes.reserve(kDemoPlainTextHeaderLength);
 
   auto aWriteLe = [&](unsigned long long pValue, std::size_t pWidth) {
@@ -227,11 +227,11 @@ peanutbutter::ultima::ByteVector ToBytes(const TestArchive& pArchive) {
   aWriteLe(pArchive.mHeader.mMagicFooterBytes, 4);
 
   for (const TestBlockL3& aBlockL3 : pArchive.mBlockList) {
-    const peanutbutter::ultima::ByteVector aBlockBytes = ToBytes(aBlockL3);
+    const peanutbutter::ByteVector aBlockBytes = ToBytes(aBlockL3);
     aBytes.insert(aBytes.end(), aBlockBytes.begin(), aBlockBytes.end());
   }
 
   return aBytes;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

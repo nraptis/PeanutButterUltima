@@ -1,122 +1,44 @@
-Unpack Integer Failure Semantics
+Unpack/Recover Failure Semantics (Simplified)
 
-Purpose
-- Capture invalid integer cases during unpack.
-- Every case below should:
-  - trigger a hard unpack failure
-  - generate a log entry
+DEPRECATION DECREE
+- Legacy fine-grained integer failures are deprecated.
+- Runtime objective is Safety + Fence behavior over exact per-variant code accuracy.
 
-General notes
-- "REMAINING_BYTES_IN_UNPACK_JOB" means remaining logical unpack bytes from the current read point to the end of the unpack stream.
-- Using a big integer for comparison is acceptable if that makes overflow-safe comparisons easier.
-- "lands inside of a recovery header" means the decoded target offset resolves to bytes that belong to a recovery header span, not payload.
-- "lands inside of an archive header" means the decoded target offset resolves to bytes in the 36-byte archive header region.
+Core grouped failures
 
+1. `UNP_RHD_FENCE` (Recovery header is invalid)
+- outside file fence
+- inside recovery header fence
+- inside archive header fence
+- recover flow: outside selected-file fence
 
-File name length integer failures
+2. `UNP_FNL_FENCE` (Path length is invalid)
+- `path_length == 0`
+- `path_length > MAX_VALID_FILE_PATH_LENGTH`
+- outside file fence
+- inside recovery header fence
+- inside archive header fence
 
-UNP_FNL_001 file_name_length > MAX_VALID_FILE_PATH_LENGTH
-  Result:
-  - fail unpack
-  - log error
+3. `UNP_FDL_FENCE` (File contents length is invalid)
+- `file_contents_length > MAX_VALID_FILE_CONTENT_LENGTH`
+- outside file fence
+- inside recovery header fence
+- inside archive header fence
 
-UNP_FNL_002 file_name_length > REMAINING_BYTES_IN_UNPACK_JOB
-  Result:
-  - fail unpack
-  - log error
+Fence/Safety runtime rules
 
-UNP_FNL_003 file_name_length == 0
-  Result:
-  - fail unpack
-  - log error
+- Any out-of-range, overflow, or non-progress condition must hard-fail immediately.
+- Failures must happen before dangerous allocation or large file writes.
+- Prefer broad grouped failure classification over continued parsing.
 
-UNP_FNL_004 file_name_length lands inside of a recovery header
-  Meaning:
-  - the bytes needed to read the file name length cross into or begin inside a recovery header region
-  Result:
-  - fail unpack
-  - log error
+EOF grouped behavior
 
-UNP_FNL_005 file_name_length lands inside of an archive header
-  Meaning:
-  - the bytes needed to read the file name length cross into or begin inside an archive header region
-  Result:
-  - fail unpack
-  - log error
+- `UNP_EOF_001`: dangling archives remain after logical stop marker.
+- `UNP_EOF_002`: dangling bytes remain in current archive after logical stop marker.
+- Precedence: `UNP_EOF_001` over `UNP_EOF_002`.
 
+Failure bubbling rule
 
-File data length integer failures
-
-UNP_FDL_001 file_data_length > REMAINING_BYTES_IN_UNPACK_JOB
-  Result:
-  - fail unpack
-  - log error
-
-UNP_FDL_002 file_data_length == 0
-  Result:
-  - fail unpack
-  - log error
-
-UNP_FDL_003 file_data_length lands inside of a recovery header
-  Meaning:
-  - the bytes needed to read the file data length cross into or begin inside a recovery header region
-  Result:
-  - fail unpack
-  - log error
-
-UNP_FDL_004 file_data_length lands inside of an archive header
-  Meaning:
-  - the bytes needed to read the file data length cross into or begin inside an archive header region
-  Result:
-  - fail unpack
-  - log error
-
-
-Non-first recovery record "next file distance" integer failures
-
-UNP_RHD_001 non_first_recovery_next_file_distance > REMAINING_BYTES_IN_UNPACK_JOB
-  Result:
-  - fail unpack
-  - log error
-
-UNP_RHD_002 non_first_recovery_next_file_distance == 0
-  Result:
-  - fail unpack
-  - log error
-
-UNP_RHD_003 non_first_recovery_next_file_distance lands inside of a recovery header
-  Meaning:
-  - applying the recovery distance resolves to a byte position that is inside a recovery header region
-  Result:
-  - fail unpack
-  - log error
-
-UNP_RHD_004 non_first_recovery_next_file_distance lands inside of an archive header
-  Meaning:
-  - applying the recovery distance resolves to a byte position that is inside an archive header region
-  Result:
-  - fail unpack
-  - log error
-
-
-Recovery job special first-header flow
-
-- In the recovery job, the user-selected archive has a special first recovery header flow.
-- For that flow, `UNP_RHD_001`, `UNP_RHD_002`, `UNP_RHD_003`, and `UNP_RHD_004` still apply.
-- The fact that the archive was user-selected does not relax those checks.
-
-RCV_RHD_001 recovery-job special first-header flow:
-    non_first_recovery_next_file_distance lands outside of this archive
-  Meaning:
-  - the resolved next-file position is not within the payload region of the selected archive
-  - this is stricter than REMAINING_BYTES_IN_UNPACK_JOB because the recovery-start rule is anchored to the selected archive
-  Result:
-  - fail recovery
-  - log error
-
-
-Implementation rule
-
-- Do not silently normalize or skip any of the above.
-- Each invalid integer case is corrupt input.
-- Corrupt input must stop unpack immediately and emit a log.
+- Candidate-set failures do not fail globally until all candidates fail.
+- Recover may try multiple candidates; stop on first success.
+- If all candidates fail, report the first meaningful Safety/Fence failure.

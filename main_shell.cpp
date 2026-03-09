@@ -7,7 +7,7 @@
 
 namespace {
 
-using namespace peanutbutter::ultima;
+using namespace peanutbutter;
 
 constexpr unsigned char kShellRotateMask = 0xAA;
 constexpr int kShellRotateShift = 3;

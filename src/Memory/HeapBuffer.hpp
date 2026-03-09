@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 class HeapBuffer {
  public:
@@ -57,6 +57,6 @@ class HeapBuffer {
   unsigned char* mBuffer = nullptr;
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_MEMORY_HEAP_BUFFER_HPP_

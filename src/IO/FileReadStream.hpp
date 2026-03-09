@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 class FileReadStream {
  public:
@@ -13,6 +13,6 @@ class FileReadStream {
   virtual bool Read(std::size_t pOffset, unsigned char* pDestination, std::size_t pLength) const = 0;
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_IO_FILE_READ_STREAM_HPP_

@@ -7,9 +7,9 @@
 #include "AppCore.hpp"
 #include "Test_Wrappers.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
-bool CollectFiles(const peanutbutter::ultima::FileSystem& pFileSystem,
+bool CollectFiles(const peanutbutter::FileSystem& pFileSystem,
                   const std::string& pRootDirectory,
                   std::vector<TestFile>& pFiles,
                   std::string* pErrorMessage);
@@ -22,6 +22,6 @@ bool Validate_Files(const std::vector<TestFile>& pExpectedFiles,
                     const std::vector<TestFile>& pActualFiles,
                     std::string* pErrorMessage);
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing
 
 #endif  // PEANUT_BUTTER_ULTIMA_VALIDATE_FILE_HPP_

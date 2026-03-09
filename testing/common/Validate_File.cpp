@@ -4,9 +4,9 @@
 
 #include "Test_Utils.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
-bool CollectFiles(const peanutbutter::ultima::FileSystem& pFileSystem,
+bool CollectFiles(const peanutbutter::FileSystem& pFileSystem,
                   const std::string& pRootDirectory,
                   std::vector<TestFile>& pFiles,
                   std::string* pErrorMessage) {
@@ -57,4 +57,4 @@ bool Validate_Files(const std::vector<TestFile>& pExpectedFiles,
   return true;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

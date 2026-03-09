@@ -9,7 +9,7 @@
 #include "AppCore.hpp"
 #include "Test_Wrappers.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 inline constexpr std::uint32_t kDemoMagicHeaderBytes = peanutbutter::MAGIC_HEADER_BYTES;
 inline constexpr std::uint32_t kDemoMagicFooterBytes = peanutbutter::MAGIC_FOOTER_BYTES;
@@ -27,16 +27,16 @@ inline constexpr std::size_t kDemoMaxValidFilePathLength = peanutbutter::MAX_VAL
 bool Fail(const std::string& pMessage, std::string* pErrorMessage);
 unsigned long long ReadLe48(const unsigned char* pData);
 unsigned long long ReadLe48(const std::array<unsigned char, kDemoRecoveryHeaderLength>& pBytes);
-peanutbutter::ultima::ByteVector ToBytes(const std::string& pText);
-std::string ToHex(const peanutbutter::ultima::ByteVector& pBytes, std::size_t pOffset, std::size_t pLength);
-bool Read_ArchiveHeader(const peanutbutter::ultima::ByteVector& pArchiveBytes,
+peanutbutter::ByteVector ToBytes(const std::string& pText);
+std::string ToHex(const peanutbutter::ByteVector& pBytes, std::size_t pOffset, std::size_t pLength);
+bool Read_ArchiveHeader(const peanutbutter::ByteVector& pArchiveBytes,
                         TestArchiveHeader& pArchiveHeader,
                         std::string* pErrorMessage);
-bool Read_RecoveryHeader(const peanutbutter::ultima::ByteVector& pArchiveBytes,
+bool Read_RecoveryHeader(const peanutbutter::ByteVector& pArchiveBytes,
                          std::size_t pOffset,
                          TestRecoveryHeader& pRecoveryHeader,
                          std::string* pErrorMessage);
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing
 
 #endif  // PEANUT_BUTTER_ULTIMA_TEST_UTILS_HPP_

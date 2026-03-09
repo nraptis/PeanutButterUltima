@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 class MockHardDrive {
  public:
@@ -19,6 +19,7 @@ class MockHardDrive {
   bool ClearDirectory(const std::string& pPath);
   bool DirectoryHasEntries(const std::string& pPath) const;
   std::vector<std::string> ListFilesRecursive(const std::string& pRootPath) const;
+  std::vector<std::string> ListDirectoriesRecursive(const std::string& pRootPath) const;
   std::vector<std::string> ListFiles(const std::string& pRootPath) const;
 
   std::size_t GetFileLength(const std::string& pPath) const;
@@ -41,6 +42,6 @@ class MockHardDrive {
   std::set<std::string> mDirectories;
 };
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing
 
 #endif  // PEANUT_BUTTER_ULTIMA_TESTING_MOCKS_MOCK_HARD_DRIVE_HPP_

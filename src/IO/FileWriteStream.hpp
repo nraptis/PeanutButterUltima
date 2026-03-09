@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 class FileWriteStream {
  public:
@@ -14,6 +14,6 @@ class FileWriteStream {
   virtual bool Close() = 0;
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_IO_FILE_WRITE_STREAM_HPP_

@@ -12,7 +12,7 @@
 #include "FormatConstants.hpp"
 #include "IO/FileSystem.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 inline constexpr std::size_t kArchiveHeaderLength = peanutbutter::SB_PLAIN_TEXT_HEADER_LENGTH;
 inline constexpr std::uint32_t kMagicHeaderBytes = peanutbutter::MAGIC_HEADER_BYTES;
@@ -85,14 +85,18 @@ enum class UnpackIntegerFailure {
   kFileNameLengthLandsInsideRecoveryHeader = 4,
   kFileNameLengthLandsInsideArchiveHeader = 5,
   kFileDataLengthGreaterThanRemainingBytesInUnpackJob = 6,
-  kFileDataLengthIsZero = 7,
-  kFileDataLengthLandsInsideRecoveryHeader = 8,
-  kFileDataLengthLandsInsideArchiveHeader = 9,
+  kFileDataLengthLandsInsideRecoveryHeader = 7,
+  kFileDataLengthLandsInsideArchiveHeader = 8,
   kNonFirstRecoveryNextFileDistanceGreaterThanRemainingBytesInUnpackJob = 10,
   kNonFirstRecoveryNextFileDistanceIsZero = 11,
   kNonFirstRecoveryNextFileDistanceLandsInsideRecoveryHeader = 12,
   kNonFirstRecoveryNextFileDistanceLandsInsideArchiveHeader = 13,
   kRecoverySpecialFlowDistanceLandsOutsideSelectedArchive = 14,
+  kManifestFolderLengthIsZero = 15,
+  kManifestFolderLengthGreaterThanRemainingBytesInUnpackJob = 16,
+  kManifestFolderLengthGreaterThanMaxValidFilePathLength = 17,
+  kDanglingArchives = 18,
+  kDanglingBytes = 19,
   kUnknown = 1000,
 };
 
@@ -111,6 +115,7 @@ struct ArchiveHeaderRecord {
   std::string mPath;
   std::string mName;
   ArchiveHeader mHeader;
+  std::size_t mPayloadLength = 0;
 };
 
 struct RuntimeSettings {
@@ -174,6 +179,6 @@ class ApplicationCore {
   RuntimeSettings mSettings;
 };
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_APP_CORE_HPP_

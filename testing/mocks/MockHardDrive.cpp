@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 MockHardDrive::MockHardDrive() {
   mDirectories.insert("/");
@@ -188,6 +188,21 @@ std::vector<std::string> MockHardDrive::ListFilesRecursive(const std::string& pR
   return aPaths;
 }
 
+std::vector<std::string> MockHardDrive::ListDirectoriesRecursive(const std::string& pRootPath) const {
+  std::vector<std::string> aPaths;
+  const std::string aRoot = Normalize(pRootPath);
+  const std::string aPrefix = aRoot == "/" ? "/" : aRoot + "/";
+  for (const std::string& aPath : mDirectories) {
+    if (aPath == aRoot || aPath == "/") {
+      continue;
+    }
+    if (aPath.rfind(aPrefix, 0) == 0) {
+      aPaths.push_back(aPath);
+    }
+  }
+  return aPaths;
+}
+
 std::vector<std::string> MockHardDrive::ListFiles(const std::string& pRootPath) const {
   std::vector<std::string> aPaths;
   const std::string aRoot = Normalize(pRootPath);
@@ -256,4 +271,4 @@ void MockHardDrive::PutFile(const std::string& pPath, const std::vector<unsigned
   mFiles[aPath] = pContents;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

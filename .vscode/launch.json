@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug PeanutButterUltima",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-debug/PeanutButterUltima.app/Contents/MacOS/PeanutButterUltima",
+      "cwd": "${workspaceFolder}",
+      "MIMode": "lldb",
+      "preLaunchTask": "Build PeanutButterUltima Debug",
+      "externalConsole": false,
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

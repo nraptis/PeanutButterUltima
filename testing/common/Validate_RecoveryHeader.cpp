@@ -4,7 +4,7 @@
 
 #include "Test_Utils.hpp"
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 namespace {
 
@@ -40,4 +40,4 @@ bool Validate_RecoveryHeader(TestRecoveryHeader pRecoveryHeader,
   return true;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing

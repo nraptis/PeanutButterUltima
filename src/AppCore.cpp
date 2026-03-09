@@ -18,7 +18,7 @@
 #include "AppCore_Stackers.hpp"
 #include "Memory/HeapBuffer.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 namespace {
 
@@ -45,9 +45,13 @@ struct ValidationReport {
   std::vector<std::string> mOnlyInSourceVisible;
   std::vector<std::string> mOnlyInDestinationVisible;
   std::vector<std::string> mDataMismatchVisible;
+  std::vector<std::string> mEmptyDirectoriesOnlyInSourceVisible;
+  std::vector<std::string> mEmptyDirectoriesOnlyInDestinationVisible;
   std::vector<std::string> mOnlyInSourceHidden;
   std::vector<std::string> mOnlyInDestinationHidden;
   std::vector<std::string> mDataMismatchHidden;
+  std::vector<std::string> mEmptyDirectoriesOnlyInSourceHidden;
+  std::vector<std::string> mEmptyDirectoriesOnlyInDestinationHidden;
 };
 
 struct CompareProgress {
@@ -58,6 +62,7 @@ struct CompareProgress {
 
 constexpr std::size_t kValidationListLimit = 200;
 constexpr std::uint64_t kValidationProgressByteStep = 500ull * 1024ull * 1024ull;
+constexpr std::size_t kL3Length = peanutbutter::SB_L3_LENGTH;
 
 bool IsHiddenComponent(const std::string& pRelativePath) {
   if (pRelativePath.empty()) {
@@ -125,12 +130,13 @@ bool FilesMatchByteForByte(const FileSystem& pFileSystem,
     return false;
   }
 
-  unsigned char aLeftBuffer[kBufferLength] = {};
-  unsigned char aRightBuffer[kBufferLength] = {};
+  HeapBuffer aLeftBuffer(kBufferLength);
+  HeapBuffer aRightBuffer(kBufferLength);
   const std::size_t aTotalLength = aLeftStream->GetLength();
   for (std::size_t aOffset = 0; aOffset < aTotalLength; aOffset += kBufferLength) {
     const std::size_t aChunkLength = std::min(kBufferLength, aTotalLength - aOffset);
-    if (!aLeftStream->Read(aOffset, aLeftBuffer, aChunkLength) || !aRightStream->Read(aOffset, aRightBuffer, aChunkLength)) {
+    if (!aLeftStream->Read(aOffset, aLeftBuffer.Data(), aChunkLength) ||
+        !aRightStream->Read(aOffset, aRightBuffer.Data(), aChunkLength)) {
       return false;
     }
     const auto aLeftRead = static_cast<std::uint64_t>(aChunkLength);
@@ -140,12 +146,40 @@ bool FilesMatchByteForByte(const FileSystem& pFileSystem,
     if (pDestinationBytesProcessed != nullptr) {
       *pDestinationBytesProcessed += static_cast<std::uint64_t>(aChunkLength);
     }
-    if (std::memcmp(aLeftBuffer, aRightBuffer, aChunkLength) != 0) {
+    if (std::memcmp(aLeftBuffer.Data(), aRightBuffer.Data(), aChunkLength) != 0) {
       return false;
     }
   }
 
   return true;
+}
+
+const unsigned char* ReadArchivePayloadPageForValidation(FileReadStream& pStream,
+                                                        const Crypt& pCrypt,
+                                                        bool pUseEncryption,
+                                                        std::size_t pPageStart,
+                                                        std::size_t pPageLength,
+                                                        HeapBuffer& pPageBuffer,
+                                                        CryptWorkspaceL3& pWorkspace,
+                                                        const unsigned char*& pPayloadBytes,
+                                                        std::string* pCryptError) {
+  const std::size_t aPageOffset = kArchiveHeaderLength + pPageStart;
+  unsigned char* aPageSource = pUseEncryption ? pWorkspace.Source() : pPageBuffer.Data();
+  if (!pStream.Read(aPageOffset, aPageSource, pPageLength)) {
+    return nullptr;
+  }
+  pPayloadBytes = aPageSource;
+  if (!pUseEncryption) {
+    return pPayloadBytes;
+  }
+
+  std::fill_n(pWorkspace.Worker(), kL3Length, 0);
+  std::fill_n(pWorkspace.Destination(), kL3Length, 0);
+  if (!pCrypt.UnsealData(aPageSource, pWorkspace.Worker(), pWorkspace.Destination(), pPageLength, pCryptError, CryptMode::kNormal)) {
+    return nullptr;
+  }
+  pPayloadBytes = pWorkspace.Destination();
+  return pPayloadBytes;
 }
 
 std::string DescribeUnpackIntegerFailure(UnpackIntegerFailure pCode) {
@@ -164,8 +198,6 @@ std::string DescribeUnpackIntegerFailure(UnpackIntegerFailure pCode) {
       return "file name length landed inside an archive header";
     case UnpackIntegerFailure::kFileDataLengthGreaterThanRemainingBytesInUnpackJob:
       return "file data length exceeded remaining bytes in unpack job";
-    case UnpackIntegerFailure::kFileDataLengthIsZero:
-      return "file data length is zero";
     case UnpackIntegerFailure::kFileDataLengthLandsInsideRecoveryHeader:
       return "file data length landed inside a recovery header";
     case UnpackIntegerFailure::kFileDataLengthLandsInsideArchiveHeader:
@@ -180,52 +212,60 @@ std::string DescribeUnpackIntegerFailure(UnpackIntegerFailure pCode) {
       return "non-first recovery next-file distance landed inside an archive header";
     case UnpackIntegerFailure::kRecoverySpecialFlowDistanceLandsOutsideSelectedArchive:
       return "recovery special-flow distance landed outside the selected archive";
+    case UnpackIntegerFailure::kManifestFolderLengthIsZero:
+      return "manifest folder length is zero";
+    case UnpackIntegerFailure::kManifestFolderLengthGreaterThanRemainingBytesInUnpackJob:
+      return "manifest folder length exceeded remaining bytes in unpack job";
+    case UnpackIntegerFailure::kManifestFolderLengthGreaterThanMaxValidFilePathLength:
+      return "manifest folder length exceeded MAX_VALID_FILE_PATH_LENGTH";
+    case UnpackIntegerFailure::kDanglingArchives:
+    case UnpackIntegerFailure::kDanglingBytes:
+      return "Unexpected end of file found.";
     case UnpackIntegerFailure::kUnknown:
     default:
       return "unknown unpack failure";
   }
 }
 
-std::string UnpackFailureCodeString(UnpackIntegerFailure pCode) {
-  switch (pCode) {
+std::string FormatUnpackFailure(const UnpackFailureInfo& pFailure) {
+  std::string aCode = "UNK_SYS_001";
+  switch (pFailure.mCode) {
     case UnpackIntegerFailure::kNone:
-      return "UNP_SYS_000";
+      aCode = "UNP_SYS_000";
+      break;
     case UnpackIntegerFailure::kFileNameLengthGreaterThanMaxValidFilePathLength:
-      return "UNP_FNL_001";
     case UnpackIntegerFailure::kFileNameLengthGreaterThanRemainingBytesInUnpackJob:
-      return "UNP_FNL_002";
     case UnpackIntegerFailure::kFileNameLengthIsZero:
-      return "UNP_FNL_003";
     case UnpackIntegerFailure::kFileNameLengthLandsInsideRecoveryHeader:
-      return "UNP_FNL_004";
     case UnpackIntegerFailure::kFileNameLengthLandsInsideArchiveHeader:
-      return "UNP_FNL_005";
+    case UnpackIntegerFailure::kManifestFolderLengthIsZero:
+    case UnpackIntegerFailure::kManifestFolderLengthGreaterThanRemainingBytesInUnpackJob:
+    case UnpackIntegerFailure::kManifestFolderLengthGreaterThanMaxValidFilePathLength:
+      aCode = "UNP_FNL_FENCE";
+      break;
     case UnpackIntegerFailure::kFileDataLengthGreaterThanRemainingBytesInUnpackJob:
-      return "UNP_FDL_001";
-    case UnpackIntegerFailure::kFileDataLengthIsZero:
-      return "UNP_FDL_002";
     case UnpackIntegerFailure::kFileDataLengthLandsInsideRecoveryHeader:
-      return "UNP_FDL_003";
     case UnpackIntegerFailure::kFileDataLengthLandsInsideArchiveHeader:
-      return "UNP_FDL_004";
+      aCode = "UNP_FDL_FENCE";
+      break;
     case UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceGreaterThanRemainingBytesInUnpackJob:
-      return "UNP_RHD_001";
     case UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceIsZero:
-      return "UNP_RHD_002";
     case UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceLandsInsideRecoveryHeader:
-      return "UNP_RHD_003";
     case UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceLandsInsideArchiveHeader:
-      return "UNP_RHD_004";
     case UnpackIntegerFailure::kRecoverySpecialFlowDistanceLandsOutsideSelectedArchive:
-      return "RCV_RHD_001";
+      aCode = "UNP_RHD_FENCE";
+      break;
+    case UnpackIntegerFailure::kDanglingArchives:
+      aCode = "UNP_EOF_001";
+      break;
+    case UnpackIntegerFailure::kDanglingBytes:
+      aCode = "UNP_EOF_002";
+      break;
     case UnpackIntegerFailure::kUnknown:
     default:
-      return "UNK_SYS_001";
+      aCode = "UNK_SYS_001";
+      break;
   }
-}
-
-std::string FormatUnpackFailure(const UnpackFailureInfo& pFailure) {
-  const std::string aCode = UnpackFailureCodeString(pFailure.mCode);
   if (!pFailure.mMessage.empty()) {
     return aCode + ": " + pFailure.mMessage;
   }
@@ -235,7 +275,6 @@ std::string FormatUnpackFailure(const UnpackFailureInfo& pFailure) {
 constexpr std::size_t kRecoveryHeaderLength = peanutbutter::SB_RECOVERY_HEADER_LENGTH;
 constexpr std::size_t kPayloadBytesPerL1 = peanutbutter::SB_PAYLOAD_SIZE;
 constexpr std::size_t kL1Length = peanutbutter::SB_L1_LENGTH;
-constexpr std::size_t kL3Length = peanutbutter::SB_L3_LENGTH;
 constexpr unsigned char kSpecialFirstRecoveryHeader[kRecoveryHeaderLength] = {
     0x76, 0x47, 0xb2, 0x1d, 0xef, 0x8e};
 
@@ -388,6 +427,53 @@ bool ApplyDestinationAction(FileSystem& pFileSystem,
   return pFileSystem.EnsureDirectory(pDestinationDirectory);
 }
 
+struct ArchiveDecodeCandidate {
+  std::size_t mStartIndex = 0;
+  std::size_t mArchiveCount = 0;
+};
+
+std::vector<ArchiveDecodeCandidate> BuildArchiveDecodeCandidates(const std::vector<ArchiveHeaderRecord>& pArchives,
+                                                                Logger* pLogger) {
+  std::vector<ArchiveDecodeCandidate> aCandidates;
+  if (pArchives.empty()) {
+    return aCandidates;
+  }
+
+  if (pLogger != nullptr) {
+    pLogger->LogStatus("Discovered " + std::to_string(pArchives.size()) + " readable archives, scanning for valid archive sets.");
+  }
+
+  std::size_t aLowestSequenceIndex = 0;
+  for (std::size_t aArchiveIndex = 1; aArchiveIndex < pArchives.size(); ++aArchiveIndex) {
+    if (pArchives[aArchiveIndex].mHeader.mSequence < pArchives[aLowestSequenceIndex].mHeader.mSequence) {
+      aLowestSequenceIndex = aArchiveIndex;
+    }
+
+    if (pLogger != nullptr && ((aArchiveIndex % 1000 == 999) || (aArchiveIndex + 1 == pArchives.size()))) {
+      pLogger->LogStatus("Scanned " + std::to_string(aArchiveIndex + 1) + " of " + std::to_string(pArchives.size()) +
+                         " archives...");
+    }
+  }
+
+  const auto& aSelectedIdentifier = pArchives[aLowestSequenceIndex].mHeader.mArchiveIdentifier;
+  std::size_t aStartIndex = aLowestSequenceIndex;
+  while (aStartIndex > 0 && pArchives[aStartIndex - 1].mHeader.mArchiveIdentifier == aSelectedIdentifier) {
+    --aStartIndex;
+  }
+  std::size_t aEndIndex = aLowestSequenceIndex + 1;
+  while (aEndIndex < pArchives.size() && pArchives[aEndIndex].mHeader.mArchiveIdentifier == aSelectedIdentifier) {
+    ++aEndIndex;
+  }
+
+  const std::size_t aNormalizedStartIndex = aLowestSequenceIndex;
+  const std::size_t aNormalizedArchiveCount = aEndIndex - aNormalizedStartIndex;
+  if (aNormalizedArchiveCount > 0) {
+    aCandidates.push_back({aNormalizedStartIndex, aNormalizedArchiveCount});
+  }
+
+  return aCandidates;
+}
+
 bool TryParseArchiveSet(FileSystem& pFileSystem,
                         const Crypt& pCrypt,
                         const std::vector<ArchiveHeaderRecord>& pArchives,
@@ -397,103 +483,12 @@ bool TryParseArchiveSet(FileSystem& pFileSystem,
                         bool pUseEncryption,
                         const std::string& pDestinationDirectory,
                         bool pWriteFiles,
+                        Logger* pLogger,
                         std::uint64_t& pProcessedBytes,
                         std::size_t& pFilesProcessed,
-                        UnpackFailureInfo& pFailure) {
-  if (pStartPhysicalOffset == kRecoveryHeaderLength) {
-    std::vector<std::size_t> aArchivePayloadPrefixSums;
-    aArchivePayloadPrefixSums.reserve(pArchiveCount + 1);
-    aArchivePayloadPrefixSums.push_back(0);
-    for (std::size_t aIndex = 0; aIndex < pArchiveCount; ++aIndex) {
-      std::unique_ptr<FileReadStream> aLengthStream = pFileSystem.OpenReadStream(pArchives[pStartIndex + aIndex].mPath);
-      if (aLengthStream == nullptr || !aLengthStream->IsReady() || aLengthStream->GetLength() < kArchiveHeaderLength) {
-        pFailure = {UnpackIntegerFailure::kUnknown, "could not open archive stream for recovery-header validation."};
-        return false;
-      }
-      aArchivePayloadPrefixSums.push_back(aArchivePayloadPrefixSums.back() + (aLengthStream->GetLength() - kArchiveHeaderLength));
-    }
-
-    for (std::size_t aArchiveIndex = 0; aArchiveIndex < pArchiveCount; ++aArchiveIndex) {
-      const ArchiveHeaderRecord& aArchive = pArchives[pStartIndex + aArchiveIndex];
-      std::unique_ptr<FileReadStream> aStream = pFileSystem.OpenReadStream(aArchive.mPath);
-      if (aStream == nullptr || !aStream->IsReady() || aStream->GetLength() < kArchiveHeaderLength) {
-        pFailure = {UnpackIntegerFailure::kUnknown, "could not open archive stream for recovery-header validation."};
-        return false;
-      }
-
-      const std::size_t aPayloadLength = aStream->GetLength() - kArchiveHeaderLength;
-      HeapBuffer aPageBuffer(kL3Length);
-      CryptWorkspaceL3 aWorkspace;
-      for (std::size_t aPageStart = 0; aPageStart < aPayloadLength; aPageStart += kL3Length) {
-        const std::size_t aPageLength = std::min<std::size_t>(kL3Length, aPayloadLength - aPageStart);
-        std::memset(aPageBuffer.Data(), 0, kL3Length);
-        if (!aStream->Read(kArchiveHeaderLength + aPageStart, aPageBuffer.Data(), aPageLength)) {
-          pFailure = {UnpackIntegerFailure::kUnknown, "could not read archive page bytes for recovery-header validation."};
-          return false;
-        }
-
-        if (pUseEncryption) {
-          std::memset(aWorkspace.Source(), 0, kL3Length);
-          std::memset(aWorkspace.Worker(), 0, kL3Length);
-          std::memset(aWorkspace.Destination(), 0, kL3Length);
-          std::memcpy(aWorkspace.Source(), aPageBuffer.Data(), aPageLength);
-          std::string aCryptError;
-          if (!pCrypt.UnsealData(aWorkspace.Source(),
-                                 aWorkspace.Worker(),
-                                 aWorkspace.Destination(),
-                                 aPageLength,
-                                 &aCryptError,
-                                 CryptMode::kNormal)) {
-            pFailure = {UnpackIntegerFailure::kUnknown,
-                        aCryptError.empty() ? "could not unseal archive page bytes for recovery-header validation."
-                                            : aCryptError};
-            return false;
-          }
-          std::memcpy(aPageBuffer.Data(), aWorkspace.Destination(), aPageLength);
-        }
-
-        for (std::size_t aRecoveryOffsetInPage = 0;
-             aRecoveryOffsetInPage + kRecoveryHeaderLength <= aPageLength;
-             aRecoveryOffsetInPage += kL1Length) {
-          const std::size_t aRecoveryOffset = aPageStart + aRecoveryOffsetInPage;
-          if (aArchiveIndex == 0 && aRecoveryOffset == 0) {
-            continue;
-          }
-
-          const unsigned long long aStride =
-              ReadLeFromBytes(aPageBuffer.Data() + aRecoveryOffsetInPage, kRecoveryHeaderLength);
-          if (aStride == 0) {
-            continue;
-          }
-
-          const std::size_t aGlobalRecoveryHeaderEnd =
-              aArchivePayloadPrefixSums[aArchiveIndex] + aRecoveryOffset + kRecoveryHeaderLength;
-          const std::size_t aRemainingBytesInUnpackJob = aArchivePayloadPrefixSums.back() - aGlobalRecoveryHeaderEnd;
-          if (aStride > aRemainingBytesInUnpackJob) {
-            pFailure = {UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceGreaterThanRemainingBytesInUnpackJob,
-                        "non-first recovery next-file distance exceeded remaining bytes in unpack job."};
-            return false;
-          }
-
-          const std::size_t aTargetGlobal = aGlobalRecoveryHeaderEnd + static_cast<std::size_t>(aStride);
-          if (std::binary_search(aArchivePayloadPrefixSums.begin() + 1, aArchivePayloadPrefixSums.end(), aTargetGlobal)) {
-            pFailure = {UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceLandsInsideArchiveHeader,
-                        "non-first recovery next-file distance landed inside an archive header."};
-            return false;
-          }
-
-          const auto aUpper = std::upper_bound(aArchivePayloadPrefixSums.begin(), aArchivePayloadPrefixSums.end(), aTargetGlobal);
-          const std::size_t aTargetArchiveIndex = static_cast<std::size_t>(std::distance(aArchivePayloadPrefixSums.begin(), aUpper)) - 1;
-          const std::size_t aTargetOffset = aTargetGlobal - aArchivePayloadPrefixSums[aTargetArchiveIndex];
-          if ((aTargetOffset % kL1Length) < kRecoveryHeaderLength) {
-            pFailure = {UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceLandsInsideRecoveryHeader,
-                        "non-first recovery next-file distance landed inside a recovery header."};
-            return false;
-          }
-        }
-      }
-    }
-  }
+                        UnpackFailureInfo& pFailure,
+                        std::size_t pLogThrottleBlockSize,
+                        std::size_t pLogThrottleIgnoreLast) {
 
   PageReader aReader(pFileSystem,
                      pCrypt,
@@ -503,13 +498,42 @@ bool TryParseArchiveSet(FileSystem& pFileSystem,
                      pStartPhysicalOffset,
                      pUseEncryption);
   RecordParser aParser(pFileSystem, pDestinationDirectory, pWriteFiles);
-  if (!aParser.Parse(aReader)) {
+  std::uint64_t aLastBucket = 0;
+  const std::uint64_t aThrottlePayloadLength =
+      (pStartIndex < pArchives.size() && pArchives[pStartIndex].mPayloadLength > 0)
+          ? static_cast<std::uint64_t>(pArchives[pStartIndex].mPayloadLength)
+          : static_cast<std::uint64_t>(peanutbutter::SB_PAYLOAD_SIZE);
+  const auto aProgressLogger = [&](std::uint64_t pDecodedBytes, std::size_t pDecodedFiles) {
+    if (!pWriteFiles || pLogger == nullptr) {
+      return;
+    }
+    const std::size_t aArchiveIndexOneBased = std::min<std::size_t>(
+        pArchiveCount,
+        static_cast<std::size_t>(pDecodedBytes / std::max<std::uint64_t>(1, aThrottlePayloadLength)) + 1);
+    if (!ShouldLogArchiveProgress(aArchiveIndexOneBased,
+                                  pArchiveCount,
+                                  pDecodedBytes,
+                                  aThrottlePayloadLength,
+                                  pLogThrottleBlockSize,
+                                  pLogThrottleIgnoreLast,
+                                  aLastBucket)) {
+      return;
+    }
+    pLogger->LogStatus("Unbundled archive " + std::to_string(aArchiveIndexOneBased) + " / " +
+                       std::to_string(pArchiveCount) + ", " + std::to_string(pDecodedFiles) +
+                       " files written, " + FormatBytes(pDecodedBytes) + ".");
+  };
+  if (!aParser.Parse(aReader, aProgressLogger)) {
     pFailure = aParser.Failure();
     return false;
   }
 
   pProcessedBytes = aParser.ProcessedBytes();
   pFilesProcessed = aParser.FilesProcessed();
+  if (pWriteFiles && pLogger != nullptr && aParser.EmptyDirectoriesProcessed() > 0) {
+    pLogger->LogStatus("Successfully unpacked " + std::to_string(aParser.EmptyDirectoriesProcessed()) +
+                       " empty directories.");
+  }
   return true;
 }
 
@@ -517,67 +541,67 @@ bool SelectDecodableArchiveSet(FileSystem& pFileSystem,
                                const Crypt& pCrypt,
                                const std::vector<ArchiveHeaderRecord>& pArchives,
                                bool pUseEncryption,
+                               Logger* pLogger,
+                               std::vector<ArchiveDecodeCandidate>& pCandidates,
                                std::size_t& pSelectedStartIndex,
                                std::size_t& pSelectedArchiveCount,
                                std::uint64_t& pTotalLogicalBytes,
                                std::size_t& pFilesProcessed,
                                UnpackFailureInfo& pFailure) {
+  (void)pFileSystem;
+  (void)pCrypt;
+  (void)pUseEncryption;
+
   pSelectedStartIndex = 0;
   pSelectedArchiveCount = 0;
   pTotalLogicalBytes = 0;
   pFilesProcessed = 0;
-
-  std::size_t aIndex = 0;
-  bool aFound = false;
-  UnpackFailureInfo aFirstFailure;
-  while (aIndex < pArchives.size()) {
-    const std::size_t aStartIndex = aIndex;
-    const auto& aArchiveIdentifier = pArchives[aIndex].mHeader.mArchiveIdentifier;
-    while (aIndex < pArchives.size() && pArchives[aIndex].mHeader.mArchiveIdentifier == aArchiveIdentifier) {
-      ++aIndex;
-    }
-    const std::size_t aArchiveCount = aIndex - aStartIndex;
-
-    std::uint64_t aProcessedBytes = 0;
-    std::size_t aFiles = 0;
-    UnpackFailureInfo aLocalFailure;
-    if (!TryParseArchiveSet(pFileSystem,
-                            pCrypt,
-                            pArchives,
-                            aStartIndex,
-                            aArchiveCount,
-                            kRecoveryHeaderLength,
-                            pUseEncryption,
-                            "",
-                            false,
-                            aProcessedBytes,
-                            aFiles,
-                            aLocalFailure) ||
-        aFiles == 0) {
-      if (aFirstFailure.mCode == UnpackIntegerFailure::kNone && aLocalFailure.mCode != UnpackIntegerFailure::kNone) {
-        aFirstFailure = aLocalFailure;
-      }
-      continue;
-    }
-
-    if (!aFound || aArchiveCount > pSelectedArchiveCount) {
-      pSelectedStartIndex = aStartIndex;
-      pSelectedArchiveCount = aArchiveCount;
-      pTotalLogicalBytes = aProcessedBytes;
-      pFilesProcessed = aFiles;
-      aFound = true;
-    }
+  pCandidates.clear();
+  pCandidates = BuildArchiveDecodeCandidates(pArchives, pLogger);
+  if (pCandidates.empty()) {
+    pFailure = {UnpackIntegerFailure::kUnknown, "no decode candidates were found in headers."};
+    return false;
   }
 
-  if (!aFound) {
-    if (aFirstFailure.mCode != UnpackIntegerFailure::kNone) {
-      pFailure = aFirstFailure;
-    } else if (pFailure.mCode == UnpackIntegerFailure::kNone) {
-      pFailure.mCode = UnpackIntegerFailure::kUnknown;
-      pFailure.mMessage = "archive payloads could not be decoded.";
-    }
+  const ArchiveDecodeCandidate& aBestCandidate = pCandidates.front();
+  pSelectedStartIndex = aBestCandidate.mStartIndex;
+  pSelectedArchiveCount = aBestCandidate.mArchiveCount;
+
+  if (pLogger != nullptr) {
+    pLogger->LogStatus("Selected archive set start = " + std::to_string(pSelectedStartIndex) +
+                       ", count = " + std::to_string(pSelectedArchiveCount) + ".");
   }
-  return aFound;
+
+  pTotalLogicalBytes = 0;
+  pFilesProcessed = 0;
+  pFailure.mCode = UnpackIntegerFailure::kNone;
+  pFailure.mMessage.clear();
+
+  return true;
+}
+
+bool SelectDecodableArchiveSet(FileSystem& pFileSystem,
+                               const Crypt& pCrypt,
+                               const std::vector<ArchiveHeaderRecord>& pArchives,
+                               bool pUseEncryption,
+                               Logger* pLogger,
+                               std::size_t& pSelectedStartIndex,
+                               std::size_t& pSelectedArchiveCount,
+                               std::uint64_t& pTotalLogicalBytes,
+                               std::size_t& pFilesProcessed,
+                               UnpackFailureInfo& pFailure) {
+  std::vector<ArchiveDecodeCandidate> aCandidates;
+  return SelectDecodableArchiveSet(pFileSystem,
+                                   pCrypt,
+                                   pArchives,
+                                   pUseEncryption,
+                                   pLogger,
+                                   aCandidates,
+                                   pSelectedStartIndex,
+                                   pSelectedArchiveCount,
+                                   pTotalLogicalBytes,
+                                   pFilesProcessed,
+                                   pFailure);
 }
 
 std::vector<std::size_t> FindRecoveryStartPhysicalOffsetCandidates(const FileSystem& pFileSystem,
@@ -586,96 +610,26 @@ std::vector<std::size_t> FindRecoveryStartPhysicalOffsetCandidates(const FileSys
                                                                    bool pUseEncryption,
                                                                    bool pSkipSpecialFirstHeader,
                                                                    UnpackFailureInfo& pFailure) {
+  (void)pCrypt;
+  (void)pUseEncryption;
   std::vector<std::size_t> aCandidates;
   std::unique_ptr<FileReadStream> aStream = pFileSystem.OpenReadStream(pArchive.mPath);
   if (aStream == nullptr || !aStream->IsReady() || aStream->GetLength() < kArchiveHeaderLength) {
-    pFailure = {UnpackIntegerFailure::kUnknown, "could not open selected recovery archive."};
+    pFailure = {UnpackIntegerFailure::kUnknown, "Discovery: could not open selected recovery archive."};
     return aCandidates;
   }
 
   const std::size_t aPayloadLength = aStream->GetLength() - kArchiveHeaderLength;
-  CryptWorkspaceL3 aWorkspace;
-  HeapBuffer aPageBuffer(kL3Length);
-  UnpackFailureInfo aFirstFailure;
-  if (kRecoveryHeaderLength < aPayloadLength) {
-    aCandidates.push_back(kRecoveryHeaderLength);
-  }
-  for (std::size_t aPageStart = 0; aPageStart < aPayloadLength; aPageStart += kL3Length) {
-    const std::size_t aPageLength = std::min<std::size_t>(kL3Length, aPayloadLength - aPageStart);
-    std::fill_n(aPageBuffer.Data(), kL3Length, 0);
-    if (!aStream->Read(kArchiveHeaderLength + aPageStart, aPageBuffer.Data(), aPageLength)) {
-      pFailure = {UnpackIntegerFailure::kUnknown, "could not read recovery archive page bytes."};
-      return {};
-    }
-
-    if (pUseEncryption) {
-      std::fill_n(aWorkspace.Source(), kL3Length, 0);
-      std::fill_n(aWorkspace.Worker(), kL3Length, 0);
-      std::fill_n(aWorkspace.Destination(), kL3Length, 0);
-      std::memcpy(aWorkspace.Source(), aPageBuffer.Data(), aPageLength);
-      std::string aCryptError;
-      if (!pCrypt.UnsealData(aWorkspace.Source(),
-                             aWorkspace.Worker(),
-                             aWorkspace.Destination(),
-                             aPageLength,
-                             &aCryptError,
-                             CryptMode::kNormal)) {
-        pFailure = {UnpackIntegerFailure::kUnknown,
-                    aCryptError.empty() ? "could not unseal recovery archive page bytes." : aCryptError};
-        return {};
-      }
-      std::memcpy(aPageBuffer.Data(), aWorkspace.Destination(), aPageLength);
-    }
-
-    for (std::size_t aRecoveryOffsetInPage = 0;
-         aRecoveryOffsetInPage + kRecoveryHeaderLength <= aPageLength;
-         aRecoveryOffsetInPage += kL1Length) {
-      const std::size_t aRecoveryOffset = aPageStart + aRecoveryOffsetInPage;
-      if (pSkipSpecialFirstHeader && aRecoveryOffset == 0) {
-        continue;
-      }
-
-      const unsigned long long aStride =
-          ReadLeFromBytes(aPageBuffer.Data() + aRecoveryOffsetInPage, kRecoveryHeaderLength);
-      if (aStride == 0) {
-        if (aFirstFailure.mCode == UnpackIntegerFailure::kNone) {
-          aFirstFailure = {UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceIsZero,
-                           "non-first recovery next-file distance is zero."};
-        }
-        continue;
-      }
-      const std::size_t aRemainingBytesInArchive = aPayloadLength - (aRecoveryOffset + kRecoveryHeaderLength);
-      if (aStride > aRemainingBytesInArchive) {
-        if (aFirstFailure.mCode == UnpackIntegerFailure::kNone) {
-          aFirstFailure = {pSkipSpecialFirstHeader
-                               ? UnpackIntegerFailure::kRecoverySpecialFlowDistanceLandsOutsideSelectedArchive
-                               : UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceGreaterThanRemainingBytesInUnpackJob,
-                           pSkipSpecialFirstHeader
-                               ? "recovery special-flow distance landed outside the selected archive."
-                               : "non-first recovery next-file distance exceeded remaining bytes in unpack job."};
-        }
-        continue;
-      }
-      const std::size_t aCandidate =
-          static_cast<std::size_t>(aRecoveryOffset + kRecoveryHeaderLength + aStride);
-      if ((aCandidate % kL1Length) < kRecoveryHeaderLength) {
-        if (aFirstFailure.mCode == UnpackIntegerFailure::kNone) {
-          aFirstFailure = {UnpackIntegerFailure::kNonFirstRecoveryNextFileDistanceLandsInsideRecoveryHeader,
-                           "non-first recovery next-file distance landed inside a recovery header."};
-        }
-        continue;
-      }
-      if (aCandidate < aPayloadLength) {
-        aCandidates.push_back(aCandidate);
-      }
-    }
+  if (aPayloadLength <= kRecoveryHeaderLength) {
+    pFailure = {UnpackIntegerFailure::kUnknown, "Discovery: selected recovery archive has no usable payload."};
+    return aCandidates;
   }
 
-  std::sort(aCandidates.begin(), aCandidates.end());
-  aCandidates.erase(std::unique(aCandidates.begin(), aCandidates.end()), aCandidates.end());
-  if (aCandidates.empty() && aFirstFailure.mCode != UnpackIntegerFailure::kNone) {
-    pFailure = aFirstFailure;
-  }
+  // Avoid pre-parse decryption work for recovery-start discovery. We enter the
+  // working flow immediately and let TryParseArchiveSet surface fast failures.
+  // This prevents "derive offset" from doubling crypt cost on very large packs.
+  (void)pSkipSpecialFirstHeader;
+  aCandidates.push_back(kRecoveryHeaderLength);
   return aCandidates;
 }
 
@@ -761,7 +715,8 @@ PreflightResult ApplicationCore::CheckBundle(const BundleRequest& pRequest) cons
   if (!mFileSystem.IsDirectory(pRequest.mSourceDirectory)) {
     return MakeInvalid("Bundle Failed", "Bundle failed: source directory does not exist.");
   }
-  if (mFileSystem.ListFilesRecursive(pRequest.mSourceDirectory).empty()) {
+  if (mFileSystem.ListFilesRecursive(pRequest.mSourceDirectory).empty() &&
+      mFileSystem.ListDirectoriesRecursive(pRequest.mSourceDirectory).empty()) {
     return MakeInvalid("Bundle Failed", "Bundle failed: source directory is empty.");
   }
   if (EffectiveArchivePayloadLength(mSettings) == 0) {
@@ -790,15 +745,18 @@ PreflightResult ApplicationCore::CheckRecover(const RecoverRequest& pRequest) co
   if (!mFileSystem.IsDirectory(pRequest.mArchiveDirectory)) {
     return MakeInvalid("Recover Failed", "Recover failed: archive directory does not exist.");
   }
-  const std::vector<ArchiveHeaderRecord> aArchives = ScanArchiveDirectory(mFileSystem, pRequest.mArchiveDirectory);
+  std::optional<std::size_t> aDiscoveryStartIndex;
+  const std::vector<ArchiveHeaderRecord> aArchives = ScanArchiveDirectory(mFileSystem,
+                                                                          pRequest.mArchiveDirectory,
+                                                                          &pRequest.mRecoveryStartFilePath,
+                                                                          &aDiscoveryStartIndex);
   if (aArchives.empty()) {
     return MakeInvalid("Recover Failed", "Recover failed: no readable archives were found.");
   }
-  const std::optional<std::size_t> aStartIndex = FindArchiveHeaderIndex(mFileSystem, aArchives, pRequest.mRecoveryStartFilePath);
-  if (!aStartIndex.has_value()) {
+  if (!aDiscoveryStartIndex.has_value()) {
     return MakeInvalid("Recover Failed", "Recover failed: recovery start archive was not found.");
   }
-  if (!aArchives[*aStartIndex].mHeader.mRecoveryEnabled) {
+  if (!aArchives[*aDiscoveryStartIndex].mHeader.mRecoveryEnabled) {
     return MakeInvalid("Recover Failed", "Recover failed: the selected archive is not marked recoverable.");
   }
   if (mFileSystem.DirectoryHasEntries(pRequest.mDestinationDirectory)) {
@@ -835,10 +793,12 @@ OperationResult ApplicationCore::RunBundle(const BundleRequest& pRequest, Destin
 
   mLogger.LogStatus("Bundle job starting...");
   const std::vector<SourceFileEntry> aFiles = CollectSourceEntries(mFileSystem, pRequest.mSourceDirectory);
-  if (aFiles.empty()) {
+  const std::vector<std::string> aEmptyDirectories = CollectEmptyDirectoryEntries(mFileSystem, pRequest.mSourceDirectory);
+  if (aFiles.empty() && aEmptyDirectories.empty()) {
     return MakeFailure(mLogger, "Bundle Failed", "Bundle failed: could not read source files.");
   }
-  mLogger.LogStatus("Found " + std::to_string(aFiles.size()) + " files to bundle.");
+  mLogger.LogStatus("Found " + std::to_string(aFiles.size()) + " files and " +
+                    std::to_string(aEmptyDirectories.size()) + " empty folders to bundle.");
 
   const std::size_t aPayloadLimit = EffectiveArchivePayloadLength(mSettings);
   const std::size_t aPhysicalPayloadLimit = EffectiveArchivePhysicalPayloadLength(mSettings);
@@ -859,6 +819,14 @@ OperationResult ApplicationCore::RunBundle(const BundleRequest& pRequest, Destin
     aFileEndLogicalOffsets.push_back(aTotalLogicalLength);
     aTotalLogicalBytes += aFile.mContentLength;
   }
+  aTotalLogicalLength += 2;  // file record terminator
+  for (const std::string& aDirectory : aEmptyDirectories) {
+    if (aDirectory.empty()) {
+      continue;
+    }
+    aTotalLogicalLength += 2 + aDirectory.size();
+  }
+  aTotalLogicalLength += 2;  // manifest terminator
 
   const std::vector<PlannedArchiveLayout> aLayouts =
       BuildArchiveLayouts(aTotalLogicalLength, aLogicalCapacity, aPhysicalPayloadLimit);
@@ -874,7 +842,7 @@ OperationResult ApplicationCore::RunBundle(const BundleRequest& pRequest, Destin
   std::uint64_t aProcessedBytes = 0;
   std::uint64_t aLastBucket = 0;
   std::size_t aFilesProcessed = 0;
-  LogicalRecordStreamer aStreamer(mFileSystem, aFiles);
+  LogicalRecordStreamer aStreamer(mFileSystem, aFiles, aEmptyDirectories);
   HeapBuffer aLogicalChunk(kL3Length);
   WriterPageOwner aWriterPageOwner;
   CryptWorkspaceL3 aCryptWorkspace;
@@ -1010,6 +978,7 @@ OperationResult ApplicationCore::RunUnbundle(const UnbundleRequest& pRequest, De
 
   std::size_t aSelectedStartIndex = 0;
   std::size_t aSelectedArchiveCount = 0;
+  std::vector<ArchiveDecodeCandidate> aDecodeCandidates;
   std::uint64_t aTotalLogicalBytes = 0;
   std::size_t aFilesProcessed = 0;
   UnpackFailureInfo aDecodeFailure;
@@ -1017,6 +986,8 @@ OperationResult ApplicationCore::RunUnbundle(const UnbundleRequest& pRequest, De
                                  mCrypt,
                                  aArchives,
                                  pRequest.mUseEncryption,
+                                 &mLogger,
+                                 aDecodeCandidates,
                                  aSelectedStartIndex,
                                  aSelectedArchiveCount,
                                  aTotalLogicalBytes,
@@ -1036,9 +1007,12 @@ OperationResult ApplicationCore::RunUnbundle(const UnbundleRequest& pRequest, De
                           pRequest.mUseEncryption,
                           pRequest.mDestinationDirectory,
                           true,
+                          &mLogger,
                           aProcessedBytes,
                           aFilesProcessed,
-                          aWriteFailure)) {
+                          aWriteFailure,
+                          mSettings.mLogThrottleBlockSize,
+                          mSettings.mLogThrottleIgnoreLast)) {
     return MakeFailure(mLogger, "Unbundle Failed", "Unbundle failed: " + FormatUnpackFailure(aWriteFailure));
   }
 
@@ -1073,9 +1047,11 @@ OperationResult ApplicationCore::RunRecover(const RecoverRequest& pRequest, Dest
   }
 
   mLogger.LogStatus("Recover job starting...");
-  const std::vector<ArchiveHeaderRecord> aArchives = ScanArchiveDirectory(mFileSystem, pRequest.mArchiveDirectory);
-  const std::optional<std::size_t> aStartIndex =
-      FindArchiveIndex(mFileSystem, aArchives, pRequest.mRecoveryStartFilePath);
+  std::optional<std::size_t> aStartIndex;
+  const std::vector<ArchiveHeaderRecord> aArchives = ScanArchiveDirectory(mFileSystem,
+                                                                          pRequest.mArchiveDirectory,
+                                                                          &pRequest.mRecoveryStartFilePath,
+                                                                          &aStartIndex);
   if (!aStartIndex.has_value()) {
     return MakeFailure(mLogger, "Recover Failed", "Recover failed: recovery start archive was not found.");
   }
@@ -1105,6 +1081,8 @@ OperationResult ApplicationCore::RunRecover(const RecoverRequest& pRequest, Dest
   }
   for (const std::size_t aStartPhysicalOffset : aStartCandidates) {
     UnpackFailureInfo aLocalFailure;
+    std::uint64_t aProcessedBytes = 0;
+    std::size_t aWriteFilesProcessed = 0;
     if (TryParseArchiveSet(mFileSystem,
                            mCrypt,
                            aArchives,
@@ -1112,29 +1090,15 @@ OperationResult ApplicationCore::RunRecover(const RecoverRequest& pRequest, Dest
                            aMatchingArchiveCount,
                            aStartPhysicalOffset,
                            pRequest.mUseEncryption,
-                           "",
-                           false,
-                           aTotalLogicalBytes,
-                           aFilesProcessed,
-                           aLocalFailure) &&
-        aFilesProcessed > 0) {
-      std::uint64_t aProcessedBytes = 0;
-      std::size_t aWriteFilesProcessed = 0;
-      UnpackFailureInfo aWriteFailure;
-      if (!TryParseArchiveSet(mFileSystem,
-                              mCrypt,
-                              aArchives,
-                              *aStartIndex,
-                              aMatchingArchiveCount,
-                              aStartPhysicalOffset,
-                              pRequest.mUseEncryption,
-                              pRequest.mDestinationDirectory,
-                              true,
-                              aProcessedBytes,
-                              aWriteFilesProcessed,
-                              aWriteFailure)) {
-        return MakeFailure(mLogger, "Recover Failed", "Recover failed: " + FormatUnpackFailure(aWriteFailure));
-      }
+                           pRequest.mDestinationDirectory,
+                           true,
+                           &mLogger,
+                           aProcessedBytes,
+                           aWriteFilesProcessed,
+                           aLocalFailure,
+                           mSettings.mLogThrottleBlockSize,
+                           mSettings.mLogThrottleIgnoreLast) &&
+        aWriteFilesProcessed > 0) {
       aTotalLogicalBytes = aProcessedBytes;
       aFilesProcessed = aWriteFilesProcessed;
       aRecovered = true;
@@ -1179,9 +1143,13 @@ OperationResult ApplicationCore::RunValidate(const ValidateRequest& pRequest) {
   mLogger.LogStatus("Sanity job starting...");
   const std::vector<DirectoryEntry> aLeftEntries = mFileSystem.ListFilesRecursive(pRequest.mLeftDirectory);
   const std::vector<DirectoryEntry> aRightEntries = mFileSystem.ListFilesRecursive(pRequest.mRightDirectory);
+  const std::vector<DirectoryEntry> aLeftDirectories = mFileSystem.ListDirectoriesRecursive(pRequest.mLeftDirectory);
+  const std::vector<DirectoryEntry> aRightDirectories = mFileSystem.ListDirectoriesRecursive(pRequest.mRightDirectory);
 
   std::map<std::string, ComparedPath> aLeftFiles;
   std::map<std::string, ComparedPath> aRightFiles;
+  std::map<std::string, ComparedPath> aLeftEmptyDirectories;
+  std::map<std::string, ComparedPath> aRightEmptyDirectories;
   for (const DirectoryEntry& aEntry : aLeftEntries) {
     if (aEntry.mIsDirectory || aEntry.mRelativePath.empty()) {
       continue;
@@ -1193,6 +1161,18 @@ OperationResult ApplicationCore::RunValidate(const ValidateRequest& pRequest) {
       continue;
     }
     aRightFiles[aEntry.mRelativePath] = {aEntry.mPath, IsHiddenComponent(aEntry.mRelativePath)};
+  }
+  for (const DirectoryEntry& aEntry : aLeftDirectories) {
+    if (aEntry.mRelativePath.empty() || mFileSystem.DirectoryHasEntries(aEntry.mPath)) {
+      continue;
+    }
+    aLeftEmptyDirectories[aEntry.mRelativePath] = {aEntry.mPath, IsHiddenComponent(aEntry.mRelativePath)};
+  }
+  for (const DirectoryEntry& aEntry : aRightDirectories) {
+    if (aEntry.mRelativePath.empty() || mFileSystem.DirectoryHasEntries(aEntry.mPath)) {
+      continue;
+    }
+    aRightEmptyDirectories[aEntry.mRelativePath] = {aEntry.mPath, IsHiddenComponent(aEntry.mRelativePath)};
   }
 
   ValidationReport aReport;
@@ -1266,13 +1246,35 @@ OperationResult ApplicationCore::RunValidate(const ValidateRequest& pRequest) {
       }
     }
   }
+  for (const auto& [aRelativePath, aLeftDirectory] : aLeftEmptyDirectories) {
+    if (aRightEmptyDirectories.find(aRelativePath) == aRightEmptyDirectories.end()) {
+      if (aLeftDirectory.mIsHidden) {
+        aReport.mEmptyDirectoriesOnlyInSourceHidden.push_back(aRelativePath);
+      } else {
+        aReport.mEmptyDirectoriesOnlyInSourceVisible.push_back(aRelativePath);
+      }
+    }
+  }
+  for (const auto& [aRelativePath, aRightDirectory] : aRightEmptyDirectories) {
+    if (aLeftEmptyDirectories.find(aRelativePath) == aLeftEmptyDirectories.end()) {
+      if (aRightDirectory.mIsHidden) {
+        aReport.mEmptyDirectoriesOnlyInDestinationHidden.push_back(aRelativePath);
+      } else {
+        aReport.mEmptyDirectoriesOnlyInDestinationVisible.push_back(aRelativePath);
+      }
+    }
+  }
 
   const bool aHasVisibleDifferences = !aReport.mOnlyInSourceVisible.empty() ||
                                      !aReport.mOnlyInDestinationVisible.empty() ||
-                                     !aReport.mDataMismatchVisible.empty();
+                                     !aReport.mDataMismatchVisible.empty() ||
+                                     !aReport.mEmptyDirectoriesOnlyInSourceVisible.empty() ||
+                                     !aReport.mEmptyDirectoriesOnlyInDestinationVisible.empty();
   const bool aHasHiddenDifferences = !aReport.mOnlyInSourceHidden.empty() ||
                                     !aReport.mOnlyInDestinationHidden.empty() ||
-                                    !aReport.mDataMismatchHidden.empty();
+                                    !aReport.mDataMismatchHidden.empty() ||
+                                    !aReport.mEmptyDirectoriesOnlyInSourceHidden.empty() ||
+                                    !aReport.mEmptyDirectoriesOnlyInDestinationHidden.empty();
 
   const std::string aFinalStatus = aHasVisibleDifferences
                                       ? "[ERROR] one or more non-hidden files differ."
@@ -1282,44 +1284,76 @@ OperationResult ApplicationCore::RunValidate(const ValidateRequest& pRequest) {
   const std::string aOutputPath =
       (std::filesystem::current_path() / "tree_validation_report_generated.txt").generic_string();
   std::ofstream aReportStream(aOutputPath, std::ios::out | std::ios::trunc);
-  if (!aReportStream.is_open()) {
-    return MakeFailure(mLogger, "Sanity Failed",
-                       "Sanity failed: could not write tree_validation_report_generated.txt to " + aOutputPath + ".");
+  bool aReportWritten = false;
+  if (aReportStream.is_open()) {
+    aReportStream << "tree_validation_report_generated.txt\n\n";
+    aReportStream << "Source = " << pRequest.mLeftDirectory << "\n";
+    aReportStream << "Destination = " << pRequest.mRightDirectory << "\n\n";
+    aReportStream << "PASS 1: hidden files or folders\n";
+    WriteLimitedGroupedSection(aReportStream, "only in source", "A_ONLY ", aReport.mOnlyInSourceHidden);
+    WriteLimitedGroupedSection(aReportStream, "only in destination", "B_ONLY ", aReport.mOnlyInDestinationHidden);
+    WriteLimitedGroupedSection(aReportStream, "content mismatches", "DIFF   ", aReport.mDataMismatchHidden);
+    WriteLimitedGroupedSection(aReportStream, "empty directories only in source", "A_DIR  ", aReport.mEmptyDirectoriesOnlyInSourceHidden);
+    WriteLimitedGroupedSection(aReportStream, "empty directories only in destination", "B_DIR  ", aReport.mEmptyDirectoriesOnlyInDestinationHidden);
+    aReportStream << "\n";
+    aReportStream << "PASS 2: non-hidden files or folders\n";
+    WriteLimitedGroupedSection(aReportStream, "only in source", "A_ONLY ", aReport.mOnlyInSourceVisible);
+    WriteLimitedGroupedSection(aReportStream, "only in destination", "B_ONLY ", aReport.mOnlyInDestinationVisible);
+    WriteLimitedGroupedSection(aReportStream, "content mismatches", "DIFF   ", aReport.mDataMismatchVisible);
+    WriteLimitedGroupedSection(aReportStream, "empty directories only in source", "A_DIR  ", aReport.mEmptyDirectoriesOnlyInSourceVisible);
+    WriteLimitedGroupedSection(aReportStream, "empty directories only in destination", "B_DIR  ", aReport.mEmptyDirectoriesOnlyInDestinationVisible);
+    aReportStream << "\n";
+    aReportStream << aFinalStatus << "\n";
+    aReportStream.close();
+    aReportWritten = aReportStream.good();
   }
 
-  aReportStream << "tree_validation_report_generated.txt\n\n";
-  aReportStream << "Source = " << pRequest.mLeftDirectory << "\n";
-  aReportStream << "Destination = " << pRequest.mRightDirectory << "\n\n";
-  aReportStream << "PASS 1: hidden files or folders\n";
-  WriteLimitedGroupedSection(aReportStream, "only in source", "A_ONLY ", aReport.mOnlyInSourceHidden);
-  WriteLimitedGroupedSection(aReportStream, "only in destination", "B_ONLY ", aReport.mOnlyInDestinationHidden);
-  WriteLimitedGroupedSection(aReportStream, "content mismatches", "DIFF   ", aReport.mDataMismatchHidden);
-  aReportStream << "\n";
-  aReportStream << "PASS 2: non-hidden files or folders\n";
-  WriteLimitedGroupedSection(aReportStream, "only in source", "A_ONLY ", aReport.mOnlyInSourceVisible);
-  WriteLimitedGroupedSection(aReportStream, "only in destination", "B_ONLY ", aReport.mOnlyInDestinationVisible);
-  WriteLimitedGroupedSection(aReportStream, "content mismatches", "DIFF   ", aReport.mDataMismatchVisible);
-  aReportStream << "\n";
-  aReportStream << aFinalStatus << "\n";
-  aReportStream.close();
-
-  mLogger.LogStatus("Generated " + aOutputPath);
-  mLogger.LogStatus("Hidden-only source extras: " + std::to_string(aReport.mOnlyInSourceHidden.size()));
-  mLogger.LogStatus("Hidden-only destination extras: " + std::to_string(aReport.mOnlyInDestinationHidden.size()));
-  mLogger.LogStatus("Hidden byte mismatches: " + std::to_string(aReport.mDataMismatchHidden.size()));
+  if (aReportWritten) {
+    mLogger.LogStatus("Generated " + aOutputPath);
+  } else {
+    mLogger.LogStatus("[WARN] Could not write tree_validation_report_generated.txt to " + aOutputPath +
+                      ". Continuing without a report file.");
+  }
+  if (!aReport.mOnlyInSourceHidden.empty()) {
+    mLogger.LogStatus("Hidden-only source extras: " + std::to_string(aReport.mOnlyInSourceHidden.size()));
+  }
+  if (!aReport.mOnlyInDestinationHidden.empty()) {
+    mLogger.LogStatus("Hidden-only destination extras: " + std::to_string(aReport.mOnlyInDestinationHidden.size()));
+  }
+  if (!aReport.mDataMismatchHidden.empty()) {
+    mLogger.LogStatus("Hidden byte mismatches: " + std::to_string(aReport.mDataMismatchHidden.size()));
+  }
+  if (!aReport.mEmptyDirectoriesOnlyInSourceHidden.empty()) {
+    mLogger.LogStatus("Hidden empty-directory source extras: " +
+                      std::to_string(aReport.mEmptyDirectoriesOnlyInSourceHidden.size()));
+  }
+  if (!aReport.mEmptyDirectoriesOnlyInDestinationHidden.empty()) {
+    mLogger.LogStatus("Hidden empty-directory destination extras: " +
+                      std::to_string(aReport.mEmptyDirectoriesOnlyInDestinationHidden.size()));
+  }
   mLogger.LogStatus("Visible-only source extras: " + std::to_string(aReport.mOnlyInSourceVisible.size()));
   mLogger.LogStatus("Visible-only destination extras: " + std::to_string(aReport.mOnlyInDestinationVisible.size()));
   mLogger.LogStatus("Visible byte mismatches: " + std::to_string(aReport.mDataMismatchVisible.size()));
+  mLogger.LogStatus("Visible empty-directory source extras: " + std::to_string(aReport.mEmptyDirectoriesOnlyInSourceVisible.size()));
+  mLogger.LogStatus("Visible empty-directory destination extras: " + std::to_string(aReport.mEmptyDirectoriesOnlyInDestinationVisible.size()));
+  
   ReportPathSample(mLogger, "Hidden files in A, not in B", aReport.mOnlyInSourceHidden);
   ReportPathSample(mLogger, "Hidden files in B, not in A", aReport.mOnlyInDestinationHidden);
   ReportPathSample(mLogger, "Hidden file mismatches in A and B", aReport.mDataMismatchHidden);
+  ReportPathSample(mLogger, "Hidden empty directories in A, not in B", aReport.mEmptyDirectoriesOnlyInSourceHidden);
+  ReportPathSample(mLogger, "Hidden empty directories in B, not in A", aReport.mEmptyDirectoriesOnlyInDestinationHidden);
   ReportPathSample(mLogger, "Visible files in A, not in B", aReport.mOnlyInSourceVisible);
   ReportPathSample(mLogger, "Visible files in B, not in A", aReport.mOnlyInDestinationVisible);
   ReportPathSample(mLogger, "Visible file mismatches in A and B", aReport.mDataMismatchVisible);
+  ReportPathSample(mLogger, "Visible empty directories in A, not in B", aReport.mEmptyDirectoriesOnlyInSourceVisible);
+  ReportPathSample(mLogger, "Visible empty directories in B, not in A", aReport.mEmptyDirectoriesOnlyInDestinationVisible);
+  mLogger.LogStatus("Scanned " + std::to_string(aProgress.mFilesScanned) + " files " +
+                    std::to_string(aLeftDirectories.size() + aRightDirectories.size()) + " directories.");
+                    
   mLogger.LogStatus(aFinalStatus);
 
   mLogger.LogStatus("Sanity job complete.");
   return {true, "Sanity Complete", "Directory trees checked."};
 }
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter

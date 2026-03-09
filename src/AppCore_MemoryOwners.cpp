@@ -2,8 +2,9 @@
 
 #include <algorithm>
 #include <cstring>
+#include <limits>
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 namespace {
 
@@ -11,6 +12,10 @@ constexpr std::size_t kRecoveryHeaderLength = peanutbutter::SB_RECOVERY_HEADER_L
 constexpr std::size_t kPayloadBytesPerL1 = peanutbutter::SB_PAYLOAD_SIZE;
 constexpr std::size_t kL1Length = peanutbutter::SB_L1_LENGTH;
 constexpr std::size_t kL3Length = peanutbutter::SB_L3_LENGTH;
+constexpr std::uint64_t kSafetyMaxDecodedFileContentBytes = 64ull * 1024ull * 1024ull * 1024ull;
+constexpr std::size_t kFenceMaxStateTransitionsPerChunkMultiplier = 32;
+constexpr std::size_t kFenceMinStateTransitionsPerChunk = 4096;
+constexpr std::size_t kFenceMaxParseReadIterations = 10000000;
 constexpr unsigned char kSpecialFirstRecoveryHeader[kRecoveryHeaderLength] = {
     0x76, 0x47, 0xb2, 0x1d, 0xef, 0x8e};
 
@@ -61,24 +66,54 @@ std::uint64_t CountLogicalBytesInPayload(std::size_t pPayloadLength, std::size_t
   return aLogicalBytes;
 }
 
+bool ContainsNonZero(const unsigned char* pBytes, std::size_t pLength) {
+  for (std::size_t aIndex = 0; aIndex < pLength; ++aIndex) {
+    if (pBytes[aIndex] != 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool SafetyTryAddU64(std::uint64_t pLeft, std::uint64_t pRight, std::uint64_t& pOut) {
+  if (pRight > (std::numeric_limits<std::uint64_t>::max() - pLeft)) {
+    return false;
+  }
+  pOut = pLeft + pRight;
+  return true;
+}
+
 }  // namespace
 
 LogicalRecordStreamer::LogicalRecordStreamer(const FileSystem& pFileSystem,
-                                             const std::vector<SourceFileEntry>& pFiles)
+                                             const std::vector<SourceFileEntry>& pFiles,
+                                             const std::vector<std::string>& pEmptyDirectories)
     : mFileSystem(pFileSystem),
-      mFiles(pFiles) {}
+      mFiles(pFiles),
+      mEmptyDirectories(pEmptyDirectories) {}
 
 bool LogicalRecordStreamer::Read(unsigned char* pBuffer, std::size_t pMaxBytes, std::size_t& pBytesRead) {
   pBytesRead = 0;
 
-  while (pBytesRead < pMaxBytes && mFileIndex < mFiles.size()) {
-    const SourceFileEntry& aFile = mFiles[mFileIndex];
-
+  while (pBytesRead < pMaxBytes) {
     if (mPhase == Phase::kPathLength) {
-      mPathLengthBytes[0] = static_cast<unsigned char>(aFile.mRelativePath.size() & 0xFFU);
-      mPathLengthBytes[1] = static_cast<unsigned char>((aFile.mRelativePath.size() >> 8) & 0xFFU);
-      mPhase = Phase::kPathLengthBytes;
-      mPhaseOffset = 0;
+      if (mFileIndex >= mFiles.size()) {
+        mFileTerminatorLengthBytes[0] = 0;
+        mFileTerminatorLengthBytes[1] = 0;
+        mPhase = Phase::kFileTerminatorLengthBytes;
+        mPhaseOffset = 0;
+      } else {
+        const SourceFileEntry& aFile = mFiles[mFileIndex];
+        if (aFile.mRelativePath.size() > std::numeric_limits<std::uint16_t>::max() ||
+            aFile.mRelativePath.size() > peanutbutter::MAX_VALID_FILE_PATH_LENGTH) {
+          return false;
+        }
+        mPathLengthBytes[0] = static_cast<unsigned char>(aFile.mRelativePath.size() & 0xFFU);
+        mPathLengthBytes[1] = static_cast<unsigned char>((aFile.mRelativePath.size() >> 8) & 0xFFU);
+        mPhase = Phase::kPathLengthBytes;
+        mPhaseOffset = 0;
+      }
+      continue;
     }
 
     if (mPhase == Phase::kPathLengthBytes) {
@@ -89,12 +124,11 @@ bool LogicalRecordStreamer::Read(unsigned char* pBuffer, std::size_t pMaxBytes, 
         mPhase = Phase::kPathBytes;
         mPhaseOffset = 0;
       }
-      if (pBytesRead == pMaxBytes) {
-        break;
-      }
+      continue;
     }
 
     if (mPhase == Phase::kPathBytes) {
+      const SourceFileEntry& aFile = mFiles[mFileIndex];
       while (mPhaseOffset < aFile.mRelativePath.size() && pBytesRead < pMaxBytes) {
         pBuffer[pBytesRead++] = static_cast<unsigned char>(aFile.mRelativePath[mPhaseOffset++]);
       }
@@ -103,9 +137,7 @@ bool LogicalRecordStreamer::Read(unsigned char* pBuffer, std::size_t pMaxBytes, 
         mPhase = Phase::kContentLengthBytes;
         mPhaseOffset = 0;
       }
-      if (pBytesRead == pMaxBytes) {
-        break;
-      }
+      continue;
     }
 
     if (mPhase == Phase::kContentLengthBytes) {
@@ -113,6 +145,7 @@ bool LogicalRecordStreamer::Read(unsigned char* pBuffer, std::size_t pMaxBytes, 
         pBuffer[pBytesRead++] = mContentLengthBytes[mPhaseOffset++];
       }
       if (mPhaseOffset == 6) {
+        const SourceFileEntry& aFile = mFiles[mFileIndex];
         mPhase = Phase::kContentBytes;
         mPhaseOffset = 0;
         mContentOffset = 0;
@@ -122,16 +155,16 @@ bool LogicalRecordStreamer::Read(unsigned char* pBuffer, std::size_t pMaxBytes, 
           return false;
         }
       }
-      if (pBytesRead == pMaxBytes) {
-        break;
-      }
+      continue;
     }
 
     if (mPhase == Phase::kContentBytes) {
+      const SourceFileEntry& aFile = mFiles[mFileIndex];
       const std::size_t aBytesToRead = static_cast<std::size_t>(
           std::min<std::uint64_t>(static_cast<std::uint64_t>(pMaxBytes - pBytesRead),
                                   aFile.mContentLength - mContentOffset));
-      if (!mReadStream->Read(static_cast<std::size_t>(mContentOffset), pBuffer + pBytesRead, aBytesToRead)) {
+      if (aBytesToRead > 0 &&
+          !mReadStream->Read(static_cast<std::size_t>(mContentOffset), pBuffer + pBytesRead, aBytesToRead)) {
         return false;
       }
       mContentOffset += aBytesToRead;
@@ -143,6 +176,64 @@ bool LogicalRecordStreamer::Read(unsigned char* pBuffer, std::size_t pMaxBytes, 
         mContentOffset = 0;
         ++mFileIndex;
       }
+      continue;
+    }
+
+    if (mPhase == Phase::kFileTerminatorLengthBytes) {
+      while (mPhaseOffset < 2 && pBytesRead < pMaxBytes) {
+        pBuffer[pBytesRead++] = mFileTerminatorLengthBytes[mPhaseOffset++];
+      }
+      if (mPhaseOffset == 2) {
+        mPhaseOffset = 0;
+        mPhase = Phase::kManifestEntryLengthBytes;
+      }
+      continue;
+    }
+
+    if (mPhase == Phase::kManifestEntryLengthBytes) {
+      if (mManifestDirectoryIndex >= mEmptyDirectories.size()) {
+        if (mManifestTerminatorWritten) {
+          return true;
+        }
+        mManifestEntryLengthBytes[0] = 0;
+        mManifestEntryLengthBytes[1] = 0;
+        while (mPhaseOffset < 2 && pBytesRead < pMaxBytes) {
+          pBuffer[pBytesRead++] = mManifestEntryLengthBytes[mPhaseOffset++];
+        }
+        if (mPhaseOffset == 2) {
+          mManifestTerminatorWritten = true;
+          mPhaseOffset = 0;
+        }
+        continue;
+      }
+      const std::string& aDirectory = mEmptyDirectories[mManifestDirectoryIndex];
+      if (aDirectory.size() > std::numeric_limits<std::uint16_t>::max() ||
+          aDirectory.size() > peanutbutter::MAX_VALID_FILE_PATH_LENGTH) {
+        return false;
+      }
+      mManifestEntryLengthBytes[0] = static_cast<unsigned char>(aDirectory.size() & 0xFFU);
+      mManifestEntryLengthBytes[1] = static_cast<unsigned char>((aDirectory.size() >> 8) & 0xFFU);
+      while (mPhaseOffset < 2 && pBytesRead < pMaxBytes) {
+        pBuffer[pBytesRead++] = mManifestEntryLengthBytes[mPhaseOffset++];
+      }
+      if (mPhaseOffset == 2) {
+        mPhaseOffset = 0;
+        mPhase = Phase::kManifestEntryBytes;
+      }
+      continue;
+    }
+
+    if (mPhase == Phase::kManifestEntryBytes) {
+      const std::string& aDirectory = mEmptyDirectories[mManifestDirectoryIndex];
+      while (mPhaseOffset < aDirectory.size() && pBytesRead < pMaxBytes) {
+        pBuffer[pBytesRead++] = static_cast<unsigned char>(aDirectory[mPhaseOffset++]);
+      }
+      if (mPhaseOffset == aDirectory.size()) {
+        mPhaseOffset = 0;
+        ++mManifestDirectoryIndex;
+        mPhase = Phase::kManifestEntryLengthBytes;
+      }
+      continue;
     }
   }
 
@@ -304,15 +395,12 @@ PageReader::PageReader(const FileSystem& pFileSystem,
       mPhysicalOffset(pStartPhysicalOffset),
       mUseEncryption(pUseEncryption),
       mPageBuffer(kL3Length) {
+  // mPageBuffer is declared after mCurrentPageData, so assign the pointer here.
+  mCurrentPageData = mPageBuffer.Data();
   mArchivePayloadLengths.reserve(mArchiveCount);
   for (std::size_t aIndex = 0; aIndex < mArchiveCount; ++aIndex) {
     const ArchiveHeaderRecord& aArchive = mArchives[mStartArchiveIndex + aIndex];
-    std::unique_ptr<FileReadStream> aStream = mFileSystem.OpenReadStream(aArchive.mPath);
-    if (aStream == nullptr || !aStream->IsReady() || aStream->GetLength() < kArchiveHeaderLength) {
-      mArchivePayloadLengths.push_back(0);
-      continue;
-    }
-    mArchivePayloadLengths.push_back(aStream->GetLength() - kArchiveHeaderLength);
+    mArchivePayloadLengths.push_back(aArchive.mPayloadLength);
   }
 }
 
@@ -335,7 +423,12 @@ bool PageReader::OpenArchive() {
     return false;
   }
 
-  mPayloadLength = mReadStream->GetLength() - kArchiveHeaderLength;
+  const std::size_t aPayloadLength = mReadStream->GetLength() - kArchiveHeaderLength;
+  if (aPayloadLength != mArchivePayloadLengths[mArchiveRelativeIndex]) {
+    SetFailure(UnpackIntegerFailure::kUnknown, "archive length changed while opening archive stream for " + aArchive.mName);
+    return false;
+  }
+  mPayloadLength = aPayloadLength;
   mCurrentPageStart = 0;
   mCurrentPageLength = 0;
   mPageLoaded = false;
@@ -371,19 +464,18 @@ bool PageReader::LoadPage() {
   }
 
   const std::size_t aPageLength = std::min<std::size_t>(kL3Length, mPayloadLength - aPageStart);
-  std::memset(mPageBuffer.Data(), 0, kL3Length);
-  if (!mReadStream->Read(kArchiveHeaderLength + aPageStart, mPageBuffer.Data(), aPageLength)) {
+  unsigned char* aReadBuffer = mUseEncryption ? mWorkspace.Source() : mPageBuffer.Data();
+  if (!mReadStream->Read(kArchiveHeaderLength + aPageStart, aReadBuffer, aPageLength)) {
     SetFailure(UnpackIntegerFailure::kUnknown, "could not read archive page bytes.");
     return false;
   }
+  mCurrentPageData = aReadBuffer;
 
   if (mUseEncryption) {
-    std::memset(mWorkspace.Source(), 0, kL3Length);
     std::memset(mWorkspace.Worker(), 0, kL3Length);
     std::memset(mWorkspace.Destination(), 0, kL3Length);
-    std::memcpy(mWorkspace.Source(), mPageBuffer.Data(), aPageLength);
     std::string aCryptError;
-    if (!mCrypt.UnsealData(mWorkspace.Source(),
+    if (!mCrypt.UnsealData(aReadBuffer,
                            mWorkspace.Worker(),
                            mWorkspace.Destination(),
                            aPageLength,
@@ -393,7 +485,7 @@ bool PageReader::LoadPage() {
                  aCryptError.empty() ? "could not unseal archive page bytes." : aCryptError);
       return false;
     }
-    std::memcpy(mPageBuffer.Data(), mWorkspace.Destination(), aPageLength);
+    mCurrentPageData = mWorkspace.Destination();
   }
 
   mCurrentPageStart = aPageStart;
@@ -445,7 +537,7 @@ bool PageReader::Read(unsigned char* pBuffer, std::size_t pMaxBytes, std::size_t
       return false;
     }
 
-    std::memcpy(pBuffer + pBytesRead, mPageBuffer.Data() + aOffsetInPage, aChunkLength);
+    std::memcpy(pBuffer + pBytesRead, mCurrentPageData + aOffsetInPage, aChunkLength);
     pBytesRead += aChunkLength;
     mPhysicalOffset += aChunkLength;
   }
@@ -482,9 +574,16 @@ RecordParser::RecordParser(FileSystem& pFileSystem, const std::string& pDestinat
       mWriteFiles(pWriteFiles),
       mReadBuffer(kL3Length) {}
 
-bool RecordParser::Parse(PageReader& pReader) {
+bool RecordParser::Parse(PageReader& pReader, const std::function<void(std::uint64_t, std::size_t)>& pOnProgress) {
   InitializeCursor(pReader);
+  mTrailingNonZeroInCurrentChunk = false;
+  std::size_t aFenceParseReadIterations = 0;
   while (mPhase != Phase::kFinished) {
+    ++aFenceParseReadIterations;
+    if (aFenceParseReadIterations > kFenceMaxParseReadIterations) {
+      SetFailure(UnpackIntegerFailure::kUnknown, "Fence: parse iteration guard triggered.");
+      return false;
+    }
     std::size_t aBytesRead = 0;
     if (!pReader.Read(mReadBuffer.Data(), mReadBuffer.Size(), aBytesRead)) {
       if (mFailure.mCode == UnpackIntegerFailure::kNone) {
@@ -499,7 +598,50 @@ bool RecordParser::Parse(PageReader& pReader) {
       break;
     }
     mRemainingBytesAfterCurrentChunk = pReader.RemainingLogicalBytes();
+    const std::size_t aPreviousFilesProcessed = mFilesProcessed;
     if (!Consume(mReadBuffer.Data(), aBytesRead)) {
+      return false;
+    }
+    if (pOnProgress && mFilesProcessed != aPreviousFilesProcessed) {
+      pOnProgress(mProcessedBytes, mFilesProcessed);
+    }
+  }
+
+  if (mPhase == Phase::kFinished) {
+    bool aHasLaterArchiveBytes = false;
+    if (mCursorArchiveIndex < mArchivePayloadLengths.size()) {
+      for (std::size_t aIndex = mCursorArchiveIndex + 1; aIndex < mArchivePayloadLengths.size(); ++aIndex) {
+        if (CountLogicalBytesInPayload(mArchivePayloadLengths[aIndex], 0) > 0) {
+          aHasLaterArchiveBytes = true;
+          break;
+        }
+      }
+    }
+    bool aHasDanglingNonZeroBytes = mTrailingNonZeroInCurrentChunk;
+    while (true) {
+      std::size_t aBytesRead = 0;
+      if (!pReader.Read(mReadBuffer.Data(), mReadBuffer.Size(), aBytesRead)) {
+        if (mFailure.mCode == UnpackIntegerFailure::kNone) {
+          mFailure = pReader.Failure();
+        }
+        if (mFailure.mCode == UnpackIntegerFailure::kNone) {
+          SetFailure(UnpackIntegerFailure::kUnknown, "archive payloads could not be decoded.");
+        }
+        return false;
+      }
+      if (aBytesRead == 0) {
+        break;
+      }
+      if (ContainsNonZero(mReadBuffer.Data(), aBytesRead)) {
+        aHasDanglingNonZeroBytes = true;
+      }
+    }
+    if (aHasLaterArchiveBytes) {
+      SetFailure(UnpackIntegerFailure::kDanglingArchives, "Unexpected end of file found.");
+      return false;
+    }
+    if (aHasDanglingNonZeroBytes) {
+      SetFailure(UnpackIntegerFailure::kDanglingBytes, "Unexpected end of file found.");
       return false;
     }
   }
@@ -507,13 +649,15 @@ bool RecordParser::Parse(PageReader& pReader) {
   if (mWriteStream != nullptr && !CloseOutputFile()) {
     return false;
   }
-  if (mPhase != Phase::kFinished && mPhase != Phase::kPathLengthBytes) {
+  if (mPhase != Phase::kFinished &&
+      mPhase != Phase::kPathLengthBytes &&
+      (mPhase != Phase::kManifestFolderLengthBytes || mPhaseOffset != 0)) {
     if (mFailure.mCode == UnpackIntegerFailure::kNone) {
       SetFailure(UnpackIntegerFailure::kUnknown, "archive payload ended in the middle of a file record.");
     }
     return false;
   }
-  return mFilesProcessed > 0 || mPhase == Phase::kFinished;
+  return mFilesProcessed > 0 || mPhase == Phase::kFinished || mPhase == Phase::kManifestFolderLengthBytes;
 }
 
 std::uint64_t RecordParser::ProcessedBytes() const {
@@ -522,6 +666,10 @@ std::uint64_t RecordParser::ProcessedBytes() const {
 
 std::size_t RecordParser::FilesProcessed() const {
   return mFilesProcessed;
+}
+
+std::size_t RecordParser::EmptyDirectoriesProcessed() const {
+  return mEmptyDirectoriesProcessed;
 }
 
 const UnpackFailureInfo& RecordParser::Failure() const {
@@ -599,7 +747,15 @@ UnpackIntegerFailure RecordParser::ClassifyBoundaryForNextSpan(std::uint64_t pLo
 
 bool RecordParser::Consume(const unsigned char* pBytes, std::size_t pLength) {
   std::size_t aOffset = 0;
+  std::size_t aFenceStateTransitions = 0;
+  const std::size_t aFenceMaxStateTransitions =
+      std::max(kFenceMinStateTransitionsPerChunk, (pLength + 1) * kFenceMaxStateTransitionsPerChunkMultiplier);
   while (aOffset < pLength && mPhase != Phase::kFinished) {
+    ++aFenceStateTransitions;
+    if (aFenceStateTransitions > aFenceMaxStateTransitions) {
+      SetFailure(UnpackIntegerFailure::kUnknown, "Fence: decode state transition guard triggered.");
+      return false;
+    }
     if (mPhase == Phase::kPathLengthBytes) {
       while (mPhaseOffset < 2 && aOffset < pLength) {
         mPathLengthBytes[mPhaseOffset++] = pBytes[aOffset++];
@@ -611,23 +767,25 @@ bool RecordParser::Consume(const unsigned char* pBytes, std::size_t pLength) {
         mPathLength = static_cast<std::size_t>(ReadLeFromBuffer(mPathLengthBytes, 2));
         mPhaseOffset = 0;
         if (mPathLength == 0) {
-          if (mFilesProcessed > 0) {
-            mPhase = Phase::kFinished;
-            break;
-          }
-          SetFailure(UnpackIntegerFailure::kFileNameLengthIsZero, "decoded file name length is zero.");
-          return false;
+          mPhase = Phase::kManifestFolderLengthBytes;
+          mPhaseOffset = 0;
+          continue;
         }
         if (mPathLength > peanutbutter::MAX_VALID_FILE_PATH_LENGTH) {
           SetFailure(UnpackIntegerFailure::kFileNameLengthGreaterThanMaxValidFilePathLength,
-                     "decoded file name length exceeded MAX_VALID_FILE_PATH_LENGTH.");
+                     "Safety: decoded file name length exceeded MAX_VALID_FILE_PATH_LENGTH.");
           return false;
         }
-        const std::uint64_t aRemainingBytesInUnpackJob =
-            static_cast<std::uint64_t>(pLength - aOffset) + mRemainingBytesAfterCurrentChunk;
+        std::uint64_t aRemainingBytesInUnpackJob = 0;
+        if (!SafetyTryAddU64(static_cast<std::uint64_t>(pLength - aOffset),
+                             mRemainingBytesAfterCurrentChunk,
+                             aRemainingBytesInUnpackJob)) {
+          SetFailure(UnpackIntegerFailure::kUnknown, "Safety: remaining-bytes calculation overflowed.");
+          return false;
+        }
         if (static_cast<std::uint64_t>(mPathLength) > aRemainingBytesInUnpackJob) {
           SetFailure(UnpackIntegerFailure::kFileNameLengthGreaterThanRemainingBytesInUnpackJob,
-                     "decoded file name length exceeded remaining bytes in unpack job.");
+                     "Safety: decoded file name length exceeded remaining bytes in unpack job.");
           return false;
         }
         const UnpackIntegerFailure aBoundaryFailure =
@@ -672,15 +830,20 @@ bool RecordParser::Consume(const unsigned char* pBytes, std::size_t pLength) {
         mContentLength = ReadLeFromBuffer(mContentLengthBytes, 6);
         mContentOffset = 0;
         mPhaseOffset = 0;
-        if (mContentLength == 0) {
-          SetFailure(UnpackIntegerFailure::kFileDataLengthIsZero, "decoded file data length is zero.");
+        std::uint64_t aRemainingBytesInUnpackJob = 0;
+        if (!SafetyTryAddU64(static_cast<std::uint64_t>(pLength - aOffset),
+                             mRemainingBytesAfterCurrentChunk,
+                             aRemainingBytesInUnpackJob)) {
+          SetFailure(UnpackIntegerFailure::kUnknown, "Safety: remaining-bytes calculation overflowed.");
           return false;
         }
-        const std::uint64_t aRemainingBytesInUnpackJob =
-            static_cast<std::uint64_t>(pLength - aOffset) + mRemainingBytesAfterCurrentChunk;
+        if (mContentLength > kSafetyMaxDecodedFileContentBytes) {
+          SetFailure(UnpackIntegerFailure::kUnknown, "Safety: decoded file data length exceeded safe maximum.");
+          return false;
+        }
         if (mContentLength > aRemainingBytesInUnpackJob) {
           SetFailure(UnpackIntegerFailure::kFileDataLengthGreaterThanRemainingBytesInUnpackJob,
-                     "decoded file data length exceeded remaining bytes in unpack job.");
+                     "Safety: decoded file data length exceeded remaining bytes in unpack job.");
           return false;
         }
         const UnpackIntegerFailure aBoundaryFailure =
@@ -732,6 +895,82 @@ bool RecordParser::Consume(const unsigned char* pBytes, std::size_t pLength) {
         mPhase = Phase::kPathLengthBytes;
       }
     }
+
+    if (mPhase == Phase::kManifestFolderLengthBytes) {
+      while (mPhaseOffset < 2 && aOffset < pLength) {
+        mManifestFolderLengthBytes[mPhaseOffset++] = pBytes[aOffset++];
+        if (!AdvanceCursor(1)) {
+          return false;
+        }
+      }
+      if (mPhaseOffset == 2) {
+        mPathLength = static_cast<std::size_t>(ReadLeFromBuffer(mManifestFolderLengthBytes, 2));
+        mPhaseOffset = 0;
+        if (mPathLength == 0) {
+          mTrailingNonZeroInCurrentChunk = ContainsNonZero(pBytes + aOffset, pLength - aOffset);
+          if (aOffset + 3 <= pLength) {
+            const std::size_t aCandidateLength = static_cast<std::size_t>(ReadLeFromBuffer(pBytes + aOffset, 2));
+            const std::size_t aCandidateRemaining = pLength - (aOffset + 2);
+            if (aCandidateLength > 0 &&
+                aCandidateLength <= peanutbutter::MAX_VALID_FILE_PATH_LENGTH &&
+                aCandidateLength <= aCandidateRemaining) {
+              SetFailure(UnpackIntegerFailure::kManifestFolderLengthIsZero, "manifest folder length is zero.");
+              return false;
+            }
+          }
+          mPhase = Phase::kFinished;
+          continue;
+        }
+        if (mPathLength > peanutbutter::MAX_VALID_FILE_PATH_LENGTH) {
+          SetFailure(UnpackIntegerFailure::kManifestFolderLengthGreaterThanMaxValidFilePathLength,
+                     "Safety: manifest folder length exceeded MAX_VALID_FILE_PATH_LENGTH.");
+          return false;
+        }
+        std::uint64_t aRemainingBytesInUnpackJob = 0;
+        if (!SafetyTryAddU64(static_cast<std::uint64_t>(pLength - aOffset),
+                             mRemainingBytesAfterCurrentChunk,
+                             aRemainingBytesInUnpackJob)) {
+          SetFailure(UnpackIntegerFailure::kUnknown, "Safety: remaining-bytes calculation overflowed.");
+          return false;
+        }
+        if (static_cast<std::uint64_t>(mPathLength) > aRemainingBytesInUnpackJob) {
+          SetFailure(UnpackIntegerFailure::kManifestFolderLengthGreaterThanRemainingBytesInUnpackJob,
+                     "Safety: manifest folder length exceeded remaining bytes in unpack job.");
+          return false;
+        }
+        mPhase = Phase::kManifestFolderBytes;
+      }
+      continue;
+    }
+
+    if (mPhase == Phase::kManifestFolderBytes) {
+      const std::size_t aChunkLength = std::min(mPathLength - mPhaseOffset, pLength - aOffset);
+      std::memcpy(mPathBytes + mPhaseOffset, pBytes + aOffset, aChunkLength);
+      mPhaseOffset += aChunkLength;
+      aOffset += aChunkLength;
+      if (!AdvanceCursor(aChunkLength)) {
+        return false;
+      }
+      if (mPhaseOffset == mPathLength) {
+        mCurrentRelativePath.assign(reinterpret_cast<const char*>(mPathBytes), mPathLength);
+        if (mCurrentRelativePath.empty()) {
+          SetFailure(UnpackIntegerFailure::kManifestFolderLengthIsZero, "decoded manifest folder path is empty.");
+          return false;
+        }
+        if (mWriteFiles) {
+          const std::string aDestinationPath = mFileSystem.JoinPath(mDestinationDirectory, mCurrentRelativePath);
+          if (!mFileSystem.EnsureDirectory(aDestinationPath)) {
+            SetFailure(UnpackIntegerFailure::kUnknown, "could not create directory for " + mCurrentRelativePath);
+            return false;
+          }
+          ++mEmptyDirectoriesProcessed;
+        }
+        mPhaseOffset = 0;
+        mPhase = Phase::kManifestFolderLengthBytes;
+      }
+      continue;
+    }
+
   }
   return true;
 }
@@ -768,4 +1007,4 @@ bool RecordParser::CloseOutputFile() {
   return true;
 }
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter

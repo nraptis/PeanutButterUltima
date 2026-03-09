@@ -8,7 +8,7 @@
 
 #include "AppCore_MemoryOwners.hpp"
 
-namespace peanutbutter::ultima {
+namespace peanutbutter {
 
 // Archive layout planning is stack-heavy but bounded by archive count rather
 // than file size. It stays separate from the owning runtime buffers.
@@ -28,9 +28,13 @@ std::vector<std::vector<unsigned long long>> GenerateAllRecoveryHeaders(
 
 std::vector<SourceFileEntry> CollectSourceEntries(const FileSystem& pFileSystem,
                                                   const std::string& pSourceDirectory);
+std::vector<std::string> CollectEmptyDirectoryEntries(const FileSystem& pFileSystem,
+                                                      const std::string& pSourceDirectory);
 
 std::vector<ArchiveHeaderRecord> ScanArchiveDirectory(const FileSystem& pFileSystem,
-                                                      const std::string& pArchiveDirectory);
+                                                      const std::string& pArchiveDirectory,
+                                                      const std::string* pDiscoveryRecoveryStartPath = nullptr,
+                                                      std::optional<std::size_t>* pDiscoveryRecoveryStartIndex = nullptr);
 
 bool HasAnyReadableArchive(const FileSystem& pFileSystem, const std::string& pArchiveDirectory);
 
@@ -42,6 +46,6 @@ std::optional<std::size_t> FindArchiveHeaderIndex(const FileSystem& pFileSystem,
                                                   const std::vector<ArchiveHeaderRecord>& pArchives,
                                                   const std::string& pPath);
 
-}  // namespace peanutbutter::ultima
+}  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_APP_CORE_STACKERS_HPP_

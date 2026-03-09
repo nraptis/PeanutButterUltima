@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <sstream>
 
-namespace peanutbutter::ultima::testing {
+namespace peanutbutter::testing {
 
 namespace {
 
@@ -44,11 +44,11 @@ unsigned long long ReadLe48(const std::array<unsigned char, kDemoRecoveryHeaderL
   return ReadLe48(pBytes.data());
 }
 
-peanutbutter::ultima::ByteVector ToBytes(const std::string& pText) {
-  return peanutbutter::ultima::ByteVector(pText.begin(), pText.end());
+peanutbutter::ByteVector ToBytes(const std::string& pText) {
+  return peanutbutter::ByteVector(pText.begin(), pText.end());
 }
 
-std::string ToHex(const peanutbutter::ultima::ByteVector& pBytes, std::size_t pOffset, std::size_t pLength) {
+std::string ToHex(const peanutbutter::ByteVector& pBytes, std::size_t pOffset, std::size_t pLength) {
   std::ostringstream aStream;
   aStream << std::hex << std::setfill('0');
   for (std::size_t aIndex = 0; aIndex < pLength; ++aIndex) {
@@ -60,7 +60,7 @@ std::string ToHex(const peanutbutter::ultima::ByteVector& pBytes, std::size_t pO
   return aStream.str();
 }
 
-bool Read_ArchiveHeader(const peanutbutter::ultima::ByteVector& pArchiveBytes,
+bool Read_ArchiveHeader(const peanutbutter::ByteVector& pArchiveBytes,
                         TestArchiveHeader& pArchiveHeader,
                         std::string* pErrorMessage) {
   if (pArchiveBytes.size() < kDemoPlainTextHeaderLength) {
@@ -82,7 +82,7 @@ bool Read_ArchiveHeader(const peanutbutter::ultima::ByteVector& pArchiveBytes,
   return true;
 }
 
-bool Read_RecoveryHeader(const peanutbutter::ultima::ByteVector& pArchiveBytes,
+bool Read_RecoveryHeader(const peanutbutter::ByteVector& pArchiveBytes,
                          std::size_t pOffset,
                          TestRecoveryHeader& pRecoveryHeader,
                          std::string* pErrorMessage) {
@@ -97,4 +97,4 @@ bool Read_RecoveryHeader(const peanutbutter::ultima::ByteVector& pArchiveBytes,
   return true;
 }
 
-}  // namespace peanutbutter::ultima::testing
+}  // namespace peanutbutter::testing
