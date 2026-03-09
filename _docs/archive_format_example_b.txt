@@ -1,0 +1,898 @@
+memory_layout
+
+Notes:
+- Offsets are file-relative.
+- Bytes 0x0000..0x0023 are the current 36-byte archive header.
+- Every L1 block starts with a 6-byte recovery header, then up to 12 data bytes.
+- Every L3 block is 72 bytes.
+- This file was generated from /Users/magneto/Desktop/Codex Playground/PeanutButterSupreme/input.
+- Hidden files and hidden folders are ignored by this generator.
+- Files are tightly packed across archives; only the final archive may contain trailing zero padding.
+- Recovery-header value is shown exactly as emitted in the archive bytes.
+
+Input tree:
+input
+|-- alpha.txt (file contents = "The Beginning")
+|-- poem_line_1.txt (file contents = "There once was a man.")
+|-- poem_line_2.txt (file contents = "The man had a plan. The plan was a man.")
+|-- poem_line_3.txt (file contents = "Eulogy")
+`-- zeta.txt (file contents = "Fin")
+
+pbinput_1.PBTR
+size = 180 bytes
+
+########-------- CLEAR TEXT HEADER BEGIN --------########
+
+pbinput_1.PBTR 0x0000 1e [1/4] plain-text magic header = 0xf01dab1e
+
+pbinput_1.PBTR 0x0001 ab [2/4] plain-text magic header = 0xf01dab1e
+
+pbinput_1.PBTR 0x0002 1d [3/4] plain-text magic header = 0xf01dab1e
+
+pbinput_1.PBTR 0x0003 f0 [4/4] plain-text magic header = 0xf01dab1e
+
+pbinput_1.PBTR 0x0004 01 [1/1] plain-text is recovery archive flag = 1
+
+pbinput_1.PBTR 0x0005 00 [1/1] plain-text reserved byte
+
+pbinput_1.PBTR 0x0006 01 [1/4] uint32 little-endian plain-text major version = 1
+
+pbinput_1.PBTR 0x0007 00 [2/4] uint32 little-endian plain-text major version = 1
+
+pbinput_1.PBTR 0x0008 00 [3/4] uint32 little-endian plain-text major version = 1
+
+pbinput_1.PBTR 0x0009 00 [4/4] uint32 little-endian plain-text major version = 1
+
+pbinput_1.PBTR 0x000a 00 [1/4] uint32 little-endian plain-text minor version = 0
+
+pbinput_1.PBTR 0x000b 00 [2/4] uint32 little-endian plain-text minor version = 0
+
+pbinput_1.PBTR 0x000c 00 [3/4] uint32 little-endian plain-text minor version = 0
+
+pbinput_1.PBTR 0x000d 00 [4/4] uint32 little-endian plain-text minor version = 0
+
+pbinput_1.PBTR 0x000e 00 [1/6] uint48 little-endian plain-text archive sequence number = 0
+
+pbinput_1.PBTR 0x000f 00 [2/6] uint48 little-endian plain-text archive sequence number = 0
+
+pbinput_1.PBTR 0x0010 00 [3/6] uint48 little-endian plain-text archive sequence number = 0
+
+pbinput_1.PBTR 0x0011 00 [4/6] uint48 little-endian plain-text archive sequence number = 0
+
+pbinput_1.PBTR 0x0012 00 [5/6] uint48 little-endian plain-text archive sequence number = 0
+
+pbinput_1.PBTR 0x0013 00 [6/6] uint48 little-endian plain-text archive sequence number = 0
+
+pbinput_1.PBTR 0x0014 96 [1/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_1.PBTR 0x0015 5a [2/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_1.PBTR 0x0016 99 [3/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_1.PBTR 0x0017 e2 [4/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_1.PBTR 0x0018 f6 [5/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_1.PBTR 0x0019 23 [6/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_1.PBTR 0x001a d4 [7/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_1.PBTR 0x001b 1f [8/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_1.PBTR 0x001c 00 [1/4] plain-text reserved bytes
+
+pbinput_1.PBTR 0x001d 00 [2/4] plain-text reserved bytes
+
+pbinput_1.PBTR 0x001e 00 [3/4] plain-text reserved bytes
+
+pbinput_1.PBTR 0x001f 00 [4/4] plain-text reserved bytes
+
+pbinput_1.PBTR 0x0020 ad [1/4] plain-text magic footer = 0xdecafbad
+
+pbinput_1.PBTR 0x0021 fb [2/4] plain-text magic footer = 0xdecafbad
+
+pbinput_1.PBTR 0x0022 ca [3/4] plain-text magic footer = 0xdecafbad
+
+pbinput_1.PBTR 0x0023 de [4/4] plain-text magic footer = 0xdecafbad
+
+########-------- CLEAR TEXT HEADER END --------########
+
+########-------- L3 BLOCK BEGIN --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_1.PBTR 0x0024 76 [1/6] special-case first recovery header raw bytes = 0x8eef1db24776
+
+pbinput_1.PBTR 0x0025 47 [2/6] special-case first recovery header raw bytes = 0x8eef1db24776
+
+pbinput_1.PBTR 0x0026 b2 [3/6] special-case first recovery header raw bytes = 0x8eef1db24776
+
+pbinput_1.PBTR 0x0027 1d [4/6] special-case first recovery header raw bytes = 0x8eef1db24776
+
+pbinput_1.PBTR 0x0028 ef [5/6] special-case first recovery header raw bytes = 0x8eef1db24776
+
+pbinput_1.PBTR 0x0029 8e [6/6] special-case first recovery header raw bytes = 0x8eef1db24776
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_1.PBTR 0x002a 09 [1/2] uint16 little-endian (alpha.txt path length = 9)
+
+pbinput_1.PBTR 0x002b 00 [2/2] uint16 little-endian (alpha.txt path length = 9)
+
+pbinput_1.PBTR 0x002c 61 [1/9] ascii 'a' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x002d 6c [2/9] ascii 'l' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x002e 70 [3/9] ascii 'p' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x002f 68 [4/9] ascii 'h' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x0030 61 [5/9] ascii 'a' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x0031 2e [6/9] ascii '.' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x0032 74 [7/9] ascii 't' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x0033 78 [8/9] ascii 'x' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x0034 74 [9/9] ascii 't' (alpha.txt archive path byte)
+
+pbinput_1.PBTR 0x0035 0d [1/6] uint48 little-endian (alpha.txt content length = 13)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_1.PBTR 0x0036 18 [1/6] uint48 little-endian recovery-header distance-to-next-file = 24
+
+pbinput_1.PBTR 0x0037 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 24
+
+pbinput_1.PBTR 0x0038 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 24
+
+pbinput_1.PBTR 0x0039 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 24
+
+pbinput_1.PBTR 0x003a 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 24
+
+pbinput_1.PBTR 0x003b 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 24
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_1.PBTR 0x003c 00 [2/6] uint48 little-endian (alpha.txt content length = 13)
+
+pbinput_1.PBTR 0x003d 00 [3/6] uint48 little-endian (alpha.txt content length = 13)
+
+pbinput_1.PBTR 0x003e 00 [4/6] uint48 little-endian (alpha.txt content length = 13)
+
+pbinput_1.PBTR 0x003f 00 [5/6] uint48 little-endian (alpha.txt content length = 13)
+
+pbinput_1.PBTR 0x0040 00 [6/6] uint48 little-endian (alpha.txt content length = 13)
+
+pbinput_1.PBTR 0x0041 54 [1/13] ascii 'T' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0042 68 [2/13] ascii 'h' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0043 65 [3/13] ascii 'e' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0044 20 [4/13] ascii ' ' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0045 42 [5/13] ascii 'B' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0046 65 [6/13] ascii 'e' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0047 67 [7/13] ascii 'g' (alpha.txt content byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_1.PBTR 0x0048 06 [1/6] uint48 little-endian recovery-header distance-to-next-file = 6
+
+pbinput_1.PBTR 0x0049 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 6
+
+pbinput_1.PBTR 0x004a 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 6
+
+pbinput_1.PBTR 0x004b 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 6
+
+pbinput_1.PBTR 0x004c 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 6
+
+pbinput_1.PBTR 0x004d 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 6
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_1.PBTR 0x004e 69 [8/13] ascii 'i' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x004f 6e [9/13] ascii 'n' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0050 6e [10/13] ascii 'n' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0051 69 [11/13] ascii 'i' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0052 6e [12/13] ascii 'n' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0053 67 [13/13] ascii 'g' (alpha.txt content byte)
+
+pbinput_1.PBTR 0x0054 0f [1/2] uint16 little-endian (poem_line_1.txt path length = 15)
+
+pbinput_1.PBTR 0x0055 00 [2/2] uint16 little-endian (poem_line_1.txt path length = 15)
+
+pbinput_1.PBTR 0x0056 70 [1/15] ascii 'p' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0057 6f [2/15] ascii 'o' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0058 65 [3/15] ascii 'e' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0059 6d [4/15] ascii 'm' (poem_line_1.txt archive path byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_1.PBTR 0x005a 38 [1/6] uint48 little-endian recovery-header distance-to-next-file = 56
+
+pbinput_1.PBTR 0x005b 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 56
+
+pbinput_1.PBTR 0x005c 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 56
+
+pbinput_1.PBTR 0x005d 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 56
+
+pbinput_1.PBTR 0x005e 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 56
+
+pbinput_1.PBTR 0x005f 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 56
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_1.PBTR 0x0060 5f [5/15] ascii '_' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0061 6c [6/15] ascii 'l' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0062 69 [7/15] ascii 'i' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0063 6e [8/15] ascii 'n' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0064 65 [9/15] ascii 'e' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0065 5f [10/15] ascii '_' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0066 31 [11/15] ascii '1' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0067 2e [12/15] ascii '.' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0068 74 [13/15] ascii 't' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x0069 78 [14/15] ascii 'x' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x006a 74 [15/15] ascii 't' (poem_line_1.txt archive path byte)
+
+pbinput_1.PBTR 0x006b 15 [1/6] uint48 little-endian (poem_line_1.txt content length = 21)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L3 BLOCK END --------########
+
+########-------- L3 BLOCK BEGIN --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_1.PBTR 0x006c 26 [1/6] uint48 little-endian recovery-header distance-to-next-file = 38
+
+pbinput_1.PBTR 0x006d 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 38
+
+pbinput_1.PBTR 0x006e 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 38
+
+pbinput_1.PBTR 0x006f 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 38
+
+pbinput_1.PBTR 0x0070 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 38
+
+pbinput_1.PBTR 0x0071 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 38
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_1.PBTR 0x0072 00 [2/6] uint48 little-endian (poem_line_1.txt content length = 21)
+
+pbinput_1.PBTR 0x0073 00 [3/6] uint48 little-endian (poem_line_1.txt content length = 21)
+
+pbinput_1.PBTR 0x0074 00 [4/6] uint48 little-endian (poem_line_1.txt content length = 21)
+
+pbinput_1.PBTR 0x0075 00 [5/6] uint48 little-endian (poem_line_1.txt content length = 21)
+
+pbinput_1.PBTR 0x0076 00 [6/6] uint48 little-endian (poem_line_1.txt content length = 21)
+
+pbinput_1.PBTR 0x0077 54 [1/21] ascii 'T' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0078 68 [2/21] ascii 'h' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0079 65 [3/21] ascii 'e' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x007a 72 [4/21] ascii 'r' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x007b 65 [5/21] ascii 'e' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x007c 20 [6/21] ascii ' ' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x007d 6f [7/21] ascii 'o' (poem_line_1.txt content byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_1.PBTR 0x007e 14 [1/6] uint48 little-endian recovery-header distance-to-next-file = 20
+
+pbinput_1.PBTR 0x007f 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 20
+
+pbinput_1.PBTR 0x0080 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 20
+
+pbinput_1.PBTR 0x0081 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 20
+
+pbinput_1.PBTR 0x0082 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 20
+
+pbinput_1.PBTR 0x0083 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 20
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_1.PBTR 0x0084 6e [8/21] ascii 'n' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0085 63 [9/21] ascii 'c' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0086 65 [10/21] ascii 'e' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0087 20 [11/21] ascii ' ' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0088 77 [12/21] ascii 'w' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0089 61 [13/21] ascii 'a' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x008a 73 [14/21] ascii 's' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x008b 20 [15/21] ascii ' ' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x008c 61 [16/21] ascii 'a' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x008d 20 [17/21] ascii ' ' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x008e 6d [18/21] ascii 'm' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x008f 61 [19/21] ascii 'a' (poem_line_1.txt content byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_1.PBTR 0x0090 02 [1/6] uint48 little-endian recovery-header distance-to-next-file = 2
+
+pbinput_1.PBTR 0x0091 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 2
+
+pbinput_1.PBTR 0x0092 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 2
+
+pbinput_1.PBTR 0x0093 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 2
+
+pbinput_1.PBTR 0x0094 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 2
+
+pbinput_1.PBTR 0x0095 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 2
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_1.PBTR 0x0096 6e [20/21] ascii 'n' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0097 2e [21/21] ascii '.' (poem_line_1.txt content byte)
+
+pbinput_1.PBTR 0x0098 0f [1/2] uint16 little-endian (poem_line_2.txt path length = 15)
+
+pbinput_1.PBTR 0x0099 00 [2/2] uint16 little-endian (poem_line_2.txt path length = 15)
+
+pbinput_1.PBTR 0x009a 70 [1/15] ascii 'p' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x009b 6f [2/15] ascii 'o' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x009c 65 [3/15] ascii 'e' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x009d 6d [4/15] ascii 'm' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x009e 5f [5/15] ascii '_' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x009f 6c [6/15] ascii 'l' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00a0 69 [7/15] ascii 'i' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00a1 6e [8/15] ascii 'n' (poem_line_2.txt archive path byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_1.PBTR 0x00a2 00 [1/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_1.PBTR 0x00a3 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_1.PBTR 0x00a4 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_1.PBTR 0x00a5 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_1.PBTR 0x00a6 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_1.PBTR 0x00a7 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_1.PBTR 0x00a8 65 [9/15] ascii 'e' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00a9 5f [10/15] ascii '_' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00aa 32 [11/15] ascii '2' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00ab 2e [12/15] ascii '.' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00ac 74 [13/15] ascii 't' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00ad 78 [14/15] ascii 'x' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00ae 74 [15/15] ascii 't' (poem_line_2.txt archive path byte)
+
+pbinput_1.PBTR 0x00af 27 [1/6] uint48 little-endian (poem_line_2.txt content length = 39)
+
+pbinput_1.PBTR 0x00b0 00 [2/6] uint48 little-endian (poem_line_2.txt content length = 39)
+
+pbinput_1.PBTR 0x00b1 00 [3/6] uint48 little-endian (poem_line_2.txt content length = 39)
+
+pbinput_1.PBTR 0x00b2 00 [4/6] uint48 little-endian (poem_line_2.txt content length = 39)
+
+pbinput_1.PBTR 0x00b3 00 [5/6] uint48 little-endian (poem_line_2.txt content length = 39)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L3 BLOCK END --------########
+
+
+pbinput_2.PBTR
+size = 180 bytes
+
+########-------- CLEAR TEXT HEADER BEGIN --------########
+
+pbinput_2.PBTR 0x0000 1e [1/4] plain-text magic header = 0xf01dab1e
+
+pbinput_2.PBTR 0x0001 ab [2/4] plain-text magic header = 0xf01dab1e
+
+pbinput_2.PBTR 0x0002 1d [3/4] plain-text magic header = 0xf01dab1e
+
+pbinput_2.PBTR 0x0003 f0 [4/4] plain-text magic header = 0xf01dab1e
+
+pbinput_2.PBTR 0x0004 01 [1/1] plain-text is recovery archive flag = 1
+
+pbinput_2.PBTR 0x0005 00 [1/1] plain-text reserved byte
+
+pbinput_2.PBTR 0x0006 01 [1/4] uint32 little-endian plain-text major version = 1
+
+pbinput_2.PBTR 0x0007 00 [2/4] uint32 little-endian plain-text major version = 1
+
+pbinput_2.PBTR 0x0008 00 [3/4] uint32 little-endian plain-text major version = 1
+
+pbinput_2.PBTR 0x0009 00 [4/4] uint32 little-endian plain-text major version = 1
+
+pbinput_2.PBTR 0x000a 00 [1/4] uint32 little-endian plain-text minor version = 0
+
+pbinput_2.PBTR 0x000b 00 [2/4] uint32 little-endian plain-text minor version = 0
+
+pbinput_2.PBTR 0x000c 00 [3/4] uint32 little-endian plain-text minor version = 0
+
+pbinput_2.PBTR 0x000d 00 [4/4] uint32 little-endian plain-text minor version = 0
+
+pbinput_2.PBTR 0x000e 01 [1/6] uint48 little-endian plain-text archive sequence number = 1
+
+pbinput_2.PBTR 0x000f 00 [2/6] uint48 little-endian plain-text archive sequence number = 1
+
+pbinput_2.PBTR 0x0010 00 [3/6] uint48 little-endian plain-text archive sequence number = 1
+
+pbinput_2.PBTR 0x0011 00 [4/6] uint48 little-endian plain-text archive sequence number = 1
+
+pbinput_2.PBTR 0x0012 00 [5/6] uint48 little-endian plain-text archive sequence number = 1
+
+pbinput_2.PBTR 0x0013 00 [6/6] uint48 little-endian plain-text archive sequence number = 1
+
+pbinput_2.PBTR 0x0014 96 [1/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_2.PBTR 0x0015 5a [2/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_2.PBTR 0x0016 99 [3/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_2.PBTR 0x0017 e2 [4/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_2.PBTR 0x0018 f6 [5/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_2.PBTR 0x0019 23 [6/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_2.PBTR 0x001a d4 [7/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_2.PBTR 0x001b 1f [8/8] plain-text archive identifier = 0x1fd423f6e2995a96
+
+pbinput_2.PBTR 0x001c 00 [1/4] plain-text reserved bytes
+
+pbinput_2.PBTR 0x001d 00 [2/4] plain-text reserved bytes
+
+pbinput_2.PBTR 0x001e 00 [3/4] plain-text reserved bytes
+
+pbinput_2.PBTR 0x001f 00 [4/4] plain-text reserved bytes
+
+pbinput_2.PBTR 0x0020 ad [1/4] plain-text magic footer = 0xdecafbad
+
+pbinput_2.PBTR 0x0021 fb [2/4] plain-text magic footer = 0xdecafbad
+
+pbinput_2.PBTR 0x0022 ca [3/4] plain-text magic footer = 0xdecafbad
+
+pbinput_2.PBTR 0x0023 de [4/4] plain-text magic footer = 0xdecafbad
+
+########-------- CLEAR TEXT HEADER END --------########
+
+########-------- L3 BLOCK BEGIN --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_2.PBTR 0x0024 3a [1/6] uint48 little-endian recovery-header distance-to-next-file = 58
+
+pbinput_2.PBTR 0x0025 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 58
+
+pbinput_2.PBTR 0x0026 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 58
+
+pbinput_2.PBTR 0x0027 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 58
+
+pbinput_2.PBTR 0x0028 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 58
+
+pbinput_2.PBTR 0x0029 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 58
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_2.PBTR 0x002a 00 [6/6] uint48 little-endian (poem_line_2.txt content length = 39)
+
+pbinput_2.PBTR 0x002b 54 [1/39] ascii 'T' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x002c 68 [2/39] ascii 'h' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x002d 65 [3/39] ascii 'e' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x002e 20 [4/39] ascii ' ' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x002f 6d [5/39] ascii 'm' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0030 61 [6/39] ascii 'a' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0031 6e [7/39] ascii 'n' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0032 20 [8/39] ascii ' ' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0033 68 [9/39] ascii 'h' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0034 61 [10/39] ascii 'a' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0035 64 [11/39] ascii 'd' (poem_line_2.txt content byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_2.PBTR 0x0036 28 [1/6] uint48 little-endian recovery-header distance-to-next-file = 40
+
+pbinput_2.PBTR 0x0037 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 40
+
+pbinput_2.PBTR 0x0038 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 40
+
+pbinput_2.PBTR 0x0039 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 40
+
+pbinput_2.PBTR 0x003a 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 40
+
+pbinput_2.PBTR 0x003b 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 40
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_2.PBTR 0x003c 20 [12/39] ascii ' ' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x003d 61 [13/39] ascii 'a' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x003e 20 [14/39] ascii ' ' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x003f 70 [15/39] ascii 'p' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0040 6c [16/39] ascii 'l' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0041 61 [17/39] ascii 'a' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0042 6e [18/39] ascii 'n' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0043 2e [19/39] ascii '.' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0044 20 [20/39] ascii ' ' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0045 54 [21/39] ascii 'T' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0046 68 [22/39] ascii 'h' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0047 65 [23/39] ascii 'e' (poem_line_2.txt content byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_2.PBTR 0x0048 16 [1/6] uint48 little-endian recovery-header distance-to-next-file = 22
+
+pbinput_2.PBTR 0x0049 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 22
+
+pbinput_2.PBTR 0x004a 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 22
+
+pbinput_2.PBTR 0x004b 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 22
+
+pbinput_2.PBTR 0x004c 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 22
+
+pbinput_2.PBTR 0x004d 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 22
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_2.PBTR 0x004e 20 [24/39] ascii ' ' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x004f 70 [25/39] ascii 'p' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0050 6c [26/39] ascii 'l' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0051 61 [27/39] ascii 'a' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0052 6e [28/39] ascii 'n' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0053 20 [29/39] ascii ' ' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0054 77 [30/39] ascii 'w' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0055 61 [31/39] ascii 'a' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0056 73 [32/39] ascii 's' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0057 20 [33/39] ascii ' ' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0058 61 [34/39] ascii 'a' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0059 20 [35/39] ascii ' ' (poem_line_2.txt content byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_2.PBTR 0x005a 04 [1/6] uint48 little-endian recovery-header distance-to-next-file = 4
+
+pbinput_2.PBTR 0x005b 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 4
+
+pbinput_2.PBTR 0x005c 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 4
+
+pbinput_2.PBTR 0x005d 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 4
+
+pbinput_2.PBTR 0x005e 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 4
+
+pbinput_2.PBTR 0x005f 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 4
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_2.PBTR 0x0060 6d [36/39] ascii 'm' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0061 61 [37/39] ascii 'a' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0062 6e [38/39] ascii 'n' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0063 2e [39/39] ascii '.' (poem_line_2.txt content byte)
+
+pbinput_2.PBTR 0x0064 0f [1/2] uint16 little-endian (poem_line_3.txt path length = 15)
+
+pbinput_2.PBTR 0x0065 00 [2/2] uint16 little-endian (poem_line_3.txt path length = 15)
+
+pbinput_2.PBTR 0x0066 70 [1/15] ascii 'p' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0067 6f [2/15] ascii 'o' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0068 65 [3/15] ascii 'e' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0069 6d [4/15] ascii 'm' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x006a 5f [5/15] ascii '_' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x006b 6c [6/15] ascii 'l' (poem_line_3.txt archive path byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L3 BLOCK END --------########
+
+########-------- L3 BLOCK BEGIN --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_2.PBTR 0x006c 1b [1/6] uint48 little-endian recovery-header distance-to-next-file = 27
+
+pbinput_2.PBTR 0x006d 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 27
+
+pbinput_2.PBTR 0x006e 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 27
+
+pbinput_2.PBTR 0x006f 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 27
+
+pbinput_2.PBTR 0x0070 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 27
+
+pbinput_2.PBTR 0x0071 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 27
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_2.PBTR 0x0072 69 [7/15] ascii 'i' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0073 6e [8/15] ascii 'n' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0074 65 [9/15] ascii 'e' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0075 5f [10/15] ascii '_' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0076 33 [11/15] ascii '3' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0077 2e [12/15] ascii '.' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0078 74 [13/15] ascii 't' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x0079 78 [14/15] ascii 'x' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x007a 74 [15/15] ascii 't' (poem_line_3.txt archive path byte)
+
+pbinput_2.PBTR 0x007b 06 [1/6] uint48 little-endian (poem_line_3.txt content length = 6)
+
+pbinput_2.PBTR 0x007c 00 [2/6] uint48 little-endian (poem_line_3.txt content length = 6)
+
+pbinput_2.PBTR 0x007d 00 [3/6] uint48 little-endian (poem_line_3.txt content length = 6)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_2.PBTR 0x007e 09 [1/6] uint48 little-endian recovery-header distance-to-next-file = 9
+
+pbinput_2.PBTR 0x007f 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 9
+
+pbinput_2.PBTR 0x0080 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 9
+
+pbinput_2.PBTR 0x0081 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 9
+
+pbinput_2.PBTR 0x0082 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 9
+
+pbinput_2.PBTR 0x0083 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 9
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_2.PBTR 0x0084 00 [4/6] uint48 little-endian (poem_line_3.txt content length = 6)
+
+pbinput_2.PBTR 0x0085 00 [5/6] uint48 little-endian (poem_line_3.txt content length = 6)
+
+pbinput_2.PBTR 0x0086 00 [6/6] uint48 little-endian (poem_line_3.txt content length = 6)
+
+pbinput_2.PBTR 0x0087 45 [1/6] ascii 'E' (poem_line_3.txt content byte)
+
+pbinput_2.PBTR 0x0088 75 [2/6] ascii 'u' (poem_line_3.txt content byte)
+
+pbinput_2.PBTR 0x0089 6c [3/6] ascii 'l' (poem_line_3.txt content byte)
+
+pbinput_2.PBTR 0x008a 6f [4/6] ascii 'o' (poem_line_3.txt content byte)
+
+pbinput_2.PBTR 0x008b 67 [5/6] ascii 'g' (poem_line_3.txt content byte)
+
+pbinput_2.PBTR 0x008c 79 [6/6] ascii 'y' (poem_line_3.txt content byte)
+
+pbinput_2.PBTR 0x008d 08 [1/2] uint16 little-endian (zeta.txt path length = 8)
+
+pbinput_2.PBTR 0x008e 00 [2/2] uint16 little-endian (zeta.txt path length = 8)
+
+pbinput_2.PBTR 0x008f 7a [1/8] ascii 'z' (zeta.txt archive path byte)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_2.PBTR 0x0090 00 [1/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x0091 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x0092 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x0093 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x0094 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x0095 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_2.PBTR 0x0096 65 [2/8] ascii 'e' (zeta.txt archive path byte)
+
+pbinput_2.PBTR 0x0097 74 [3/8] ascii 't' (zeta.txt archive path byte)
+
+pbinput_2.PBTR 0x0098 61 [4/8] ascii 'a' (zeta.txt archive path byte)
+
+pbinput_2.PBTR 0x0099 2e [5/8] ascii '.' (zeta.txt archive path byte)
+
+pbinput_2.PBTR 0x009a 74 [6/8] ascii 't' (zeta.txt archive path byte)
+
+pbinput_2.PBTR 0x009b 78 [7/8] ascii 'x' (zeta.txt archive path byte)
+
+pbinput_2.PBTR 0x009c 74 [8/8] ascii 't' (zeta.txt archive path byte)
+
+pbinput_2.PBTR 0x009d 03 [1/6] uint48 little-endian (zeta.txt content length = 3)
+
+pbinput_2.PBTR 0x009e 00 [2/6] uint48 little-endian (zeta.txt content length = 3)
+
+pbinput_2.PBTR 0x009f 00 [3/6] uint48 little-endian (zeta.txt content length = 3)
+
+pbinput_2.PBTR 0x00a0 00 [4/6] uint48 little-endian (zeta.txt content length = 3)
+
+pbinput_2.PBTR 0x00a1 00 [5/6] uint48 little-endian (zeta.txt content length = 3)
+
+########-------- L1 BLOCK END --------########
+
+########-------- L1 BLOCK BEGIN --------########
+
+########-------- RECOVERY HEADER BLOCK BEGIN --------########
+
+pbinput_2.PBTR 0x00a2 00 [1/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x00a3 00 [2/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x00a4 00 [3/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x00a5 00 [4/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x00a6 00 [5/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+pbinput_2.PBTR 0x00a7 00 [6/6] uint48 little-endian recovery-header distance-to-next-file = 0
+
+########-------- RECOVERY HEADER BLOCK END --------########
+
+pbinput_2.PBTR 0x00a8 00 [6/6] uint48 little-endian (zeta.txt content length = 3)
+
+pbinput_2.PBTR 0x00a9 46 [1/3] ascii 'F' (zeta.txt content byte)
+
+pbinput_2.PBTR 0x00aa 69 [2/3] ascii 'i' (zeta.txt content byte)
+
+pbinput_2.PBTR 0x00ab 6e [3/3] ascii 'n' (zeta.txt content byte)
+
+pbinput_2.PBTR 0x00ac 00 final archive trailing zero padding
+
+pbinput_2.PBTR 0x00ad 00 final archive trailing zero padding
+
+pbinput_2.PBTR 0x00ae 00 final archive trailing zero padding
+
+pbinput_2.PBTR 0x00af 00 final archive trailing zero padding
+
+pbinput_2.PBTR 0x00b0 00 final archive trailing zero padding
+
+pbinput_2.PBTR 0x00b1 00 final archive trailing zero padding
+
+pbinput_2.PBTR 0x00b2 00 final archive trailing zero padding
+
+pbinput_2.PBTR 0x00b3 00 final archive trailing zero padding
+
+########-------- L1 BLOCK END --------########
+
+########-------- L3 BLOCK END --------########

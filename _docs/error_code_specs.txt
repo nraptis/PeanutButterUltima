@@ -1,0 +1,127 @@
+Error Code Spec
+
+Overview
+- Error codes use the format `FAMILY_CATEGORY_NNN`.
+- `FAMILY` identifies the job or subsystem.
+- `CATEGORY` identifies the semantic area of failure.
+- `NNN` is a zero-padded sequence number within that family/category.
+- The code is the stable identifier.
+- The message is the human-facing default text.
+
+Families
+- `UNP` = Unpack
+- `PAK` = Pack
+- `RCV` = Recover
+- `KYG` = Keygen
+- `FSY` = FileSystem
+- `FST` = File Stream
+- `UXI` = User Interface
+- `UNK` = Unknown
+
+Categories
+- `AHD` = Archive Header
+- `RHD` = Recovery Header
+- `RHL` = Recovery Header Length
+- `FNM` = File Name
+- `FNL` = File Name Length
+- `FDT` = File Data
+- `FDL` = File Data Length
+- `ENC` = Encryption
+- `DEC` = Decryption
+- `SYS` = System
+
+Anchored Codes
+
+Pack
+
+`PAK_ENC_001`
+- Trigger: `SealData()` has failed during pack.
+- Message: `Encryption has failed: {error string from crypt}`
+
+Unpack
+
+`UNP_DEC_001`
+- Trigger: `UnsealData()` has failed during unpack.
+- Message: `Decryption has failed: {error string from crypt}`
+
+Fallback Codes
+
+`UNP_SYS_000`
+- Trigger: no unpack failure is present
+- Placeholder message: `No unpack failure.`
+
+`UNK_SYS_001`
+- Trigger: the runtime hit an unpack or recover failure that has not yet been assigned a specific registry code
+- Placeholder message: `Unknown system failure.`
+
+Unpack Integer Failure Registry
+
+File name length
+
+`UNP_FNL_001`
+- Trigger: `file_name_length > MAX_VALID_FILE_PATH_LENGTH`
+- Placeholder message: `Unpack has failed: file name length exceeds MAX_VALID_FILE_PATH_LENGTH.`
+
+`UNP_FNL_002`
+- Trigger: `file_name_length > REMAINING_BYTES_IN_UNPACK_JOB`
+- Placeholder message: `Unpack has failed: file name length exceeds remaining bytes in unpack job.`
+
+`UNP_FNL_003`
+- Trigger: `file_name_length == 0`
+- Placeholder message: `Unpack has failed: file name length is zero.`
+
+`UNP_FNL_004`
+- Trigger: `file_name_length lands inside of a recovery header`
+- Placeholder message: `Unpack has failed: file name length lands inside a recovery header.`
+
+`UNP_FNL_005`
+- Trigger: `file_name_length lands inside of an archive header`
+- Placeholder message: `Unpack has failed: file name length lands inside an archive header.`
+
+File data length
+
+`UNP_FDL_001`
+- Trigger: `file_data_length > REMAINING_BYTES_IN_UNPACK_JOB`
+- Placeholder message: `Unpack has failed: file data length exceeds remaining bytes in unpack job.`
+
+`UNP_FDL_002`
+- Trigger: `file_data_length == 0`
+- Placeholder message: `Unpack has failed: file data length is zero.`
+
+`UNP_FDL_003`
+- Trigger: `file_data_length lands inside of a recovery header`
+- Placeholder message: `Unpack has failed: file data length lands inside a recovery header.`
+
+`UNP_FDL_004`
+- Trigger: `file_data_length lands inside of an archive header`
+- Placeholder message: `Unpack has failed: file data length lands inside an archive header.`
+
+Recovery next-file distance
+
+`UNP_RHD_001`
+- Trigger: `non_first_recovery_next_file_distance > REMAINING_BYTES_IN_UNPACK_JOB`
+- Placeholder message: `Unpack has failed: recovery next-file distance exceeds remaining bytes in unpack job.`
+
+`UNP_RHD_002`
+- Trigger: `non_first_recovery_next_file_distance == 0`
+- Placeholder message: `Unpack has failed: recovery next-file distance is zero.`
+
+`UNP_RHD_003`
+- Trigger: `non_first_recovery_next_file_distance lands inside of a recovery header`
+- Placeholder message: `Unpack has failed: recovery next-file distance lands inside a recovery header.`
+
+`UNP_RHD_004`
+- Trigger: `non_first_recovery_next_file_distance lands inside of an archive header`
+- Placeholder message: `Unpack has failed: recovery next-file distance lands inside an archive header.`
+
+Recovery special-flow integer
+
+`RCV_RHD_001`
+- Trigger: recovery-job special first-header flow resolves `non_first_recovery_next_file_distance` outside of the selected archive
+- Placeholder message: `Recover has failed: recovery next-file distance lands outside the selected archive.`
+
+Authoring Notes
+- `unpack_integer_failures.txt` remains the semantic rule list.
+- This file is the code registry and message contract.
+- Message text may become more detailed later, but the stable code should not change once wired.
+- When crypt-provided error strings exist, preserve them after the fixed prefix.

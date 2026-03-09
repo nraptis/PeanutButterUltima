@@ -1,0 +1,67 @@
+Recovery Header Rules
+
+Definitions
+
+- Archive header:
+  - the 36-byte clear-text header at the start of each archive
+  - archive headers are not part of payload
+
+- Payload:
+  - all bytes after the 36-byte archive header
+  - payload does include recovery headers
+  - payload does include file-record bytes
+
+- File start:
+  - the first byte of a serialized file record
+  - specifically, the first byte of that file record's 2-byte file-name-length integer
+
+Primary rule
+
+- Recovery headers store the payload-byte distance to the next file start.
+- The stored distance starts immediately after the current recovery header.
+- The stored distance ends at the first byte of the next file start.
+- Archive-header bytes are never counted.
+- Intervening recovery-header bytes are counted, because recovery headers are part of payload.
+- If there is no later file start for that recovery header, the stored distance is `0`.
+
+Special first-header rule
+
+- The first recovery header in archive sequence `0` is special-cased.
+- Its 6 bytes do not store the normal distance.
+- Instead, its 6 bytes are randomized.
+- At least one of those 6 bytes must be non-zero.
+- Two archive sets may still be considered data-equal if this special first-header randomization is the only difference.
+
+Non-first recovery next-file distance integer failures
+
+- `UNP_RHD_001`
+  - Trigger:
+    - `non_first_recovery_next_file_distance > REMAINING_BYTES_IN_UNPACK_JOB`
+  - Result:
+    - fail unpack
+    - log error
+
+- `UNP_RHD_002`
+  - Trigger:
+    - `non_first_recovery_next_file_distance == 0`
+  - Result:
+    - fail unpack
+    - log error
+
+- `UNP_RHD_003`
+  - Trigger:
+    - `non_first_recovery_next_file_distance lands inside of a recovery header`
+  - Meaning:
+    - applying the recovery distance resolves to a byte position that is inside a recovery header region
+  - Result:
+    - fail unpack
+    - log error
+
+- `UNP_RHD_004`
+  - Trigger:
+    - `non_first_recovery_next_file_distance lands inside of an archive header`
+  - Meaning:
+    - applying the recovery distance resolves to a byte position that is inside an archive header region
+  - Result:
+    - fail unpack
+    - log error

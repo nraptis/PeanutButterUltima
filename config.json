@@ -1,0 +1,10 @@
+{
+  "default_source_path": "input",
+  "default_archive_path": "archive",
+  "default_unarchive_path": "unzipped",
+  "default_recovery_path": "folder/archive_0047.jag",
+  
+  "default_archive_size": 1000024,
+  "default_password_1": "banana",
+  "default_password_2": "apple"
+}

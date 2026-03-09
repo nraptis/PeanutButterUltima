@@ -1,0 +1,16 @@
+tree_validation_report_generated.txt
+
+Source = input
+Destination = unzipped
+
+PASS 1: hidden files or folders
+only in source = 0
+only in destination = 0
+content mismatches = 0
+
+PASS 2: non-hidden files or folders
+only in source = 0
+only in destination = 0
+content mismatches = 0
+
+[OK] source and destination trees are byte-for-byte equal.
