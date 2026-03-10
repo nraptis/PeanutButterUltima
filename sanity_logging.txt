@@ -1,0 +1,15 @@
+Sanity job starting...
+Generated /Users/magneto/Desktop/Codex Playground/PeanutButterUltima/tree_validation_report_generated.txt
+Hidden-only source extras: 0
+Hidden-only destination extras: 0
+Hidden byte mismatches: 0
+Hidden empty-directory source extras: 0
+Hidden empty-directory destination extras: 0
+Visible-only source extras: 0
+Visible-only destination extras: 0
+Visible byte mismatches: 0
+Visible empty-directory source extras: 0
+Visible empty-directory destination extras: 0
+Scanned 10 files 2 directories.
+[OK] source and destination trees are byte-for-byte equal.
+Sanity job complete.

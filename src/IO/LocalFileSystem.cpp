@@ -36,6 +36,10 @@ std::string LocalStemName(const std::string& pPath) {
   return aStem.empty() ? "archive" : aStem.generic_string();
 }
 
+std::string LocalExtension(const std::string& pPath) {
+  return std::filesystem::path(pPath).extension().generic_string();
+}
+
 class LocalFileReadStream final : public FileReadStream {
  public:
   explicit LocalFileReadStream(std::string pPath)
@@ -143,6 +147,10 @@ class LocalFileWriteStream final : public FileWriteStream {
 
 }  // namespace
 
+std::string LocalFileSystem::CurrentWorkingDirectory() const {
+  return std::filesystem::current_path().lexically_normal().generic_string();
+}
+
 bool LocalFileSystem::Exists(const std::string& pPath) const {
   return std::filesystem::exists(std::filesystem::path(pPath));
 }
@@ -236,6 +244,26 @@ std::unique_ptr<FileWriteStream> LocalFileSystem::OpenWriteStream(const std::str
   return std::make_unique<LocalFileWriteStream>(pPath);
 }
 
+bool LocalFileSystem::AppendFile(const std::string& pPath, const unsigned char* pContents, std::size_t pLength) {
+  if (pContents == nullptr) {
+    return false;
+  }
+  const std::string aParent = ParentLocalPath(pPath);
+  if (!aParent.empty() && !EnsureDirectory(aParent)) {
+    return false;
+  }
+
+  std::ofstream aOutput(std::filesystem::path(pPath), std::ios::binary | std::ios::app);
+  if (!aOutput.is_open()) {
+    return false;
+  }
+  if (pLength == 0) {
+    return true;
+  }
+  aOutput.write(reinterpret_cast<const char*>(pContents), static_cast<std::streamsize>(pLength));
+  return aOutput.good();
+}
+
 std::string LocalFileSystem::JoinPath(const std::string& pLeft, const std::string& pRight) const {
   return JoinLocalPath(pLeft, pRight);
 }
@@ -250,6 +278,10 @@ std::string LocalFileSystem::FileName(const std::string& pPath) const {
 
 std::string LocalFileSystem::StemName(const std::string& pPath) const {
   return LocalStemName(pPath);
+}
+
+std::string LocalFileSystem::Extension(const std::string& pPath) const {
+  return LocalExtension(pPath);
 }
 
 }  // namespace peanutbutter

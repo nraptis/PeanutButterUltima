@@ -12,35 +12,47 @@ Active grouped codes
 - outside file fence
 - inside recovery header fence
 - inside archive header fence
-- recover flow: outside selected-file fence
+- inside missing archive (gap archive) fence
 
 `UNP_FNL_FENCE`
 - Code name: Path length is invalid.
 - Trigger variants:
-- `path_length == 0`
+- `path_length == 0` where a record path is required and the decode cursor is not interpreted as logical end-of-stream
 - `path_length > MAX_VALID_FILE_PATH_LENGTH`
 - outside file fence
 - inside recovery header fence
 - inside archive header fence
+- inside missing archive (gap archive) fence
 
 `UNP_FDL_FENCE`
 - Code name: File contents length is invalid.
 - Trigger variants:
-- `file_contents_length > MAX_VALID_FILE_CONTENT_LENGTH`
+- declared file contents length crosses the readable logical run
 - outside file fence
 - inside recovery header fence
 - inside archive header fence
+- inside missing archive (gap archive) fence
 
 Other retained codes
 
 `UNP_DEC_001`
 - Trigger: decrypt failure during unpack/recover.
+- Note: current runtime may still surface `UNK_SYS_001` for some decode-path failures; classification cleanup is ongoing.
 
 `UNP_EOF_001`
 - Trigger: dangling archives after logical unpack stop.
 
 `UNP_EOF_002`
 - Trigger: dangling bytes after logical unpack stop.
+
+`UNP_EOF_003`
+- Trigger: unexpected end of archive.
+- Recover-focused trigger variants:
+- decoder reaches a logical end marker while selected payload bytes still remain
+- zero-corrupted file or folder path length causes premature logical end
+- zero-corrupted content length causes decode desync and early logical termination
+- precedence note:
+- when both interpretations are possible, recover should prioritize `UNP_EOF_003` for premature logical end before payload exhaustion
 
 `UNK_SYS_001`
 - Trigger: unknown system failure.

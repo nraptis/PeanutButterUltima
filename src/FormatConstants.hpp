@@ -10,15 +10,20 @@ inline constexpr std::uint32_t MAGIC_HEADER_BYTES = 0xF01DAB1E;
 inline constexpr std::uint32_t MAGIC_FOOTER_BYTES = 0xDECAFBAD;
 inline constexpr std::uint32_t MAJOR_VERSION = 1;
 inline constexpr std::uint32_t MINOR_VERSION = 0;
-inline constexpr std::size_t SB_PLAIN_TEXT_HEADER_LENGTH = 36;
-inline constexpr std::size_t SB_RECOVERY_HEADER_LENGTH = 6;
+inline constexpr std::size_t SB_PLAIN_TEXT_HEADER_LENGTH = 40;
+inline constexpr std::size_t SB_RECOVERY_CHECKSUM_LENGTH = 8;
+inline constexpr std::size_t SB_RECOVERY_STRIDE_LENGTH = 8;
+inline constexpr std::size_t SB_RECOVERY_HEADER_LENGTH =
+    SB_RECOVERY_CHECKSUM_LENGTH + SB_RECOVERY_STRIDE_LENGTH;
 inline constexpr std::size_t EB_MAX_LENGTH = 16;
 
+
+
 #ifdef PEANUT_BUTTER_ULTIMA_TEST_BUILD
-inline constexpr std::size_t SB_PAYLOAD_SIZE = 12;
+inline constexpr std::size_t SB_PAYLOAD_SIZE = 48;  // Fixed test-target payload size.
 #else
 // inline constexpr std::size_t SB_PAYLOAD_SIZE = 12;
-inline constexpr std::size_t SB_PAYLOAD_SIZE = 250170;
+inline constexpr std::size_t SB_PAYLOAD_SIZE = 24;//((1048608 >> 2) - SB_RECOVERY_HEADER_LENGTH);
 #endif
 
 inline constexpr std::size_t SB_L1_LENGTH = SB_PAYLOAD_SIZE + SB_RECOVERY_HEADER_LENGTH;

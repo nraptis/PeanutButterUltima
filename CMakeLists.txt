@@ -25,18 +25,24 @@ target_compile_definitions(
   $<$<CONFIG:MinSizeRel>:PEANUT_BUTTER_ULTIMA_RELEASE_BUILD>
 )
 
-
-
 add_executable(PeanutButterUltimaShell
   main_shell.cpp
+)
+
+add_executable(PeanutButterUltimaGenerateExample
+  main_generate_example.cpp
 )
 
 set(PEANUT_BUTTER_ULTIMA_CORE_SOURCES
   src/Encryption/Crypt.cpp
   src/IO/FileSystem.cpp
   src/IO/LocalFileSystem.cpp
-  src/AppCore_MemoryOwners.cpp
-  src/AppCore_Stackers.cpp
+  src/AppCore_Helpers.cpp
+  src/AppCore_Fences.cpp
+  src/AppCore_Pack.cpp
+  src/AppCore_Unpack.cpp
+  src/AppCore_Recover.cpp
+  src/AppCore_Validate.cpp
   src/AppCore.cpp
 )
 
@@ -51,170 +57,50 @@ target_include_directories(PeanutButterUltima PRIVATE src)
 target_link_libraries(PeanutButterUltima PRIVATE PeanutButterUltimaCore Qt${QT_VERSION_MAJOR}::Widgets)
 target_include_directories(PeanutButterUltimaShell PRIVATE src)
 target_link_libraries(PeanutButterUltimaShell PRIVATE PeanutButterUltimaCore)
+target_include_directories(PeanutButterUltimaGenerateExample PRIVATE src)
+target_link_libraries(PeanutButterUltimaGenerateExample PRIVATE PeanutButterUltimaCore)
 
-add_executable(PeanutButterUltimaTests
-  tests/test_main.cpp
-  testing/mocks/MockHardDrive.cpp
-  testing/mocks/MockFileSystem.cpp
-  src/QtAppController.cpp
+add_executable(PeanutButterUltimaQuickSmoke
+  quick_tests/QuickSmoke.cpp
+)
+target_include_directories(PeanutButterUltimaQuickSmoke PRIVATE src)
+target_link_libraries(PeanutButterUltimaQuickSmoke PRIVATE PeanutButterUltimaCore)
+
+set(PEANUT_BUTTER_ULTIMA_TEST_EXECUTOR_SOURCES
+  tests/common/Test_Utils.cpp
+  tests/common/Test_Wrappers.cpp
+  tests/common/Test_Execute_Bundle.cpp
+  tests/common/Test_Execute_Smoke.cpp
+  tests/common/Test_Execute_FenceRoundTrip.cpp
+  tests/common/Test_Execute_Unbundle.cpp
+  tests/common/Test_Execute_Recover.cpp
+  tests/mocks/MockHardDrive.cpp
+  tests/mocks/MockFileSystem.cpp
 )
 
-target_include_directories(PeanutButterUltimaTests PRIVATE src testing/mocks)
-target_link_libraries(PeanutButterUltimaTests PRIVATE PeanutButterUltimaCoreTest Qt${QT_VERSION_MAJOR}::Widgets)
+add_library(PeanutButterUltimaTestExecutor STATIC ${PEANUT_BUTTER_ULTIMA_TEST_EXECUTOR_SOURCES})
+target_include_directories(PeanutButterUltimaTestExecutor PRIVATE src tests/common tests/mocks)
+target_link_libraries(PeanutButterUltimaTestExecutor PRIVATE PeanutButterUltimaCoreTest)
 
-add_executable(PeanutButterUltimaFormatExampleATest
-  testing/brew/Test_ArchiveFormatExample_A.cpp
-)
+function(peanut_butter_add_test_suite pSuiteName pSuiteLabel pGlobPattern)
+  file(GLOB pSuiteSources CONFIGURE_DEPENDS ${pGlobPattern})
+  foreach(pSuiteSource IN LISTS pSuiteSources)
+    get_filename_component(pSuiteStem "${pSuiteSource}" NAME_WE)
+    string(REGEX REPLACE "[^A-Za-z0-9_]" "_" pSuiteStemSanitized "${pSuiteStem}")
+    set(pSuiteTarget "PeanutButterUltima${pSuiteName}_${pSuiteStemSanitized}")
 
-add_executable(PeanutButterUltimaFormatExampleBTest
-  testing/brew/Test_ArchiveFormatExample_B.cpp
-)
+    add_executable(${pSuiteTarget} ${pSuiteSource})
+    target_include_directories(${pSuiteTarget} PRIVATE src tests/common tests/mocks)
+    target_link_libraries(${pSuiteTarget} PRIVATE PeanutButterUltimaTestExecutor)
 
-add_executable(PeanutButterUltimaFormatExampleAEncryptedTest
-  testing/brew/Test_ArchiveFormatExample_A_Encrypted.cpp
-)
-
-add_executable(PeanutButterUltimaFormatExampleBEncryptedTest
-  testing/brew/Test_ArchiveFormatExample_B_Encrypted.cpp
-)
-
-add_executable(PeanutButterUltimaFormatExampleCEncryptedTest
-  testing/brew/Test_ArchiveFormatExample_C_Encrypted.cpp
-)
-
-add_executable(PeanutButterUltimaRandomSmallRecoveryJobsIterativeTest
-  testing/brew/Test_15_RandomSmallRecoveryJobs_Iterative.cpp
-  testing/mocks/MockHardDrive.cpp
-  testing/mocks/MockFileSystem.cpp
-)
-
-add_executable(PeanutButterUltimaMockHardDriveArchiveFormatExampleTest
-  testing/brew/Test_MockHardDrive_ArchiveFormatExample.cpp
-  testing/mocks/MockHardDrive.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPFNL001Test
-  testing/brew/Test_IntegerFailureCases_UNP_FNL_001.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPFNL002Test
-  testing/brew/Test_IntegerFailureCases_UNP_FNL_002.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPFNL003Test
-  testing/brew/Test_IntegerFailureCases_UNP_FNL_003.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPFDL001Test
-  testing/brew/Test_IntegerFailureCases_UNP_FDL_001.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPRHD001Test
-  testing/brew/Test_IntegerFailureCases_UNP_RHD_001.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPRHD003Test
-  testing/brew/Test_IntegerFailureCases_UNP_RHD_003.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPRHD004Test
-  testing/brew/Test_IntegerFailureCases_UNP_RHD_004.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPEOF001Test
-  testing/brew/Test_IntegerFailureCases_UNP_EOF_001.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesUNPEOF002Test
-  testing/brew/Test_IntegerFailureCases_UNP_EOF_002.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesMNFFNL001Test
-  testing/brew/Test_IntegerFailureCases_MNF_FNL_001.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesMNFFNL002Test
-  testing/brew/Test_IntegerFailureCases_MNF_FNL_002.cpp
-)
-
-add_executable(PeanutButterUltimaIntegerFailureCasesMNFFNL003Test
-  testing/brew/Test_IntegerFailureCases_MNF_FNL_003.cpp
-)
-
-add_library(PeanutButterUltimaTestingCommon STATIC
-  testing/mocks/MockHardDrive.cpp
-  testing/mocks/MockFileSystem.cpp
-  testing/common/Test_IntegerFailureCaseCommon.cpp
-  testing/common/Test_Execute_BundleAndUnbundle.cpp
-  testing/common/Test_RecoveryPlan.cpp
-  testing/common/Test_Utils.cpp
-  testing/common/Test_Wrappers.cpp
-  testing/common/Validate_Archive.cpp
-  testing/common/Validate_ArchiveHeader.cpp
-  testing/common/Validate_File.cpp
-  testing/common/Validate_Manifest.cpp
-  testing/common/Validate_RecoveryHeader.cpp
-)
-
-target_include_directories(PeanutButterUltimaTestingCommon PUBLIC src testing/common testing/mocks)
-target_link_libraries(PeanutButterUltimaTestingCommon PRIVATE PeanutButterUltimaCoreTest)
-target_include_directories(PeanutButterUltimaFormatExampleATest PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaFormatExampleBTest PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaFormatExampleAEncryptedTest PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaFormatExampleBEncryptedTest PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaFormatExampleCEncryptedTest PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaRandomSmallRecoveryJobsIterativeTest PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaMockHardDriveArchiveFormatExampleTest PRIVATE src testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPFNL001Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPFNL002Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPFNL003Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPFDL001Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPRHD001Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPRHD003Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPRHD004Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPEOF001Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesUNPEOF002Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesMNFFNL001Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesMNFFNL002Test PRIVATE src testing/common testing/mocks)
-target_include_directories(PeanutButterUltimaIntegerFailureCasesMNFFNL003Test PRIVATE src testing/common testing/mocks)
-target_link_libraries(PeanutButterUltimaFormatExampleATest PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaFormatExampleBTest PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaFormatExampleAEncryptedTest PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaFormatExampleBEncryptedTest PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaFormatExampleCEncryptedTest PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaRandomSmallRecoveryJobsIterativeTest PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPFNL001Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPFNL002Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPFNL003Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPFDL001Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPRHD001Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPRHD003Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPRHD004Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPEOF001Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesUNPEOF002Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesMNFFNL001Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesMNFFNL002Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_link_libraries(PeanutButterUltimaIntegerFailureCasesMNFFNL003Test PRIVATE PeanutButterUltimaCoreTest PeanutButterUltimaTestingCommon)
-target_compile_definitions(PeanutButterUltimaFormatExampleATest PRIVATE PEANUT_BUTTER_ULTIMA_SOURCE_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\")
+    add_test(NAME ${pSuiteTarget} COMMAND ${pSuiteTarget})
+    set_tests_properties(${pSuiteTarget} PROPERTIES LABELS "${pSuiteLabel}")
+  endforeach()
+endfunction()
 
 enable_testing()
-add_test(NAME PeanutButterUltimaTests COMMAND PeanutButterUltimaTests)
-add_test(NAME PeanutButterUltimaFormatExampleATest COMMAND PeanutButterUltimaFormatExampleATest)
-add_test(NAME PeanutButterUltimaFormatExampleBTest COMMAND PeanutButterUltimaFormatExampleBTest)
-add_test(NAME PeanutButterUltimaFormatExampleAEncryptedTest COMMAND PeanutButterUltimaFormatExampleAEncryptedTest)
-add_test(NAME PeanutButterUltimaFormatExampleBEncryptedTest COMMAND PeanutButterUltimaFormatExampleBEncryptedTest)
-add_test(NAME PeanutButterUltimaFormatExampleCEncryptedTest COMMAND PeanutButterUltimaFormatExampleCEncryptedTest)
-add_test(NAME PeanutButterUltimaRandomSmallRecoveryJobsIterativeTest COMMAND PeanutButterUltimaRandomSmallRecoveryJobsIterativeTest)
-add_test(NAME PeanutButterUltimaMockHardDriveArchiveFormatExampleTest COMMAND PeanutButterUltimaMockHardDriveArchiveFormatExampleTest)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPFNL001Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPFNL001Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPFNL002Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPFNL002Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPFNL003Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPFNL003Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPFDL001Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPFDL001Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPRHD001Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPRHD001Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPRHD003Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPRHD003Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPRHD004Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPRHD004Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPEOF001Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPEOF001Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesUNPEOF002Test COMMAND PeanutButterUltimaIntegerFailureCasesUNPEOF002Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesMNFFNL001Test COMMAND PeanutButterUltimaIntegerFailureCasesMNFFNL001Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesMNFFNL002Test COMMAND PeanutButterUltimaIntegerFailureCasesMNFFNL002Test)
-add_test(NAME PeanutButterUltimaIntegerFailureCasesMNFFNL003Test COMMAND PeanutButterUltimaIntegerFailureCasesMNFFNL003Test)
+add_test(NAME PeanutButterUltimaQuickSmoke COMMAND PeanutButterUltimaQuickSmoke)
+set_tests_properties(PeanutButterUltimaQuickSmoke PROPERTIES LABELS "quick_smoke")
+
+peanut_butter_add_test_suite("Codex" "codex" "${CMAKE_CURRENT_SOURCE_DIR}/tests/codex/*.cpp")
+peanut_butter_add_test_suite("Generated" "generated" "${CMAKE_CURRENT_SOURCE_DIR}/tests/generated/*.cpp")

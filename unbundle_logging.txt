@@ -1,0 +1,8 @@
+Unbundle job starting...
+Discovered 4 files, scanning archive headers.
+Scanned 4 of 4 files...
+Discovery: Missing archive 2
+Discovery: Missing archives 4-6
+Selected archive set start = 0, count = 7.
+Unbundled archive 1 / 7, 1 files written, 6 KiB.
+[error] Unbundle failed: UNP_FDL_FENCE: decoded file content length crossed a fence. [FENCE_OUTSIDE_PAYLOAD_RANGE | FENCE_IN_GAP_ARCHIVE]

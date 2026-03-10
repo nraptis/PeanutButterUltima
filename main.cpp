@@ -1,10 +1,8 @@
 #include <QApplication>
 #include <QComboBox>
-#include <QCoreApplication>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QEvent>
-#include <QFile>
 #include <QFileDialog>
 #include <QFrame>
 #include <QGridLayout>
@@ -34,14 +32,11 @@
 
 #include <array>
 #include <cstdint>
-#include <filesystem>
 
 #include "AppCore.hpp"
 #include "Encryption/RotateMaskBlockCipher.hpp"
 #include "IO/LocalFileSystem.hpp"
 #include "QtAppController.hpp"
-
-namespace fs = std::filesystem;
 
 namespace {
 
@@ -66,12 +61,12 @@ const std::array<ArchiveSizeOption, 8> archive_size_options = {{
     {"400 MB", 400ULL * kMiB},
 }};
 
-fs::path inferredBaseDirectory() {
-  return fs::current_path();
+std::string inferredBaseDirectory(const peanutbutter::FileSystem& pFileSystem) {
+  return pFileSystem.CurrentWorkingDirectory();
 }
 
-fs::path resolveConfigPath() {
-  return inferredBaseDirectory() / "config.json";
+std::string resolveConfigPath(const peanutbutter::FileSystem& pFileSystem) {
+  return pFileSystem.JoinPath(inferredBaseDirectory(pFileSystem), "config.json");
 }
 
 class PathDropFilter final : public QObject {
@@ -81,9 +76,11 @@ class PathDropFilter final : public QObject {
     File,
   };
 
-  PathDropFilter(QLineEdit* pEdit, TargetType pTargetType) : QObject(pEdit),
-                                                             mEdit(pEdit),
-                                                             mTargetType(pTargetType) {}
+  PathDropFilter(const peanutbutter::FileSystem& pFileSystem, QLineEdit* pEdit, TargetType pTargetType)
+      : QObject(pEdit),
+        mFileSystem(pFileSystem),
+        mEdit(pEdit),
+        mTargetType(pTargetType) {}
 
  protected:
   bool eventFilter(QObject* pWatched, QEvent* pEvent) override {
@@ -130,24 +127,24 @@ class PathDropFilter final : public QObject {
     }
 
     const QString aLocalPath = aUrls.front().toLocalFile();
-    const fs::path aPath = fs::path(aLocalPath.toStdString());
     if (mTargetType == TargetType::Folder) {
-      return fs::is_directory(aPath) ? aLocalPath : QString();
+      return mFileSystem.IsDirectory(aLocalPath.toStdString()) ? aLocalPath : QString();
     }
-    return fs::is_regular_file(aPath) ? aLocalPath : QString();
+    return mFileSystem.IsFile(aLocalPath.toStdString()) ? aLocalPath : QString();
   }
 
+  const peanutbutter::FileSystem& mFileSystem;
   QLineEdit* mEdit = nullptr;
   TargetType mTargetType = TargetType::Folder;
 };
 
-QJsonObject loadConfigDefaults() {
-  QFile aConfigFile(QString::fromStdString(resolveConfigPath().string()));
-  if (!aConfigFile.open(QIODevice::ReadOnly)) {
+QJsonObject loadConfigDefaults(const peanutbutter::FileSystem& pFileSystem) {
+  std::string aConfigText;
+  if (!pFileSystem.ReadTextFile(resolveConfigPath(pFileSystem), aConfigText)) {
     return {};
   }
 
-  const QJsonDocument aDocument = QJsonDocument::fromJson(aConfigFile.readAll());
+  const QJsonDocument aDocument = QJsonDocument::fromJson(QByteArray::fromStdString(aConfigText));
   return aDocument.isObject() ? aDocument.object() : QJsonObject{};
 }
 
@@ -452,7 +449,8 @@ int main(int argc, char* argv[]) {
   loading_layout->addWidget(loading_indicator, 0, Qt::AlignHCenter);
   loading_layout->addStretch(1);
 
-  const QJsonObject aConfigDefaults = loadConfigDefaults();
+  peanutbutter::LocalFileSystem aFileSystem;
+  const QJsonObject aConfigDefaults = loadConfigDefaults(aFileSystem);
   source_edit->setText(configStringValue(aConfigDefaults, "default_source_path", "input"));
   archive_edit->setText(configStringValue(aConfigDefaults, "default_archive_path", "archive"));
   unarchive_edit->setText(configStringValue(aConfigDefaults, "default_unarchive_path", "unzipped"));
@@ -479,10 +477,10 @@ int main(int argc, char* argv[]) {
   for (QLineEdit* aEdit : {source_edit, archive_edit, unarchive_edit, recovery_edit}) {
     aEdit->setAcceptDrops(true);
   }
-  source_edit->installEventFilter(new PathDropFilter(source_edit, PathDropFilter::TargetType::Folder));
-  archive_edit->installEventFilter(new PathDropFilter(archive_edit, PathDropFilter::TargetType::Folder));
-  unarchive_edit->installEventFilter(new PathDropFilter(unarchive_edit, PathDropFilter::TargetType::Folder));
-  recovery_edit->installEventFilter(new PathDropFilter(recovery_edit, PathDropFilter::TargetType::File));
+  source_edit->installEventFilter(new PathDropFilter(aFileSystem, source_edit, PathDropFilter::TargetType::Folder));
+  archive_edit->installEventFilter(new PathDropFilter(aFileSystem, archive_edit, PathDropFilter::TargetType::Folder));
+  unarchive_edit->installEventFilter(new PathDropFilter(aFileSystem, unarchive_edit, PathDropFilter::TargetType::Folder));
+  recovery_edit->installEventFilter(new PathDropFilter(aFileSystem, recovery_edit, PathDropFilter::TargetType::File));
 
   auto* content_layout = new QGridLayout(content_widget);
   content_layout->setContentsMargins(0, 0, 0, 0);
@@ -531,20 +529,23 @@ int main(int argc, char* argv[]) {
                         action_buttons_row,
                         action_spinner_row,
                         debug_console);
-  peanutbutter::LocalFileSystem aFileSystem;
   peanutbutter::RotateMaskBlockCipher aCrypt(
       static_cast<std::uint8_t>(kQtRotateMask & 0xFFU),
       kQtRotateShift);
-  peanutbutter::FunctionLogger aLogger([&aShell](const std::string& pMessage, bool pIsError) {
+  peanutbutter::SessionLogger aLogger([&aShell](const std::string& pMessage, bool pIsError) {
     aShell.AppendLog(QString::fromStdString(pIsError ? "[error] " + pMessage : pMessage));
   });
+  aLogger.SetFileSystem(&aFileSystem);
+  const auto beginLogSession = [&](const char* pFileName) {
+    aLogger.BeginSession(aFileSystem.JoinPath(inferredBaseDirectory(aFileSystem), pFileName));
+  };
   peanutbutter::RuntimeSettings aSettings;
   aSettings.mArchiveFileLength =
       archive_size_combo->currentData().value<qulonglong>() > 0
           ? static_cast<std::size_t>(archive_size_combo->currentData().value<qulonglong>())
           : aSettings.mArchiveFileLength;
   peanutbutter::ApplicationCore aCore(aFileSystem, aCrypt, aLogger, aSettings);
-  peanutbutter::QtAppController aEntryPoint(aShell, aCore, &window);
+  peanutbutter::QtAppController aEntryPoint(aShell, aCore, aFileSystem, &window);
 
   QObject::connect(source_clear_button, &QToolButton::clicked, source_edit, &QLineEdit::clear);
   QObject::connect(archive_clear_button, &QToolButton::clicked, archive_edit, &QLineEdit::clear);
@@ -578,6 +579,7 @@ int main(int argc, char* argv[]) {
   });
 
   QObject::connect(pack_button, &QPushButton::clicked, &window, [&]() {
+    beginLogSession("bundle_logging.txt");
     aSettings.mArchiveFileLength = static_cast<std::size_t>(archive_size_combo->currentData().value<qulonglong>());
     aCore.SetSettings(aSettings);
     peanutbutter::BundleRequest aRequest;
@@ -591,6 +593,7 @@ int main(int argc, char* argv[]) {
     aEntryPoint.TriggerBundleFlow(aRequest);
   });
   QObject::connect(unpack_button, &QPushButton::clicked, &window, [&]() {
+    beginLogSession("unbundle_logging.txt");
     aCore.SetSettings(aSettings);
     peanutbutter::UnbundleRequest aRequest;
     aRequest.mArchiveDirectory = archive_edit->text().toStdString();
@@ -601,6 +604,7 @@ int main(int argc, char* argv[]) {
     aEntryPoint.TriggerUnbundleFlow(aRequest);
   });
   QObject::connect(sanity_button, &QPushButton::clicked, &window, [&]() {
+    beginLogSession("sanity_logging.txt");
     aCore.SetSettings(aSettings);
     peanutbutter::ValidateRequest aRequest;
     aRequest.mLeftDirectory = source_edit->text().toStdString();
@@ -608,6 +612,7 @@ int main(int argc, char* argv[]) {
     aEntryPoint.TriggerSanityFlow(aRequest);
   });
   QObject::connect(recover_button, &QPushButton::clicked, &window, [&]() {
+    beginLogSession("recover_logging.txt");
     aCore.SetSettings(aSettings);
     peanutbutter::RecoverRequest aRequest;
     aRequest.mArchiveDirectory = archive_edit->text().toStdString();

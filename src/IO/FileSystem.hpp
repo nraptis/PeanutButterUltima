@@ -21,6 +21,7 @@ struct DirectoryEntry {
 class FileSystem {
  public:
   virtual ~FileSystem() = default;
+  virtual std::string CurrentWorkingDirectory() const = 0;
   virtual bool Exists(const std::string& pPath) const = 0;
   virtual bool IsDirectory(const std::string& pPath) const = 0;
   virtual bool IsFile(const std::string& pPath) const = 0;
@@ -32,13 +33,18 @@ class FileSystem {
   virtual std::vector<DirectoryEntry> ListFiles(const std::string& pRootPath) const = 0;
   virtual std::unique_ptr<FileReadStream> OpenReadStream(const std::string& pPath) const = 0;
   virtual std::unique_ptr<FileWriteStream> OpenWriteStream(const std::string& pPath) = 0;
+  virtual bool AppendFile(const std::string& pPath, const unsigned char* pContents, std::size_t pLength) = 0;
   virtual std::string JoinPath(const std::string& pLeft, const std::string& pRight) const = 0;
   virtual std::string ParentPath(const std::string& pPath) const = 0;
   virtual std::string FileName(const std::string& pPath) const = 0;
   virtual std::string StemName(const std::string& pPath) const = 0;
+  virtual std::string Extension(const std::string& pPath) const = 0;
   bool ReadFile(const std::string& pPath, ByteVector& pContents) const;
+  bool ReadTextFile(const std::string& pPath, std::string& pContents) const;
   bool WriteFile(const std::string& pPath, const ByteVector& pContents);
   bool WriteFile(const std::string& pPath, const unsigned char* pContents, std::size_t pLength);
+  bool WriteTextFile(const std::string& pPath, const std::string& pContents);
+  bool AppendTextFile(const std::string& pPath, const std::string& pContents);
 };
 
 }  // namespace peanutbutter

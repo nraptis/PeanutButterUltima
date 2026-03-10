@@ -1,0 +1,223 @@
+Fence Test Case Flow
+
+Purpose
+- Define the planned mutation-driven fence test flow.
+- Keep the test surface simple enough that a generator can emit standalone C++ cases.
+- Do not depend on the old test suite shape. The old generators are considered outdated.
+
+Core idea
+- Start from a known input file tree.
+- Produce a valid archive set.
+- Optionally prove the archive set is healthy before mutation.
+- Apply byte mutations and archive-set mutations.
+- Run unbundle or recover.
+- Triage the returned fence result.
+
+Planned input model
+
+`file_tree`
+- Logical input files for the seed bundle.
+- Example:
+  - `"input/a.txt": "contents of a"`
+  - `"input/b.txt": "contents of b"`
+
+`data_mutation`
+- Direct byte edits against archive payload bytes.
+- Fields:
+  - `archive_index`
+  - `byte_offset`
+  - `bytes`
+- Example:
+  - `archive_index=4`
+  - `byte_offset=76`
+  - `bytes=[0, 16, 16, 24]`
+
+`archive_mutation`
+- Structural archive-set mutations.
+- Fields:
+  - `create_archive_indices`
+  - `remove_archive_indices`
+- Example:
+  - `create_archive_indices = [18, 19, 20]`
+  - `remove_archive_indices = [2]`
+
+`expected_error_flags`
+- Expected fence bitmask membership.
+- Example:
+  - `kFenceInGapArchive`
+- The test only needs to prove the expected flag is present.
+- Exact full-bitmask equality is not required unless the case explicitly demands it.
+
+`expected_error_codes`
+- Expected grouped/integrity code membership.
+- Examples:
+  - `UNP_FNL_FENCE`
+  - `UNP_FDL_FENCE`
+  - `UNP_RHD_FENCE`
+  - `UNP_EOF_003`
+- EOF/integrity scenarios should assert expected code membership even when fence-bit assertions are not applicable.
+
+Execution contract
+
+`execute_unbundle_fence_test_with_mutations(...)`
+- Planned behavior:
+  1. Materialize `file_tree` on disk.
+  2. Bundle the source tree.
+  3. If `round_trip == true`:
+     - unbundle the fresh bundle
+     - validate source vs unbundled output
+     - bundle again from the validated source
+     - use this clean second-generation archive set as the mutation target
+  4. Apply `archive_mutation`.
+  5. Apply `data_mutation`.
+  6. Run unbundle on the mutated archive set.
+  7. Triage the returned error object.
+  8. Fail if no error was produced.
+  9. Fail if the expected fence flag is absent.
+  10. Otherwise pass.
+
+`execute_recover_fence_test_with_mutations(...)`
+- Planned behavior:
+  1. Follow the same setup and mutation flow.
+  2. Run recover on the mutated archive set.
+  3. Triage the returned error/result object.
+  4. For pure recover-success cases:
+     - recover may complete
+     - expected flags may still be present in the recover trace or captured error state
+  5. For recover-failure cases:
+     - fail if no error was produced
+     - fail if the expected fence flag is absent
+
+Round-trip mode
+- `round_trip=true` means the test first proves the non-mutated pipeline is healthy.
+- Intended sequence:
+  1. bundle
+  2. unbundle
+  3. validate
+  4. bundle again
+  5. mutate
+  6. run target job
+  7. triage
+- This reduces false positives caused by bad seed data or bad setup.
+
+Minimal triage rule
+- Intended shape:
+
+```cpp
+error* err = 0;
+execute_unbundle_fence_test_with_mutations(file_tree,
+                                           data_mutation,
+                                           archive_mutation,
+                                           true,
+                                           &err);
+
+if (err == 0) {
+  // fail: expected a fence result
+}
+
+if (err->contains(expected_error_flag) == false) {
+  // fail: wrong fence classification
+}
+
+// pass
+```
+
+What the error object must provide
+- A stable way to test fence-bit membership.
+- A grouped fence code if available:
+  - `UNP_RHD_FENCE`
+  - `UNP_FNL_FENCE`
+  - `UNP_FDL_FENCE`
+- EOF/integrity code support:
+  - `UNP_EOF_001`
+  - `UNP_EOF_002`
+  - `UNP_EOF_003`
+- Optional message text for readable diagnostics.
+- Optional raw bitmask for exact-match cases.
+
+Recommended generated C++ structure
+- One generated case per file.
+- Sections:
+  1. seed input tree
+  2. mutation declarations
+  3. expected flags / grouped code
+  4. invocation
+  5. triage
+- Keep generated tests flat and explicit.
+- Avoid hidden helper layers inside generated output.
+
+Generator plan
+- `test_case_gen_engine.py`
+  - owns case definitions and expansion rules
+  - emits a readable form and a C++ form
+- `test_case_gen_executor_cpp.py`
+  - emits standalone C++ test sources from the case description
+- `test_case_gen_executor_readable.py`
+  - emits a human-readable case summary for audit/review
+
+Planned mutation categories
+- Path-length fence cases
+  - zero length
+  - length > `MAX_VALID_FILE_PATH_LENGTH`
+  - length crosses into recovery header
+  - length crosses into archive header
+  - length crosses into gap archive
+- Recovery-distance fence cases
+  - target outside payload
+  - target in recovery header
+  - target in archive header
+  - target in gap archive
+- File-content-length fence cases
+  - length crosses readable logical run
+  - length lands in recovery header
+  - length lands in archive header
+  - length lands in gap archive
+
+Zero-length corruption plan (high priority)
+- Problem statement:
+  - A corrupted length field can become `0`.
+  - For file/folder path lengths, `0` is also the end-of-stream marker value.
+  - This can cause an early logical stop before the selected payload range is actually exhausted.
+- Required recover behavior:
+  - Recover must treat "logical stop before payload exhaustion" as an error condition.
+  - Recover must continue the walk (all remaining L1 blocks in all remaining archives), not stop the job.
+  - Classification target: `UNP_EOF_003` (unexpected end of archive).
+
+Planned zero-length scenarios
+- `FileName_Zero_MidPayload`
+  - Mutation: set a non-terminal file record `path_length` to `0`.
+  - Expected recover result:
+    - detect early logical end while bytes remain in selected payload
+    - include `UNP_EOF_003`
+    - continue walk-ahead scan through remaining archives/L1 blocks
+- `FolderName_Zero_MidPayload`
+  - Mutation: set a non-terminal folder record `path_length` to `0`.
+  - Expected recover result:
+    - detect early logical end while bytes remain in selected payload
+    - include `UNP_EOF_003`
+    - continue walk-ahead scan through remaining archives/L1 blocks
+- `FileContentLength_Zero_Desync`
+  - Mutation: set a non-terminal file record `content_length` to `0`.
+  - Expected recover result:
+    - parser drifts or logically stops before selected payload exhaustion
+    - include `UNP_EOF_003` when early logical termination is detected
+    - continue walk-ahead scan through remaining archives/L1 blocks
+
+Triage additions for zero-length cases
+- For recover tests:
+  - assert expected fence/error includes `UNP_EOF_003`
+  - assert recover job does not terminate immediately on first detection
+  - assert scanning progresses to end-of-selected archive range
+- For unbundle tests:
+  - keep fail-fast behavior
+  - stop job on first decode failure (do not grind through remaining payload)
+
+Design notes
+- The test generator should prefer small file trees unless archive-count behavior requires larger ones.
+- Fence tests should bias toward deterministic byte offsets and deterministic archive indices.
+- Archive mutations and byte mutations should be independently composable.
+- The test should verify flag presence first. Message text is secondary.
+
+Non-goal
+- Rebuilding the old test system exactly as it was.
+- The goal is a smaller, mutation-driven fence test surface that can be generated reliably.

@@ -15,7 +15,7 @@ constexpr int kShellRotateShift = 3;
 void PrintUsage() {
   std::cerr
       << "Usage:\n"
-      << "  PeanutButterUltimaShell bundle <source_dir> <archive_dir> <prefix> <suffix> <archive_size>\n"
+      << "  PeanutButterUltimaShell bundle <source_dir> <archive_dir> <prefix> <suffix> <archive_blocks>\n"
       << "  PeanutButterUltimaShell unbundle <archive_dir> <output_dir>\n"
       << "  PeanutButterUltimaShell recover <archive_dir> <recovery_start_file> <output_dir>\n"
       << "  PeanutButterUltimaShell sanity <left_dir> <right_dir>\n";
@@ -43,7 +43,6 @@ int RunBundle(LocalFileSystem& pFileSystem,
   }
 
   RuntimeSettings aSettings;
-  aSettings.mArchiveFileLength = static_cast<std::size_t>(std::stoull(argv[6]));
   ApplicationCore aCore(pFileSystem, pCrypt, pLogger, aSettings);
 
   BundleRequest aRequest;
@@ -51,6 +50,7 @@ int RunBundle(LocalFileSystem& pFileSystem,
   aRequest.mDestinationDirectory = argv[3];
   aRequest.mArchivePrefix = argv[4];
   aRequest.mArchiveSuffix = argv[5];
+  aRequest.mArchiveBlockCount = static_cast<std::size_t>(std::stoull(argv[6]));
   aRequest.mUseEncryption = true;
 
   const OperationResult aResult = aCore.RunBundle(aRequest, DestinationAction::Clear);

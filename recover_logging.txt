@@ -1,0 +1,24 @@
+Recover job starting...
+Discovered 4 files, scanning archive headers.
+Scanned 4 of 4 files...
+Selected archive file = bundle_input_1.PBTR.
+Discovery: Missing archive 2
+Discovery: Missing archives 4-6
+Selected archive set start = 0, count = 7.
+Recover start probe located a candidate record boundary at archive offset 0, byte 16 B; recovery walk will still process the full selected archive range.
+Recovered archive 1 / 7, 1 files written, 6 KiB.
+Recover: abandoned record 008663856_Bell tree.wav before completion.
+Recover walk-ahead starting after UNP_FDL_FENCE: decoded file content length crossed a fence. [FENCE_OUTSIDE_PAYLOAD_RANGE | FENCE_IN_GAP_ARCHIVE]
+Recover walk-ahead resynced at bundle_input_4.PBTR +396 KiB after scanning 1 MiB.
+Recovered archive 2 / 7, 3 files written, 1 MiB.
+Recovered archive 3 / 7, 3 files written, 1 MiB.
+Recover walk-ahead starting after UNP_EOF_003: unexpected end of archive (zero-length path marker before payload exhaustion).
+Recover walk-ahead reached the end of the archive set after scanning 3 MiB.
+Recovered archive 4 / 7, 4 files written, 1 MiB.
+Recovered archive 5 / 7, 4 files written, 1 MiB.
+Recovered archive 6 / 7, 4 files written, 1 MiB.
+Recovered archive 7 / 7, 4 files written, 1 MiB.
+Recover: skipped 4 MiB while resynchronizing damaged payload.
+Successfully unpacked 1 empty directories.
+Recovered archive 7 / 7, 4 files written, 1 MiB / 1 MiB.
+Recover job complete.

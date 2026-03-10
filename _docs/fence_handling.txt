@@ -1,0 +1,62 @@
+Fence Handling
+
+Purpose
+- Centralize unpack/recover fence decisions behind one bitmask model.
+- Prefer fast function exit and specific grouped error codes over deep speculative parsing.
+
+Grouped Codes
+- `UNP_RHD_FENCE`: recovery-header distance is invalid.
+- `UNP_FNL_FENCE`: path-length field is invalid.
+- `UNP_FDL_FENCE`: file-content-length field is invalid.
+
+Important correction
+- There is no standalone `MAX_VALID_FILE_CONTENT_LENGTH`.
+- A valid archive may contain one file that spans the entire readable archive set.
+- File-content length `0` is valid.
+- Path lengths still use `MAX_VALID_FILE_PATH_LENGTH`.
+
+Two layers of evaluation
+- Real validity:
+  - path/content lengths are valid if they fit inside the current readable logical run.
+  - the readable logical run stops at the next missing archive gap or the end of the archive set.
+  - valid spans may cross normal recovery-header boundaries and normal archive boundaries.
+- Fence description:
+  - when a length or recovery distance is invalid, the failure is annotated with bitmask flags.
+  - those flags describe the notional physical fence class for the failure target.
+  - this is descriptive metadata for diagnostics and future testing.
+
+Bitmask flags
+- `FENCE_OUTSIDE_PAYLOAD_RANGE`
+- `FENCE_IN_RECOVERY_HEADER`
+- `FENCE_IN_ARCHIVE_HEADER`
+- `FENCE_IN_GAP_ARCHIVE`
+- `FENCE_PATH_LENGTH_ZERO`
+- `FENCE_PATH_LENGTH_EXCEEDS_MAX`
+
+Hypothetical header semantics
+- `FENCE_IN_RECOVERY_HEADER` is evaluated against the notional L1 layout even if the target is already past the physical payload length.
+- `FENCE_IN_ARCHIVE_HEADER` is evaluated against the notional archive-file layout even if the target is already past the physical payload length.
+- This allows combinations like:
+  - `FENCE_OUTSIDE_PAYLOAD_RANGE | FENCE_IN_RECOVERY_HEADER`
+  - `FENCE_OUTSIDE_PAYLOAD_RANGE | FENCE_IN_ARCHIVE_HEADER`
+
+Current runtime rules
+- `UNP_RHD_FENCE`
+  - used when a recovery-header distance points outside the selected archive payload, into a header fence, or into a gap archive.
+- `UNP_FNL_FENCE`
+  - used when a path length is zero where a record path is required and the cursor is not treated as logical end-of-stream.
+  - used when a path length exceeds `MAX_VALID_FILE_PATH_LENGTH`.
+  - used when the declared path span crosses the readable logical run and lands in a descriptive fence class.
+- `UNP_FDL_FENCE`
+  - used when the declared file-content span crosses the readable logical run and lands in a descriptive fence class.
+  - zero content length is allowed.
+
+Unexpected-end precedence
+- In recover mode, if decode reaches logical end (`path_length == 0`) before selected payload exhaustion, classify as `UNP_EOF_003`.
+- This condition is integrity-first EOF handling, not a pure `UNP_FNL_FENCE`.
+- Recover still continues the walk after classification.
+
+Design goal
+- Build the archive fence domain once per decode job.
+- Use O(1) local cursor math for most decisions.
+- Accept O(log N) archive lookup for notional absolute-target classification when needed for flags.

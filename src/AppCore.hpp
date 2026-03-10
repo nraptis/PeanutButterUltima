@@ -1,10 +1,9 @@
 #ifndef PEANUT_BUTTER_ULTIMA_APP_CORE_HPP_
 #define PEANUT_BUTTER_ULTIMA_APP_CORE_HPP_
 
-#include <array>
 #include <cstddef>
-#include <cstdint>
 #include <functional>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -13,14 +12,6 @@
 #include "IO/FileSystem.hpp"
 
 namespace peanutbutter {
-
-inline constexpr std::size_t kArchiveHeaderLength = peanutbutter::SB_PLAIN_TEXT_HEADER_LENGTH;
-inline constexpr std::uint32_t kMagicHeaderBytes = peanutbutter::MAGIC_HEADER_BYTES;
-inline constexpr std::uint32_t kMagicFooterBytes = peanutbutter::MAGIC_FOOTER_BYTES;
-inline constexpr std::uint32_t kMajorVersion = peanutbutter::MAJOR_VERSION;
-inline constexpr std::uint32_t kMinorVersion = peanutbutter::MINOR_VERSION;
-inline constexpr std::size_t kPackAndUnpackLogThrottleBlockSize = 100;
-inline constexpr std::size_t kPackAndUnpackLogThrottleIgnoreLast = 10;
 
 class Logger {
  public:
@@ -53,6 +44,26 @@ class CapturingLogger final : public Logger {
   std::vector<std::string> mErrorMessages;
 };
 
+class SessionLogger final : public Logger {
+ public:
+  explicit SessionLogger(std::function<void(const std::string&, bool)> pSink = {});
+
+  void SetFileSystem(FileSystem* pFileSystem);
+  void BeginSession(const std::string& pFilePath);
+  void EndSession();
+
+  void LogStatus(const std::string& pMessage) override;
+  void LogError(const std::string& pMessage) override;
+
+ private:
+  void LogLine(const std::string& pMessage, bool pIsError);
+
+  FileSystem* mFileSystem = nullptr;
+  std::function<void(const std::string&, bool)> mSink;
+  std::string mFilePath;
+  std::mutex mMutex;
+};
+
 enum class DestinationAction {
   Cancel,
   Merge,
@@ -77,51 +88,10 @@ struct OperationResult {
   std::string mMessage;
 };
 
-enum class UnpackIntegerFailure {
-  kNone = 0,
-  kFileNameLengthGreaterThanMaxValidFilePathLength = 1,
-  kFileNameLengthGreaterThanRemainingBytesInUnpackJob = 2,
-  kFileNameLengthIsZero = 3,
-  kFileNameLengthLandsInsideRecoveryHeader = 4,
-  kFileNameLengthLandsInsideArchiveHeader = 5,
-  kFileDataLengthGreaterThanRemainingBytesInUnpackJob = 6,
-  kFileDataLengthLandsInsideRecoveryHeader = 7,
-  kFileDataLengthLandsInsideArchiveHeader = 8,
-  kNonFirstRecoveryNextFileDistanceGreaterThanRemainingBytesInUnpackJob = 10,
-  kNonFirstRecoveryNextFileDistanceIsZero = 11,
-  kNonFirstRecoveryNextFileDistanceLandsInsideRecoveryHeader = 12,
-  kNonFirstRecoveryNextFileDistanceLandsInsideArchiveHeader = 13,
-  kRecoverySpecialFlowDistanceLandsOutsideSelectedArchive = 14,
-  kManifestFolderLengthIsZero = 15,
-  kManifestFolderLengthGreaterThanRemainingBytesInUnpackJob = 16,
-  kManifestFolderLengthGreaterThanMaxValidFilePathLength = 17,
-  kDanglingArchives = 18,
-  kDanglingBytes = 19,
-  kUnknown = 1000,
-};
-
-struct UnpackFailureInfo {
-  UnpackIntegerFailure mCode = UnpackIntegerFailure::kNone;
-  std::string mMessage;
-};
-
-struct ArchiveHeader {
-  bool mRecoveryEnabled = false;
-  std::uint64_t mSequence = 0;
-  std::array<unsigned char, 8> mArchiveIdentifier{};
-};
-
-struct ArchiveHeaderRecord {
-  std::string mPath;
-  std::string mName;
-  ArchiveHeader mHeader;
-  std::size_t mPayloadLength = 0;
-};
-
 struct RuntimeSettings {
   std::size_t mArchiveFileLength = peanutbutter::SB_PLAIN_TEXT_HEADER_LENGTH + (peanutbutter::SB_L3_LENGTH * 3);
-  std::size_t mLogThrottleBlockSize = kPackAndUnpackLogThrottleBlockSize;
-  std::size_t mLogThrottleIgnoreLast = kPackAndUnpackLogThrottleIgnoreLast;
+  std::size_t mLogThrottleBlockSize = 100;
+  std::size_t mLogThrottleIgnoreLast = 10;
 };
 
 struct BundleRequest {
@@ -131,6 +101,7 @@ struct BundleRequest {
   std::string mArchiveSuffix;
   std::string mPasswordOne;
   std::string mPasswordTwo;
+  std::size_t mArchiveBlockCount = 3;
   bool mUseEncryption = false;
 };
 

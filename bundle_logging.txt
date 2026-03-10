@@ -1,0 +1,7 @@
+Bundle job starting...
+Found 10 files and 1 empty folders to bundle.
+Bundled archive 1 / 4, 1 files written, 6 KiB / 3 MiB.
+Bundled archive 2 / 4, 3 files written, 1 MiB / 3 MiB.
+Bundled archive 3 / 4, 8 files written, 2 MiB / 3 MiB.
+Bundled archive 4 / 4, 10 files written, 3 MiB / 3 MiB.
+Bundle job complete.

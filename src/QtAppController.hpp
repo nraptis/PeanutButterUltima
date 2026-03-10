@@ -18,7 +18,7 @@ class AppShell {
 
 class QtAppController final : public QObject {
  public:
-  QtAppController(AppShell& pShell, ApplicationCore& pCore, QObject* pParent = nullptr);
+  QtAppController(AppShell& pShell, ApplicationCore& pCore, const FileSystem& pFileSystem, QObject* pParent = nullptr);
 
   void TriggerBundleFlow(const BundleRequest& pRequest);
   void TriggerUnbundleFlow(const UnbundleRequest& pRequest);
@@ -41,6 +41,7 @@ class QtAppController final : public QObject {
  private:
   AppShell& mShell;
   ApplicationCore& mCore;
+  const FileSystem& mFileSystem;
   bool mBusy = false;
 };
 

@@ -1,0 +1,31 @@
+run_brew_tests_detailed_logs.txt
+generated_at: 2026-03-10 04:50:19 EDT
+summary: 25 passed, 0 failed, 25 total (100% passed)
+
+No failed tests.
+
+QuickSmoke.cpp PASSED!
+Test_Fences_FileContent_InRecoveryHeader_RoundTrip.cpp PASSED!
+Test_Fences_FileName_Zero_Recover_Tdd.cpp PASSED!
+Test_Fences_EndOfFile_TrailingArchives.cpp PASSED!
+Test_Fences_EndOfFile_TrailingGarbage.cpp PASSED!
+Test_Fences_FileContent_InArchiveHeader.cpp PASSED!
+Test_Fences_FileContent_InRecoveryHeader.cpp PASSED!
+Test_Fences_FileContent_MissingArchive.cpp PASSED!
+Test_Fences_FileContent_Outlying.cpp PASSED!
+Test_Fences_FileContent_Zero_Desync.cpp PASSED!
+Test_Fences_FileName_InArchiveHeader.cpp PASSED!
+Test_Fences_FileName_InRecoveryHeader.cpp PASSED!
+Test_Fences_FileName_MissingArchive.cpp PASSED!
+Test_Fences_FileName_Outlying.cpp PASSED!
+Test_Fences_FileName_Zero_MidPayload.cpp PASSED!
+Test_Fences_FolderName_InArchiveHeader.cpp PASSED!
+Test_Fences_FolderName_InRecoveryHeader.cpp PASSED!
+Test_Fences_FolderName_MissingArchive.cpp PASSED!
+Test_Fences_FolderName_Outlying.cpp PASSED!
+Test_Fences_FolderName_Zero_MidPayload.cpp PASSED!
+Test_Fences_RecoveryStride_InArchiveHeader.cpp PASSED!
+Test_Fences_RecoveryStride_InRecoveryHeader.cpp PASSED!
+Test_Fences_RecoveryStride_MissingArchive.cpp PASSED!
+Test_Fences_RecoveryStride_Outlying.cpp PASSED!
+Test_Fences_RecoveryStride_Zero.cpp PASSED!

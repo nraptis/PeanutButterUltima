@@ -4,7 +4,6 @@
 #include <QMetaObject>
 #include <QPointer>
 #include <QTimer>
-#include <filesystem>
 #include <string_view>
 #include <thread>
 
@@ -28,71 +27,57 @@ bool HasPathSeparator(const std::string_view pPath) {
   return pPath.find('/') != std::string::npos || pPath.find('\\') != std::string::npos;
 }
 
-std::filesystem::path ResolveRuleBasePath() {
+std::string ResolveRuleBasePath(const FileSystem& pFileSystem) {
   if (!BuildInReleaseMode()) {
-    return std::filesystem::current_path();
+    return pFileSystem.CurrentWorkingDirectory();
   }
 
-  const std::filesystem::path aAppDir(QCoreApplication::applicationDirPath().toStdString());
-  const std::filesystem::path aContentsDir = aAppDir.parent_path();
-  const std::filesystem::path aBundlePath = aContentsDir.parent_path();
-  if (aAppDir.filename() == "MacOS" &&
-      aContentsDir.filename() == "Contents" &&
-      aBundlePath.extension() == ".app") {
+  const std::string aAppDir = QCoreApplication::applicationDirPath().toStdString();
+  const std::string aContentsDir = pFileSystem.ParentPath(aAppDir);
+  const std::string aBundlePath = pFileSystem.ParentPath(aContentsDir);
+  if (pFileSystem.FileName(aAppDir) == "MacOS" &&
+      pFileSystem.FileName(aContentsDir) == "Contents" &&
+      pFileSystem.Extension(aBundlePath) == ".app") {
     // In a macOS app bundle, resolve simple path tokens next to the .app package.
-    return aBundlePath.parent_path();
+    return pFileSystem.ParentPath(aBundlePath);
   }
   return aAppDir;
 }
 
-std::string ResolvePathToken(const std::string_view pPath) {
+std::string ResolvePathToken(const FileSystem& pFileSystem, const std::string_view pPath) {
   if (pPath.empty() || HasPathSeparator(pPath)) {
     return std::string(pPath);
   }
 
-  const std::filesystem::path aBase = ResolveRuleBasePath();
-  return (aBase / pPath).string();
+  return pFileSystem.JoinPath(ResolveRuleBasePath(pFileSystem), std::string(pPath));
 }
 
-std::string ResolveRecoveryFilePath(const std::string_view pPath) {
-  if (pPath.empty() || HasPathSeparator(pPath)) {
-    return std::string(pPath);
-  }
-
-  const std::filesystem::path aCandidate = ResolveRuleBasePath() / pPath;
-  std::error_code aError;
-  if (std::filesystem::is_regular_file(aCandidate, aError) && !aError) {
-    return aCandidate.string();
-  }
-  return std::string(pPath);
-}
-
-BundleRequest ResolveRequestPaths(const BundleRequest& pRequest) {
+BundleRequest ResolveRequestPaths(const FileSystem& pFileSystem, const BundleRequest& pRequest) {
   BundleRequest aRequest = pRequest;
-  aRequest.mSourceDirectory = ResolvePathToken(aRequest.mSourceDirectory);
-  aRequest.mDestinationDirectory = ResolvePathToken(aRequest.mDestinationDirectory);
+  aRequest.mSourceDirectory = ResolvePathToken(pFileSystem, aRequest.mSourceDirectory);
+  aRequest.mDestinationDirectory = ResolvePathToken(pFileSystem, aRequest.mDestinationDirectory);
   return aRequest;
 }
 
-UnbundleRequest ResolveRequestPaths(const UnbundleRequest& pRequest) {
+UnbundleRequest ResolveRequestPaths(const FileSystem& pFileSystem, const UnbundleRequest& pRequest) {
   UnbundleRequest aRequest = pRequest;
-  aRequest.mArchiveDirectory = ResolvePathToken(aRequest.mArchiveDirectory);
-  aRequest.mDestinationDirectory = ResolvePathToken(aRequest.mDestinationDirectory);
+  aRequest.mArchiveDirectory = ResolvePathToken(pFileSystem, aRequest.mArchiveDirectory);
+  aRequest.mDestinationDirectory = ResolvePathToken(pFileSystem, aRequest.mDestinationDirectory);
   return aRequest;
 }
 
-RecoverRequest ResolveRequestPaths(const RecoverRequest& pRequest) {
+RecoverRequest ResolveRequestPaths(const FileSystem& pFileSystem, const RecoverRequest& pRequest) {
   RecoverRequest aRequest = pRequest;
-  aRequest.mArchiveDirectory = ResolvePathToken(aRequest.mArchiveDirectory);
-  aRequest.mRecoveryStartFilePath = ResolveRecoveryFilePath(aRequest.mRecoveryStartFilePath);
-  aRequest.mDestinationDirectory = ResolvePathToken(aRequest.mDestinationDirectory);
+  aRequest.mArchiveDirectory = ResolvePathToken(pFileSystem, aRequest.mArchiveDirectory);
+  aRequest.mRecoveryStartFilePath = ResolvePathToken(pFileSystem, aRequest.mRecoveryStartFilePath);
+  aRequest.mDestinationDirectory = ResolvePathToken(pFileSystem, aRequest.mDestinationDirectory);
   return aRequest;
 }
 
-ValidateRequest ResolveRequestPaths(const ValidateRequest& pRequest) {
+ValidateRequest ResolveRequestPaths(const FileSystem& pFileSystem, const ValidateRequest& pRequest) {
   ValidateRequest aRequest = pRequest;
-  aRequest.mLeftDirectory = ResolvePathToken(aRequest.mLeftDirectory);
-  aRequest.mRightDirectory = ResolvePathToken(aRequest.mRightDirectory);
+  aRequest.mLeftDirectory = ResolvePathToken(pFileSystem, aRequest.mLeftDirectory);
+  aRequest.mRightDirectory = ResolvePathToken(pFileSystem, aRequest.mRightDirectory);
   return aRequest;
 }
 
@@ -108,10 +93,11 @@ DestinationAction ResolveDestinationAction(AppShell& pShell,
 
 }  // namespace
 
-QtAppController::QtAppController(AppShell& pShell, ApplicationCore& pCore, QObject* pParent)
+QtAppController::QtAppController(AppShell& pShell, ApplicationCore& pCore, const FileSystem& pFileSystem, QObject* pParent)
     : QObject(pParent),
       mShell(pShell),
-      mCore(pCore) {}
+      mCore(pCore),
+      mFileSystem(pFileSystem) {}
 
 bool QtAppController::IsBusy() const {
   return mBusy;
@@ -152,7 +138,7 @@ void QtAppController::TriggerFileFlow(const std::string& pOperationName,
                                      tCheck pCheck,
                                      tRun pRun,
                                      tDestinationAccessor pDestinationAccessor) {
-  const tRequest aResolvedRequest = ResolveRequestPaths(pRequest);
+  const tRequest aResolvedRequest = ResolveRequestPaths(mFileSystem, pRequest);
   if (mBusy) {
     return;
   }
@@ -189,7 +175,7 @@ void QtAppController::TriggerUnbundleFlow(const UnbundleRequest& pRequest) {
 }
 
 void QtAppController::TriggerSanityFlow(const ValidateRequest& pRequest) {
-  const ValidateRequest aResolvedRequest = ResolveRequestPaths(pRequest);
+  const ValidateRequest aResolvedRequest = ResolveRequestPaths(mFileSystem, pRequest);
   if (mBusy) {
     return;
   }
