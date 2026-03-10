@@ -21,6 +21,7 @@ struct GeneratedFenceCase {
   std::string mFieldKind;
   std::string mExpectedErrorCode;
   std::string mExpectedFenceFlag;
+  std::vector<std::string> mForbiddenFenceFlags;
   std::size_t mArchiveBlockCount = 1;
   std::vector<TestSeedFile> mInputFiles;
   std::vector<std::string> mInputEmptyDirs;
@@ -40,18 +41,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"Z.md", "jfxerNTftGeXbHno"},
-      {"wLA/pMQ/G.cfg", "sG"}
+      {"U.md", "ghrhg"}
     },
       {},
       {
-      {"Z.md", "jfxerNTftGeXbHno"},
-      {"wLA/pMQ/G.cfg", "sG"}
+      {"U.md", "ghrhg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(84u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -63,22 +63,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"NaM/z/z.bin", "ZyJFuIGuzmPyA"},
-      {"hz/yg/l.cfg", "fhGUZfDti"},
-      {"s.dat", "JZ"},
-      {"sXF/pXTh/X.bin", "puQDusFVQxFupp"}
+      {"JEHG/HsZ/B.bin", "hxtErS"},
+      {"w.txt", "xyLpezZp"}
     },
       {},
       {
-      {"NaM/z/z.bin", "ZyJFuIGuzmPyA"},
-      {"hz/yg/l.cfg", "fhGUZfDti"},
-      {"s.dat", "JZ"},
-      {"sXF/pXTh/X.bin", "puQDusFVQxFupp"}
+      {"JEHG/HsZ/B.bin", "hxtErS"},
+      {"w.txt", "xyLpezZp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(147u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -90,26 +87,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"Ap/G/m.cfg", "M"},
-      {"E.cfg", "PDoO"},
-      {"I.md", "ZmHPllNp"},
-      {"K.txt", "qtyqeNj"},
-      {"a/NwLx/k.txt", "LuqReiGW"},
-      {"bJLa/ocfq/Q.cfg", "qjTBXOXgnHXLhFC"}
+      {"U/d.txt", "QNsidU"},
+      {"bfKq/o.txt", "ZCwAAXyos"}
     },
       {},
       {
-      {"Ap/G/m.cfg", "M"},
-      {"E.cfg", "PDoO"},
-      {"I.md", "ZmHPllNp"},
-      {"K.txt", "qtyqeNj"},
-      {"a/NwLx/k.txt", "LuqReiGW"},
-      {"bJLa/ocfq/Q.cfg", "qjTBXOXgnHXLhFC"}
+      {"U/d.txt", "QNsidU"},
+      {"bfKq/o.txt", "ZCwAAXyos"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(192u),
+      static_cast<std::size_t>(93u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -121,26 +111,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"G.dat", "JNk"},
-      {"QoJ/P.cfg", "TV"},
-      {"UDpl/b.cfg", "G"},
-      {"jcof/V.cfg", "nvtcwHFKeNeRNz"},
-      {"s.dat", "tgWMUV"},
-      {"x/Y.dat", "exGgbSGAar"}
+      {"QaOH/S/z.bin", "lnTxDdlSw"},
+      {"YC/bTOL/S.bin", "DiXUgvRjBCYzPz"},
+      {"i.bin", "eWlepnIsHgFgUi"},
+      {"q.bin", "iWb"},
+      {"qhBU/RVl/z.cfg", "cp"},
+      {"yzeG/c.bin", "pqwTKzQCgdzWk"}
     },
       {},
       {
-      {"G.dat", "JNk"},
-      {"QoJ/P.cfg", "TV"},
-      {"UDpl/b.cfg", "G"},
-      {"jcof/V.cfg", "nvtcwHFKeNeRNz"},
-      {"s.dat", "tgWMUV"},
-      {"x/Y.dat", "exGgbSGAar"}
+      {"QaOH/S/z.bin", "lnTxDdlSw"},
+      {"YC/bTOL/S.bin", "DiXUgvRjBCYzPz"},
+      {"i.bin", "eWlepnIsHgFgUi"},
+      {"q.bin", "iWb"},
+      {"qhBU/RVl/z.cfg", "cp"},
+      {"yzeG/c.bin", "pqwTKzQCgdzWk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(193u),
+      static_cast<std::size_t>(299u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -152,16 +143,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"zM/h.cfg", "XCOMHdgiMDQ"}
+      {"Jsl/d.bin", "hhmnXQqjta"},
+      {"Nr/btiA/c.txt", "RwDcd"}
     },
       {},
       {
-      {"zM/h.cfg", "XCOMHdgiMDQ"}
+      {"Jsl/d.bin", "hhmnXQqjta"},
+      {"Nr/btiA/c.txt", "RwDcd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -173,22 +167,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"LrUk/r.txt", "iRcnDPjnb"},
-      {"a/uRV/x.cfg", "KMzrwfbaVH"},
-      {"df/O.txt", "eBTFBTR"},
-      {"zw/g.cfg", "FInSczH"}
+      {"Dh/te/G.cfg", "X"},
+      {"aT/Bsx/C.dat", "O"}
     },
       {},
       {
-      {"LrUk/r.txt", "iRcnDPjnb"},
-      {"a/uRV/x.cfg", "KMzrwfbaVH"},
-      {"df/O.txt", "eBTFBTR"},
-      {"zw/g.cfg", "FInSczH"}
+      {"Dh/te/G.cfg", "X"},
+      {"aT/Bsx/C.dat", "O"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(151u),
+      static_cast<std::size_t>(92u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -200,22 +191,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"V.dat", "GYXVeejqs"},
-      {"X.cfg", "pOexchFmMz"},
-      {"n.bin", "BGzM"},
-      {"ndy/VB/Y.md", "xF"}
+      {"B/y.md", "KsbqwXvd"},
+      {"Eb/J.cfg", "pHRapHMD"},
+      {"H/Kw/v.dat", "XfwpzmX"},
+      {"bvx/T/R.dat", "N"},
+      {"qg/g.bin", "nDNAjPkXxiHhFGi"}
     },
       {},
       {
-      {"V.dat", "GYXVeejqs"},
-      {"X.cfg", "pOexchFmMz"},
-      {"n.bin", "BGzM"},
-      {"ndy/VB/Y.md", "xF"}
+      {"B/y.md", "KsbqwXvd"},
+      {"Eb/J.cfg", "pHRapHMD"},
+      {"H/Kw/v.dat", "XfwpzmX"},
+      {"bvx/T/R.dat", "N"},
+      {"qg/g.bin", "nDNAjPkXxiHhFGi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(134u),
+      static_cast<std::size_t>(227u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -227,20 +221,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"A.cfg", "HrU"},
-      {"c.dat", "jZc"},
-      {"eN/y.dat", "D"}
+      {"D/uWlD/S.bin", "tJHvl"},
+      {"W/X/f.txt", "tOmWgDatcCnbT"}
     },
       {},
       {
-      {"A.cfg", "HrU"},
-      {"c.dat", "jZc"},
-      {"eN/y.dat", "D"}
+      {"D/uWlD/S.bin", "tJHvl"},
+      {"W/X/f.txt", "tOmWgDatcCnbT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(88u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -252,24 +245,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"N.dat", "QOtUUuiOsAUDoRrL"},
-      {"b.cfg", "gyetCIvI"},
-      {"jMLf/K.cfg", "jpdlAkXxvuecK"},
-      {"t.cfg", "fBZuOjUVyWD"},
-      {"t/z.bin", "DWYuDAUvYLdDSZ"}
+      {"HK/ishR/S.dat", "zVPbNhNiAskbWh"},
+      {"T.cfg", "ltlrUB"}
     },
       {},
       {
-      {"N.dat", "QOtUUuiOsAUDoRrL"},
-      {"b.cfg", "gyetCIvI"},
-      {"jMLf/K.cfg", "jpdlAkXxvuecK"},
-      {"t.cfg", "fBZuOjUVyWD"},
-      {"t/z.bin", "DWYuDAUvYLdDSZ"}
+      {"HK/ishR/S.dat", "zVPbNhNiAskbWh"},
+      {"T.cfg", "ltlrUB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(193u),
+      static_cast<std::size_t>(123u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -281,26 +269,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"A/j/N.md", "ijkGSpHxuAD"},
-      {"VzEF/nKT/o.dat", "WxBqtr"},
-      {"W/v/H.txt", "oslaS"},
-      {"e/o.dat", "rxICJPz"},
-      {"o/Qo/b.md", "GeGxEXGRT"},
-      {"y.md", "RhS"}
+      {"HgYg/D.txt", "hKk"},
+      {"N.dat", "ya"},
+      {"NIhl/YPB/l.cfg", "ndRxXVt"}
     },
       {},
       {
-      {"A/j/N.md", "ijkGSpHxuAD"},
-      {"VzEF/nKT/o.dat", "WxBqtr"},
-      {"W/v/H.txt", "oslaS"},
-      {"e/o.dat", "rxICJPz"},
-      {"o/Qo/b.md", "GeGxEXGRT"},
-      {"y.md", "RhS"}
+      {"HgYg/D.txt", "hKk"},
+      {"N.dat", "ya"},
+      {"NIhl/YPB/l.cfg", "ndRxXVt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(213u),
+      static_cast<std::size_t>(124u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -312,26 +295,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"B/Rl/d.cfg", "aseyS"},
-      {"K.bin", "bKRDJuDSGEmYkzaq"},
-      {"Q.md", "sgPPV"},
-      {"XbCc/x.bin", "GdGDyEQpDL"},
-      {"r.bin", "AdcGrGlydyxuRp"},
-      {"w/z.md", "FKzG"}
+      {"U.bin", "p"},
+      {"qD/LMM/n.dat", "UffL"}
     },
       {},
       {
-      {"B/Rl/d.cfg", "aseyS"},
-      {"K.bin", "bKRDJuDSGEmYkzaq"},
-      {"Q.md", "sgPPV"},
-      {"XbCc/x.bin", "GdGDyEQpDL"},
-      {"r.bin", "AdcGrGlydyxuRp"},
-      {"w/z.md", "FKzG"}
+      {"U.bin", "p"},
+      {"qD/LMM/n.dat", "UffL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(212u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -343,24 +319,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"G.dat", "mcznCHBLHqzcSaPC"},
-      {"GO/e.txt", "NphLkq"},
-      {"aKW/LrY/o.bin", "KDTgNCP"},
-      {"f/W/z.bin", "pPKNRGGb"},
-      {"k.md", "irFtOj"}
+      {"CKmA/g/p.cfg", "fPpCVYqbS"}
     },
       {},
       {
-      {"G.dat", "mcznCHBLHqzcSaPC"},
-      {"GO/e.txt", "NphLkq"},
-      {"aKW/LrY/o.bin", "KDTgNCP"},
-      {"f/W/z.bin", "pPKNRGGb"},
-      {"k.md", "irFtOj"}
+      {"CKmA/g/p.cfg", "fPpCVYqbS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(192u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -372,24 +341,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"B.md", "NxA"},
-      {"FGhk/u.md", "BcClmNU"},
-      {"Ra/Y.bin", "wYpeDe"},
-      {"fuVU/Y.bin", "YBmTGFced"},
-      {"xFMi/P.cfg", "tidTJ"}
+      {"C.md", "csRcsHhFfld"},
+      {"CsdV/Os/u.dat", "ZwaCqMT"},
+      {"Q/LENV/f.cfg", "xwEPOAlkn"},
+      {"hXC/X/E.txt", "KaKadjJOus"}
     },
       {},
       {
-      {"B.md", "NxA"},
-      {"FGhk/u.md", "BcClmNU"},
-      {"Ra/Y.bin", "wYpeDe"},
-      {"fuVU/Y.bin", "YBmTGFced"},
-      {"xFMi/P.cfg", "tidTJ"}
+      {"C.md", "csRcsHhFfld"},
+      {"CsdV/Os/u.dat", "ZwaCqMT"},
+      {"Q/LENV/f.cfg", "xwEPOAlkn"},
+      {"hXC/X/E.txt", "KaKadjJOus"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(160u),
+      static_cast<std::size_t>(200u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -401,16 +369,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"gslt/P.dat", "WXXNkvWNIQRNhfpR"}
+      {"A/sh/L.dat", "LeNLzq"},
+      {"B.dat", "KQzjGoTKIjCM"}
     },
       {},
       {
-      {"gslt/P.dat", "WXXNkvWNIQRNhfpR"}
+      {"A/sh/L.dat", "LeNLzq"},
+      {"B.dat", "KQzjGoTKIjCM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -422,20 +393,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"F.md", "QyrriNqW"},
-      {"IAw/z/U.dat", "AhHoZqauCwbM"},
-      {"pQD/h.bin", "RqgBQHnHznbYEECO"}
+      {"O.cfg", "jtWZkIxEjxJcS"},
+      {"Y.md", "VmyIMtpKhcYOkbFj"},
+      {"duS/us/I.md", "hWJtdyDYCzN"},
+      {"uM/K.cfg", "GEzsXBFrygqGF"}
     },
       {},
       {
-      {"F.md", "QyrriNqW"},
-      {"IAw/z/U.dat", "AhHoZqauCwbM"},
-      {"pQD/h.bin", "RqgBQHnHznbYEECO"}
+      {"O.cfg", "jtWZkIxEjxJcS"},
+      {"Y.md", "VmyIMtpKhcYOkbFj"},
+      {"duS/us/I.md", "hWJtdyDYCzN"},
+      {"uM/K.cfg", "GEzsXBFrygqGF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(123u),
+      static_cast<std::size_t>(158u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -447,24 +421,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"J/NrGt/I.txt", "FrojJrL"},
-      {"eR/X.bin", "eEZKT"},
-      {"nI/O.dat", "cSDOfVpKrAVPjmj"},
-      {"s.md", "lMtSUNNhPw"},
-      {"uzd/i.dat", "XIAfFszsx"}
+      {"GMt/XvlO/Q.dat", "KFUGLs"},
+      {"L.md", "dGPLFRccbZcjvUx"},
+      {"Z.bin", "nS"},
+      {"nhbU/h/f.md", "zg"},
+      {"rfE/ctdz/J.cfg", "MYs"},
+      {"ucH/w.txt", "qAjwYVafvuQFGRbM"}
     },
       {},
       {
-      {"J/NrGt/I.txt", "FrojJrL"},
-      {"eR/X.bin", "eEZKT"},
-      {"nI/O.dat", "cSDOfVpKrAVPjmj"},
-      {"s.md", "lMtSUNNhPw"},
-      {"uzd/i.dat", "XIAfFszsx"}
+      {"GMt/XvlO/Q.dat", "KFUGLs"},
+      {"L.md", "dGPLFRccbZcjvUx"},
+      {"Z.bin", "nS"},
+      {"nhbU/h/f.md", "zg"},
+      {"rfE/ctdz/J.cfg", "MYs"},
+      {"ucH/w.txt", "qAjwYVafvuQFGRbM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(189u),
+      static_cast<std::size_t>(268u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -476,20 +453,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"CK/feJ/a.txt", "FDV"},
-      {"Q.cfg", "CfkKYmbEvjZdjSWx"},
-      {"pd/A.cfg", "bGoIYSPV"}
+      {"l/F.dat", "LYTyWmyhdhabvuJq"},
+      {"t.cfg", "hzxGBUdtK"}
     },
       {},
       {
-      {"CK/feJ/a.txt", "FDV"},
-      {"Q.cfg", "CfkKYmbEvjZdjSWx"},
-      {"pd/A.cfg", "bGoIYSPV"}
+      {"l/F.dat", "LYTyWmyhdhabvuJq"},
+      {"t.cfg", "hzxGBUdtK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(124u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -501,20 +477,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"EL/v/a.dat", "ztwPbSuWIGxK"},
-      {"QTw/U.bin", "FYsUiN"},
-      {"t.cfg", "YSvmXeukpQv"}
+      {"A/L.cfg", "QE"},
+      {"TYYT/Ieo/q.bin", "OdbOmCadId"},
+      {"UI/kOW/X.txt", "MixXpLtcUE"},
+      {"Y.cfg", "KFUTgBYlRmNJxnP"}
     },
       {},
       {
-      {"EL/v/a.dat", "ztwPbSuWIGxK"},
-      {"QTw/U.bin", "FYsUiN"},
-      {"t.cfg", "YSvmXeukpQv"}
+      {"A/L.cfg", "QE"},
+      {"TYYT/Ieo/q.bin", "OdbOmCadId"},
+      {"UI/kOW/X.txt", "MixXpLtcUE"},
+      {"Y.cfg", "KFUTgBYlRmNJxnP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(125u),
+      static_cast<std::size_t>(199u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -526,22 +505,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"QSmc/m.md", "dghvsopbZkgdDI"},
-      {"hlY/x/Y.cfg", "CwLPYZF"},
-      {"lh/AGx/p.md", "Qu"},
-      {"tKkt/A.dat", "YLNfnVPBFhF"}
+      {"BR/S/T.txt", "xaAfJht"},
+      {"CB/l.dat", "PTrNAebUuPyS"},
+      {"Ln/h.bin", "jxoSsMk"},
+      {"MF/bix/S.md", "ArDDebTiop"}
     },
       {},
       {
-      {"QSmc/m.md", "dghvsopbZkgdDI"},
-      {"hlY/x/Y.cfg", "CwLPYZF"},
-      {"lh/AGx/p.md", "Qu"},
-      {"tKkt/A.dat", "YLNfnVPBFhF"}
+      {"BR/S/T.txt", "xaAfJht"},
+      {"CB/l.dat", "PTrNAebUuPyS"},
+      {"Ln/h.bin", "jxoSsMk"},
+      {"MF/bix/S.md", "ArDDebTiop"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(150u),
+      static_cast<std::size_t>(196u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -553,24 +533,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"DMpk/i.dat", "fqoOfcbBqHVxT"},
-      {"IALi/vWi/Y.dat", "PnZYhPQvZsFUVXvN"},
-      {"T.md", "t"},
-      {"X.cfg", "bFZaBgW"},
-      {"mSWD/DOU/Q.bin", "wnxaclpMJVtrije"}
+      {"AK/Znpu/N.cfg", "DARavSWYnQaPLjI"},
+      {"CzZA/I.bin", "UnulI"},
+      {"Gk/y.md", "XTeilZeLpslLy"},
+      {"WkUw/a.cfg", "CSyqTi"},
+      {"m/yoyV/H.txt", "LcbyLRlOdGRo"},
+      {"n.txt", "KrxFnidE"}
     },
       {},
       {
-      {"DMpk/i.dat", "fqoOfcbBqHVxT"},
-      {"IALi/vWi/Y.dat", "PnZYhPQvZsFUVXvN"},
-      {"T.md", "t"},
-      {"X.cfg", "bFZaBgW"},
-      {"mSWD/DOU/Q.bin", "wnxaclpMJVtrije"}
+      {"AK/Znpu/N.cfg", "DARavSWYnQaPLjI"},
+      {"CzZA/I.bin", "UnulI"},
+      {"Gk/y.md", "XTeilZeLpslLy"},
+      {"WkUw/a.cfg", "CSyqTi"},
+      {"m/yoyV/H.txt", "LcbyLRlOdGRo"},
+      {"n.txt", "KrxFnidE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(190u),
+      static_cast<std::size_t>(327u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -582,18 +565,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"pnL/X.dat", "PkkbW"},
-      {"qjX/N/d.md", "iHQtDDKBEDS"}
+      {"Dgo/TIC/p.dat", "owFVEwbnJplGoUx"},
+      {"E.bin", "bRQisv"},
+      {"d.cfg", "xMi"},
+      {"jTjW/I.bin", "EM"},
+      {"q.bin", "TdIhuIchn"}
     },
       {},
       {
-      {"pnL/X.dat", "PkkbW"},
-      {"qjX/N/d.md", "iHQtDDKBEDS"}
+      {"Dgo/TIC/p.dat", "owFVEwbnJplGoUx"},
+      {"E.bin", "bRQisv"},
+      {"d.cfg", "xMi"},
+      {"jTjW/I.bin", "EM"},
+      {"q.bin", "TdIhuIchn"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(78u),
+      static_cast<std::size_t>(227u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -605,13 +595,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"cUDS/X.bin", "rJIHPwoMPlTYABX"}
+      {"Os/Ng/r.dat", "TtwR"}
     },
       {},
       {
-      {"cUDS/X.bin", "rJIHPwoMPlTYABX"}
+      {"Os/Ng/r.dat", "TtwR"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -626,24 +617,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"Cq/Oi/I.txt", "Da"},
-      {"Kei/k.md", "jmIawIEdmJwcqPsv"},
-      {"d.dat", "yalgR"},
-      {"f/h.bin", "aw"},
-      {"fw/vGds/e.md", "EmYgMUFd"}
+      {"CAk/SSNX/l.bin", "kJgPMR"},
+      {"j/t.md", "I"}
     },
       {},
       {
-      {"Cq/Oi/I.txt", "Da"},
-      {"Kei/k.md", "jmIawIEdmJwcqPsv"},
-      {"d.dat", "yalgR"},
-      {"f/h.bin", "aw"},
-      {"fw/vGds/e.md", "EmYgMUFd"}
+      {"CAk/SSNX/l.bin", "kJgPMR"},
+      {"j/t.md", "I"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(160u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -655,18 +641,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"I.dat", "VjTMA"},
-      {"p.md", "KbM"}
+      {"HIxH/IPEO/o.bin", "BsSTvN"},
+      {"NJA/V.md", "hV"},
+      {"u.txt", "sy"},
+      {"v/MxDV/L.dat", "OZnQuEYYg"},
+      {"x.dat", "xDrkF"}
     },
       {},
       {
-      {"I.dat", "VjTMA"},
-      {"p.md", "KbM"}
+      {"HIxH/IPEO/o.bin", "BsSTvN"},
+      {"NJA/V.md", "hV"},
+      {"u.txt", "sy"},
+      {"v/MxDV/L.dat", "OZnQuEYYg"},
+      {"x.dat", "xDrkF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(74u),
+      static_cast<std::size_t>(227u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -678,26 +671,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"I/VxL/L.dat", "ZGymfyEQbdWYSGn"},
-      {"Qt/B.md", "wEjyRrWq"},
-      {"YhzP/L.txt", "XgsirmVrcPHK"},
-      {"jy/KFu/M.md", "qwIc"},
-      {"s.txt", "YdkUgBqRc"},
-      {"v.bin", "OebzNVloJNti"}
+      {"D/A/e.md", "aF"}
     },
       {},
       {
-      {"I/VxL/L.dat", "ZGymfyEQbdWYSGn"},
-      {"Qt/B.md", "wEjyRrWq"},
-      {"YhzP/L.txt", "XgsirmVrcPHK"},
-      {"jy/KFu/M.md", "qwIc"},
-      {"s.txt", "YdkUgBqRc"},
-      {"v.bin", "OebzNVloJNti"}
+      {"D/A/e.md", "aF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(220u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -709,24 +693,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"VP/t/H.txt", "K"},
-      {"cVAZ/IWx/u.cfg", "hMu"},
-      {"rhrQ/bplW/J.txt", "oClCwufREgnMB"},
-      {"wfy/Q/b.dat", "wWKThjSLwExf"},
-      {"x.txt", "BEgWOm"}
+      {"d.bin", "ELzXYGOgaqMUISTK"}
     },
       {},
       {
-      {"VP/t/H.txt", "K"},
-      {"cVAZ/IWx/u.cfg", "hMu"},
-      {"rhrQ/bplW/J.txt", "oClCwufREgnMB"},
-      {"wfy/Q/b.dat", "wWKThjSLwExf"},
-      {"x.txt", "BEgWOm"}
+      {"d.bin", "ELzXYGOgaqMUISTK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(199u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -738,24 +715,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"PjGy/LmFQ/r.dat", "IiNwTHzQR"},
-      {"Ut/ptU/a.cfg", "NvcSKbtbbuTkf"},
-      {"VJvq/W.cfg", "CGKFKkqiRIJzE"},
-      {"bS/m.txt", "v"},
-      {"zBU/t.bin", "ynmlE"}
+      {"hTn/n.dat", "oyXx"},
+      {"kA/f.md", "SJVspqUlTwkVo"}
     },
       {},
       {
-      {"PjGy/LmFQ/r.dat", "IiNwTHzQR"},
-      {"Ut/ptU/a.cfg", "NvcSKbtbbuTkf"},
-      {"VJvq/W.cfg", "CGKFKkqiRIJzE"},
-      {"bS/m.txt", "v"},
-      {"zBU/t.bin", "ynmlE"}
+      {"hTn/n.dat", "oyXx"},
+      {"kA/f.md", "SJVspqUlTwkVo"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(201u),
+      static_cast<std::size_t>(93u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -767,18 +739,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"C/za/i.md", "lhoLOofQPBWkzfRr"},
-      {"cFXN/iLs/a.txt", "vjvWJXQDIXMsDZ"}
+      {"BGip/JEE/A.dat", "OcJ"},
+      {"WVdc/X/k.txt", "iz"}
     },
       {},
       {
-      {"C/za/i.md", "lhoLOofQPBWkzfRr"},
-      {"cFXN/iLs/a.txt", "vjvWJXQDIXMsDZ"}
+      {"BGip/JEE/A.dat", "OcJ"},
+      {"WVdc/X/k.txt", "iz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(89u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -790,18 +763,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"EMS/a.md", "knY"},
-      {"m.cfg", "AhbBp"}
+      {"A.cfg", "N"},
+      {"k.dat", "WJigpW"}
     },
       {},
       {
-      {"EMS/a.md", "knY"},
-      {"m.cfg", "AhbBp"}
+      {"A.cfg", "N"},
+      {"k.dat", "WJigpW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(75u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -813,24 +787,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"AB/lrwY/F.dat", "joRKOcOxRdQy"},
-      {"DHo/XY/C.md", "tHbosPADQVd"},
-      {"Ggg/A.md", "ksQ"},
-      {"b.bin", "yJWVRYxMlHbPMjy"},
-      {"rIl/J.bin", "MPcobp"}
+      {"I.bin", "Io"}
     },
       {},
       {
-      {"AB/lrwY/F.dat", "joRKOcOxRdQy"},
-      {"DHo/XY/C.md", "tHbosPADQVd"},
-      {"Ggg/A.md", "ksQ"},
-      {"b.bin", "yJWVRYxMlHbPMjy"},
-      {"rIl/J.bin", "MPcobp"}
+      {"I.bin", "Io"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(198u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -842,24 +809,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"Ct/RxXb/i.txt", "T"},
-      {"L/wF/p.dat", "yUvt"},
-      {"d.dat", "eUXUrrRoq"},
-      {"eDdz/e.dat", "DKtaaWzjkvqAM"},
-      {"y.md", "WhStOGxeWj"}
+      {"D.cfg", "fLIF"},
+      {"Duu/C.md", "XCcyKArskkGH"},
+      {"PFF/M.txt", "oeBiFvQNGtlR"},
+      {"U.cfg", "jWglcIQsuk"},
+      {"vcEy/R.bin", "MREtZdhYaS"}
     },
       {},
       {
-      {"Ct/RxXb/i.txt", "T"},
-      {"L/wF/p.dat", "yUvt"},
-      {"d.dat", "eUXUrrRoq"},
-      {"eDdz/e.dat", "DKtaaWzjkvqAM"},
-      {"y.md", "WhStOGxeWj"}
+      {"D.cfg", "fLIF"},
+      {"Duu/C.md", "XCcyKArskkGH"},
+      {"PFF/M.txt", "oeBiFvQNGtlR"},
+      {"U.cfg", "jWglcIQsuk"},
+      {"vcEy/R.bin", "MREtZdhYaS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(185u),
+      static_cast<std::size_t>(233u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -871,16 +839,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"kSC/X.md", "KtGYYFUPtWb"}
+      {"GQU/w.bin", "LUkLHW"},
+      {"Go/MR/F.bin", "ffuMOLn"},
+      {"Z.txt", "uoJSkggSnuha"}
     },
       {},
       {
-      {"kSC/X.md", "KtGYYFUPtWb"}
+      {"GQU/w.bin", "LUkLHW"},
+      {"Go/MR/F.bin", "ffuMOLn"},
+      {"Z.txt", "uoJSkggSnuha"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(137u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -892,16 +865,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"fYaV/A.bin", "wbVZktFht"}
+      {"C.md", "F"},
+      {"DqF/LwS/P.bin", "jUl"}
     },
       {},
       {
-      {"fYaV/A.bin", "wbVZktFht"}
+      {"C.md", "F"},
+      {"DqF/LwS/P.bin", "jUl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(69u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -913,22 +889,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"A.md", "GeZM"},
-      {"Com/z.md", "lMTgqFwCqnLZdM"},
-      {"V.dat", "vCxIuuJEuZg"},
-      {"g.dat", "LrXKiFDLHF"}
+      {"qYM/r.md", "BgmhfR"}
     },
       {},
       {
-      {"A.md", "GeZM"},
-      {"Com/z.md", "lMTgqFwCqnLZdM"},
-      {"V.dat", "vCxIuuJEuZg"},
-      {"g.dat", "LrXKiFDLHF"}
+      {"qYM/r.md", "BgmhfR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(142u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -940,13 +911,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"E/Z.dat", "whYjBOMQVfyMv"}
+      {"rbiQ/tYR/U.dat", "nkCocRuQB"}
     },
       {},
       {
-      {"E/Z.dat", "whYjBOMQVfyMv"}
+      {"rbiQ/tYR/U.dat", "nkCocRuQB"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -961,22 +933,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"UUsG/A/u.md", "un"},
-      {"a.dat", "Gd"},
-      {"u.txt", "lRdkhFVjlyS"},
-      {"uRIP/A.cfg", "LPdENOxrokymHZw"}
+      {"I/gpV/p.cfg", "yi"},
+      {"J.bin", "xglKAsPpr"},
+      {"M/m.bin", "OaRO"},
+      {"O.md", "RkYICSqpsm"},
+      {"sA/w/g.txt", "DintccqUpv"}
     },
       {},
       {
-      {"UUsG/A/u.md", "un"},
-      {"a.dat", "Gd"},
-      {"u.txt", "lRdkhFVjlyS"},
-      {"uRIP/A.cfg", "LPdENOxrokymHZw"}
+      {"I/gpV/p.cfg", "yi"},
+      {"J.bin", "xglKAsPpr"},
+      {"M/m.bin", "OaRO"},
+      {"O.md", "RkYICSqpsm"},
+      {"sA/w/g.txt", "DintccqUpv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(132u),
+      static_cast<std::size_t>(166u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -988,22 +963,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"X/U.md", "OzDDwWOuU"},
-      {"t/i.md", "kmiAALkaRdxwT"},
-      {"wF/k/Y.dat", "mPLemWrleO"},
-      {"wpC/O.cfg", "k"}
+      {"E.dat", "ZhxvncqKOC"},
+      {"FOW/k.md", "amPuLecgEngqySWR"},
+      {"Q.cfg", "WUlYAbOrDeQR"},
+      {"at/XYKm/e.dat", "iGl"}
     },
       {},
       {
-      {"X/U.md", "OzDDwWOuU"},
-      {"t/i.md", "kmiAALkaRdxwT"},
-      {"wF/k/Y.dat", "mPLemWrleO"},
-      {"wpC/O.cfg", "k"}
+      {"E.dat", "ZhxvncqKOC"},
+      {"FOW/k.md", "amPuLecgEngqySWR"},
+      {"Q.cfg", "WUlYAbOrDeQR"},
+      {"at/XYKm/e.dat", "iGl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(150u),
+      static_cast<std::size_t>(200u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1015,22 +991,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"DVeV/N/H.cfg", "eWhosWlaKez"},
-      {"Fn/U.cfg", "EbixarPhQMjIfVhT"},
-      {"J.txt", "jd"},
-      {"hypR/E/O.bin", "bi"}
+      {"GqX/T.md", "GBdMjQqETXyHcAo"},
+      {"KWvT/d.md", "f"},
+      {"N.txt", "GXHpxSSfFjSMpPzb"},
+      {"Vsim/GgTH/D.txt", "tVPv"},
+      {"XP/B.dat", "zfditmjzQyirl"},
+      {"t.md", "oLIxBSTBr"}
     },
       {},
       {
-      {"DVeV/N/H.cfg", "eWhosWlaKez"},
-      {"Fn/U.cfg", "EbixarPhQMjIfVhT"},
-      {"J.txt", "jd"},
-      {"hypR/E/O.bin", "bi"}
+      {"GqX/T.md", "GBdMjQqETXyHcAo"},
+      {"KWvT/d.md", "f"},
+      {"N.txt", "GXHpxSSfFjSMpPzb"},
+      {"Vsim/GgTH/D.txt", "tVPv"},
+      {"XP/B.dat", "zfditmjzQyirl"},
+      {"t.md", "oLIxBSTBr"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(150u),
+      static_cast<std::size_t>(302u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1042,18 +1023,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"F.cfg", "gecCKp"},
-      {"InVp/g.txt", "jTiswZvyudpZ"}
+      {"AiRs/e.md", "LseoQO"},
+      {"Rlaj/m.md", "rM"},
+      {"e.bin", "vFd"},
+      {"i/O.md", "wkJFnDkCLbNWevk"},
+      {"tCaU/A.dat", "M"},
+      {"zOb/EF/A.cfg", "vFtt"}
     },
       {},
       {
-      {"F.cfg", "gecCKp"},
-      {"InVp/g.txt", "jTiswZvyudpZ"}
+      {"AiRs/e.md", "LseoQO"},
+      {"Rlaj/m.md", "rM"},
+      {"e.bin", "vFd"},
+      {"i/O.md", "wkJFnDkCLbNWevk"},
+      {"tCaU/A.dat", "M"},
+      {"zOb/EF/A.cfg", "vFtt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(75u),
+      static_cast<std::size_t>(258u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1065,18 +1055,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"C/kv/Y.dat", "btUWWqbB"},
-      {"dYgB/b.dat", "trwtzhWL"}
+      {"M.cfg", "gVkOwZATnYjDWFb"},
+      {"OU/b.bin", "bVXvFXKUsnmr"},
+      {"lT/Snbe/R.dat", "cIIKLiFNj"},
+      {"z.bin", "lVb"}
     },
       {},
       {
-      {"C/kv/Y.dat", "btUWWqbB"},
-      {"dYgB/b.dat", "trwtzhWL"}
+      {"M.cfg", "gVkOwZATnYjDWFb"},
+      {"OU/b.bin", "bVXvFXKUsnmr"},
+      {"lT/Snbe/R.dat", "cIIKLiFNj"},
+      {"z.bin", "lVb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(82u),
+      static_cast<std::size_t>(222u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1088,20 +1083,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"L/s/z.md", "nc"},
-      {"r/X.bin", "VpUgLzIjWSAJ"},
-      {"t/O.txt", "oTBSqXnygLzhJ"}
+      {"VXI/sm/m.md", "tfXoTQ"},
+      {"XVQW/mgV/W.txt", "YrCLYjZolayIYx"}
     },
       {},
       {
-      {"L/s/z.md", "nc"},
-      {"r/X.bin", "VpUgLzIjWSAJ"},
-      {"t/O.txt", "oTBSqXnygLzhJ"}
+      {"VXI/sm/m.md", "tfXoTQ"},
+      {"XVQW/mgV/W.txt", "YrCLYjZolayIYx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(101u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1113,16 +1107,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"INB/v.dat", "IDbpmmmFYGbC"}
+      {"AM/D.txt", "ELbiGHriu"},
+      {"Jt/z.cfg", "XIpoOoFw"},
+      {"dJG/hT/U.bin", "aPPopUw"},
+      {"y.md", "FAjYje"}
     },
       {},
       {
-      {"INB/v.dat", "IDbpmmmFYGbC"}
+      {"AM/D.txt", "ELbiGHriu"},
+      {"Jt/z.cfg", "XIpoOoFw"},
+      {"dJG/hT/U.bin", "aPPopUw"},
+      {"y.md", "FAjYje"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(196u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1134,26 +1135,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"FS/rbbA/Z.md", "gshwMOOTb"},
-      {"QaE/U.cfg", "qzdxVkD"},
-      {"R.md", "LkDVmESWrNRJn"},
-      {"S.txt", "MaYiAYeFJX"},
-      {"rd/v.bin", "qEBvdppTNXIPwKmY"},
-      {"xC/r.bin", "mY"}
+      {"HVCD/o.dat", "vproEILh"},
+      {"Q/S.dat", "wumBYIBr"},
+      {"YB/LYQh/E.txt", "PwoeKNyrihvsjo"},
+      {"i/w.txt", "bxRJLyYPKzJL"}
     },
       {},
       {
-      {"FS/rbbA/Z.md", "gshwMOOTb"},
-      {"QaE/U.cfg", "qzdxVkD"},
-      {"R.md", "LkDVmESWrNRJn"},
-      {"S.txt", "MaYiAYeFJX"},
-      {"rd/v.bin", "qEBvdppTNXIPwKmY"},
-      {"xC/r.bin", "mY"}
+      {"HVCD/o.dat", "vproEILh"},
+      {"Q/S.dat", "wumBYIBr"},
+      {"YB/LYQh/E.txt", "PwoeKNyrihvsjo"},
+      {"i/w.txt", "bxRJLyYPKzJL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(221u),
+      static_cast<std::size_t>(137u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1165,26 +1163,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"C.dat", "CiioHc"},
-      {"D.cfg", "YF"},
-      {"icwp/QLW/k.cfg", "DCM"},
-      {"j.txt", "uKJpAwROU"},
-      {"nKL/A.dat", "HAvQsimcBYgyhni"},
-      {"s.dat", "MBcTpbBk"}
+      {"AytK/l/q.txt", "bIoQDUoHb"},
+      {"VB/V.md", "WyJnsyHwxTGliVSc"}
     },
       {},
       {
-      {"C.dat", "CiioHc"},
-      {"D.cfg", "YF"},
-      {"icwp/QLW/k.cfg", "DCM"},
-      {"j.txt", "uKJpAwROU"},
-      {"nKL/A.dat", "HAvQsimcBYgyhni"},
-      {"s.dat", "MBcTpbBk"}
+      {"AytK/l/q.txt", "bIoQDUoHb"},
+      {"VB/V.md", "WyJnsyHwxTGliVSc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(201u),
+      static_cast<std::size_t>(101u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1196,24 +1187,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"S.dat", "cg"},
-      {"X.cfg", "Toyd"},
-      {"ZG/y.dat", "n"},
-      {"e/hS/R.cfg", "XcjJOCalMZdTHx"},
-      {"wPMZ/N.txt", "KBIZLuyZFJqo"}
+      {"DK/G.dat", "BPCnAbmOYVh"},
+      {"NA/fcl/d.dat", "fo"},
+      {"d/I.dat", "nWkLhIn"},
+      {"kCwq/H.dat", "PCATP"},
+      {"kN/X.dat", "WUJ"}
     },
       {},
       {
-      {"S.dat", "cg"},
-      {"X.cfg", "Toyd"},
-      {"ZG/y.dat", "n"},
-      {"e/hS/R.cfg", "XcjJOCalMZdTHx"},
-      {"wPMZ/N.txt", "KBIZLuyZFJqo"}
+      {"DK/G.dat", "BPCnAbmOYVh"},
+      {"NA/fcl/d.dat", "fo"},
+      {"d/I.dat", "nWkLhIn"},
+      {"kCwq/H.dat", "PCATP"},
+      {"kN/X.dat", "WUJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(153u),
+      static_cast<std::size_t>(230u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1225,24 +1217,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"BLaW/Fh/K.md", "zOt"},
-      {"I.bin", "SzBhuG"},
-      {"L.txt", "PFwOMbtHAqu"},
-      {"gK/sqzF/q.dat", "vBalGEsxaIiStR"},
-      {"y.txt", "tgv"}
+      {"g.md", "gPHnHPTTOZnt"},
+      {"qMbe/Er/W.cfg", "Wsq"}
     },
       {},
       {
-      {"BLaW/Fh/K.md", "zOt"},
-      {"I.bin", "SzBhuG"},
-      {"L.txt", "PFwOMbtHAqu"},
-      {"gK/sqzF/q.dat", "vBalGEsxaIiStR"},
-      {"y.txt", "tgv"}
+      {"g.md", "gPHnHPTTOZnt"},
+      {"qMbe/Er/W.cfg", "Wsq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(189u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1254,26 +1241,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"TREz/Wuwx/S.cfg", "MvubBmgyljeVO"},
-      {"VJDt/s.dat", "MzaSsWvOQyNyQl"},
-      {"b.cfg", "XKeKrnXhEypHNveZ"},
-      {"d.txt", "eZShPRhXFVz"},
-      {"f.dat", "kAogPyAEQPnOXEE"},
-      {"widh/B.bin", "ZBUJoC"}
+      {"YZQj/Q.cfg", "xQmDyyQdXXa"},
+      {"k/X.txt", "HdNwgChC"}
     },
       {},
       {
-      {"TREz/Wuwx/S.cfg", "MvubBmgyljeVO"},
-      {"VJDt/s.dat", "MzaSsWvOQyNyQl"},
-      {"b.cfg", "XKeKrnXhEypHNveZ"},
-      {"d.txt", "eZShPRhXFVz"},
-      {"f.dat", "kAogPyAEQPnOXEE"},
-      {"widh/B.bin", "ZBUJoC"}
+      {"YZQj/Q.cfg", "xQmDyyQdXXa"},
+      {"k/X.txt", "HdNwgChC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(253u),
+      static_cast<std::size_t>(101u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1285,18 +1265,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"hm/p.cfg", "FRKscA"},
-      {"p/n.md", "UjA"}
+      {"Ev/L.bin", "dyxYIXfLD"},
+      {"I.bin", "yXUEnGjHXzpxr"},
+      {"RRaE/f.txt", "llTWC"},
+      {"UGE/u/l.txt", "LhMOB"},
+      {"f/Xjhe/J.dat", "wjbbDMLUBdR"},
+      {"wY/IT/t.bin", "aziaS"}
     },
       {},
       {
-      {"hm/p.cfg", "FRKscA"},
-      {"p/n.md", "UjA"}
+      {"Ev/L.bin", "dyxYIXfLD"},
+      {"I.bin", "yXUEnGjHXzpxr"},
+      {"RRaE/f.txt", "llTWC"},
+      {"UGE/u/l.txt", "LhMOB"},
+      {"f/Xjhe/J.dat", "wjbbDMLUBdR"},
+      {"wY/IT/t.bin", "aziaS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(78u),
+      static_cast<std::size_t>(297u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1308,22 +1297,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"A.txt", "OGgQIOwihbGp"},
-      {"N.md", "lHFrsvZSJmiud"},
-      {"R/Ig/R.md", "EZLnJe"},
-      {"lB/L.md", "nHSaY"}
+      {"GyaF/oCkt/Y.txt", "NNptFEWqudur"},
+      {"o/r.md", "PIc"}
     },
       {},
       {
-      {"A.txt", "OGgQIOwihbGp"},
-      {"N.md", "lHFrsvZSJmiud"},
-      {"R/Ig/R.md", "EZLnJe"},
-      {"lB/L.md", "nHSaY"}
+      {"GyaF/oCkt/Y.txt", "NNptFEWqudur"},
+      {"o/r.md", "PIc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(145u),
+      static_cast<std::size_t>(123u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1335,18 +1321,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"WK/E.cfg", "rHJwJqqbCoganFzj"},
-      {"YVM/d.cfg", "uuIoy"}
+      {"wknh/PS/x.cfg", "Hevz"}
     },
       {},
       {
-      {"WK/E.cfg", "rHJwJqqbCoganFzj"},
-      {"YVM/d.cfg", "uuIoy"}
+      {"wknh/PS/x.cfg", "Hevz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(88u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1358,16 +1343,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"pp/L/k.cfg", "pnFogHa"}
+      {"LKMe/s/F.bin", "r"},
+      {"P.bin", "qteEOZHgbMYyWcu"},
+      {"hNyO/Oql/p.md", "nhkEPChC"},
+      {"o/cHqq/x.bin", "esiHGV"},
+      {"v.bin", "jNMXzj"},
+      {"vY/h.txt", "pa"}
     },
       {},
       {
-      {"pp/L/k.cfg", "pnFogHa"}
+      {"LKMe/s/F.bin", "r"},
+      {"P.bin", "qteEOZHgbMYyWcu"},
+      {"hNyO/Oql/p.md", "nhkEPChC"},
+      {"o/cHqq/x.bin", "esiHGV"},
+      {"v.bin", "jNMXzj"},
+      {"vY/h.txt", "pa"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(291u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1379,24 +1375,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"Fyk/cX/b.bin", "MAinLwE"},
-      {"P.txt", "x"},
-      {"Tryc/K.md", "duurW"},
-      {"h/b.cfg", "dFCOLiSIOL"},
-      {"r.txt", "aSvnjHmzxEv"}
+      {"I/y.bin", "Fsh"},
+      {"Lzm/b.bin", "iyr"},
+      {"WZd/YK/C.cfg", "YBXzBuGijOXbp"},
+      {"c/JUkw/a.bin", "AOsv"},
+      {"vbT/b.txt", "BBJL"}
     },
       {},
       {
-      {"Fyk/cX/b.bin", "MAinLwE"},
-      {"P.txt", "x"},
-      {"Tryc/K.md", "duurW"},
-      {"h/b.cfg", "dFCOLiSIOL"},
-      {"r.txt", "aSvnjHmzxEv"}
+      {"I/y.bin", "Fsh"},
+      {"Lzm/b.bin", "iyr"},
+      {"WZd/YK/C.cfg", "YBXzBuGijOXbp"},
+      {"c/JUkw/a.bin", "AOsv"},
+      {"vbT/b.txt", "BBJL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(160u),
+      static_cast<std::size_t>(231u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1408,20 +1405,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"aEX/i.bin", "PtxUd"},
-      {"n.txt", "qLWdeHdoKt"},
-      {"t/cGCw/i.txt", "FkUJcEszK"}
+      {"C.bin", "HabHqc"},
+      {"G/w.bin", "Gr"},
+      {"K.dat", "JDwavapsYfPhpCRi"},
+      {"S/Q.cfg", "DFPve"},
+      {"XNEc/m.dat", "S"},
+      {"o.md", "hckLroblFwVmv"}
     },
       {},
       {
-      {"aEX/i.bin", "PtxUd"},
-      {"n.txt", "qLWdeHdoKt"},
-      {"t/cGCw/i.txt", "FkUJcEszK"}
+      {"C.bin", "HabHqc"},
+      {"G/w.bin", "Gr"},
+      {"K.dat", "JDwavapsYfPhpCRi"},
+      {"S/Q.cfg", "DFPve"},
+      {"XNEc/m.dat", "S"},
+      {"o.md", "hckLroblFwVmv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(101u),
+      static_cast<std::size_t>(256u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1433,16 +1437,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"R.dat", "jahAQIutftU"}
+      {"Nr/YBEG/W.txt", "lAIdgeEtYQr"},
+      {"r/Q.dat", "PzqEAeIA"}
     },
       {},
       {
-      {"R.dat", "jahAQIutftU"}
+      {"Nr/YBEG/W.txt", "lAIdgeEtYQr"},
+      {"r/Q.dat", "PzqEAeIA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(104u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1454,26 +1461,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"MF/LhE/u.dat", "amRQZGjdGWsL"},
-      {"c.md", "G"},
-      {"c/ZOtS/j.md", "uONqijDWbVZH"},
-      {"i.bin", "sXehjcx"},
-      {"kRRq/h.txt", "EDIrfU"},
-      {"uBQO/oA/Y.dat", "tuyDKXKWW"}
+      {"Q.txt", "vNcvYOIrC"},
+      {"sD/D.txt", "REEIwsAJwEyPT"},
+      {"t.dat", "XyWXaN"}
     },
       {},
       {
-      {"MF/LhE/u.dat", "amRQZGjdGWsL"},
-      {"c.md", "G"},
-      {"c/ZOtS/j.md", "uONqijDWbVZH"},
-      {"i.bin", "sXehjcx"},
-      {"kRRq/h.txt", "EDIrfU"},
-      {"uBQO/oA/Y.dat", "tuyDKXKWW"}
+      {"Q.txt", "vNcvYOIrC"},
+      {"sD/D.txt", "REEIwsAJwEyPT"},
+      {"t.dat", "XyWXaN"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(208u),
+      static_cast<std::size_t>(155u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1485,22 +1487,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"W.md", "uBejsx"},
-      {"aFVu/n.md", "lFww"},
-      {"kP/S.cfg", "czmZ"},
-      {"vc/tF/T.cfg", "ZLZAkZhncvf"}
+      {"Dna/E.cfg", "DMY"},
+      {"a.cfg", "DTmUxfuIpSddqT"},
+      {"j/zT/m.md", "dQEsHUAvjhdiu"},
+      {"o.txt", "WMWJshSAuoU"},
+      {"v.cfg", "d"}
     },
       {},
       {
-      {"W.md", "uBejsx"},
-      {"aFVu/n.md", "lFww"},
-      {"kP/S.cfg", "czmZ"},
-      {"vc/tF/T.cfg", "ZLZAkZhncvf"}
+      {"Dna/E.cfg", "DMY"},
+      {"a.cfg", "DTmUxfuIpSddqT"},
+      {"j/zT/m.md", "dQEsHUAvjhdiu"},
+      {"o.txt", "WMWJshSAuoU"},
+      {"v.cfg", "d"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(131u),
+      static_cast<std::size_t>(197u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1512,16 +1517,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"mkgk/K.bin", "EdjwOawu"}
+      {"cMOB/H.bin", "J"},
+      {"yFXp/B.bin", "tXnx"}
     },
       {},
       {
-      {"mkgk/K.bin", "EdjwOawu"}
+      {"cMOB/H.bin", "J"},
+      {"yFXp/B.bin", "tXnx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(91u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1533,18 +1541,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"A.bin", "gPNHkuhypjTzlg"},
-      {"IY/t.bin", "DpNdcqdryDeyYZsP"}
+      {"gwjv/Qx/b.cfg", "YCxIpsoc"}
     },
       {},
       {
-      {"A.bin", "gPNHkuhypjTzlg"},
-      {"IY/t.bin", "DpNdcqdryDeyYZsP"}
+      {"gwjv/Qx/b.cfg", "YCxIpsoc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(83u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1556,20 +1563,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"Ei/eclm/T.dat", "JIPFJeNbLvVp"},
-      {"h.md", "Ou"},
-      {"v.bin", "hIMYaajCz"}
+      {"n.dat", "BwHNaQp"}
     },
       {},
       {
-      {"Ei/eclm/T.dat", "JIPFJeNbLvVp"},
-      {"h.md", "Ou"},
-      {"v.bin", "hIMYaajCz"}
+      {"n.dat", "BwHNaQp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(89u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1581,18 +1585,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"DxxL/F.dat", "dfkcSk"},
-      {"oe/RN/p.cfg", "fGIkZCzJEYWG"}
+      {"Ash/Dft/u.dat", "beJiBliyVNx"},
+      {"Fx/oyy/i.md", "psieu"},
+      {"Tw/k.dat", "cRdwCW"},
+      {"q/T.cfg", "eKZjQXp"},
+      {"ra/Yvk/Q.cfg", "qMbpDUy"}
     },
       {},
       {
-      {"DxxL/F.dat", "dfkcSk"},
-      {"oe/RN/p.cfg", "fGIkZCzJEYWG"}
+      {"Ash/Dft/u.dat", "beJiBliyVNx"},
+      {"Fx/oyy/i.md", "psieu"},
+      {"Tw/k.dat", "cRdwCW"},
+      {"q/T.cfg", "eKZjQXp"},
+      {"ra/Yvk/Q.cfg", "qMbpDUy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(80u),
+      static_cast<std::size_t>(236u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1604,22 +1615,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"T/E.cfg", "kgbZsZdhY"},
-      {"TdEC/C.cfg", "PqvDQnvLc"},
-      {"a.txt", "PqZ"},
-      {"rcy/b/G.txt", "NDLUXUgezp"}
+      {"Q.cfg", "vanTuiyXuxwmKVMC"}
     },
       {},
       {
-      {"T/E.cfg", "kgbZsZdhY"},
-      {"TdEC/C.cfg", "PqvDQnvLc"},
-      {"a.txt", "PqZ"},
-      {"rcy/b/G.txt", "NDLUXUgezp"}
+      {"Q.cfg", "vanTuiyXuxwmKVMC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(139u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1631,18 +1637,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"U.dat", "DFbrfLBz"},
-      {"d.md", "ZqVtUgwrG"}
+      {"B.txt", "p"},
+      {"DsmV/D.txt", "iKVUjUsYbuh"},
+      {"L/t/G.cfg", "VmTvYsqRset"},
+      {"M/PG/V.dat", "zadmefL"},
+      {"OAQ/nWAw/n.dat", "DHZ"}
     },
       {},
       {
-      {"U.dat", "DFbrfLBz"},
-      {"d.md", "ZqVtUgwrG"}
+      {"B.txt", "p"},
+      {"DsmV/D.txt", "iKVUjUsYbuh"},
+      {"L/t/G.cfg", "VmTvYsqRset"},
+      {"M/PG/V.dat", "zadmefL"},
+      {"OAQ/nWAw/n.dat", "DHZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(77u),
+      static_cast<std::size_t>(232u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1654,22 +1667,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"C.dat", "iJxssR"},
-      {"E.txt", "yHjOvKBiqFDBNJvs"},
-      {"U.cfg", "zx"},
-      {"lJAT/n.dat", "uec"}
+      {"KP/BDi/N.bin", "ljWLl"},
+      {"N.dat", "pOAypPs"},
+      {"NX/qlV/R.dat", "bhLY"},
+      {"owA/GnDP/a.dat", "thH"}
     },
       {},
       {
-      {"C.dat", "iJxssR"},
-      {"E.txt", "yHjOvKBiqFDBNJvs"},
-      {"U.cfg", "zx"},
-      {"lJAT/n.dat", "uec"}
+      {"KP/BDi/N.bin", "ljWLl"},
+      {"N.dat", "pOAypPs"},
+      {"NX/qlV/R.dat", "bhLY"},
+      {"owA/GnDP/a.dat", "thH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(135u),
+      static_cast<std::size_t>(189u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1681,24 +1695,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"JCSd/BirN/Z.cfg", "tnOAbXLxPDaJr"},
-      {"aQOO/IJhS/d.dat", "ySpeMgyz"},
-      {"d.bin", "aVHsuaBOqAl"},
-      {"i.bin", "HXZGATPUoVYf"},
-      {"mU/O.txt", "QKpYZrTpQFJ"}
+      {"Ak/Zbjv/I.txt", "LKXTNwqSGH"},
+      {"d/V.cfg", "NYmrcZwMRuEcdFBa"}
     },
       {},
       {
-      {"JCSd/BirN/Z.cfg", "tnOAbXLxPDaJr"},
-      {"aQOO/IJhS/d.dat", "ySpeMgyz"},
-      {"d.bin", "aVHsuaBOqAl"},
-      {"i.bin", "HXZGATPUoVYf"},
-      {"mU/O.txt", "QKpYZrTpQFJ"}
+      {"Ak/Zbjv/I.txt", "LKXTNwqSGH"},
+      {"d/V.cfg", "NYmrcZwMRuEcdFBa"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(204u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1710,26 +1719,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"S.txt", "SQsTRoRyzAcgZ"},
-      {"gnf/x/M.bin", "rtivMHiiCi"},
-      {"l/x.bin", "AJUBFWTljOqgZxsc"},
-      {"o.bin", "nNwyYIvWTlfWkQs"},
-      {"r.bin", "nz"},
-      {"s.dat", "dCmzr"}
+      {"Q.txt", "PzcuyIjbNYSpmHtG"},
+      {"xa/q/a.dat", "mcVBNzOZQBD"}
     },
       {},
       {
-      {"S.txt", "SQsTRoRyzAcgZ"},
-      {"gnf/x/M.bin", "rtivMHiiCi"},
-      {"l/x.bin", "AJUBFWTljOqgZxsc"},
-      {"o.bin", "nNwyYIvWTlfWkQs"},
-      {"r.bin", "nz"},
-      {"s.dat", "dCmzr"}
+      {"Q.txt", "PzcuyIjbNYSpmHtG"},
+      {"xa/q/a.dat", "mcVBNzOZQBD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(217u),
+      static_cast<std::size_t>(101u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1741,20 +1743,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"Oc/iDI/g.dat", "mTHZenEWtF"},
-      {"e.txt", "YkXFStgFXfK"},
-      {"iR/k.md", "ybgLP"}
+      {"CK/ZY/i.dat", "joAHW"},
+      {"JxBx/m.txt", "EorxanJ"}
     },
       {},
       {
-      {"Oc/iDI/g.dat", "mTHZenEWtF"},
-      {"e.txt", "YkXFStgFXfK"},
-      {"iR/k.md", "ybgLP"}
+      {"CK/ZY/i.dat", "joAHW"},
+      {"JxBx/m.txt", "EorxanJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(126u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1766,16 +1767,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"z/q.md", "LlmuirUviPuTKI"}
+      {"L/H.txt", "iyKQJgMLbKYGb"},
+      {"o.txt", "hCaY"}
     },
       {},
       {
-      {"z/q.md", "LlmuirUviPuTKI"}
+      {"L/H.txt", "iyKQJgMLbKYGb"},
+      {"o.txt", "hCaY"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1787,13 +1791,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"nLB/nuYZ/S.bin", "D"}
+      {"OlM/yT/I.cfg", "XRpzNAnGqJHzkJJ"}
     },
       {},
       {
-      {"nLB/nuYZ/S.bin", "D"}
+      {"OlM/yT/I.cfg", "XRpzNAnGqJHzkJJ"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -1808,16 +1813,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"AuW/O.bin", "jzZl"}
+      {"I.cfg", "vMDiP"},
+      {"l.txt", "jhwgewjD"},
+      {"owj/CL/a.dat", "GvbIB"},
+      {"ry/n.bin", "FLukhCltuH"},
+      {"wZsx/aA/I.txt", "BDiJers"}
     },
       {},
       {
-      {"AuW/O.bin", "jzZl"}
+      {"I.cfg", "vMDiP"},
+      {"l.txt", "jhwgewjD"},
+      {"owj/CL/a.dat", "GvbIB"},
+      {"ry/n.bin", "FLukhCltuH"},
+      {"wZsx/aA/I.txt", "BDiJers"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(226u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1829,26 +1843,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"A.dat", "eYownbJN"},
-      {"Rb/O.bin", "NOrQboGUPp"},
-      {"S.dat", "nTSXQcKsGyT"},
-      {"fc/PP/A.txt", "woDXqTakVEd"},
-      {"qE/v.txt", "gdUXghxj"},
-      {"v.md", "WsTA"}
+      {"b.bin", "ITOZaDyGVSYKWM"},
+      {"c.txt", "MNQATCrxeCVSOtUZ"}
     },
       {},
       {
-      {"A.dat", "eYownbJN"},
-      {"Rb/O.bin", "NOrQboGUPp"},
-      {"S.dat", "nTSXQcKsGyT"},
-      {"fc/PP/A.txt", "woDXqTakVEd"},
-      {"qE/v.txt", "gdUXghxj"},
-      {"v.md", "WsTA"}
+      {"b.bin", "ITOZaDyGVSYKWM"},
+      {"c.txt", "MNQATCrxeCVSOtUZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(213u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1860,26 +1867,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"Bi/V.bin", "dJ"},
-      {"D.md", "MTmBo"},
-      {"GUY/shnq/Z.bin", "bnkmCCdeouxs"},
-      {"K.bin", "d"},
-      {"ZKjQ/HbLZ/F.txt", "UajxWivErBF"},
-      {"a/i.bin", "o"}
+      {"N/RRS/m.bin", "RqRPnlCKe"},
+      {"kO/V.cfg", "pAjClImJfJOEez"}
     },
       {},
       {
-      {"Bi/V.bin", "dJ"},
-      {"D.md", "MTmBo"},
-      {"GUY/shnq/Z.bin", "bnkmCCdeouxs"},
-      {"K.bin", "d"},
-      {"ZKjQ/HbLZ/F.txt", "UajxWivErBF"},
-      {"a/i.bin", "o"}
+      {"N/RRS/m.bin", "RqRPnlCKe"},
+      {"kO/V.cfg", "pAjClImJfJOEez"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(205u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1891,16 +1891,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"K.cfg", "CzOfT"}
+      {"S.dat", "FhqCTQZrUra"},
+      {"U.dat", "RtqPN"},
+      {"iROZ/XAfI/q.bin", "Nhw"},
+      {"y/h.bin", "jG"}
     },
       {},
       {
-      {"K.cfg", "CzOfT"}
+      {"S.dat", "FhqCTQZrUra"},
+      {"U.dat", "RtqPN"},
+      {"iROZ/XAfI/q.bin", "Nhw"},
+      {"y/h.bin", "jG"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(188u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1912,16 +1919,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"k.dat", "ysKJlYCAhFVL"}
+      {"E.md", "jBiwXtBLMaPP"},
+      {"Oh/D.bin", "gXQRmaFu"},
+      {"Razm/AQU/B.md", "CgHyKiHIqHWQL"},
+      {"Y/R/I.cfg", "nTDuQAO"},
+      {"u.bin", "ZYy"},
+      {"xCEK/c/k.txt", "mGzvxXu"}
     },
       {},
       {
-      {"k.dat", "ysKJlYCAhFVL"}
+      {"E.md", "jBiwXtBLMaPP"},
+      {"Oh/D.bin", "gXQRmaFu"},
+      {"Razm/AQU/B.md", "CgHyKiHIqHWQL"},
+      {"Y/R/I.cfg", "nTDuQAO"},
+      {"u.bin", "ZYy"},
+      {"xCEK/c/k.txt", "mGzvxXu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(290u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1933,18 +1951,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"o/tkl/j.bin", "ECB"},
-      {"tuW/f.bin", "F"}
+      {"AFGT/T.txt", "mSnF"}
     },
       {},
       {
-      {"o/tkl/j.bin", "ECB"},
-      {"tuW/f.bin", "F"}
+      {"AFGT/T.txt", "mSnF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(78u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1956,18 +1973,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"e/pU/b.txt", "zqyYTvNZalNs"},
-      {"w.bin", "yXHCTyNlBNvA"}
+      {"a/Aik/I.bin", "uLLznXZWdIJNZZqA"}
     },
       {},
       {
-      {"e/pU/b.txt", "zqyYTvNZalNs"},
-      {"w.bin", "yXHCTyNlBNvA"}
+      {"a/Aik/I.bin", "uLLznXZWdIJNZZqA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(86u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -1979,16 +1995,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"P/spLQ/g.bin", "CUeQGhI"}
+      {"IR/H.md", "QTzxcQrDzVSCT"},
+      {"Im/R.bin", "jExbghLQ"},
+      {"X/u.dat", "bZMTRjzOP"},
+      {"b.txt", "jzjIulOQyDsCKnie"},
+      {"o.cfg", "pwUVA"},
+      {"v/hpuV/V.md", "ZeJIGNQ"}
     },
       {},
       {
-      {"P/spLQ/g.bin", "CUeQGhI"}
+      {"IR/H.md", "QTzxcQrDzVSCT"},
+      {"Im/R.bin", "jExbghLQ"},
+      {"X/u.dat", "bZMTRjzOP"},
+      {"b.txt", "jzjIulOQyDsCKnie"},
+      {"o.cfg", "pwUVA"},
+      {"v/hpuV/V.md", "ZeJIGNQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(291u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2000,22 +2027,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"C.bin", "nc"},
-      {"KYv/x.cfg", "QoxHBxVDOE"},
-      {"W/X/u.md", "vZmjdgLwj"},
-      {"l.bin", "aXYmyXHEzcc"}
+      {"eRYS/MK/x.md", "qKGBeJBTgedG"},
+      {"elc/aX/L.dat", "aiRImFd"}
     },
       {},
       {
-      {"C.bin", "nc"},
-      {"KYv/x.cfg", "QoxHBxVDOE"},
-      {"W/X/u.md", "vZmjdgLwj"},
-      {"l.bin", "aXYmyXHEzcc"}
+      {"eRYS/MK/x.md", "qKGBeJBTgedG"},
+      {"elc/aX/L.dat", "aiRImFd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(139u),
+      static_cast<std::size_t>(104u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2027,22 +2051,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"Ov/C.txt", "dEDppZDWUPnjJmDa"},
-      {"R.md", "rsxCI"},
-      {"RTc/O/E.dat", "PwbtyGNXQ"},
-      {"rhl/d.txt", "eXJVdNmvOac"}
+      {"C.bin", "HpvjSPvFCA"},
+      {"I/lgoC/d.dat", "tOT"},
+      {"m.bin", "bhHCnEqc"},
+      {"mDI/r.md", "AvFNTVfqzmrRGC"}
     },
       {},
       {
-      {"Ov/C.txt", "dEDppZDWUPnjJmDa"},
-      {"R.md", "rsxCI"},
-      {"RTc/O/E.dat", "PwbtyGNXQ"},
-      {"rhl/d.txt", "eXJVdNmvOac"}
+      {"C.bin", "HpvjSPvFCA"},
+      {"I/lgoC/d.dat", "tOT"},
+      {"m.bin", "bhHCnEqc"},
+      {"mDI/r.md", "AvFNTVfqzmrRGC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(149u),
+      static_cast<std::size_t>(134u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2054,22 +2079,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"DbF/P.txt", "p"},
-      {"Q/N.dat", "tGZhilNH"},
-      {"o.txt", "MVHIw"},
-      {"txA/yRh/u.md", "iBZmXlOC"}
+      {"E/V.cfg", "xJA"},
+      {"VJUo/i.bin", "aOkVUmvtrjwkqWF"},
+      {"Wi/WT/X.txt", "pYxjgFkpZkYYZS"},
+      {"k.md", "DbY"},
+      {"nqMC/Dm/J.dat", "KvqPtOHPwEpEqFJF"},
+      {"p/H.cfg", "hdly"}
     },
       {},
       {
-      {"DbF/P.txt", "p"},
-      {"Q/N.dat", "tGZhilNH"},
-      {"o.txt", "MVHIw"},
-      {"txA/yRh/u.md", "iBZmXlOC"}
+      {"E/V.cfg", "xJA"},
+      {"VJUo/i.bin", "aOkVUmvtrjwkqWF"},
+      {"Wi/WT/X.txt", "pYxjgFkpZkYYZS"},
+      {"k.md", "DbY"},
+      {"nqMC/Dm/J.dat", "KvqPtOHPwEpEqFJF"},
+      {"p/H.cfg", "hdly"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(131u),
+      static_cast<std::size_t>(320u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2081,20 +2111,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"Uqc/Y.cfg", "aVhRr"},
-      {"Y/uJoj/k.txt", "kjhOpzkPJlLZP"},
-      {"q.dat", "UhYGF"}
+      {"M.txt", "nUpCIMunBviD"},
+      {"n/s.dat", "cCISxmHKMFOiZg"}
     },
       {},
       {
-      {"Uqc/Y.cfg", "aVhRr"},
-      {"Y/uJoj/k.txt", "kjhOpzkPJlLZP"},
-      {"q.dat", "UhYGF"}
+      {"M.txt", "nUpCIMunBviD"},
+      {"n/s.dat", "cCISxmHKMFOiZg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(127u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2106,26 +2135,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"F.bin", "jfwYLXkM"},
-      {"aR/sJL/Y.bin", "nlghw"},
-      {"c.md", "OFlAdLSqOF"},
-      {"i/PWdb/X.dat", "vUkUvzzaoythZs"},
-      {"m/m.md", "LZqeEcLx"},
-      {"n.dat", "EvlteTVnn"}
+      {"YY/I.bin", "nAybPTsGV"},
+      {"k.txt", "xfYwkIShEP"}
     },
       {},
       {
-      {"F.bin", "jfwYLXkM"},
-      {"aR/sJL/Y.bin", "nlghw"},
-      {"c.md", "OFlAdLSqOF"},
-      {"i/PWdb/X.dat", "vUkUvzzaoythZs"},
-      {"m/m.md", "LZqeEcLx"},
-      {"n.dat", "EvlteTVnn"}
+      {"YY/I.bin", "nAybPTsGV"},
+      {"k.txt", "xfYwkIShEP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(212u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2137,20 +2159,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"a/X.bin", "yjwqWumIYq"},
-      {"c/LlL/G.dat", "MohkqLn"},
-      {"lQQ/Q.dat", "sintGVQUWhg"}
+      {"RMQ/cJP/n.bin", "tOAAiVWzweq"},
+      {"S/m.bin", "yIuniFSJpgVyMrh"},
+      {"UAeT/Q.bin", "akD"},
+      {"Z.cfg", "bILHlXJnLKA"},
+      {"p/I.md", "qdRYZftkozkfA"},
+      {"w.cfg", "QwTJasuXn"}
     },
       {},
       {
-      {"a/X.bin", "yjwqWumIYq"},
-      {"c/LlL/G.dat", "MohkqLn"},
-      {"lQQ/Q.dat", "sintGVQUWhg"}
+      {"RMQ/cJP/n.bin", "tOAAiVWzweq"},
+      {"S/m.bin", "yIuniFSJpgVyMrh"},
+      {"UAeT/Q.bin", "akD"},
+      {"Z.cfg", "bILHlXJnLKA"},
+      {"p/I.md", "qdRYZftkozkfA"},
+      {"w.cfg", "QwTJasuXn"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(123u),
+      static_cast<std::size_t>(302u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2162,22 +2191,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"J.cfg", "ubjdFm"},
-      {"V.txt", "ZvCqilOZtHCN"},
-      {"kTUG/ovB/Z.bin", "QkCH"},
-      {"y.dat", "sTFloIzdbtbg"}
+      {"l.dat", "lE"}
     },
       {},
       {
-      {"J.cfg", "ubjdFm"},
-      {"V.txt", "ZvCqilOZtHCN"},
-      {"kTUG/ovB/Z.bin", "QkCH"},
-      {"y.dat", "sTFloIzdbtbg"}
+      {"l.dat", "lE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(142u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2189,20 +2213,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"Eh/Q.bin", "wNcjCjmiPFuIlcuO"},
-      {"JZ/Wois/M.txt", "GbwMsaAuH"},
-      {"U/j.bin", "FNuhXphralXihg"}
+      {"D/H/s.md", "VsDjBA"},
+      {"a.md", "RwifWW"},
+      {"a/t.txt", "mjZJwiGMGmCfhdF"},
+      {"hA/W.txt", "QeNIxLrfMVEIegHw"}
     },
       {},
       {
-      {"Eh/Q.bin", "wNcjCjmiPFuIlcuO"},
-      {"JZ/Wois/M.txt", "GbwMsaAuH"},
-      {"U/j.bin", "FNuhXphralXihg"}
+      {"D/H/s.md", "VsDjBA"},
+      {"a.md", "RwifWW"},
+      {"a/t.txt", "mjZJwiGMGmCfhdF"},
+      {"hA/W.txt", "QeNIxLrfMVEIegHw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(134u),
+      static_cast<std::size_t>(190u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2214,16 +2241,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"e.bin", "CyVquF"}
+      {"IOGM/M.cfg", "msuinYvQH"},
+      {"LRCE/B.dat", "ztkJ"},
+      {"g.bin", "hS"},
+      {"ipfq/r.bin", "hmVxRhssgaPv"},
+      {"m.dat", "kGc"}
     },
       {},
       {
-      {"e.bin", "CyVquF"}
+      {"IOGM/M.cfg", "msuinYvQH"},
+      {"LRCE/B.dat", "ztkJ"},
+      {"g.bin", "hS"},
+      {"ipfq/r.bin", "hmVxRhssgaPv"},
+      {"m.dat", "kGc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(230u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2235,26 +2271,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"ED/w.cfg", "DUhZoyG"},
-      {"Ffmk/aBD/D.md", "FBciBZ"},
-      {"f.cfg", "SdQAqUMUzewICgE"},
-      {"o.bin", "xDPBl"},
-      {"rcfj/p.cfg", "MVL"},
-      {"u.md", "DsYpTv"}
+      {"LA/QjQR/u.cfg", "iKqgPOicDnykVx"},
+      {"S/Z.dat", "xGNVhv"},
+      {"iC/x.dat", "nSPbKKzKj"}
     },
       {},
       {
-      {"ED/w.cfg", "DUhZoyG"},
-      {"Ffmk/aBD/D.md", "FBciBZ"},
-      {"f.cfg", "SdQAqUMUzewICgE"},
-      {"o.bin", "xDPBl"},
-      {"rcfj/p.cfg", "MVL"},
-      {"u.md", "DsYpTv"}
+      {"LA/QjQR/u.cfg", "iKqgPOicDnykVx"},
+      {"S/Z.dat", "xGNVhv"},
+      {"iC/x.dat", "nSPbKKzKj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(205u),
+      static_cast<std::size_t>(160u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2266,24 +2297,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"Ldkn/B.md", "LVLTVjj"},
-      {"QkMB/D.md", "FTNAsLZWtZzVwAS"},
-      {"SQHz/Y.md", "uBMHBDeLXoG"},
-      {"i/rqXs/Z.txt", "wCxsUcn"},
-      {"k.md", "eITVVTWH"}
+      {"swv/CJd/A.dat", "JvcFqgn"}
     },
       {},
       {
-      {"Ldkn/B.md", "LVLTVjj"},
-      {"QkMB/D.md", "FTNAsLZWtZzVwAS"},
-      {"SQHz/Y.md", "uBMHBDeLXoG"},
-      {"i/rqXs/Z.txt", "wCxsUcn"},
-      {"k.md", "eITVVTWH"}
+      {"swv/CJd/A.dat", "JvcFqgn"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(199u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2295,16 +2319,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"C.dat", "MZNUyVoEvVgLUen"}
+      {"Jw/i.cfg", "epBudQBcJge"},
+      {"Lf/G/f.dat", "mgnoylBjm"},
+      {"R.cfg", "kcxXoczgPh"}
     },
       {},
       {
-      {"C.dat", "MZNUyVoEvVgLUen"}
+      {"Jw/i.cfg", "epBudQBcJge"},
+      {"Lf/G/f.dat", "mgnoylBjm"},
+      {"R.cfg", "kcxXoczgPh"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(158u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2316,26 +2345,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"PSQa/XMus/d.txt", "ERdDnSrSqbB"},
-      {"S.dat", "sTOwXIBuAmhOt"},
-      {"aUaS/z.dat", "GRNo"},
-      {"nE/Sp/m.md", "pgyGGhQEh"},
-      {"u/n.txt", "MdWkAvrCyPIFqT"},
-      {"wgVU/J.txt", "pxeolkz"}
+      {"E/l.cfg", "gXIYWLnmDhUh"},
+      {"Olg/l.dat", "rLijtkIFMjZ"},
+      {"P.md", "TaR"},
+      {"l.md", "HrVNjiQHjowTideI"},
+      {"qH/tY/r.md", "yKfa"}
     },
       {},
       {
-      {"PSQa/XMus/d.txt", "ERdDnSrSqbB"},
-      {"S.dat", "sTOwXIBuAmhOt"},
-      {"aUaS/z.dat", "GRNo"},
-      {"nE/Sp/m.md", "pgyGGhQEh"},
-      {"u/n.txt", "MdWkAvrCyPIFqT"},
-      {"wgVU/J.txt", "pxeolkz"}
+      {"E/l.cfg", "gXIYWLnmDhUh"},
+      {"Olg/l.dat", "rLijtkIFMjZ"},
+      {"P.md", "TaR"},
+      {"l.md", "HrVNjiQHjowTideI"},
+      {"qH/tY/r.md", "yKfa"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(226u),
+      static_cast<std::size_t>(234u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2347,18 +2375,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"CJ/p/m.txt", "bbAR"},
-      {"ja/K.bin", "kobSgAVUWuJuCn"}
+      {"O.bin", "nQkAzX"}
     },
       {},
       {
-      {"CJ/p/m.txt", "bbAR"},
-      {"ja/K.bin", "kobSgAVUWuJuCn"}
+      {"O.bin", "nQkAzX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(78u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2370,26 +2397,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"Cv/tUWs/m.txt", "q"},
-      {"HB/d.bin", "dj"},
-      {"V.txt", "saCAcWLAjUrLYh"},
-      {"WU/P.txt", "bkjkTMGBjUwCxBo"},
-      {"qQJQ/ywMF/L.bin", "v"},
-      {"sdzF/x.cfg", "eGFX"}
+      {"YN/Aj/Q.dat", "Doteo"},
+      {"kCA/O/s.dat", "QHdcOryjssqSQXru"},
+      {"r/I.dat", "yGESfcxfOsT"}
     },
       {},
       {
-      {"Cv/tUWs/m.txt", "q"},
-      {"HB/d.bin", "dj"},
-      {"V.txt", "saCAcWLAjUrLYh"},
-      {"WU/P.txt", "bkjkTMGBjUwCxBo"},
-      {"qQJQ/ywMF/L.bin", "v"},
-      {"sdzF/x.cfg", "eGFX"}
+      {"YN/Aj/Q.dat", "Doteo"},
+      {"kCA/O/s.dat", "QHdcOryjssqSQXru"},
+      {"r/I.dat", "yGESfcxfOsT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(210u),
+      static_cast<std::size_t>(163u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2401,20 +2423,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"Sau/Cz/W.dat", "qop"},
-      {"i/z/M.cfg", "RfUutK"},
-      {"l.bin", "bGbOeGviwXXxAED"}
+      {"vuXH/L.bin", "xjjisMw"}
     },
       {},
       {
-      {"Sau/Cz/W.dat", "qop"},
-      {"i/z/M.cfg", "RfUutK"},
-      {"l.bin", "bGbOeGviwXXxAED"}
+      {"vuXH/L.bin", "xjjisMw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(102u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2426,24 +2445,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"D.cfg", "rjTjzHep"},
-      {"Zuf/B/Z.txt", "EIrfaEN"},
-      {"a.cfg", "VnqBI"},
-      {"vkm/BAq/m.md", "kvbVPbmYN"},
-      {"y.bin", "ZLTkS"}
+      {"I.bin", "wyqQgeSFMCrePRr"},
+      {"M.bin", "HgOqsIgk"},
+      {"Tb/I.md", "aOHZXGUoQKredlA"}
     },
       {},
       {
-      {"D.cfg", "rjTjzHep"},
-      {"Zuf/B/Z.txt", "EIrfaEN"},
-      {"a.cfg", "VnqBI"},
-      {"vkm/BAq/m.md", "kvbVPbmYN"},
-      {"y.bin", "ZLTkS"}
+      {"I.bin", "wyqQgeSFMCrePRr"},
+      {"M.bin", "HgOqsIgk"},
+      {"Tb/I.md", "aOHZXGUoQKredlA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(166u),
+      static_cast<std::size_t>(137u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2455,13 +2471,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"Ph/H.dat", "pMGYCLTDCkPJ"}
+      {"i.bin", "tnkijWvAwJFxKBsJ"}
     },
       {},
       {
-      {"Ph/H.dat", "pMGYCLTDCkPJ"}
+      {"i.bin", "tnkijWvAwJFxKBsJ"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -2476,13 +2493,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"ycxL/k.cfg", "wA"}
+      {"N.md", "VRNtZp"}
     },
       {},
       {
-      {"ycxL/k.cfg", "wA"}
+      {"N.md", "VRNtZp"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -2497,20 +2515,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"N.md", "ppHolnv"},
-      {"ZjY/Fl/U.txt", "zefjRPmSbeITZgMp"},
-      {"a.dat", "LgRJN"}
+      {"J/Elje/U.dat", "imwYRbb"},
+      {"NWZe/o.bin", "fclUkIH"}
     },
       {},
       {
-      {"N.md", "ppHolnv"},
-      {"ZjY/Fl/U.txt", "zefjRPmSbeITZgMp"},
-      {"a.dat", "LgRJN"}
+      {"J/Elje/U.dat", "imwYRbb"},
+      {"NWZe/o.bin", "fclUkIH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(127u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2522,16 +2539,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"Mk/p.bin", "UXApKgukVHzRkI"}
+      {"M.md", "HOOiCidYTA"},
+      {"X/z.dat", "wfcsHUezyAeziOe"}
     },
       {},
       {
-      {"Mk/p.bin", "UXApKgukVHzRkI"}
+      {"M.md", "HOOiCidYTA"},
+      {"X/z.dat", "wfcsHUezyAeziOe"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(94u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2543,20 +2563,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"J.dat", "cgREAVNENbzOitW"},
-      {"n/J/I.bin", "njNYCraJqcS"},
-      {"zIPI/r/b.cfg", "QoZla"}
+      {"gq/F.cfg", "ZRrNvnqQoS"},
+      {"m/F.dat", "RaezwuiUtmMjfg"},
+      {"o.md", "USJMaZsb"}
     },
       {},
       {
-      {"J.dat", "cgREAVNENbzOitW"},
-      {"n/J/I.bin", "njNYCraJqcS"},
-      {"zIPI/r/b.cfg", "QoZla"}
+      {"gq/F.cfg", "ZRrNvnqQoS"},
+      {"m/F.dat", "RaezwuiUtmMjfg"},
+      {"o.md", "USJMaZsb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(128u),
+      static_cast<std::size_t>(159u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2568,18 +2589,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"L.bin", "eLjMEvldUHtmHURZ"},
-      {"YHA/xLVR/L.txt", "RlI"}
+      {"Sl/odx/n.bin", "ayffOx"},
+      {"cF/NfW/r.md", "eIEFHu"}
     },
       {},
       {
-      {"L.bin", "eLjMEvldUHtmHURZ"},
-      {"YHA/xLVR/L.txt", "RlI"}
+      {"Sl/odx/n.bin", "ayffOx"},
+      {"cF/NfW/r.md", "eIEFHu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(85u),
+      static_cast<std::size_t>(98u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2591,18 +2613,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"IKZ/R.txt", "uTOIbbhLsvIk"},
-      {"PK/Dpn/M.dat", "VpPCn"}
+      {"FLlx/B/n.md", "n"},
+      {"k/H.cfg", "obdajgCOmceIOU"},
+      {"l/RY/u.cfg", "hjEDDdhug"}
     },
       {},
       {
-      {"IKZ/R.txt", "uTOIbbhLsvIk"},
-      {"PK/Dpn/M.dat", "VpPCn"}
+      {"FLlx/B/n.md", "n"},
+      {"k/H.cfg", "obdajgCOmceIOU"},
+      {"l/RY/u.cfg", "hjEDDdhug"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(85u),
+      static_cast<std::size_t>(137u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2614,16 +2639,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"Luxm/pi/b.dat", "nqzxiOOyjXARjxh"}
+      {"Buw/s.cfg", "BqPFr"},
+      {"N.cfg", "PI"},
+      {"x/ooFO/w.md", "FPbarjVWqXuV"}
     },
       {},
       {
-      {"Luxm/pi/b.dat", "nqzxiOOyjXARjxh"}
+      {"Buw/s.cfg", "BqPFr"},
+      {"N.cfg", "PI"},
+      {"x/ooFO/w.md", "FPbarjVWqXuV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(125u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2635,20 +2665,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"R/DXDS/m.bin", "UXx"},
-      {"Swdd/J.bin", "Vh"},
-      {"oDP/lqDU/J.md", "OBM"}
+      {"aD/F.dat", "hVRNiuRs"}
     },
       {},
       {
-      {"R/DXDS/m.bin", "UXx"},
-      {"Swdd/J.bin", "Vh"},
-      {"oDP/lqDU/J.md", "OBM"}
+      {"aD/F.dat", "hVRNiuRs"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(99u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2660,22 +2687,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"D/QftW/d.bin", "F"},
-      {"OmCV/M/Q.cfg", "XqkXLlLo"},
-      {"e.dat", "EKOS"},
-      {"f.md", "UHpJATAORUNyTmVi"}
+      {"I.txt", "DTpjkxtQ"}
     },
       {},
       {
-      {"D/QftW/d.bin", "F"},
-      {"OmCV/M/Q.cfg", "XqkXLlLo"},
-      {"e.dat", "EKOS"},
-      {"f.md", "UHpJATAORUNyTmVi"}
+      {"I.txt", "DTpjkxtQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(138u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2687,13 +2709,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"sYl/d.txt", "oCSNCXQEAohQnX"}
+      {"l.dat", "dQuGLu"}
     },
       {},
       {
-      {"sYl/d.txt", "oCSNCXQEAohQnX"}
+      {"l.dat", "dQuGLu"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -2708,26 +2731,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"A.dat", "JqpWyCkGBn"},
-      {"M.md", "axStQHsIJfzCMy"},
-      {"j.md", "yghSHfX"},
-      {"k.md", "c"},
-      {"km/bgYS/q.dat", "ytHPgaWgKxxgz"},
-      {"yls/vQTq/S.dat", "tOeTucODrAIFw"}
+      {"J.dat", "pKsGuDVn"},
+      {"NAb/p/k.dat", "rXdGWDBrofuTpGOD"},
+      {"U/i.cfg", "ptBeCwzEjydfx"},
+      {"W.md", "F"},
+      {"v.cfg", "uYAp"}
     },
       {},
       {
-      {"A.dat", "JqpWyCkGBn"},
-      {"M.md", "axStQHsIJfzCMy"},
-      {"j.md", "yghSHfX"},
-      {"k.md", "c"},
-      {"km/bgYS/q.dat", "ytHPgaWgKxxgz"},
-      {"yls/vQTq/S.dat", "tOeTucODrAIFw"}
+      {"J.dat", "pKsGuDVn"},
+      {"NAb/p/k.dat", "rXdGWDBrofuTpGOD"},
+      {"U/i.cfg", "ptBeCwzEjydfx"},
+      {"W.md", "F"},
+      {"v.cfg", "uYAp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(203u),
+      static_cast<std::size_t>(233u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2739,24 +2761,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"GPC/yLrn/s.bin", "nnqtoHvbnJZyOA"},
-      {"L/zGW/z.md", "qsZvN"},
-      {"M.cfg", "S"},
-      {"i.md", "c"},
-      {"qc/y.md", "vdFOffCI"}
+      {"KXRx/gIh/P.dat", "EsH"},
+      {"s.txt", "JPGLsOyljkqcpXAL"}
     },
       {},
       {
-      {"GPC/yLrn/s.bin", "nnqtoHvbnJZyOA"},
-      {"L/zGW/z.md", "qsZvN"},
-      {"M.cfg", "S"},
-      {"i.md", "c"},
-      {"qc/y.md", "vdFOffCI"}
+      {"KXRx/gIh/P.dat", "EsH"},
+      {"s.txt", "JPGLsOyljkqcpXAL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(158u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2768,16 +2785,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"Oi/TNZ/a.dat", "FHbaEfwMyRDSFUeR"}
+      {"A.md", "XsVGvAHwgkGQ"},
+      {"E.dat", "rWic"}
     },
       {},
       {
-      {"Oi/TNZ/a.dat", "FHbaEfwMyRDSFUeR"}
+      {"A.md", "XsVGvAHwgkGQ"},
+      {"E.dat", "rWic"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2789,13 +2809,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"oYE/d.cfg", "VPTpnBkAAbCnJB"}
+      {"jg/B.dat", "dvQHtRUiQP"}
     },
       {},
       {
-      {"oYE/d.cfg", "VPTpnBkAAbCnJB"}
+      {"jg/B.dat", "dvQHtRUiQP"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -2810,22 +2831,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"A.dat", "b"},
-      {"i/t.cfg", "wK"},
-      {"r.bin", "oBfiFcoO"},
-      {"sG/mWp/b.md", "nXiu"}
+      {"A.dat", "tjxSBZAoEay"},
+      {"BE/W.dat", "TAyeGaLqNZVgqo"}
     },
       {},
       {
-      {"A.dat", "b"},
-      {"i/t.cfg", "wK"},
-      {"r.bin", "oBfiFcoO"},
-      {"sG/mWp/b.md", "nXiu"}
+      {"A.dat", "tjxSBZAoEay"},
+      {"BE/W.dat", "TAyeGaLqNZVgqo"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(124u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2837,18 +2855,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"N/W.dat", "kPEhKWWNDXR"},
-      {"q.bin", "CQeTzvAwDMEJAs"}
+      {"J.dat", "QMVvuRKhuFdaySe"},
+      {"RKU/PDN/x.cfg", "OXDxghbWd"},
+      {"mG/mc/u.cfg", "aEE"},
+      {"qs/PG/t.bin", "eTrIkFu"},
+      {"s/g.bin", "DjZ"},
+      {"v.dat", "NRDMhVkBqfupq"}
     },
       {},
       {
-      {"N/W.dat", "kPEhKWWNDXR"},
-      {"q.bin", "CQeTzvAwDMEJAs"}
+      {"J.dat", "QMVvuRKhuFdaySe"},
+      {"RKU/PDN/x.cfg", "OXDxghbWd"},
+      {"mG/mc/u.cfg", "aEE"},
+      {"qs/PG/t.bin", "eTrIkFu"},
+      {"s/g.bin", "DjZ"},
+      {"v.dat", "NRDMhVkBqfupq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(82u),
+      static_cast<std::size_t>(292u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2860,24 +2887,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"M.md", "qXlfoiTgZ"},
-      {"RF/D.dat", "XgkNcUHZLIeUE"},
-      {"SPQP/U.bin", "TrdoxwyRvZN"},
-      {"fsf/NC/e.dat", "WCCGbgNM"},
-      {"z/Rt/j.dat", "NqnWfCs"}
+      {"FDie/t.md", "pTrHVXGSaiDUJ"},
+      {"H.dat", "VVHzhSSTxPdsbZ"},
+      {"l.bin", "b"},
+      {"mJwC/R.txt", "rTRxeXPubaTbW"},
+      {"mO/FMlx/N.dat", "BmBUiMsVqtul"}
     },
       {},
       {
-      {"M.md", "qXlfoiTgZ"},
-      {"RF/D.dat", "XgkNcUHZLIeUE"},
-      {"SPQP/U.bin", "TrdoxwyRvZN"},
-      {"fsf/NC/e.dat", "WCCGbgNM"},
-      {"z/Rt/j.dat", "NqnWfCs"}
+      {"FDie/t.md", "pTrHVXGSaiDUJ"},
+      {"H.dat", "VVHzhSSTxPdsbZ"},
+      {"l.bin", "b"},
+      {"mJwC/R.txt", "rTRxeXPubaTbW"},
+      {"mO/FMlx/N.dat", "BmBUiMsVqtul"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(195u),
+      static_cast<std::size_t>(254u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2889,26 +2917,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"E.md", "MiZVLwWhawzGiuZ"},
-      {"L.dat", "gcHeoBLjMYEnSaDf"},
-      {"WOe/Y.cfg", "GbuXrWY"},
-      {"b.md", "ef"},
-      {"f.md", "aXtY"},
-      {"z.bin", "Z"}
+      {"M.txt", "FaPLqo"}
     },
       {},
       {
-      {"E.md", "MiZVLwWhawzGiuZ"},
-      {"L.dat", "gcHeoBLjMYEnSaDf"},
-      {"WOe/Y.cfg", "GbuXrWY"},
-      {"b.md", "ef"},
-      {"f.md", "aXtY"},
-      {"z.bin", "Z"}
+      {"M.txt", "FaPLqo"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(198u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2920,22 +2939,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"A.md", "UrzbVQtnjr"},
-      {"E.md", "hBKM"},
-      {"e/ZY/l.txt", "IcpwLjeALv"},
-      {"h/yx/c.cfg", "LrQ"}
+      {"A.cfg", "rhrIBv"},
+      {"EC/x.dat", "hWjCQH"},
+      {"Jzu/Dr/w.cfg", "PSHuesuAh"},
+      {"MQc/c/T.dat", "ptVqXXUfbfVRl"},
+      {"Q/cK/Y.md", "soQZCm"},
+      {"z/XHaP/i.bin", "tOrPywkdkT"}
     },
       {},
       {
-      {"A.md", "UrzbVQtnjr"},
-      {"E.md", "hBKM"},
-      {"e/ZY/l.txt", "IcpwLjeALv"},
-      {"h/yx/c.cfg", "LrQ"}
+      {"A.cfg", "rhrIBv"},
+      {"EC/x.dat", "hWjCQH"},
+      {"Jzu/Dr/w.cfg", "PSHuesuAh"},
+      {"MQc/c/T.dat", "ptVqXXUfbfVRl"},
+      {"Q/cK/Y.md", "soQZCm"},
+      {"z/XHaP/i.bin", "tOrPywkdkT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(138u),
+      static_cast<std::size_t>(293u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2947,26 +2971,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"B.bin", "yrHtHlEmby"},
-      {"G.cfg", "ewWgMwxwDBZU"},
-      {"SR/d.dat", "NwcVZmmjYx"},
-      {"l.cfg", "wKfGYoOPc"},
-      {"toZk/X/P.dat", "QQlJXPMcQ"},
-      {"z.txt", "JGutBhZk"}
+      {"AH/F/l.txt", "ICLUdNeoIxz"},
+      {"D.dat", "VCJMrTAvrPdraXI"},
+      {"F/kGDL/N.txt", "pZflmYDEEzfvnMtA"},
+      {"Z.bin", "yInCQSCD"},
+      {"at/t.dat", "mfuvQgsg"},
+      {"n.md", "vKXFyqHKaytayg"}
     },
       {},
       {
-      {"B.bin", "yrHtHlEmby"},
-      {"G.cfg", "ewWgMwxwDBZU"},
-      {"SR/d.dat", "NwcVZmmjYx"},
-      {"l.cfg", "wKfGYoOPc"},
-      {"toZk/X/P.dat", "QQlJXPMcQ"},
-      {"z.txt", "JGutBhZk"}
+      {"AH/F/l.txt", "ICLUdNeoIxz"},
+      {"D.dat", "VCJMrTAvrPdraXI"},
+      {"F/kGDL/N.txt", "pZflmYDEEzfvnMtA"},
+      {"Z.bin", "yInCQSCD"},
+      {"at/t.dat", "mfuvQgsg"},
+      {"n.md", "vKXFyqHKaytayg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(213u),
+      static_cast<std::size_t>(322u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -2978,24 +3003,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"R.bin", "uXNElNHAbxtxtI"},
-      {"ggB/zH/q.txt", "vWgUcPqeq"},
-      {"qsZR/dfg/d.dat", "rgPGXOOeECQv"},
-      {"wl/E.md", "asQXyCE"},
-      {"xidz/U.md", "bMmsJ"}
+      {"LUxU/L.cfg", "EGlDhZ"},
+      {"i/q.txt", "GJgGvsZTSUy"},
+      {"j.cfg", "PTRbbAGSEt"}
     },
       {},
       {
-      {"R.bin", "uXNElNHAbxtxtI"},
-      {"ggB/zH/q.txt", "vWgUcPqeq"},
-      {"qsZR/dfg/d.dat", "rgPGXOOeECQv"},
-      {"wl/E.md", "asQXyCE"},
-      {"xidz/U.md", "bMmsJ"}
+      {"LUxU/L.cfg", "EGlDhZ"},
+      {"i/q.txt", "GJgGvsZTSUy"},
+      {"j.cfg", "PTRbbAGSEt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(200u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3007,16 +3029,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"drrp/njQq/i.md", "vsdJomZzwkV"}
+      {"J/e/p.md", "JupVwgBND"},
+      {"qBcv/k.dat", "tqvUWE"},
+      {"t.dat", "jq"}
     },
       {},
       {
-      {"drrp/njQq/i.md", "vsdJomZzwkV"}
+      {"J/e/p.md", "JupVwgBND"},
+      {"qBcv/k.dat", "tqvUWE"},
+      {"t.dat", "jq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(137u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3028,16 +3055,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"KFUg/k/J.dat", "u"}
+      {"a.dat", "UfanwXrWOWrQzft"},
+      {"x.dat", "qmDcvoM"}
     },
       {},
       {
-      {"KFUg/k/J.dat", "u"}
+      {"a.dat", "UfanwXrWOWrQzft"},
+      {"x.dat", "qmDcvoM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3049,18 +3079,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"es/f/p.dat", "VbIqDehoUkOm"},
-      {"pkP/TxV/e.bin", "SiR"}
+      {"vvS/S.dat", "IEfNGiOlNKXgy"}
     },
       {},
       {
-      {"es/f/p.dat", "VbIqDehoUkOm"},
-      {"pkP/TxV/e.bin", "SiR"}
+      {"vvS/S.dat", "IEfNGiOlNKXgy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(86u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3072,26 +3101,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"INUe/C.txt", "ETeTCqb"},
-      {"J/V.md", "HYzV"},
-      {"L/e/P.dat", "EhPf"},
-      {"S.cfg", "lbupuWpZyrHTxDW"},
-      {"m.cfg", "vfcBoxM"},
-      {"pjb/u.bin", "eCaGY"}
+      {"yku/ay/J.dat", "SiuUtMlToZ"}
     },
       {},
       {
-      {"INUe/C.txt", "ETeTCqb"},
-      {"J/V.md", "HYzV"},
-      {"L/e/P.dat", "EhPf"},
-      {"S.cfg", "lbupuWpZyrHTxDW"},
-      {"m.cfg", "vfcBoxM"},
-      {"pjb/u.bin", "eCaGY"}
+      {"yku/ay/J.dat", "SiuUtMlToZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(200u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3103,26 +3123,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"L.dat", "LGppS"},
-      {"ivcw/uQ/B.dat", "cDlWDvHHLLMgl"},
-      {"p.bin", "FJZEgHnyApJH"},
-      {"uuwn/IiB/h.md", "eETrnyGv"},
-      {"wmMl/pn/C.cfg", "oCxrviKDBfYV"},
-      {"zjYY/n.bin", "ISbbwqVvcQFq"}
+      {"E.dat", "ZxSsdWUfaJVqh"},
+      {"Lyb/u.cfg", "YCdvIOp"}
     },
       {},
       {
-      {"L.dat", "LGppS"},
-      {"ivcw/uQ/B.dat", "cDlWDvHHLLMgl"},
-      {"p.bin", "FJZEgHnyApJH"},
-      {"uuwn/IiB/h.md", "eETrnyGv"},
-      {"wmMl/pn/C.cfg", "oCxrviKDBfYV"},
-      {"zjYY/n.bin", "ISbbwqVvcQFq"}
+      {"E.dat", "ZxSsdWUfaJVqh"},
+      {"Lyb/u.cfg", "YCdvIOp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(227u),
+      static_cast<std::size_t>(98u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3134,22 +3147,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"HV/QfG/Q.bin", "DykD"},
-      {"IrF/w.txt", "MkeW"},
-      {"X.bin", "RxMSFeI"},
-      {"hR/f.txt", "GDSMUyGqLQ"}
+      {"w.dat", "pczWmLSSA"}
     },
       {},
       {
-      {"HV/QfG/Q.bin", "DykD"},
-      {"IrF/w.txt", "MkeW"},
-      {"X.bin", "RxMSFeI"},
-      {"hR/f.txt", "GDSMUyGqLQ"}
+      {"w.dat", "pczWmLSSA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(137u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3161,18 +3169,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"Q.txt", "nLQBhgMjZpiWKF"},
-      {"iyP/Z.cfg", "DoxvllZBDBP"}
+      {"Y.cfg", "IXsE"},
+      {"YJzd/A/M.cfg", "JPs"}
     },
       {},
       {
-      {"Q.txt", "nLQBhgMjZpiWKF"},
-      {"iyP/Z.cfg", "DoxvllZBDBP"}
+      {"Y.cfg", "IXsE"},
+      {"YJzd/A/M.cfg", "JPs"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(83u),
+      static_cast<std::size_t>(89u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3184,16 +3193,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"llf/N/Y.md", "Nd"}
+      {"T.bin", "Toojn"},
+      {"x.cfg", "SRIgSa"}
     },
       {},
       {
-      {"llf/N/Y.md", "Nd"}
+      {"T.bin", "Toojn"},
+      {"x.cfg", "SRIgSa"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(90u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3205,18 +3217,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"rAfC/y/H.cfg", "kJDHGEKl"},
-      {"uksb/tKht/U.txt", "zhDvX"}
+      {"J/c.txt", "JNpkPM"},
+      {"UItv/ASK/j.txt", "ydZhtKgCVAfSRQGA"},
+      {"qk/X/h.dat", "feafdRW"}
     },
       {},
       {
-      {"rAfC/y/H.cfg", "kJDHGEKl"},
-      {"uksb/tKht/U.txt", "zhDvX"}
+      {"J/c.txt", "JNpkPM"},
+      {"UItv/ASK/j.txt", "ydZhtKgCVAfSRQGA"},
+      {"qk/X/h.dat", "feafdRW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(84u),
+      static_cast<std::size_t>(163u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3228,18 +3243,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"TMrQ/U.dat", "ZKYRhAJBPqA"},
-      {"hxw/l/N.cfg", "DEzaAT"}
+      {"H/k.bin", "oxIFYdcEe"},
+      {"K.txt", "dllfArAaHfCB"}
     },
       {},
       {
-      {"TMrQ/U.dat", "ZKYRhAJBPqA"},
-      {"hxw/l/N.cfg", "DEzaAT"}
+      {"H/k.bin", "oxIFYdcEe"},
+      {"K.txt", "dllfArAaHfCB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(85u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3251,22 +3267,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"Vy/k.dat", "SpPoEVR"},
-      {"l/o/I.md", "U"},
-      {"lb/x.cfg", "gcYytEPrnakZNfE"},
-      {"vc/Ug/N.md", "jgPFLEJB"}
+      {"Jus/wRdF/q.cfg", "W"},
+      {"MDuh/E.dat", "OFODhuFou"},
+      {"n/mF/R.bin", "AEi"},
+      {"qWu/S.md", "iZSPfD"},
+      {"qjlh/LXZ/y.cfg", "ZFgfIpPdHLviNi"},
+      {"vchR/C.dat", "pJviaRWsChVgcq"}
     },
       {},
       {
-      {"Vy/k.dat", "SpPoEVR"},
-      {"l/o/I.md", "U"},
-      {"lb/x.cfg", "gcYytEPrnakZNfE"},
-      {"vc/Ug/N.md", "jgPFLEJB"}
+      {"Jus/wRdF/q.cfg", "W"},
+      {"MDuh/E.dat", "OFODhuFou"},
+      {"n/mF/R.bin", "AEi"},
+      {"qWu/S.md", "iZSPfD"},
+      {"qjlh/LXZ/y.cfg", "ZFgfIpPdHLviNi"},
+      {"vchR/C.dat", "pJviaRWsChVgcq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(143u),
+      static_cast<std::size_t>(297u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3278,26 +3299,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"Ah/zwaB/p.txt", "cSCTaUUdKQtXJ"},
-      {"FKN/B.cfg", "jDYVhDMKAPIqaE"},
-      {"Jh/MpU/a.txt", "p"},
-      {"bm/g.txt", "RyZvOYdPsoIRk"},
-      {"jC/O/D.dat", "rutdKtoEw"},
-      {"oEiR/N.txt", "CgCMtbkQxF"}
+      {"LJ/Ksb/X.bin", "dfAkOFCyuICf"},
+      {"Ugq/P.txt", "ahHzow"},
+      {"c/E.md", "OICeeFQgApjitKaL"},
+      {"fifN/tm/P.txt", "eROwEOeygW"},
+      {"kGW/L.md", "GqzJzcJNpCsxi"}
     },
       {},
       {
-      {"Ah/zwaB/p.txt", "cSCTaUUdKQtXJ"},
-      {"FKN/B.cfg", "jDYVhDMKAPIqaE"},
-      {"Jh/MpU/a.txt", "p"},
-      {"bm/g.txt", "RyZvOYdPsoIRk"},
-      {"jC/O/D.dat", "rutdKtoEw"},
-      {"oEiR/N.txt", "CgCMtbkQxF"}
+      {"LJ/Ksb/X.bin", "dfAkOFCyuICf"},
+      {"Ugq/P.txt", "ahHzow"},
+      {"c/E.md", "OICeeFQgApjitKaL"},
+      {"fifN/tm/P.txt", "eROwEOeygW"},
+      {"kGW/L.md", "GqzJzcJNpCsxi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(230u),
+      static_cast<std::size_t>(268u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3309,17 +3329,16 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"F.txt", "HXTYAvEbBI"},
-      {"J.bin", "whiaKdVNq"},
-      {"Y.cfg", "zcla"}
+      {"FW/X.cfg", "XQUksDHHwbBBr"},
+      {"I.md", "txscVgbys"}
     },
       {},
       {
-      {"F.txt", "HXTYAvEbBI"},
-      {"J.bin", "whiaKdVNq"},
-      {"Y.cfg", "zcla"}
+      {"FW/X.cfg", "XQUksDHHwbBBr"},
+      {"I.md", "txscVgbys"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(101u),
@@ -3334,18 +3353,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"VTTB/J.txt", "oaBN"},
-      {"zg/P.txt", "XXdLKPycT"}
+      {"DM/yR/k.txt", "XFSvwzR"},
+      {"F/A.cfg", "HonEqLzQe"},
+      {"K/gJ/g.cfg", "JVZeRvWTun"},
+      {"Rxg/k.dat", "SxDoXs"},
+      {"Z.dat", "mRXUTTdjAKmnW"}
     },
       {},
       {
-      {"VTTB/J.txt", "oaBN"},
-      {"zg/P.txt", "XXdLKPycT"}
+      {"DM/yR/k.txt", "XFSvwzR"},
+      {"F/A.cfg", "HonEqLzQe"},
+      {"K/gJ/g.cfg", "JVZeRvWTun"},
+      {"Rxg/k.dat", "SxDoXs"},
+      {"Z.dat", "mRXUTTdjAKmnW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(78u),
+      static_cast<std::size_t>(198u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3357,18 +3383,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"P/O.dat", "nrxKezEyDNfvbb"},
-      {"l.cfg", "XILusbCjOBpqDrmP"}
+      {"wz/P.dat", "BlvAetqSMQgsCPiX"}
     },
       {},
       {
-      {"P/O.dat", "nrxKezEyDNfvbb"},
-      {"l.cfg", "XILusbCjOBpqDrmP"}
+      {"wz/P.dat", "BlvAetqSMQgsCPiX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(85u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3380,18 +3405,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"A/R.bin", "czMQQSbXlUi"},
-      {"x.md", "UsSDnmeDQrGiJFlM"}
+      {"hsR/z.txt", "gmo"},
+      {"pZy/p.dat", "K"},
+      {"y/N.bin", "W"}
     },
       {},
       {
-      {"A/R.bin", "czMQQSbXlUi"},
-      {"x.md", "UsSDnmeDQrGiJFlM"}
+      {"hsR/z.txt", "gmo"},
+      {"pZy/p.dat", "K"},
+      {"y/N.bin", "W"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(82u),
+      static_cast<std::size_t>(126u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3403,26 +3431,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"E.dat", "gtNHPPEBZCjQL"},
-      {"N.md", "vYAaJGfjBxtVZKq"},
-      {"Q.cfg", "zNZnFeYFhlnTxYZ"},
-      {"QnrT/l.dat", "xhMOLxFoe"},
-      {"Z.md", "cBU"},
-      {"ZpAr/wXr/i.md", "Qgapg"}
+      {"VF/g.txt", "OWavfTjXCi"}
     },
       {},
       {
-      {"E.dat", "gtNHPPEBZCjQL"},
-      {"N.md", "vYAaJGfjBxtVZKq"},
-      {"Q.cfg", "zNZnFeYFhlnTxYZ"},
-      {"QnrT/l.dat", "xhMOLxFoe"},
-      {"Z.md", "cBU"},
-      {"ZpAr/wXr/i.md", "Qgapg"}
+      {"VF/g.txt", "OWavfTjXCi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(211u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3434,22 +3453,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"K.cfg", "HrBCklFQO"},
-      {"S/c.md", "wniuK"},
-      {"i/VyZ/R.md", "NDOmXAG"},
-      {"mMK/g.bin", "jatlfIrWbsTcPMla"}
+      {"pR/HKF/A.md", "KGUTVnMVDR"}
     },
       {},
       {
-      {"K.cfg", "HrBCklFQO"},
-      {"S/c.md", "wniuK"},
-      {"i/VyZ/R.md", "NDOmXAG"},
-      {"mMK/g.bin", "jatlfIrWbsTcPMla"}
+      {"pR/HKF/A.md", "KGUTVnMVDR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(138u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3461,26 +3475,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"F.txt", "QWYchhfdxs"},
-      {"QKoM/eHKp/r.dat", "TSrSAOjkzHmY"},
-      {"ar/a/l.cfg", "xhtDoPTOufpgHVdG"},
-      {"jZV/J.md", "DRodqixoddw"},
-      {"lMLf/LGfv/o.cfg", "pMhSypRoydc"},
-      {"nm/y.dat", "QI"}
+      {"z/MCEy/O.bin", "LiWIgCArvHpI"}
     },
       {},
       {
-      {"F.txt", "QWYchhfdxs"},
-      {"QKoM/eHKp/r.dat", "TSrSAOjkzHmY"},
-      {"ar/a/l.cfg", "xhtDoPTOufpgHVdG"},
-      {"jZV/J.md", "DRodqixoddw"},
-      {"lMLf/LGfv/o.cfg", "pMhSypRoydc"},
-      {"nm/y.dat", "QI"}
+      {"z/MCEy/O.bin", "LiWIgCArvHpI"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(257u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3492,16 +3497,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"N.cfg", "wuvMqmZOUIzyQf"}
+      {"PV/u.txt", "tT"},
+      {"Xq/pL/N.bin", "FfpPZP"}
     },
       {},
       {
-      {"N.cfg", "wuvMqmZOUIzyQf"}
+      {"PV/u.txt", "tT"},
+      {"Xq/pL/N.bin", "FfpPZP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(90u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3513,26 +3521,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"B.cfg", "irZjKlIZ"},
-      {"D/y.bin", "E"},
-      {"J/f.md", "xBmvodfkRv"},
-      {"X/n.dat", "GexIvQuJ"},
-      {"aW/ot/K.bin", "AGgTMw"},
-      {"eUUw/T/o.dat", "G"}
+      {"zUs/Lop/C.md", "DhEfWft"}
     },
       {},
       {
-      {"B.cfg", "irZjKlIZ"},
-      {"D/y.bin", "E"},
-      {"J/f.md", "xBmvodfkRv"},
-      {"X/n.dat", "GexIvQuJ"},
-      {"aW/ot/K.bin", "AGgTMw"},
-      {"eUUw/T/o.dat", "G"}
+      {"zUs/Lop/C.md", "DhEfWft"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(197u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3544,16 +3543,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"RlY/d.txt", "msQew"}
+      {"A.txt", "FFrBWgwNCJFNqcC"},
+      {"DSA/wNG/g.txt", "U"}
     },
       {},
       {
-      {"RlY/d.txt", "msQew"}
+      {"A.txt", "FFrBWgwNCJFNqcC"},
+      {"DSA/wNG/g.txt", "U"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3565,26 +3567,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"N.dat", "vTceAmfFIMN"},
-      {"e.dat", "JDGkldoh"},
-      {"o.dat", "dbB"},
-      {"q.dat", "wbrxIfNFxnpWhd"},
-      {"q.txt", "hYiIOqcVOYhOAk"},
-      {"rE/mimk/t.dat", "ZPexnuFExT"}
+      {"t/s/c.dat", "LkCsL"}
     },
       {},
       {
-      {"N.dat", "vTceAmfFIMN"},
-      {"e.dat", "JDGkldoh"},
-      {"o.dat", "dbB"},
-      {"q.dat", "wbrxIfNFxnpWhd"},
-      {"q.txt", "hYiIOqcVOYhOAk"},
-      {"rE/mimk/t.dat", "ZPexnuFExT"}
+      {"t/s/c.dat", "LkCsL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(203u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3596,18 +3589,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"kdQ/j.md", "IRUd"},
-      {"spj/g.txt", "KQUlzcWBIFLx"}
+      {"U.cfg", "fNRNscroONlhxa"},
+      {"Y/i/b.cfg", "S"},
+      {"pd/BF/C.bin", "iwpRGrxmCiMAP"},
+      {"q.md", "ZDtJpsQax"},
+      {"w.md", "qmscofX"}
     },
       {},
       {
-      {"kdQ/j.md", "IRUd"},
-      {"spj/g.txt", "KQUlzcWBIFLx"}
+      {"U.cfg", "fNRNscroONlhxa"},
+      {"Y/i/b.cfg", "S"},
+      {"pd/BF/C.bin", "iwpRGrxmCiMAP"},
+      {"q.md", "ZDtJpsQax"},
+      {"w.md", "qmscofX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(76u),
+      static_cast<std::size_t>(234u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3619,20 +3619,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"HK/Gi/A.cfg", "iJ"},
-      {"OLMw/s.md", "OwFSX"},
-      {"zia/u.txt", "ZrjarytlNMkLaZYM"}
+      {"O.dat", "EpcAF"},
+      {"XG/zg/s.bin", "IsMvXcFBT"}
     },
       {},
       {
-      {"HK/Gi/A.cfg", "iJ"},
-      {"OLMw/s.md", "OwFSX"},
-      {"zia/u.txt", "ZrjarytlNMkLaZYM"}
+      {"O.dat", "EpcAF"},
+      {"XG/zg/s.bin", "IsMvXcFBT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(99u),
+      static_cast<std::size_t>(90u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3644,16 +3643,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"dSt/o/J.cfg", "yonwINlfGNWLFf"}
+      {"VSh/Aw/h.md", "HdsdQBneb"},
+      {"x/s.txt", "npFWgoNcnGMFtmfs"}
     },
       {},
       {
-      {"dSt/o/J.cfg", "yonwINlfGNWLFf"}
+      {"VSh/Aw/h.md", "HdsdQBneb"},
+      {"x/s.txt", "npFWgoNcnGMFtmfs"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3665,16 +3667,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"WZcy/V.bin", "yZqK"}
+      {"OJS/q.cfg", "qRhxfqLj"},
+      {"jL/D/S.md", "duHBrqqiHTbOMMJ"}
     },
       {},
       {
-      {"WZcy/V.bin", "yZqK"}
+      {"OJS/q.cfg", "qRhxfqLj"},
+      {"jL/D/S.md", "duHBrqqiHTbOMMJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3686,18 +3691,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"L.bin", "EIoPHMToHoSUWwt"},
-      {"n.cfg", "XEpIHL"}
+      {"F.txt", "zMJOx"},
+      {"L.txt", "Izkfmgfz"},
+      {"k.md", "AIDfCBxR"}
     },
       {},
       {
-      {"L.bin", "EIoPHMToHoSUWwt"},
-      {"n.cfg", "XEpIHL"}
+      {"F.txt", "zMJOx"},
+      {"L.txt", "Izkfmgfz"},
+      {"k.md", "AIDfCBxR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(84u),
+      static_cast<std::size_t>(127u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3709,13 +3717,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"Z.cfg", "oHGgdNCDgYhSBe"}
+      {"W.bin", "tog"}
     },
       {},
       {
-      {"Z.cfg", "oHGgdNCDgYhSBe"}
+      {"W.bin", "tog"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -3730,20 +3739,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"I/Xg/X.cfg", "LnDOhLBACGCsDwGh"},
-      {"M.dat", "VzNqGwvHwqSGfW"},
-      {"PS/O.bin", "zYjDEpb"}
+      {"c.dat", "uAuYIvdSyUBRRV"}
     },
       {},
       {
-      {"I/Xg/X.cfg", "LnDOhLBACGCsDwGh"},
-      {"M.dat", "VzNqGwvHwqSGfW"},
-      {"PS/O.bin", "zYjDEpb"}
+      {"c.dat", "uAuYIvdSyUBRRV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(133u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3755,16 +3761,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"U/k/T.dat", "YCO"}
+      {"a.bin", "VnXMhKGkMDPiZNG"},
+      {"e.cfg", "Re"},
+      {"f/z/J.md", "ljkQGcQpm"},
+      {"v/p/l.bin", "QcEronLtsrNx"}
     },
       {},
       {
-      {"U/k/T.dat", "YCO"}
+      {"a.bin", "VnXMhKGkMDPiZNG"},
+      {"e.cfg", "Re"},
+      {"f/z/J.md", "ljkQGcQpm"},
+      {"v/p/l.bin", "QcEronLtsrNx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(188u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3776,22 +3789,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"D/JM/O.cfg", "anpt"},
-      {"a.md", "aSfgSseKyTBPNKX"},
-      {"jJu/VqU/X.cfg", "czkzzxDSuYFeEijC"},
-      {"nvda/F.md", "pICCmQEYhAOLIe"}
+      {"M.cfg", "nXi"},
+      {"Z.md", "OtApQE"},
+      {"eB/h/a.cfg", "HUcXYaEFoJf"},
+      {"hU/yw/O.txt", "XXCHnMTBWM"},
+      {"q.dat", "AuH"}
     },
       {},
       {
-      {"D/JM/O.cfg", "anpt"},
-      {"a.md", "aSfgSseKyTBPNKX"},
-      {"jJu/VqU/X.cfg", "czkzzxDSuYFeEijC"},
-      {"nvda/F.md", "pICCmQEYhAOLIe"}
+      {"M.cfg", "nXi"},
+      {"Z.md", "OtApQE"},
+      {"eB/h/a.cfg", "HUcXYaEFoJf"},
+      {"hU/yw/O.txt", "XXCHnMTBWM"},
+      {"q.dat", "AuH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(158u),
+      static_cast<std::size_t>(228u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3803,24 +3819,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"Sp/x.bin", "Nxml"},
-      {"m/C.cfg", "Vy"},
-      {"w/dQ/Q.md", "dlKpqy"},
-      {"xyyq/U.bin", "gePYRRgUSlE"},
-      {"z/g.cfg", "eiyySQdtDUytUe"}
+      {"R.bin", "oEKTZVM"}
     },
       {},
       {
-      {"Sp/x.bin", "Nxml"},
-      {"m/C.cfg", "Vy"},
-      {"w/dQ/Q.md", "dlKpqy"},
-      {"xyyq/U.bin", "gePYRRgUSlE"},
-      {"z/g.cfg", "eiyySQdtDUytUe"}
+      {"R.bin", "oEKTZVM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(161u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3832,22 +3841,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"HS/PtTu/D.cfg", "FrSuyFiPImq"},
-      {"oNE/w.dat", "TxDgX"},
-      {"v.txt", "v"},
-      {"yxx/QsVB/O.bin", "UFZKhTMPdM"}
+      {"EKkO/u.txt", "kwDoBxQYFyqB"}
     },
       {},
       {
-      {"HS/PtTu/D.cfg", "FrSuyFiPImq"},
-      {"oNE/w.dat", "TxDgX"},
-      {"v.txt", "v"},
-      {"yxx/QsVB/O.bin", "UFZKhTMPdM"}
+      {"EKkO/u.txt", "kwDoBxQYFyqB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(140u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3859,13 +3863,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"R/U.cfg", "RRWnnGGPfezjm"}
+      {"r/C.bin", "D"}
     },
       {},
       {
-      {"R/U.cfg", "RRWnnGGPfezjm"}
+      {"r/C.bin", "D"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -3880,20 +3885,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"Onmn/rjy/n.bin", "gybNBaCUDmK"},
-      {"Q/Fj/w.dat", "hXmYREGtOB"},
-      {"TcLk/f/r.cfg", "lvB"}
+      {"ES/d/g.dat", "ssSSExNGpSWFC"},
+      {"j.dat", "wHLbigXEiWbOi"}
     },
       {},
       {
-      {"Onmn/rjy/n.bin", "gybNBaCUDmK"},
-      {"Q/Fj/w.dat", "hXmYREGtOB"},
-      {"TcLk/f/r.cfg", "lvB"}
+      {"ES/d/g.dat", "ssSSExNGpSWFC"},
+      {"j.dat", "wHLbigXEiWbOi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(133u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3905,20 +3909,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"eXZ/C/V.txt", "PEUskhKbrsbdI"},
-      {"leRc/a.bin", "yZfzsStRJ"},
-      {"zrom/o.txt", "Eq"}
+      {"gxxm/al/S.bin", "NjqzuLxQ"}
     },
       {},
       {
-      {"eXZ/C/V.txt", "PEUskhKbrsbdI"},
-      {"leRc/a.bin", "yZfzsStRJ"},
-      {"zrom/o.txt", "Eq"}
+      {"gxxm/al/S.bin", "NjqzuLxQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(131u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3930,16 +3931,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"l.bin", "pdJdbaEdltLqrg"}
+      {"N.dat", "awZFYMDFBrweNmBP"},
+      {"iH/F.cfg", "TcTGgHo"},
+      {"r.bin", "MT"},
+      {"yHyH/A/S.md", "wUVVxlLCVijOkM"}
     },
       {},
       {
-      {"l.bin", "pdJdbaEdltLqrg"}
+      {"N.dat", "awZFYMDFBrweNmBP"},
+      {"iH/F.cfg", "TcTGgHo"},
+      {"r.bin", "MT"},
+      {"yHyH/A/S.md", "wUVVxlLCVijOkM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(156u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3951,13 +3959,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"f/XdlP/O.dat", "bqKcHdTqS"}
+      {"X.cfg", "XLDTfZgJe"}
     },
       {},
       {
-      {"f/XdlP/O.dat", "bqKcHdTqS"}
+      {"X.cfg", "XLDTfZgJe"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -3972,16 +3981,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"XKfk/RIU/i.md", "xkvaLmNUATFL"}
+      {"Oa/H.dat", "iyFjJdZtSaaxyMnw"},
+      {"ZK/sL/A.dat", "vIKChlVfE"},
+      {"x.txt", "JxgVAZqsHw"}
     },
       {},
       {
-      {"XKfk/RIU/i.md", "xkvaLmNUATFL"}
+      {"Oa/H.dat", "iyFjJdZtSaaxyMnw"},
+      {"ZK/sL/A.dat", "vIKChlVfE"},
+      {"x.txt", "JxgVAZqsHw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(164u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -3993,24 +4007,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"O.dat", "aioZqzSmPMUKP"},
-      {"Qk/t.md", "pmpawds"},
-      {"SmIz/gOPa/q.dat", "QzymAKN"},
-      {"e.bin", "XSXLmCWN"},
-      {"nhT/Z/m.cfg", "PFdAP"}
+      {"FV/RgT/o.bin", "TGmNn"},
+      {"S/e.cfg", "bxr"}
     },
       {},
       {
-      {"O.dat", "aioZqzSmPMUKP"},
-      {"Qk/t.md", "pmpawds"},
-      {"SmIz/gOPa/q.dat", "QzymAKN"},
-      {"e.bin", "XSXLmCWN"},
-      {"nhT/Z/m.cfg", "PFdAP"}
+      {"FV/RgT/o.bin", "TGmNn"},
+      {"S/e.cfg", "bxr"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(187u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4022,13 +4031,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"x.bin", "CPJfPKeAwdoSZ"}
+      {"DY/T.dat", "wPJVbUmrHOSG"}
     },
       {},
       {
-      {"x.bin", "CPJfPKeAwdoSZ"}
+      {"DY/T.dat", "wPJVbUmrHOSG"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -4043,16 +4053,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"c.md", "aASQldUAF"}
+      {"Brx/b.dat", "nYyPrqHyDx"},
+      {"Y.md", "VDegdaCpELABx"}
     },
       {},
       {
-      {"c.md", "aASQldUAF"}
+      {"Brx/b.dat", "nYyPrqHyDx"},
+      {"Y.md", "VDegdaCpELABx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4064,24 +4077,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"IKoW/j/M.bin", "XxRXBsUKTKzaiNys"},
-      {"JhJ/w.txt", "Mxgy"},
-      {"O/w/u.bin", "HgOqMP"},
-      {"j.bin", "syp"},
-      {"rn/l.md", "lRAWfTfzOedTEgcc"}
+      {"QaQU/G.txt", "dWedL"},
+      {"e/z.dat", "pRwoeh"}
     },
       {},
       {
-      {"IKoW/j/M.bin", "XxRXBsUKTKzaiNys"},
-      {"JhJ/w.txt", "Mxgy"},
-      {"O/w/u.bin", "HgOqMP"},
-      {"j.bin", "syp"},
-      {"rn/l.md", "lRAWfTfzOedTEgcc"}
+      {"QaQU/G.txt", "dWedL"},
+      {"e/z.dat", "pRwoeh"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(184u),
+      static_cast<std::size_t>(95u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4093,22 +4101,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"BHQi/C.bin", "gERUfEhJCIDUKxgS"},
-      {"YTif/S.cfg", "ZnUcqydzrvpeH"},
-      {"i.dat", "BjNcqFDLDfWsl"},
-      {"j/wRvP/W.txt", "GFgbDCplJ"}
+      {"RI/z.md", "pspuDw"},
+      {"V.cfg", "BXnHJLpMYGKx"},
+      {"p.txt", "ykr"},
+      {"p/jyRA/b.dat", "rbbhxnmFOzZ"}
     },
       {},
       {
-      {"BHQi/C.bin", "gERUfEhJCIDUKxgS"},
-      {"YTif/S.cfg", "ZnUcqydzrvpeH"},
-      {"i.dat", "BjNcqFDLDfWsl"},
-      {"j/wRvP/W.txt", "GFgbDCplJ"}
+      {"RI/z.md", "pspuDw"},
+      {"V.cfg", "BXnHJLpMYGKx"},
+      {"p.txt", "ykr"},
+      {"p/jyRA/b.dat", "rbbhxnmFOzZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(163u),
+      static_cast<std::size_t>(166u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4120,26 +4129,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"B.bin", "hekjNSVvikf"},
-      {"FW/w/h.bin", "dL"},
-      {"f.txt", "vPDTjd"},
-      {"fXlc/hgOn/I.md", "fxlOf"},
-      {"glJg/k.dat", "FIwuEGNuyu"},
-      {"pGc/momS/t.txt", "q"}
+      {"AN/o.dat", "AvkNU"},
+      {"URA/a/x.bin", "IecDQOfmYAi"},
+      {"yz/lGVp/y.txt", "HaPRPNeqGmG"}
     },
       {},
       {
-      {"B.bin", "hekjNSVvikf"},
-      {"FW/w/h.bin", "dL"},
-      {"f.txt", "vPDTjd"},
-      {"fXlc/hgOn/I.md", "fxlOf"},
-      {"glJg/k.dat", "FIwuEGNuyu"},
-      {"pGc/momS/t.txt", "q"}
+      {"AN/o.dat", "AvkNU"},
+      {"URA/a/x.bin", "IecDQOfmYAi"},
+      {"yz/lGVp/y.txt", "HaPRPNeqGmG"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(206u),
+      static_cast<std::size_t>(155u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4151,18 +4155,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"bw/a.txt", "uZLyQRFxpOE"},
-      {"kIUs/A.bin", "CQLnIVWqdiXJ"}
+      {"E.txt", "Szu"},
+      {"k.cfg", "sjBsNw"},
+      {"m.cfg", "ikgM"},
+      {"xoK/jvg/i.dat", "YGcPhlvNNb"}
     },
       {},
       {
-      {"bw/a.txt", "uZLyQRFxpOE"},
-      {"kIUs/A.bin", "CQLnIVWqdiXJ"}
+      {"E.txt", "Szu"},
+      {"k.cfg", "sjBsNw"},
+      {"m.cfg", "ikgM"},
+      {"xoK/jvg/i.dat", "YGcPhlvNNb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(83u),
+      static_cast<std::size_t>(156u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4174,22 +4183,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"iZw/Y/L.txt", "BHQigk"},
-      {"v.md", "teGxBcPbV"},
-      {"v/L.bin", "XbxEwZeQlbiYL"},
-      {"vaIO/o/s.bin", "QJe"}
+      {"INn/j.dat", "ltKgxMpPmvCpFue"},
+      {"N.cfg", "giLSIJsJCv"},
+      {"Pm/T.txt", "nNItByTShwl"},
+      {"g.md", "SPalkWpVfKV"}
     },
       {},
       {
-      {"iZw/Y/L.txt", "BHQigk"},
-      {"v.md", "teGxBcPbV"},
-      {"v/L.bin", "XbxEwZeQlbiYL"},
-      {"vaIO/o/s.bin", "QJe"}
+      {"INn/j.dat", "ltKgxMpPmvCpFue"},
+      {"N.cfg", "giLSIJsJCv"},
+      {"Pm/T.txt", "nNItByTShwl"},
+      {"g.md", "SPalkWpVfKV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(146u),
+      static_cast<std::size_t>(202u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4201,24 +4211,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"Fmt/n.md", "lSiMqhnQFevJj"},
-      {"P/hYap/G.bin", "JPCZAg"},
-      {"feeV/w.dat", "DfJyiT"},
-      {"gsr/c.cfg", "emANvCfnGu"},
-      {"mOJ/D.md", "VFCjEbLwVbH"}
+      {"M.txt", "VVkgTNxWU"}
     },
       {},
       {
-      {"Fmt/n.md", "lSiMqhnQFevJj"},
-      {"P/hYap/G.bin", "JPCZAg"},
-      {"feeV/w.dat", "DfJyiT"},
-      {"gsr/c.cfg", "emANvCfnGu"},
-      {"mOJ/D.md", "VFCjEbLwVbH"}
+      {"M.txt", "VVkgTNxWU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(194u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4230,22 +4233,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"B/JtZ/F.cfg", "zThEcaoMlbxVD"},
-      {"X/E.dat", "UaQGup"},
-      {"ps/f/V.dat", "TtyiqY"},
-      {"tg/GtGu/b.bin", "CYGIHY"}
+      {"IsVE/p.cfg", "qqPMOCVe"},
+      {"sS/c.txt", "QAFUHCtsYe"},
+      {"t.cfg", "WSEInPZtt"}
     },
       {},
       {
-      {"B/JtZ/F.cfg", "zThEcaoMlbxVD"},
-      {"X/E.dat", "UaQGup"},
-      {"ps/f/V.dat", "TtyiqY"},
-      {"tg/GtGu/b.bin", "CYGIHY"}
+      {"IsVE/p.cfg", "qqPMOCVe"},
+      {"sS/c.txt", "QAFUHCtsYe"},
+      {"t.cfg", "WSEInPZtt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(149u),
+      static_cast<std::size_t>(156u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4257,26 +4259,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"N.bin", "SSaROAoR"},
-      {"TEkJ/t.md", "zLyFPEie"},
-      {"WbcL/r.txt", "dSdWkytyHuUf"},
-      {"nXHb/VP/V.dat", "RBQOlAfzG"},
-      {"rpHp/k.bin", "nwcpSKAuhniM"},
-      {"u.dat", "ghdnQvTummw"}
+      {"Y.bin", "czkfJiAEZK"}
     },
       {},
       {
-      {"N.bin", "SSaROAoR"},
-      {"TEkJ/t.md", "zLyFPEie"},
-      {"WbcL/r.txt", "dSdWkytyHuUf"},
-      {"nXHb/VP/V.dat", "RBQOlAfzG"},
-      {"rpHp/k.bin", "nwcpSKAuhniM"},
-      {"u.dat", "ghdnQvTummw"}
+      {"Y.bin", "czkfJiAEZK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(224u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4288,13 +4281,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"dpU/n.md", "dHMPFIHjwvLsJK"}
+      {"aVp/u/A.bin", "FPLlhFi"}
     },
       {},
       {
-      {"dpU/n.md", "dHMPFIHjwvLsJK"}
+      {"aVp/u/A.bin", "FPLlhFi"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -4309,16 +4303,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"h.cfg", "i"}
+      {"RM/s.txt", "ICXJQlzsKomdrVf"},
+      {"Xzc/TfS/o.txt", "uIIwF"},
+      {"kO/o.txt", "joTu"},
+      {"mZeK/Y.bin", "oHRzwKYXLYmLwW"},
+      {"p.md", "kTzndgidksL"}
     },
       {},
       {
-      {"h.cfg", "i"}
+      {"RM/s.txt", "ICXJQlzsKomdrVf"},
+      {"Xzc/TfS/o.txt", "uIIwF"},
+      {"kO/o.txt", "joTu"},
+      {"mZeK/Y.bin", "oHRzwKYXLYmLwW"},
+      {"p.md", "kTzndgidksL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(261u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4330,26 +4333,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"MtOQ/CFg/M.dat", "DHe"},
-      {"O.md", "xy"},
-      {"t/o.md", "uuLCOeJfmqz"},
-      {"vAvq/P.md", "jiZl"},
-      {"y.txt", "TixwngMs"},
-      {"y/f.cfg", "UDjdnfJNx"}
+      {"JmyZ/a/V.md", "GKmQYMZdNaPwxGLe"},
+      {"S.txt", "redwoDFp"}
     },
       {},
       {
-      {"MtOQ/CFg/M.dat", "DHe"},
-      {"O.md", "xy"},
-      {"t/o.md", "uuLCOeJfmqz"},
-      {"vAvq/P.md", "jiZl"},
-      {"y.txt", "TixwngMs"},
-      {"y/f.cfg", "UDjdnfJNx"}
+      {"JmyZ/a/V.md", "GKmQYMZdNaPwxGLe"},
+      {"S.txt", "redwoDFp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(194u),
+      static_cast<std::size_t>(123u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4361,20 +4357,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"OsL/uGrV/N.dat", "VZKoWpq"},
-      {"Q.dat", "TNFriURrGmpIgYWv"},
-      {"r/niYx/p.txt", "xlicuWYDjsCOA"}
+      {"GMh/u.md", "XZJb"},
+      {"O.txt", "nqqlOdrRdAHDEIHM"},
+      {"V/XCVC/s.md", "VHAQNi"},
+      {"XP/zu/f.md", "BLwwTpEAPGZcu"},
+      {"lOY/s.bin", "gbFUFlSYu"}
     },
       {},
       {
-      {"OsL/uGrV/N.dat", "VZKoWpq"},
-      {"Q.dat", "TNFriURrGmpIgYWv"},
-      {"r/niYx/p.txt", "xlicuWYDjsCOA"}
+      {"GMh/u.md", "XZJb"},
+      {"O.txt", "nqqlOdrRdAHDEIHM"},
+      {"V/XCVC/s.md", "VHAQNi"},
+      {"XP/zu/f.md", "BLwwTpEAPGZcu"},
+      {"lOY/s.bin", "gbFUFlSYu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(130u),
+      static_cast<std::size_t>(257u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4386,16 +4387,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"f.txt", "guP"}
+      {"IwoM/i.md", "DrwJM"},
+      {"T/TdT/d.txt", "hh"},
+      {"Z.md", "TBPLzFlV"}
     },
       {},
       {
-      {"f.txt", "guP"}
+      {"IwoM/i.md", "DrwJM"},
+      {"T/TdT/d.txt", "hh"},
+      {"Z.md", "TBPLzFlV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(131u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4407,16 +4413,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"aMG/H.dat", "vxe"}
+      {"C.md", "NA"},
+      {"V/J.bin", "bjRM"},
+      {"oWZs/SPEi/F.dat", "lTTryYb"},
+      {"tBqu/J.txt", "EXZNVSIaoziWCg"},
+      {"vxzN/q.bin", "RGz"},
+      {"x.bin", "AUkTESlYWy"}
     },
       {},
       {
-      {"aMG/H.dat", "vxe"}
+      {"C.md", "NA"},
+      {"V/J.bin", "bjRM"},
+      {"oWZs/SPEi/F.dat", "lTTryYb"},
+      {"tBqu/J.txt", "EXZNVSIaoziWCg"},
+      {"vxzN/q.bin", "RGz"},
+      {"x.bin", "AUkTESlYWy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(268u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4428,16 +4445,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"t.txt", "vMzLCjzb"}
+      {"A/vs/z.bin", "r"},
+      {"Fvl/P.txt", "knxsWshQa"},
+      {"L.md", "NVFwYBv"},
+      {"jZ/VH/X.txt", "NwaHernUaz"}
     },
       {},
       {
-      {"t.txt", "vMzLCjzb"}
+      {"A/vs/z.bin", "r"},
+      {"Fvl/P.txt", "knxsWshQa"},
+      {"L.md", "NVFwYBv"},
+      {"jZ/VH/X.txt", "NwaHernUaz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(168u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4449,16 +4473,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"NDbu/xFe/G.txt", "wIaq"}
+      {"TM/Gzkp/Z.md", "FHLSFicRNadYEC"},
+      {"bQj/X/H.cfg", "gJDH"},
+      {"e.bin", "GZLRiBVWc"},
+      {"nKXg/yXl/I.txt", "UhcTEsdMov"}
     },
       {},
       {
-      {"NDbu/xFe/G.txt", "wIaq"}
+      {"TM/Gzkp/Z.md", "FHLSFicRNadYEC"},
+      {"bQj/X/H.cfg", "gJDH"},
+      {"e.bin", "GZLRiBVWc"},
+      {"nKXg/yXl/I.txt", "UhcTEsdMov"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(199u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4470,20 +4501,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"UUW/e.bin", "NXvpDAIs"},
-      {"WI/O.txt", "k"},
-      {"npqb/N.txt", "MPZhzOZwXBSE"}
+      {"CKy/Hv/a.dat", "kQmUhlUEVhuaWF"},
+      {"H.dat", "skP"}
     },
       {},
       {
-      {"UUW/e.bin", "NXvpDAIs"},
-      {"WI/O.txt", "k"},
-      {"npqb/N.txt", "MPZhzOZwXBSE"}
+      {"CKy/Hv/a.dat", "kQmUhlUEVhuaWF"},
+      {"H.dat", "skP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(98u),
+      static_cast<std::size_t>(122u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4495,24 +4525,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"HqN/E.bin", "IFiENUVho"},
-      {"U.cfg", "OOgvtTWjNaNEBI"},
-      {"f/D.md", "wsTRTqFPqd"},
-      {"q/j.bin", "zJrDUh"},
-      {"z.cfg", "BWxd"}
+      {"Uh/hi/l.cfg", "If"},
+      {"n.dat", "iI"}
     },
       {},
       {
-      {"HqN/E.bin", "IFiENUVho"},
-      {"U.cfg", "OOgvtTWjNaNEBI"},
-      {"f/D.md", "wsTRTqFPqd"},
-      {"q/j.bin", "zJrDUh"},
-      {"z.cfg", "BWxd"}
+      {"Uh/hi/l.cfg", "If"},
+      {"n.dat", "iI"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(186u),
+      static_cast<std::size_t>(93u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4524,16 +4549,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"l.dat", "VEhoQtaeuGZk"}
+      {"H.md", "WsvrDzQMgvzFr"},
+      {"aCb/VXuF/T.txt", "xgDF"},
+      {"f/K.bin", "tQo"},
+      {"l.md", "VDXJGmQpLBbS"},
+      {"vrb/H/N.cfg", "FOKzCiKjlWhmBZ"}
     },
       {},
       {
-      {"l.dat", "VEhoQtaeuGZk"}
+      {"H.md", "WsvrDzQMgvzFr"},
+      {"aCb/VXuF/T.txt", "xgDF"},
+      {"f/K.bin", "tQo"},
+      {"l.md", "VDXJGmQpLBbS"},
+      {"vrb/H/N.cfg", "FOKzCiKjlWhmBZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(229u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4545,26 +4579,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"A.txt", "FYLEWArEdJdkm"},
-      {"E/g.md", "WmuhmSITkN"},
-      {"ISE/Ns/w.txt", "ycEZhVQIgsHiN"},
-      {"r.md", "n"},
-      {"rTY/t.dat", "wEbDoaZ"},
-      {"yv/b.dat", "LPGayEduHPV"}
+      {"Eu/ii/M.txt", "GNtVnXqc"},
+      {"H.txt", "Dh"},
+      {"R.bin", "bgyyebIqzsIlm"}
     },
       {},
       {
-      {"A.txt", "FYLEWArEdJdkm"},
-      {"E/g.md", "WmuhmSITkN"},
-      {"ISE/Ns/w.txt", "ycEZhVQIgsHiN"},
-      {"r.md", "n"},
-      {"rTY/t.dat", "wEbDoaZ"},
-      {"yv/b.dat", "LPGayEduHPV"}
+      {"Eu/ii/M.txt", "GNtVnXqc"},
+      {"H.txt", "Dh"},
+      {"R.bin", "bgyyebIqzsIlm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(208u),
+      static_cast<std::size_t>(130u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4576,22 +4605,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"Oko/BBU/J.bin", "mCQOufICbowbrDly"},
-      {"Q.dat", "oaZMRrKLRFLmT"},
-      {"l.txt", "aKFCFSUkLHdIcwwq"},
-      {"zCZ/jI/E.md", "pqdnNbs"}
+      {"b.md", "lLAqJXl"}
     },
       {},
       {
-      {"Oko/BBU/J.bin", "mCQOufICbowbrDly"},
-      {"Q.dat", "oaZMRrKLRFLmT"},
-      {"l.txt", "aKFCFSUkLHdIcwwq"},
-      {"zCZ/jI/E.md", "pqdnNbs"}
+      {"b.md", "lLAqJXl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(164u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4603,22 +4627,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"V.bin", "nqWvrGxjMhHpCRvF"},
-      {"i.cfg", "oaeFwYGgDVlDzA"},
-      {"t.bin", "KlogA"},
-      {"v.md", "ysUZ"}
+      {"w.txt", "tGOnfeddg"}
     },
       {},
       {
-      {"V.bin", "nqWvrGxjMhHpCRvF"},
-      {"i.cfg", "oaeFwYGgDVlDzA"},
-      {"t.bin", "KlogA"},
-      {"v.md", "ysUZ"}
+      {"w.txt", "tGOnfeddg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(146u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4630,18 +4649,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"L.txt", "GEECiGWWFF"},
-      {"k.dat", "AWpKloS"}
+      {"LwG/OblA/I.bin", "kpABYESSUOJEDyQ"},
+      {"R/MTJo/n.bin", "PctCXHetxqKOkp"},
+      {"VKyt/E.txt", "zTcAVSYFafAidI"},
+      {"dW/H.txt", "ejPiZiPWeC"}
     },
       {},
       {
-      {"L.txt", "GEECiGWWFF"},
-      {"k.dat", "AWpKloS"}
+      {"LwG/OblA/I.bin", "kpABYESSUOJEDyQ"},
+      {"R/MTJo/n.bin", "PctCXHetxqKOkp"},
+      {"VKyt/E.txt", "zTcAVSYFafAidI"},
+      {"dW/H.txt", "ejPiZiPWeC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(79u),
+      static_cast<std::size_t>(255u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4653,26 +4677,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"Mkh/E.txt", "DPOaCGWppzw"},
-      {"OE/r.bin", "aYPUPavdRt"},
-      {"b.md", "Mb"},
-      {"wIp/VcL/M.md", "QBpJrfnXrSgFqm"},
-      {"z.cfg", "Jdn"},
-      {"z.md", "n"}
+      {"J.dat", "ylspb"},
+      {"K.cfg", "A"},
+      {"YDCG/F.cfg", "ksZJkWZFONLuP"},
+      {"a.bin", "lRJpeF"},
+      {"aF/be/U.bin", "WMEIJsd"},
+      {"h/U.txt", "VVahibtTuJE"}
     },
       {},
       {
-      {"Mkh/E.txt", "DPOaCGWppzw"},
-      {"OE/r.bin", "aYPUPavdRt"},
-      {"b.md", "Mb"},
-      {"wIp/VcL/M.md", "QBpJrfnXrSgFqm"},
-      {"z.cfg", "Jdn"},
-      {"z.md", "n"}
+      {"J.dat", "ylspb"},
+      {"K.cfg", "A"},
+      {"YDCG/F.cfg", "ksZJkWZFONLuP"},
+      {"a.bin", "lRJpeF"},
+      {"aF/be/U.bin", "WMEIJsd"},
+      {"h/U.txt", "VVahibtTuJE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(206u),
+      static_cast<std::size_t>(260u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4684,26 +4709,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"IXf/I.dat", "Vc"},
-      {"Zc/JUZ/v.dat", "qqiuA"},
-      {"m.txt", "iulnfj"},
-      {"px/DnZG/J.txt", "hsNTupcRDvBMCSyf"},
-      {"rTc/q.cfg", "L"},
-      {"xK/b.cfg", "YOahaXElxjADafzc"}
+      {"y.cfg", "PKBBTIl"}
     },
       {},
       {
-      {"IXf/I.dat", "Vc"},
-      {"Zc/JUZ/v.dat", "qqiuA"},
-      {"m.txt", "iulnfj"},
-      {"px/DnZG/J.txt", "hsNTupcRDvBMCSyf"},
-      {"rTc/q.cfg", "L"},
-      {"xK/b.cfg", "YOahaXElxjADafzc"}
+      {"y.cfg", "PKBBTIl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(206u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4715,24 +4731,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"V/X.txt", "fGbt"},
-      {"VBf/q.md", "UEjhllIJnpgMpbEz"},
-      {"a/w.dat", "C"},
-      {"x.txt", "dnZbgMDBqLRO"},
-      {"yC/c.cfg", "NernrkaDKxkjYb"}
+      {"B/BmzP/q.txt", "ihZROuZCspFxE"},
+      {"Wi/l.dat", "rmXRM"},
+      {"aXrv/W/V.bin", "U"}
     },
       {},
       {
-      {"V/X.txt", "fGbt"},
-      {"VBf/q.md", "UEjhllIJnpgMpbEz"},
-      {"a/w.dat", "C"},
-      {"x.txt", "dnZbgMDBqLRO"},
-      {"yC/c.cfg", "NernrkaDKxkjYb"}
+      {"B/BmzP/q.txt", "ihZROuZCspFxE"},
+      {"Wi/l.dat", "rmXRM"},
+      {"aXrv/W/V.bin", "U"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(164u),
+      static_cast<std::size_t>(158u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4744,26 +4757,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"E.cfg", "SBpKc"},
-      {"EX/dj/x.bin", "qxQRqACxMgxzS"},
-      {"J.bin", "odVT"},
-      {"U/t.txt", "Yjxbot"},
-      {"UOR/H/T.bin", "RXib"},
-      {"z.md", "HNmftbpdp"}
+      {"lYwW/D.txt", "Y"}
     },
       {},
       {
-      {"E.cfg", "SBpKc"},
-      {"EX/dj/x.bin", "qxQRqACxMgxzS"},
-      {"J.bin", "odVT"},
-      {"U/t.txt", "Yjxbot"},
-      {"UOR/H/T.bin", "RXib"},
-      {"z.md", "HNmftbpdp"}
+      {"lYwW/D.txt", "Y"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(199u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4775,24 +4779,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"B.bin", "xLWp"},
-      {"JNQ/XEyq/O.txt", "ZowW"},
-      {"R.bin", "Tsbu"},
-      {"X.cfg", "emuvlKqJpUcm"},
-      {"w/nAC/L.md", "fBRAN"}
+      {"A.cfg", "jWf"},
+      {"In/F/q.txt", "OUMftNxHdKUlBLX"}
     },
       {},
       {
-      {"B.bin", "xLWp"},
-      {"JNQ/XEyq/O.txt", "ZowW"},
-      {"R.bin", "Tsbu"},
-      {"X.cfg", "emuvlKqJpUcm"},
-      {"w/nAC/L.md", "fBRAN"}
+      {"A.cfg", "jWf"},
+      {"In/F/q.txt", "OUMftNxHdKUlBLX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(157u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4804,22 +4803,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"L.txt", "jtJHSHvkplIMDxX"},
-      {"t.md", "mxsyEg"},
-      {"uq/sS/m.bin", "ESsGKZWFbMY"},
-      {"w/G.txt", "RuGuWwJO"}
+      {"O.cfg", "Kfr"},
+      {"e.dat", "h"},
+      {"nuH/Ac/B.dat", "gNwEZSpYBX"},
+      {"w.md", "xYeqamKPryz"},
+      {"x.md", "zsSEsKdWWlmahGq"}
     },
       {},
       {
-      {"L.txt", "jtJHSHvkplIMDxX"},
-      {"t.md", "mxsyEg"},
-      {"uq/sS/m.bin", "ESsGKZWFbMY"},
-      {"w/G.txt", "RuGuWwJO"}
+      {"O.cfg", "Kfr"},
+      {"e.dat", "h"},
+      {"nuH/Ac/B.dat", "gNwEZSpYBX"},
+      {"w.md", "xYeqamKPryz"},
+      {"x.md", "zsSEsKdWWlmahGq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(148u),
+      static_cast<std::size_t>(203u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4831,26 +4833,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"ECIj/i/h.bin", "SguEmeuhD"},
-      {"M.cfg", "eq"},
-      {"m.bin", "aksPQm"},
-      {"nm/NMXO/e.txt", "FDSh"},
-      {"q.dat", "p"},
-      {"sT/O.bin", "SihOjfwxxQnz"}
+      {"G/MVc/S.bin", "HLswCmvy"}
     },
       {},
       {
-      {"ECIj/i/h.bin", "SguEmeuhD"},
-      {"M.cfg", "eq"},
-      {"m.bin", "aksPQm"},
-      {"nm/NMXO/e.txt", "FDSh"},
-      {"q.dat", "p"},
-      {"sT/O.bin", "SihOjfwxxQnz"}
+      {"G/MVc/S.bin", "HLswCmvy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(190u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4862,26 +4855,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"MLrl/IMhA/N.bin", "JEUyIkYMqL"},
-      {"R.cfg", "yS"},
-      {"T/S.cfg", "PTALnpawXgqspKkJ"},
-      {"Z.txt", "N"},
-      {"q/k/D.md", "A"},
-      {"xN/P.dat", "cdQHA"}
+      {"jO/XVs/v.bin", "jqMGgcHoYrPhTNu"},
+      {"t/a.md", "zVfwJKj"}
     },
       {},
       {
-      {"MLrl/IMhA/N.bin", "JEUyIkYMqL"},
-      {"R.cfg", "yS"},
-      {"T/S.cfg", "PTALnpawXgqspKkJ"},
-      {"Z.txt", "N"},
-      {"q/k/D.md", "A"},
-      {"xN/P.dat", "cdQHA"}
+      {"jO/XVs/v.bin", "jqMGgcHoYrPhTNu"},
+      {"t/a.md", "zVfwJKj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(198u),
+      static_cast<std::size_t>(123u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4893,18 +4879,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"Y.cfg", "crzlfMJV"},
-      {"c/t/j.cfg", "Wey"}
+      {"T.bin", "hduvK"}
     },
       {},
       {
-      {"Y.cfg", "crzlfMJV"},
-      {"c/t/j.cfg", "Wey"}
+      {"T.bin", "hduvK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(77u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4916,18 +4901,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"Wig/P.txt", "BlWBomAztGorB"},
-      {"t.dat", "lLlpJcbsg"}
+      {"Imh/TilY/Q.txt", "DRKJc"},
+      {"wXGB/M.bin", "bttPgDDFW"}
     },
       {},
       {
-      {"Wig/P.txt", "BlWBomAztGorB"},
-      {"t.dat", "lLlpJcbsg"}
+      {"Imh/TilY/Q.txt", "DRKJc"},
+      {"wXGB/M.bin", "bttPgDDFW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(86u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4939,13 +4925,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"fG/R.md", "tMKul"}
+      {"fk/d/k.dat", "Klvw"}
     },
       {},
       {
-      {"fG/R.md", "tMKul"}
+      {"fk/d/k.dat", "Klvw"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -4960,26 +4947,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"GeJ/UGdp/d.dat", "ieltQicPhTG"},
-      {"Kh/RCD/C.bin", "BHffxn"},
-      {"PU/OO/N.bin", "KTORO"},
-      {"r.md", "i"},
-      {"rHd/n.cfg", "lLwHVUiSkPJQoE"},
-      {"zLrC/VlA/u.cfg", "TpCN"}
+      {"y.dat", "DIea"}
     },
       {},
       {
-      {"GeJ/UGdp/d.dat", "ieltQicPhTG"},
-      {"Kh/RCD/C.bin", "BHffxn"},
-      {"PU/OO/N.bin", "KTORO"},
-      {"r.md", "i"},
-      {"rHd/n.cfg", "lLwHVUiSkPJQoE"},
-      {"zLrC/VlA/u.cfg", "TpCN"}
+      {"y.dat", "DIea"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(215u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -4991,26 +4969,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"N.bin", "Gr"},
-      {"P.md", "pec"},
-      {"WA/g.txt", "p"},
-      {"hOkg/n.txt", "vzHXAAymreRxC"},
-      {"kM/c.txt", "vybbRzELmaOSilO"},
-      {"q/D.bin", "CwsdyUS"}
+      {"K.cfg", "smEWgdDkiYzgUDzm"},
+      {"L.bin", "tS"},
+      {"T.md", "UJKinBnKmsDK"},
+      {"WQE/A.cfg", "UmTGxTjg"},
+      {"Y/h.bin", "ejmcuaz"},
+      {"ZWSy/bmT/b.txt", "gyAm"}
     },
       {},
       {
-      {"N.bin", "Gr"},
-      {"P.md", "pec"},
-      {"WA/g.txt", "p"},
-      {"hOkg/n.txt", "vzHXAAymreRxC"},
-      {"kM/c.txt", "vybbRzELmaOSilO"},
-      {"q/D.bin", "CwsdyUS"}
+      {"K.cfg", "smEWgdDkiYzgUDzm"},
+      {"L.bin", "tS"},
+      {"T.md", "UJKinBnKmsDK"},
+      {"WQE/A.cfg", "UmTGxTjg"},
+      {"Y/h.bin", "ejmcuaz"},
+      {"ZWSy/bmT/b.txt", "gyAm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(197u),
+      static_cast<std::size_t>(267u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5022,22 +5001,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"M.cfg", "iUg"},
-      {"S.txt", "XAgFhEwRNoVt"},
-      {"htP/etd/S.txt", "GhIzdSrNXhILJDOO"},
-      {"o/yekZ/O.md", "TQ"}
+      {"R.cfg", "zRttdswMw"},
+      {"TK/Y.bin", "yVDplbhu"}
     },
       {},
       {
-      {"M.cfg", "iUg"},
-      {"S.txt", "XAgFhEwRNoVt"},
-      {"htP/etd/S.txt", "GhIzdSrNXhILJDOO"},
-      {"o/yekZ/O.md", "TQ"}
+      {"R.cfg", "zRttdswMw"},
+      {"TK/Y.bin", "yVDplbhu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(150u),
+      static_cast<std::size_t>(94u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5049,13 +5025,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"fVD/Ym/x.md", "gbdLy"}
+      {"S.bin", "Rl"}
     },
       {},
       {
-      {"fVD/Ym/x.md", "gbdLy"}
+      {"S.bin", "Rl"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -5070,20 +5047,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"MfDe/Le/S.txt", "AHtxl"},
-      {"V/e.cfg", "NKOaEYpY"},
-      {"b.md", "vJIfs"}
+      {"l.bin", "RgOqXKi"},
+      {"wxM/F.dat", "LnRNt"}
     },
       {},
       {
-      {"MfDe/Le/S.txt", "AHtxl"},
-      {"V/e.cfg", "NKOaEYpY"},
-      {"b.md", "vJIfs"}
+      {"l.bin", "RgOqXKi"},
+      {"wxM/F.dat", "LnRNt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(121u),
+      static_cast<std::size_t>(92u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5095,20 +5071,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"J.txt", "nhTVnNaIBeRiz"},
-      {"huG/Su/v.dat", "DT"},
-      {"zvI/I.md", "cPoHghIyhNLoLmr"}
+      {"A/h.md", "DUccsAhJkWCL"},
+      {"T.bin", "pptxFPhyOQmSnJGX"}
     },
       {},
       {
-      {"J.txt", "nhTVnNaIBeRiz"},
-      {"huG/Su/v.dat", "DT"},
-      {"zvI/I.md", "cPoHghIyhNLoLmr"}
+      {"A/h.md", "DUccsAhJkWCL"},
+      {"T.bin", "pptxFPhyOQmSnJGX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(120u),
+      static_cast<std::size_t>(98u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5120,22 +5095,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"O/I.md", "gBsHHl"},
-      {"RbN/q/P.cfg", "Ezi"},
-      {"oN/ZQ/l.txt", "gqMKYF"},
-      {"y/vH/Z.dat", "XRSCXTOam"}
+      {"cELH/V.txt", "nTTnTTt"}
     },
       {},
       {
-      {"O/I.md", "gBsHHl"},
-      {"RbN/q/P.cfg", "Ezi"},
-      {"oN/ZQ/l.txt", "gqMKYF"},
-      {"y/vH/Z.dat", "XRSCXTOam"}
+      {"cELH/V.txt", "nTTnTTt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(139u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5147,20 +5117,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"L.cfg", "JwTNPpnh"},
-      {"MD/R.bin", "QxpwlOnJTqC"},
-      {"V.cfg", "phEOcIbNdOKlPBF"}
+      {"QQkw/aa/P.bin", "upEk"},
+      {"T/WtpI/f.bin", "ZNRDMC"},
+      {"VZO/IZE/s.cfg", "nIVyhJiOx"},
+      {"a.txt", "EfvazuWNpFXK"}
     },
       {},
       {
-      {"L.cfg", "JwTNPpnh"},
-      {"MD/R.bin", "QxpwlOnJTqC"},
-      {"V.cfg", "phEOcIbNdOKlPBF"}
+      {"QQkw/aa/P.bin", "upEk"},
+      {"T/WtpI/f.bin", "ZNRDMC"},
+      {"VZO/IZE/s.cfg", "nIVyhJiOx"},
+      {"a.txt", "EfvazuWNpFXK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(120u),
+      static_cast<std::size_t>(201u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5172,18 +5145,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"oo/M.md", "PhQbzlkKXEt"},
-      {"ysNx/Oqb/M.bin", "CZ"}
+      {"f.bin", "QjGEe"}
     },
       {},
       {
-      {"oo/M.md", "PhQbzlkKXEt"},
-      {"ysNx/Oqb/M.bin", "CZ"}
+      {"f.bin", "QjGEe"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(82u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5195,22 +5167,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"F.bin", "hGVerXeyYPxBHm"},
-      {"LbMK/ruq/A.bin", "tLDYOqfMq"},
-      {"S/NI/d.cfg", "vpgq"},
-      {"h/Ayz/q.md", "KO"}
+      {"B.dat", "EBf"},
+      {"Bwys/esUb/O.cfg", "xIPywv"},
+      {"m.bin", "LkZNftNYN"},
+      {"znW/e.dat", "escuQZJRQbLb"}
     },
       {},
       {
-      {"F.bin", "hGVerXeyYPxBHm"},
-      {"LbMK/ruq/A.bin", "tLDYOqfMq"},
-      {"S/NI/d.cfg", "vpgq"},
-      {"h/Ayz/q.md", "KO"}
+      {"B.dat", "EBf"},
+      {"Bwys/esUb/O.cfg", "xIPywv"},
+      {"m.bin", "LkZNftNYN"},
+      {"znW/e.dat", "escuQZJRQbLb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(152u),
+      static_cast<std::size_t>(133u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5222,22 +5195,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"A.txt", "ydyTyrc"},
-      {"T.bin", "CcKWPYG"},
-      {"T/r.md", "GFJAcriXGNftu"},
-      {"x.bin", "JwovOqWLVdKMfdMm"}
+      {"TIMS/t.cfg", "dqmAIUuP"},
+      {"Tvt/z/A.cfg", "lnV"},
+      {"oTHd/sTQJ/X.dat", "jJyWcyulG"},
+      {"ubCS/W.dat", "mrYZvJDdaOplGkFV"}
     },
       {},
       {
-      {"A.txt", "ydyTyrc"},
-      {"T.bin", "CcKWPYG"},
-      {"T/r.md", "GFJAcriXGNftu"},
-      {"x.bin", "JwovOqWLVdKMfdMm"}
+      {"TIMS/t.cfg", "dqmAIUuP"},
+      {"Tvt/z/A.cfg", "lnV"},
+      {"oTHd/sTQJ/X.dat", "jJyWcyulG"},
+      {"ubCS/W.dat", "mrYZvJDdaOplGkFV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(139u),
+      static_cast<std::size_t>(200u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5249,13 +5223,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"B.cfg", "icYgPoSJeD"}
+      {"u.md", "is"}
     },
       {},
       {
-      {"B.cfg", "icYgPoSJeD"}
+      {"u.md", "is"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -5270,18 +5245,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"B/L.dat", "xELNkWGXHUKcVCca"},
-      {"G/D.bin", "uNANT"}
+      {"t.bin", "HS"}
     },
       {},
       {
-      {"B/L.dat", "xELNkWGXHUKcVCca"},
-      {"G/D.bin", "uNANT"}
+      {"t.bin", "HS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(87u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5293,18 +5267,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"BqN/f/n.dat", "lUIIcjExlyk"},
-      {"c/I.cfg", "HkWHBLzvZlb"}
+      {"Y/i.txt", "lDeS"},
+      {"cZ/h/c.bin", "kMsXjTiXeBav"}
     },
       {},
       {
-      {"BqN/f/n.dat", "lUIIcjExlyk"},
-      {"c/I.cfg", "HkWHBLzvZlb"}
+      {"Y/i.txt", "lDeS"},
+      {"cZ/h/c.bin", "kMsXjTiXeBav"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(86u),
+      static_cast<std::size_t>(91u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5316,16 +5291,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"AXz/A.dat", "TmYh"}
+      {"F.bin", "eK"},
+      {"jyiX/rAgl/m.md", "sCVBrF"},
+      {"n.dat", "UFbrZBLdjJVIU"}
     },
       {},
       {
-      {"AXz/A.dat", "TmYh"}
+      {"F.bin", "eK"},
+      {"jyiX/rAgl/m.md", "sCVBrF"},
+      {"n.dat", "UFbrZBLdjJVIU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(131u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5337,13 +5317,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"b.md", "ZWIA"}
+      {"X.dat", "GYXKw"}
     },
       {},
       {
-      {"b.md", "ZWIA"}
+      {"X.dat", "GYXKw"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -5358,13 +5339,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"Zi/F.cfg", "qENjNJq"}
+      {"DBDm/Kv/v.cfg", "ZlDGevEUgTxdQZvr"}
     },
       {},
       {
-      {"Zi/F.cfg", "qENjNJq"}
+      {"DBDm/Kv/v.cfg", "ZlDGevEUgTxdQZvr"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -5379,22 +5361,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"AMlh/Hfr/m.bin", "HVddjykMgMI"},
-      {"P/Bkps/c.md", "AVDlduXiD"},
-      {"oVnG/b.md", "C"},
-      {"tVid/ZGB/V.cfg", "hoRrkS"}
+      {"J/F.cfg", "BHu"},
+      {"ZQL/fMe/l.dat", "bjGpvKmEsKDD"}
     },
       {},
       {
-      {"AMlh/Hfr/m.bin", "HVddjykMgMI"},
-      {"P/Bkps/c.md", "AVDlduXiD"},
-      {"oVnG/b.md", "C"},
-      {"tVid/ZGB/V.cfg", "hoRrkS"}
+      {"J/F.cfg", "BHu"},
+      {"ZQL/fMe/l.dat", "bjGpvKmEsKDD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(151u),
+      static_cast<std::size_t>(90u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5406,24 +5385,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"FlIW/N.md", "XadJSgSRBsq"},
-      {"c/L.txt", "xzUfImCtP"},
-      {"l.dat", "FhzMtw"},
-      {"lgKr/J.bin", "LlkNPoLMOLKHs"},
-      {"wd/h/i.txt", "K"}
+      {"H/s.md", "kPsHdZr"},
+      {"PR/B.dat", "DbTiJnteUveVeqnS"},
+      {"aQV/W.txt", "gxRdxLeaW"},
+      {"dJC/Od/F.md", "eTzKDVZsNfWlIu"},
+      {"eF/iss/X.cfg", "bwx"}
     },
       {},
       {
-      {"FlIW/N.md", "XadJSgSRBsq"},
-      {"c/L.txt", "xzUfImCtP"},
-      {"l.dat", "FhzMtw"},
-      {"lgKr/J.bin", "LlkNPoLMOLKHs"},
-      {"wd/h/i.txt", "K"}
+      {"H/s.md", "kPsHdZr"},
+      {"PR/B.dat", "DbTiJnteUveVeqnS"},
+      {"aQV/W.txt", "gxRdxLeaW"},
+      {"dJC/Od/F.md", "eTzKDVZsNfWlIu"},
+      {"eF/iss/X.cfg", "bwx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(190u),
+      static_cast<std::size_t>(264u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5435,24 +5415,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"I.md", "PwEzU"},
-      {"Ngyg/g.md", "OEeknMPTbdQD"},
-      {"Tn/x.txt", "xrfWwYrZSqr"},
-      {"g.dat", "eesM"},
-      {"u/P/T.dat", "cSUsUvuIjSWK"}
+      {"Bz/R.md", "yrDu"},
+      {"a.dat", "ZPWcasVnlJXMEzH"},
+      {"kAw/Ski/y.txt", "YGLoFG"},
+      {"v/Fc/G.txt", "EnmPjwtq"},
+      {"xYyl/c.txt", "gIRlk"}
     },
       {},
       {
-      {"I.md", "PwEzU"},
-      {"Ngyg/g.md", "OEeknMPTbdQD"},
-      {"Tn/x.txt", "xrfWwYrZSqr"},
-      {"g.dat", "eesM"},
-      {"u/P/T.dat", "cSUsUvuIjSWK"}
+      {"Bz/R.md", "yrDu"},
+      {"a.dat", "ZPWcasVnlJXMEzH"},
+      {"kAw/Ski/y.txt", "YGLoFG"},
+      {"v/Fc/G.txt", "EnmPjwtq"},
+      {"xYyl/c.txt", "gIRlk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(162u),
+      static_cast<std::size_t>(236u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5464,26 +5445,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"SVHh/p/v.dat", "iSf"},
-      {"Sh/pWc/X.txt", "aFDcGVMmYIiVUaG"},
-      {"g.bin", "XpLOjHpMefPW"},
-      {"k.md", "OgmWAo"},
-      {"vzv/P/s.dat", "NQuYLmjDrUz"},
-      {"zbh/D.md", "LSzVmRHaYcyOm"}
+      {"Fz/u.txt", "OELxSRlzfyuKLvtC"},
+      {"Xp/N.bin", "DLQQavaUchYcAmR"},
+      {"h/r.dat", "uuZqpiqqJhy"},
+      {"i.md", "sVeimaD"},
+      {"w/o.txt", "wFXeoGg"},
+      {"x.bin", "ziLmtwNhU"}
     },
       {},
       {
-      {"SVHh/p/v.dat", "iSf"},
-      {"Sh/pWc/X.txt", "aFDcGVMmYIiVUaG"},
-      {"g.bin", "XpLOjHpMefPW"},
-      {"k.md", "OgmWAo"},
-      {"vzv/P/s.dat", "NQuYLmjDrUz"},
-      {"zbh/D.md", "LSzVmRHaYcyOm"}
+      {"Fz/u.txt", "OELxSRlzfyuKLvtC"},
+      {"Xp/N.bin", "DLQQavaUchYcAmR"},
+      {"h/r.dat", "uuZqpiqqJhy"},
+      {"i.md", "sVeimaD"},
+      {"w/o.txt", "wFXeoGg"},
+      {"x.bin", "ziLmtwNhU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(219u),
+      static_cast<std::size_t>(298u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5495,18 +5477,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"Qc/r.txt", "mfSZTyEn"},
-      {"y.txt", "QcRhlhN"}
+      {"L/Y/h.md", "VtpTSWYrGnxvy"}
     },
       {},
       {
-      {"Qc/r.txt", "mfSZTyEn"},
-      {"y.txt", "QcRhlhN"}
+      {"L/Y/h.md", "VtpTSWYrGnxvy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(80u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5518,16 +5499,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"fh/i.md", "ItnKQdpHZ"}
+      {"DpSa/lBwr/C.md", "UixSBUNDYW"},
+      {"Krb/h.md", "SvZf"},
+      {"YaE/I/V.bin", "IzcrjbsaKxFBM"},
+      {"v/kOc/Z.md", "MHJQxNPC"}
     },
       {},
       {
-      {"fh/i.md", "ItnKQdpHZ"}
+      {"DpSa/lBwr/C.md", "UixSBUNDYW"},
+      {"Krb/h.md", "SvZf"},
+      {"YaE/I/V.bin", "IzcrjbsaKxFBM"},
+      {"v/kOc/Z.md", "MHJQxNPC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(156u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5539,22 +5527,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"BmD/V.txt", "SI"},
-      {"IQPn/h/E.dat", "cgPOklMImXJrug"},
-      {"Pr/fg/z.txt", "GwAMwXp"},
-      {"u/UR/S.dat", "KMzcTW"}
+      {"Tvqa/j/c.cfg", "VspCkNjuSIhJzi"},
+      {"ViA/X.cfg", "sHMAvEhApktmVLN"},
+      {"YI/l.bin", "vGZLVKfICdqnOzA"},
+      {"blmr/X.cfg", "tyoFyrOk"},
+      {"j.dat", "oNAInaHdJIszYQ"}
     },
       {},
       {
-      {"BmD/V.txt", "SI"},
-      {"IQPn/h/E.dat", "cgPOklMImXJrug"},
-      {"Pr/fg/z.txt", "GwAMwXp"},
-      {"u/UR/S.dat", "KMzcTW"}
+      {"Tvqa/j/c.cfg", "VspCkNjuSIhJzi"},
+      {"ViA/X.cfg", "sHMAvEhApktmVLN"},
+      {"YI/l.bin", "vGZLVKfICdqnOzA"},
+      {"blmr/X.cfg", "tyoFyrOk"},
+      {"j.dat", "oNAInaHdJIszYQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(151u),
+      static_cast<std::size_t>(291u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5566,16 +5557,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"MM/K.bin", "gmUGkaSWR"}
+      {"F.txt", "jUmdXlOyBB"},
+      {"H.cfg", "UeRYAjxKjbTgmc"},
+      {"H.txt", "QBXndKpCfdHJHFk"},
+      {"N/oHDE/O.bin", "zbdOUqFrYMFCkEdI"}
     },
       {},
       {
-      {"MM/K.bin", "gmUGkaSWR"}
+      {"F.txt", "jUmdXlOyBB"},
+      {"H.cfg", "UeRYAjxKjbTgmc"},
+      {"H.txt", "QBXndKpCfdHJHFk"},
+      {"N/oHDE/O.bin", "zbdOUqFrYMFCkEdI"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(198u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5587,18 +5585,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"b.bin", "wJomXtAR"},
-      {"ff/c.cfg", "mnSjIWUkbjhlpZS"}
+      {"I.bin", "TQOOrUNccaTM"},
+      {"YYtr/V.md", "O"}
     },
       {},
       {
-      {"b.bin", "wJomXtAR"},
-      {"ff/c.cfg", "mnSjIWUkbjhlpZS"}
+      {"I.bin", "TQOOrUNccaTM"},
+      {"YYtr/V.md", "O"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(77u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5610,24 +5609,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"AHC/tOZv/j.dat", "ayOF"},
-      {"Wwv/J.bin", "rHtKXmOt"},
-      {"hiah/M.txt", "KKcy"},
-      {"od/wcnn/P.md", "ctLwLSpya"},
-      {"y.bin", "zAnib"}
+      {"C/uRFA/D.cfg", "atqxQrXfHftksAj"},
+      {"G.dat", "GWx"}
     },
       {},
       {
-      {"AHC/tOZv/j.dat", "ayOF"},
-      {"Wwv/J.bin", "rHtKXmOt"},
-      {"hiah/M.txt", "KKcy"},
-      {"od/wcnn/P.md", "ctLwLSpya"},
-      {"y.bin", "zAnib"}
+      {"C/uRFA/D.cfg", "atqxQrXfHftksAj"},
+      {"G.dat", "GWx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(190u),
+      static_cast<std::size_t>(123u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5639,18 +5633,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"aUd/BZ/j.txt", "GL"},
-      {"g/H/G.cfg", "vIepHkOgySDP"}
+      {"O.md", "XOWVColLtTy"},
+      {"RC/zX/P.txt", "qfQb"}
     },
       {},
       {
-      {"aUd/BZ/j.txt", "GL"},
-      {"g/H/G.cfg", "vIepHkOgySDP"}
+      {"O.md", "XOWVColLtTy"},
+      {"RC/zX/P.txt", "qfQb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(78u),
+      static_cast<std::size_t>(95u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5662,16 +5657,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"g/j.dat", "jskJfhUAxdL"}
+      {"EGY/b.cfg", "gsaJAyayMj"},
+      {"VvrN/UL/H.txt", "sXcvChw"}
     },
       {},
       {
-      {"g/j.dat", "jskJfhUAxdL"}
+      {"EGY/b.cfg", "gsaJAyayMj"},
+      {"VvrN/UL/H.txt", "sXcvChw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5683,13 +5681,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"WfAr/XUO/d.txt", "g"}
+      {"G/A.cfg", "lVGqqCiOBYLEUAo"}
     },
       {},
       {
-      {"WfAr/XUO/d.txt", "g"}
+      {"G/A.cfg", "lVGqqCiOBYLEUAo"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -5704,26 +5703,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"J/icJ/r.bin", "szILXx"},
-      {"LhQL/J.txt", "picMUibvxAzIS"},
-      {"S/M.cfg", "aMIm"},
-      {"dKfe/ISEQ/l.cfg", "zCTvV"},
-      {"kaF/r.cfg", "VRjDQMuDkff"},
-      {"n/rAkD/e.txt", "NMmaNEQOZmdNPm"}
+      {"C/x.txt", "DXXPBhWLPBwAPNIG"},
+      {"D.md", "OUZrguG"}
     },
       {},
       {
-      {"J/icJ/r.bin", "szILXx"},
-      {"LhQL/J.txt", "picMUibvxAzIS"},
-      {"S/M.cfg", "aMIm"},
-      {"dKfe/ISEQ/l.cfg", "zCTvV"},
-      {"kaF/r.cfg", "VRjDQMuDkff"},
-      {"n/rAkD/e.txt", "NMmaNEQOZmdNPm"}
+      {"C/x.txt", "DXXPBhWLPBwAPNIG"},
+      {"D.md", "OUZrguG"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(219u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5735,20 +5727,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"EYg/m.dat", "TxodJVIYElbqiijZ"},
-      {"Y/Z.md", "iEhuNaUkaoep"},
-      {"x.bin", "dAD"}
+      {"n.dat", "YrmQhPnNhVP"},
+      {"n/u.txt", "GpFD"}
     },
       {},
       {
-      {"EYg/m.dat", "TxodJVIYElbqiijZ"},
-      {"Y/Z.md", "iEhuNaUkaoep"},
-      {"x.bin", "dAD"}
+      {"n.dat", "YrmQhPnNhVP"},
+      {"n/u.txt", "GpFD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(131u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5760,16 +5751,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"j/RA/U.bin", "EBz"}
+      {"A/zIpZ/i.md", "ieLXcmprHUlmLC"},
+      {"C.md", "ilh"},
+      {"V.bin", "z"},
+      {"Z.txt", "TDu"},
+      {"l.md", "Cf"},
+      {"s.bin", "F"}
     },
       {},
       {
-      {"j/RA/U.bin", "EBz"}
+      {"A/zIpZ/i.md", "ieLXcmprHUlmLC"},
+      {"C.md", "ilh"},
+      {"V.bin", "z"},
+      {"Z.txt", "TDu"},
+      {"l.md", "Cf"},
+      {"s.bin", "F"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(228u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5781,20 +5783,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"b.md", "YdNjSuFIkh"},
-      {"qAL/Fmm/F.dat", "acWYuHXIMTl"},
-      {"t.txt", "LoGRzWZUdvulUfj"}
+      {"UYd/J.txt", "MKViFXrhWuYPk"},
+      {"g.cfg", "dMtwglSPi"},
+      {"k.dat", "eVZ"},
+      {"n/H.cfg", "mDpcUrfvzUsPWMsS"},
+      {"s.txt", "WfQJ"}
     },
       {},
       {
-      {"b.md", "YdNjSuFIkh"},
-      {"qAL/Fmm/F.dat", "acWYuHXIMTl"},
-      {"t.txt", "LoGRzWZUdvulUfj"}
+      {"UYd/J.txt", "MKViFXrhWuYPk"},
+      {"g.cfg", "dMtwglSPi"},
+      {"k.dat", "eVZ"},
+      {"n/H.cfg", "mDpcUrfvzUsPWMsS"},
+      {"s.txt", "WfQJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(126u),
+      static_cast<std::size_t>(235u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5806,22 +5813,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"gpSO/B.cfg", "EVAieJyFFsnGjlw"},
-      {"oDcH/jc/i.bin", "jHjhpIPI"},
-      {"pX/n/E.txt", "CFszv"},
-      {"vDw/wF/S.bin", "ZpMzlWzapV"}
+      {"WEmZ/p.dat", "OjuiLZ"},
+      {"mg/q.dat", "AQpPWDuFSccUqsw"},
+      {"n/W.cfg", "TDKLZ"},
+      {"s.bin", "lmnFy"}
     },
       {},
       {
-      {"gpSO/B.cfg", "EVAieJyFFsnGjlw"},
-      {"oDcH/jc/i.bin", "jHjhpIPI"},
-      {"pX/n/E.txt", "CFszv"},
-      {"vDw/wF/S.bin", "ZpMzlWzapV"}
+      {"WEmZ/p.dat", "OjuiLZ"},
+      {"mg/q.dat", "AQpPWDuFSccUqsw"},
+      {"n/W.cfg", "TDKLZ"},
+      {"s.bin", "lmnFy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(157u),
+      static_cast<std::size_t>(195u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5833,18 +5841,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"GH/a.md", "zABIsh"},
-      {"l.md", "oTijzacMxI"}
+      {"OjXI/k.bin", "dSMQmcRaSK"},
+      {"fC/Uw/e.bin", "orISk"},
+      {"i.bin", "UZBw"}
     },
       {},
       {
-      {"GH/a.md", "zABIsh"},
-      {"l.md", "oTijzacMxI"}
+      {"OjXI/k.bin", "dSMQmcRaSK"},
+      {"fC/Uw/e.bin", "orISk"},
+      {"i.bin", "UZBw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(77u),
+      static_cast<std::size_t>(156u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5856,16 +5867,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"T.md", "eTdWrgigg"}
+      {"C.cfg", "rckujbKuBYKoPC"},
+      {"Db/Drya/w.txt", "aHHNzsVCP"},
+      {"QwyS/p.txt", "KfpddNfBPvf"},
+      {"VJd/M.md", "H"},
+      {"q.txt", "hEOsQZF"}
     },
       {},
       {
-      {"T.md", "eTdWrgigg"}
+      {"C.cfg", "rckujbKuBYKoPC"},
+      {"Db/Drya/w.txt", "aHHNzsVCP"},
+      {"QwyS/p.txt", "KfpddNfBPvf"},
+      {"VJd/M.md", "H"},
+      {"q.txt", "hEOsQZF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(255u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5877,22 +5897,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"o.cfg", "PPTzOUQFtrVhscAz"},
-      {"pHb/g.dat", "GgNlZRcTICAJZ"},
-      {"v/R/b.dat", "DVVnhCMzWt"},
-      {"zq/B.txt", "nPlIqFBU"}
+      {"j.cfg", "xl"}
     },
       {},
       {
-      {"o.cfg", "PPTzOUQFtrVhscAz"},
-      {"pHb/g.dat", "GgNlZRcTICAJZ"},
-      {"v/R/b.dat", "DVVnhCMzWt"},
-      {"zq/B.txt", "nPlIqFBU"}
+      {"j.cfg", "xl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(158u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5904,18 +5919,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"P/cPNY/i.dat", "KqizRbZYmSmd"},
-      {"e/ekX/P.txt", "h"}
+      {"MRaW/i.md", "oukuK"},
+      {"X.txt", "gZOGlxwbWXxuev"},
+      {"YD/Q.dat", "qjECkeKKR"},
+      {"Zboa/pb/B.md", "MKx"},
+      {"r.dat", "UimIXoj"},
+      {"yPMl/k.cfg", "oopATJ"}
     },
       {},
       {
-      {"P/cPNY/i.dat", "KqizRbZYmSmd"},
-      {"e/ekX/P.txt", "h"}
+      {"MRaW/i.md", "oukuK"},
+      {"X.txt", "gZOGlxwbWXxuev"},
+      {"YD/Q.dat", "qjECkeKKR"},
+      {"Zboa/pb/B.md", "MKx"},
+      {"r.dat", "UimIXoj"},
+      {"yPMl/k.cfg", "oopATJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(88u),
+      static_cast<std::size_t>(269u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5927,18 +5951,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"O.cfg", "ncrbwXyrgP"},
-      {"fYLU/q.cfg", "sUclcz"}
+      {"QS/Q.dat", "fsz"},
+      {"Uc/P.txt", "VcxFot"},
+      {"d.dat", "XCiiuocMg"},
+      {"xYHq/Ajf/S.md", "CdbBPE"}
     },
       {},
       {
-      {"O.cfg", "ncrbwXyrgP"},
-      {"fYLU/q.cfg", "sUclcz"}
+      {"QS/Q.dat", "fsz"},
+      {"Uc/P.txt", "VcxFot"},
+      {"d.dat", "XCiiuocMg"},
+      {"xYHq/Ajf/S.md", "CdbBPE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(79u),
+      static_cast<std::size_t>(167u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5950,16 +5979,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"ruD/azZB/Z.md", "DdAw"}
+      {"D.cfg", "ghdHMwdNbaMCI"},
+      {"G.md", "eAKFpGlH"},
+      {"X.dat", "Ta"}
     },
       {},
       {
-      {"ruD/azZB/Z.md", "DdAw"}
+      {"D.cfg", "ghdHMwdNbaMCI"},
+      {"G.md", "eAKFpGlH"},
+      {"X.dat", "Ta"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(134u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5971,20 +6005,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"n.txt", "OwCmwzBjMijXqQk"},
-      {"vBd/U/z.bin", "DLtGYfCSfOVWSP"},
-      {"z.bin", "BL"}
+      {"QcKc/j.dat", "sQQsdoVivSsS"}
     },
       {},
       {
-      {"n.txt", "OwCmwzBjMijXqQk"},
-      {"vBd/U/z.bin", "DLtGYfCSfOVWSP"},
-      {"z.bin", "BL"}
+      {"QcKc/j.dat", "sQQsdoVivSsS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(133u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -5996,26 +6027,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"E.dat", "P"},
-      {"Te/E.dat", "dKNzktNHOckCR"},
-      {"b/n.txt", "ORagTCARt"},
-      {"d.txt", "xhPIzJqUMeU"},
-      {"n.dat", "mXzeI"},
-      {"w/m.bin", "sPTRhKAiaP"}
+      {"E.cfg", "aBHmTNGmuDPjG"},
+      {"f.dat", "DFGjCsp"}
     },
       {},
       {
-      {"E.dat", "P"},
-      {"Te/E.dat", "dKNzktNHOckCR"},
-      {"b/n.txt", "ORagTCARt"},
-      {"d.txt", "xhPIzJqUMeU"},
-      {"n.dat", "mXzeI"},
-      {"w/m.bin", "sPTRhKAiaP"}
+      {"E.cfg", "aBHmTNGmuDPjG"},
+      {"f.dat", "DFGjCsp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(197u),
+      static_cast<std::size_t>(98u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6027,18 +6051,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"e/S.dat", "KZf"},
-      {"t.bin", "frfCcWcx"}
+      {"EMU/JnhE/T.dat", "eAf"},
+      {"R.dat", "zQNQuLFOBgMLkW"},
+      {"k/A.cfg", "zldrabtUWvTGifkJ"},
+      {"qS/Q.cfg", "BgpCW"},
+      {"rRu/L.md", "XoLwtdXFKTLKNtE"}
     },
       {},
       {
-      {"e/S.dat", "KZf"},
-      {"t.bin", "frfCcWcx"}
+      {"EMU/JnhE/T.dat", "eAf"},
+      {"R.dat", "zQNQuLFOBgMLkW"},
+      {"k/A.cfg", "zldrabtUWvTGifkJ"},
+      {"qS/Q.cfg", "BgpCW"},
+      {"rRu/L.md", "XoLwtdXFKTLKNtE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(74u),
+      static_cast<std::size_t>(256u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6050,26 +6081,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"G/V.md", "nJN"},
-      {"I.bin", "g"},
-      {"KzS/P/l.bin", "EhVyIQG"},
-      {"WFN/k.md", "Gg"},
-      {"a/CT/A.cfg", "ira"},
-      {"m/J.dat", "BmwOlkJWj"}
+      {"rDWq/s.txt", "FBOSYBNgad"}
     },
       {},
       {
-      {"G/V.md", "nJN"},
-      {"I.bin", "g"},
-      {"KzS/P/l.bin", "EhVyIQG"},
-      {"WFN/k.md", "Gg"},
-      {"a/CT/A.cfg", "ira"},
-      {"m/J.dat", "BmwOlkJWj"}
+      {"rDWq/s.txt", "FBOSYBNgad"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(184u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6081,20 +6103,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"YXzg/x/s.cfg", "lsN"},
-      {"p.cfg", "WfdNDsICo"},
-      {"xl/V.cfg", "lu"}
+      {"CYck/rj/W.dat", "mdnKMw"},
+      {"DZa/r.txt", "JnvUKGsQQd"},
+      {"TPt/t.bin", "KnFpgaeNFJZV"},
+      {"U.bin", "qml"}
     },
       {},
       {
-      {"YXzg/x/s.cfg", "lsN"},
-      {"p.cfg", "WfdNDsICo"},
-      {"xl/V.cfg", "lu"}
+      {"CYck/rj/W.dat", "mdnKMw"},
+      {"DZa/r.txt", "JnvUKGsQQd"},
+      {"TPt/t.bin", "KnFpgaeNFJZV"},
+      {"U.bin", "qml"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(101u),
+      static_cast<std::size_t>(203u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6106,16 +6131,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"V.bin", "ZLSMeBZZOOnwjSNZ"}
+      {"M/re/f.bin", "LXtBuww"},
+      {"X/wR/j.txt", "eZRr"},
+      {"dM/l.cfg", "eGshF"},
+      {"nqw/l.txt", "pAip"}
     },
       {},
       {
-      {"V.bin", "ZLSMeBZZOOnwjSNZ"}
+      {"M/re/f.bin", "LXtBuww"},
+      {"X/wR/j.txt", "eZRr"},
+      {"dM/l.cfg", "eGshF"},
+      {"nqw/l.txt", "pAip"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(188u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6127,18 +6159,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"vWQ/iB/S.dat", "WRGRTWVcuxs"},
-      {"yff/q.cfg", "X"}
+      {"D.bin", "VWAqPy"},
+      {"q/mPe/I.cfg", "R"}
     },
       {},
       {
-      {"vWQ/iB/S.dat", "WRGRTWVcuxs"},
-      {"yff/q.cfg", "X"}
+      {"D.bin", "VWAqPy"},
+      {"q/mPe/I.cfg", "R"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(87u),
+      static_cast<std::size_t>(91u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6150,18 +6183,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"kjF/Cgc/V.cfg", "HJ"},
-      {"lK/H.bin", "qjQJIwDhH"}
+      {"DC/u.md", "hlBePte"},
+      {"Dx/H.dat", "xD"},
+      {"d.dat", "DPtT"}
     },
       {},
       {
-      {"kjF/Cgc/V.cfg", "HJ"},
-      {"lK/H.bin", "qjQJIwDhH"}
+      {"DC/u.md", "hlBePte"},
+      {"Dx/H.dat", "xD"},
+      {"d.dat", "DPtT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(79u),
+      static_cast<std::size_t>(128u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6173,20 +6209,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"M/a.cfg", "hMMaZFLjuYWuniH"},
-      {"NC/D.cfg", "zOYxlbKOshmhUaJ"},
-      {"TBX/S.md", "nRuOlOtJt"}
+      {"U/x.md", "dRbHyAnAR"},
+      {"ZQvg/ENqe/g.cfg", "ntkkSHapJCPJBjK"},
+      {"ZnA/hOvu/W.bin", "imbl"}
     },
       {},
       {
-      {"M/a.cfg", "hMMaZFLjuYWuniH"},
-      {"NC/D.cfg", "zOYxlbKOshmhUaJ"},
-      {"TBX/S.md", "nRuOlOtJt"}
+      {"U/x.md", "dRbHyAnAR"},
+      {"ZQvg/ENqe/g.cfg", "ntkkSHapJCPJBjK"},
+      {"ZnA/hOvu/W.bin", "imbl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(133u),
+      static_cast<std::size_t>(165u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6198,20 +6235,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"XsH/L.bin", "ScsEKeFCSLUMu"},
-      {"d/a.cfg", "ywHaYLnfpNobNkH"},
-      {"va/a.cfg", "lhHVjWMlLI"}
+      {"P.cfg", "dnWyWmzZeJYIpbm"}
     },
       {},
       {
-      {"XsH/L.bin", "ScsEKeFCSLUMu"},
-      {"d/a.cfg", "ywHaYLnfpNobNkH"},
-      {"va/a.cfg", "lhHVjWMlLI"}
+      {"P.cfg", "dnWyWmzZeJYIpbm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(132u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6223,24 +6257,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"Ob/Ws/B.md", "lbNlmDTOaajtIQL"},
-      {"i/k.md", "LxOTGQ"},
-      {"qK/m.bin", "ADiGMY"},
-      {"t/Peut/Y.dat", "uzjYFJdn"},
-      {"t/ziDA/G.bin", "TiJhZHKRUKz"}
+      {"n.bin", "GynzIZaPj"}
     },
       {},
       {
-      {"Ob/Ws/B.md", "lbNlmDTOaajtIQL"},
-      {"i/k.md", "LxOTGQ"},
-      {"qK/m.bin", "ADiGMY"},
-      {"t/Peut/Y.dat", "uzjYFJdn"},
-      {"t/ziDA/G.bin", "TiJhZHKRUKz"}
+      {"n.bin", "GynzIZaPj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(191u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6252,22 +6279,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"FG/pFD/n.txt", "pArOS"},
-      {"R.md", "zMLEfzh"},
-      {"iM/R.md", "HHTaN"},
-      {"r.md", "FuWyl"}
+      {"D.cfg", "IyQyRBlumyQipy"},
+      {"XC/N.md", "fEdu"}
     },
       {},
       {
-      {"FG/pFD/n.txt", "pArOS"},
-      {"R.md", "zMLEfzh"},
-      {"iM/R.md", "HHTaN"},
-      {"r.md", "FuWyl"}
+      {"D.cfg", "IyQyRBlumyQipy"},
+      {"XC/N.md", "fEdu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(136u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6279,16 +6303,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"U.bin", "GuTSOBQtsTMRMK"}
+      {"M/Nw/n.bin", "QldNTNsN"},
+      {"R/v.dat", "CYtluKGFZywaxDbs"}
     },
       {},
       {
-      {"U.bin", "GuTSOBQtsTMRMK"}
+      {"M/Nw/n.bin", "QldNTNsN"},
+      {"R/v.dat", "CYtluKGFZywaxDbs"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(98u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6300,18 +6327,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"KbVV/y.dat", "NbSrusgNtxob"},
-      {"my/y.bin", "XvdClAEAiHGPkKDG"}
+      {"F.dat", "ZxPNj"}
     },
       {},
       {
-      {"KbVV/y.dat", "NbSrusgNtxob"},
-      {"my/y.bin", "XvdClAEAiHGPkKDG"}
+      {"F.dat", "ZxPNj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(86u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6323,20 +6349,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"D.md", "VQGfWLooBur"},
-      {"e/aH/I.md", "r"},
-      {"os/a.txt", "IPuOj"}
+      {"jr/X.dat", "zHxmFzbLOpHG"}
     },
       {},
       {
-      {"D.md", "VQGfWLooBur"},
-      {"e/aH/I.md", "r"},
-      {"os/a.txt", "IPuOj"}
+      {"jr/X.dat", "zHxmFzbLOpHG"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(97u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6348,18 +6371,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"B/u.dat", "GfinXaPRIQFi"},
-      {"PhqF/S.bin", "UDLn"}
+      {"Od/s.bin", "b"},
+      {"g/pUC/S.dat", "KCJroWCguGXCN"},
+      {"w.md", "LetkiFnccRI"}
     },
       {},
       {
-      {"B/u.dat", "GfinXaPRIQFi"},
-      {"PhqF/S.bin", "UDLn"}
+      {"Od/s.bin", "b"},
+      {"g/pUC/S.dat", "KCJroWCguGXCN"},
+      {"w.md", "LetkiFnccRI"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(83u),
+      static_cast<std::size_t>(137u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6371,26 +6397,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"K.md", "XHVL"},
-      {"MpW/w.txt", "Gsmca"},
-      {"b.md", "dmkPD"},
-      {"g.md", "QtYWRcAAR"},
-      {"gX/X.md", "PMAYJYaJTq"},
-      {"rBX/J.cfg", "j"}
+      {"Addv/t.dat", "vApT"},
+      {"V.cfg", "riwCbYdYRrg"}
     },
       {},
       {
-      {"K.md", "XHVL"},
-      {"MpW/w.txt", "Gsmca"},
-      {"b.md", "dmkPD"},
-      {"g.md", "QtYWRcAAR"},
-      {"gX/X.md", "PMAYJYaJTq"},
-      {"rBX/J.cfg", "j"}
+      {"Addv/t.dat", "vApT"},
+      {"V.cfg", "riwCbYdYRrg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(189u),
+      static_cast<std::size_t>(94u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6402,13 +6421,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"h.dat", "KkrP"}
+      {"t.txt", "quOPw"}
     },
       {},
       {
-      {"h.dat", "KkrP"}
+      {"t.txt", "quOPw"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -6423,18 +6443,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"d/DY/d.cfg", "zG"},
-      {"uEYE/kIk/Y.bin", "q"}
+      {"GBDO/J.cfg", "TvVaCosiNGRBE"},
+      {"T/ehG/T.cfg", "JMldPuLAYKDizA"},
+      {"tFAc/f/O.md", "dgruGNYbdsq"}
     },
       {},
       {
-      {"d/DY/d.cfg", "zG"},
-      {"uEYE/kIk/Y.bin", "q"}
+      {"GBDO/J.cfg", "TvVaCosiNGRBE"},
+      {"T/ehG/T.cfg", "JMldPuLAYKDizA"},
+      {"tFAc/f/O.md", "dgruGNYbdsq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(76u),
+      static_cast<std::size_t>(168u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6446,20 +6469,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"I.cfg", "diIGvVstD"},
-      {"T.dat", "cELUhZhmPaxk"},
-      {"z.txt", "FnH"}
+      {"CAfw/jV/u.bin", "pIAetajBpLqq"},
+      {"NQLS/w.cfg", "pWRlkyAuwMRr"},
+      {"U.md", "xdJl"},
+      {"h/s.bin", "BijwbhK"},
+      {"o.cfg", "iGtOKwqPDClAW"},
+      {"p/O.txt", "V"}
     },
       {},
       {
-      {"I.cfg", "diIGvVstD"},
-      {"T.dat", "cELUhZhmPaxk"},
-      {"z.txt", "FnH"}
+      {"CAfw/jV/u.bin", "pIAetajBpLqq"},
+      {"NQLS/w.cfg", "pWRlkyAuwMRr"},
+      {"U.md", "xdJl"},
+      {"h/s.bin", "BijwbhK"},
+      {"o.cfg", "iGtOKwqPDClAW"},
+      {"p/O.txt", "V"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(78u),
+      static_cast<std::size_t>(295u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6471,16 +6501,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"vlB/r/a.txt", "sqYmJLHKxmwXstm"}
+      {"Gw/I.bin", "eHzrlNVkcRziK"},
+      {"R.md", "zPjVS"},
+      {"hKt/t.md", "AF"},
+      {"lhCi/g.bin", "M"}
     },
       {},
       {
-      {"vlB/r/a.txt", "sqYmJLHKxmwXstm"}
+      {"Gw/I.bin", "eHzrlNVkcRziK"},
+      {"R.md", "zPjVS"},
+      {"hKt/t.md", "AF"},
+      {"lhCi/g.bin", "M"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(168u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6492,18 +6529,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"fTs/NtcN/O.dat", "dPOspXTbgplAv"},
-      {"z/PoI/B.bin", "KpJTC"}
+      {"mEVC/pIe/p.txt", "TOHcLprFnhrDRZA"}
     },
       {},
       {
-      {"fTs/NtcN/O.dat", "dPOspXTbgplAv"},
-      {"z/PoI/B.bin", "KpJTC"}
+      {"mEVC/pIe/p.txt", "TOHcLprFnhrDRZA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(91u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6515,22 +6551,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"CK/vz/t.txt", "hcwHoz"},
-      {"Jpv/d/h.txt", "vARGGVWhwq"},
-      {"c/p.md", "LnmLtLMUgAXsNHpl"},
-      {"p/SgM/C.bin", "KMCSCHIliT"}
+      {"C.txt", "eICkGRddz"},
+      {"DCJ/g.cfg", "oBZSmuvjWTUhFDlB"},
+      {"K.dat", "cDoC"},
+      {"b/Z/s.txt", "TzDPcRUSAQKai"},
+      {"jj/x.txt", "sVVE"},
+      {"qRf/Vn/a.cfg", "rHaxHuMWGxa"}
     },
       {},
       {
-      {"CK/vz/t.txt", "hcwHoz"},
-      {"Jpv/d/h.txt", "vARGGVWhwq"},
-      {"c/p.md", "LnmLtLMUgAXsNHpl"},
-      {"p/SgM/C.bin", "KMCSCHIliT"}
+      {"C.txt", "eICkGRddz"},
+      {"DCJ/g.cfg", "oBZSmuvjWTUhFDlB"},
+      {"K.dat", "cDoC"},
+      {"b/Z/s.txt", "TzDPcRUSAQKai"},
+      {"jj/x.txt", "sVVE"},
+      {"qRf/Vn/a.cfg", "rHaxHuMWGxa"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(156u),
+      static_cast<std::size_t>(290u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6542,22 +6583,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"U.md", "yYVlimA"},
-      {"b.md", "w"},
-      {"r/j.bin", "zlxx"},
-      {"t/xT/C.dat", "DJzXyIFNBNyc"}
+      {"JR/O.bin", "Dw"},
+      {"Kp/jJC/A.cfg", "aIyeIMkRMQXphS"}
     },
       {},
       {
-      {"U.md", "yYVlimA"},
-      {"b.md", "w"},
-      {"r/j.bin", "zlxx"},
-      {"t/xT/C.dat", "DJzXyIFNBNyc"}
+      {"JR/O.bin", "Dw"},
+      {"Kp/jJC/A.cfg", "aIyeIMkRMQXphS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(123u),
+      static_cast<std::size_t>(90u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6569,16 +6607,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"Jt/sbbR/W.cfg", "cHHwdETtLIkAdvla"}
+      {"Hb/X/f.txt", "AqiIMeDZcAwC"},
+      {"N.dat", "uw"}
     },
       {},
       {
-      {"Jt/sbbR/W.cfg", "cHHwdETtLIkAdvla"}
+      {"Hb/X/f.txt", "AqiIMeDZcAwC"},
+      {"N.dat", "uw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(102u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6590,13 +6631,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"Q.dat", "OGi"}
+      {"QgY/Vz/d.bin", "ImJBGlxOTvPx"}
     },
       {},
       {
-      {"Q.dat", "OGi"}
+      {"QgY/Vz/d.bin", "ImJBGlxOTvPx"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -6611,22 +6653,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"J.cfg", "XMBcXIFYzdWdc"},
-      {"J.dat", "IcnSwTgnjyJgmIt"},
-      {"S.md", "tjfiIIcVxMRU"},
-      {"g.cfg", "DfpSKvpaodIV"}
+      {"Lpta/j.dat", "SD"}
     },
       {},
       {
-      {"J.cfg", "XMBcXIFYzdWdc"},
-      {"J.dat", "IcnSwTgnjyJgmIt"},
-      {"S.md", "tjfiIIcVxMRU"},
-      {"g.cfg", "DfpSKvpaodIV"}
+      {"Lpta/j.dat", "SD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(150u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6638,22 +6675,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"b/eVbc/Z.txt", "Cbio"},
-      {"i.txt", "nnvBJdonoqdAi"},
-      {"lUzK/C.cfg", "xeveNbC"},
-      {"x.md", "FwPnFqzjFDzz"}
+      {"G.cfg", "EHigDjTTOhnqbss"},
+      {"O.dat", "Q"}
     },
       {},
       {
-      {"b/eVbc/Z.txt", "Cbio"},
-      {"i.txt", "nnvBJdonoqdAi"},
-      {"lUzK/C.cfg", "xeveNbC"},
-      {"x.md", "FwPnFqzjFDzz"}
+      {"G.cfg", "EHigDjTTOhnqbss"},
+      {"O.dat", "Q"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(147u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6665,20 +6699,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"F.bin", "hI"},
-      {"L.txt", "PdrPQIzIJWSKat"},
-      {"cyb/D.txt", "jR"}
+      {"M/zOGN/U.dat", "DEzNsZVGxal"},
+      {"xV/e.txt", "PreoanBHTuXK"},
+      {"zwg/w/Z.dat", "yqUfEeUl"}
     },
       {},
       {
-      {"F.bin", "hI"},
-      {"L.txt", "PdrPQIzIJWSKat"},
-      {"cyb/D.txt", "jR"}
+      {"M/zOGN/U.dat", "DEzNsZVGxal"},
+      {"xV/e.txt", "PreoanBHTuXK"},
+      {"zwg/w/Z.dat", "yqUfEeUl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(98u),
+      static_cast<std::size_t>(163u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6690,24 +6725,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"DOx/UAdY/Q.cfg", "UceKu"},
-      {"c.dat", "hFyaJrVVsqL"},
-      {"fo/VQ/S.cfg", "L"},
-      {"kcy/w.bin", "kiVpraUn"},
-      {"l.dat", "eKAjkndZAmDzxWE"}
+      {"Mvl/h.cfg", "CgwsBeoGY"}
     },
       {},
       {
-      {"DOx/UAdY/Q.cfg", "UceKu"},
-      {"c.dat", "hFyaJrVVsqL"},
-      {"fo/VQ/S.cfg", "L"},
-      {"kcy/w.bin", "kiVpraUn"},
-      {"l.dat", "eKAjkndZAmDzxWE"}
+      {"Mvl/h.cfg", "CgwsBeoGY"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(184u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6719,18 +6747,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"Cez/zaE/i.dat", "Yhmr"},
-      {"tDL/a.dat", "tOw"}
+      {"Bi/QgaL/b.dat", "lQfVNVX"},
+      {"eL/R.bin", "vWSdN"}
     },
       {},
       {
-      {"Cez/zaE/i.dat", "Yhmr"},
-      {"tDL/a.dat", "tOw"}
+      {"Bi/QgaL/b.dat", "lQfVNVX"},
+      {"eL/R.bin", "vWSdN"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(81u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6742,22 +6771,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"S/I.bin", "ctigE"},
-      {"p/IUz/S.bin", "UlFFXxGnJulT"},
-      {"vZZV/n.md", "zrLt"},
-      {"w/x/r.md", "krMWVPLxVeWoZX"}
+      {"fnz/a.txt", "wAEUciYA"},
+      {"iOw/m.bin", "jglihecfZiLOKCpx"},
+      {"rh/t.cfg", "wdUWSqiUUKAo"},
+      {"t.md", "qS"},
+      {"u.dat", "ZrHquYxgopZtzlta"}
     },
       {},
       {
-      {"S/I.bin", "ctigE"},
-      {"p/IUz/S.bin", "UlFFXxGnJulT"},
-      {"vZZV/n.md", "zrLt"},
-      {"w/x/r.md", "krMWVPLxVeWoZX"}
+      {"fnz/a.txt", "wAEUciYA"},
+      {"iOw/m.bin", "jglihecfZiLOKCpx"},
+      {"rh/t.cfg", "wdUWSqiUUKAo"},
+      {"t.md", "qS"},
+      {"u.dat", "ZrHquYxgopZtzlta"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(144u),
+      static_cast<std::size_t>(236u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6769,13 +6801,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"RnjY/y.txt", "HvmIrfxpxLwaa"}
+      {"R.cfg", "IQuRIet"}
     },
       {},
       {
-      {"RnjY/y.txt", "HvmIrfxpxLwaa"}
+      {"R.cfg", "IQuRIet"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -6790,16 +6823,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"HUm/l.dat", "qgSdhsbbjPMvxnf"}
+      {"D.md", "iMYeDyinicov"},
+      {"Q.md", "AyrZDgPDNyvOmajk"},
+      {"Qh/JwJ/M.cfg", "Ladgk"},
+      {"Wvk/q/F.cfg", "KmdjMODmllYeekEF"},
+      {"h.txt", "YyUW"}
     },
       {},
       {
-      {"HUm/l.dat", "qgSdhsbbjPMvxnf"}
+      {"D.md", "iMYeDyinicov"},
+      {"Q.md", "AyrZDgPDNyvOmajk"},
+      {"Qh/JwJ/M.cfg", "Ladgk"},
+      {"Wvk/q/F.cfg", "KmdjMODmllYeekEF"},
+      {"h.txt", "YyUW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(264u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6811,20 +6853,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"WPkg/K/m.md", "YroKPnnQwqv"},
-      {"lZAs/S.txt", "ZuOR"},
-      {"xwMA/i.bin", "cYnQVzRKuSQRCsi"}
+      {"B.md", "YSZCtZmYfU"},
+      {"YyfG/G.txt", "xa"},
+      {"nMJ/cUR/t.bin", "QXX"},
+      {"pLba/L.cfg", "vcqqCnsiiOnayZ"},
+      {"qYho/R.txt", "vJwOjgYtl"},
+      {"w.cfg", "Tbc"}
     },
       {},
       {
-      {"WPkg/K/m.md", "YroKPnnQwqv"},
-      {"lZAs/S.txt", "ZuOR"},
-      {"xwMA/i.bin", "cYnQVzRKuSQRCsi"}
+      {"B.md", "YSZCtZmYfU"},
+      {"YyfG/G.txt", "xa"},
+      {"nMJ/cUR/t.bin", "QXX"},
+      {"pLba/L.cfg", "vcqqCnsiiOnayZ"},
+      {"qYho/R.txt", "vJwOjgYtl"},
+      {"w.cfg", "Tbc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(124u),
+      static_cast<std::size_t>(293u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6836,24 +6885,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"S.md", "mWNkCOmkCo"},
-      {"SQC/Z.md", "rUzXgnAFCFVOjB"},
-      {"Z.cfg", "VGUAHR"},
-      {"r.dat", "hD"},
-      {"s.dat", "nBOGPiKdNM"}
+      {"Xm/bwzI/M.md", "ZYCVSoVzBaVqK"},
+      {"g.txt", "poTsRvxS"}
     },
       {},
       {
-      {"S.md", "mWNkCOmkCo"},
-      {"SQC/Z.md", "rUzXgnAFCFVOjB"},
-      {"Z.cfg", "VGUAHR"},
-      {"r.dat", "hD"},
-      {"s.dat", "nBOGPiKdNM"}
+      {"Xm/bwzI/M.md", "ZYCVSoVzBaVqK"},
+      {"g.txt", "poTsRvxS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(158u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6865,26 +6909,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"Ikv/S.md", "xCRwyEdQ"},
-      {"N.cfg", "AwIaQbFaGajnkkuC"},
-      {"T.cfg", "oLU"},
-      {"gJ/i.bin", "sgeaKIGEG"},
-      {"n/n.bin", "ZNUDJIpRLTUEIC"},
-      {"p.dat", "LGzN"}
+      {"K/dXz/Y.bin", "wVKMdAQ"},
+      {"atM/kzVI/s.cfg", "bOPUzJWOosP"},
+      {"az/p.md", "xMPBjXWA"},
+      {"er/bW/m.md", "SC"},
+      {"m.md", "nNhwMhrkTq"},
+      {"v.md", "sTUbcrdnDFRclxot"}
     },
       {},
       {
-      {"Ikv/S.md", "xCRwyEdQ"},
-      {"N.cfg", "AwIaQbFaGajnkkuC"},
-      {"T.cfg", "oLU"},
-      {"gJ/i.bin", "sgeaKIGEG"},
-      {"n/n.bin", "ZNUDJIpRLTUEIC"},
-      {"p.dat", "LGzN"}
+      {"K/dXz/Y.bin", "wVKMdAQ"},
+      {"atM/kzVI/s.cfg", "bOPUzJWOosP"},
+      {"az/p.md", "xMPBjXWA"},
+      {"er/bW/m.md", "SC"},
+      {"m.md", "nNhwMhrkTq"},
+      {"v.md", "sTUbcrdnDFRclxot"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(211u),
+      static_cast<std::size_t>(292u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6896,22 +6941,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"MDmD/dP/b.md", "lMlKyucdaxvRvR"},
-      {"Uo/N.cfg", "tK"},
-      {"aRk/r.txt", "amduHfREfNXaF"},
-      {"r/IOaZ/s.txt", "CVnlEhoQnpt"}
+      {"W/K/d.bin", "lhKOl"}
     },
       {},
       {
-      {"MDmD/dP/b.md", "lMlKyucdaxvRvR"},
-      {"Uo/N.cfg", "tK"},
-      {"aRk/r.txt", "amduHfREfNXaF"},
-      {"r/IOaZ/s.txt", "CVnlEhoQnpt"}
+      {"W/K/d.bin", "lhKOl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(154u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6923,24 +6963,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"E/Al/x.md", "lpy"},
-      {"Fwj/H.dat", "KtyPh"},
-      {"O.dat", "MyARrjl"},
-      {"aFwp/v.md", "kpAUvHhAUWYq"},
-      {"ncZ/B.cfg", "CdvjPb"}
+      {"BnOM/JNxF/a.dat", "LCO"},
+      {"j/c/l.dat", "uyacu"},
+      {"sb/G.md", "N"},
+      {"zWlZ/iv/m.txt", "rUwA"}
     },
       {},
       {
-      {"E/Al/x.md", "lpy"},
-      {"Fwj/H.dat", "KtyPh"},
-      {"O.dat", "MyARrjl"},
-      {"aFwp/v.md", "kpAUvHhAUWYq"},
-      {"ncZ/B.cfg", "CdvjPb"}
+      {"BnOM/JNxF/a.dat", "LCO"},
+      {"j/c/l.dat", "uyacu"},
+      {"sb/G.md", "N"},
+      {"zWlZ/iv/m.txt", "rUwA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(163u),
+      static_cast<std::size_t>(168u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6952,20 +6991,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"M.txt", "cXtDLX"},
-      {"QjG/t/b.dat", "iTpm"},
-      {"j.cfg", "g"}
+      {"Nxs/f.md", "Xyn"},
+      {"oXsd/l.dat", "NqLBxbYFc"},
+      {"u/B.dat", "F"},
+      {"v.bin", "g"}
     },
       {},
       {
-      {"M.txt", "cXtDLX"},
-      {"QjG/t/b.dat", "iTpm"},
-      {"j.cfg", "g"}
+      {"Nxs/f.md", "Xyn"},
+      {"oXsd/l.dat", "NqLBxbYFc"},
+      {"u/B.dat", "F"},
+      {"v.bin", "g"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(98u),
+      static_cast<std::size_t>(166u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -6977,26 +7019,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"GVd/j.cfg", "UuUMqEHtwkswDE"},
-      {"JLcR/X/s.cfg", "ThXMeCQwmGTt"},
-      {"M.md", "A"},
-      {"X/K.cfg", "NokdL"},
-      {"dj/A.cfg", "epZDRNLKKNcSRk"},
-      {"wKS/HlKy/d.txt", "VPtIoDNeqxS"}
+      {"I/RVKj/m.dat", "Md"},
+      {"iVIs/epb/U.txt", "dVxKZReyDYmOm"},
+      {"oFC/To/u.dat", "AIZR"},
+      {"ppY/pZR/I.bin", "BtVysRQdCzhj"}
     },
       {},
       {
-      {"GVd/j.cfg", "UuUMqEHtwkswDE"},
-      {"JLcR/X/s.cfg", "ThXMeCQwmGTt"},
-      {"M.md", "A"},
-      {"X/K.cfg", "NokdL"},
-      {"dj/A.cfg", "epZDRNLKKNcSRk"},
-      {"wKS/HlKy/d.txt", "VPtIoDNeqxS"}
+      {"I/RVKj/m.dat", "Md"},
+      {"iVIs/epb/U.txt", "dVxKZReyDYmOm"},
+      {"oFC/To/u.dat", "AIZR"},
+      {"ppY/pZR/I.bin", "BtVysRQdCzhj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(214u),
+      static_cast<std::size_t>(201u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7008,20 +7047,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"QFm/M.md", "rpSFDJZ"},
-      {"mzEf/VB/m.txt", "nJZMcuWOo"},
-      {"zDB/Tw/v.bin", "Rh"}
+      {"R/Pk/b.txt", "QyTUgOUnvg"},
+      {"Z.txt", "obqTkEvcg"}
     },
       {},
       {
-      {"QFm/M.md", "rpSFDJZ"},
-      {"mzEf/VB/m.txt", "nJZMcuWOo"},
-      {"zDB/Tw/v.bin", "Rh"}
+      {"R/Pk/b.txt", "QyTUgOUnvg"},
+      {"Z.txt", "obqTkEvcg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(125u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7033,20 +7071,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"F/z.bin", "H"},
-      {"Vu/AuRJ/h.cfg", "Jps"},
-      {"z.bin", "XIqmBs"}
+      {"Na/H.txt", "kRSTbDYCHCPJ"},
+      {"UE/U.md", "CLqU"}
     },
       {},
       {
-      {"F/z.bin", "H"},
-      {"Vu/AuRJ/h.cfg", "Jps"},
-      {"z.bin", "XIqmBs"}
+      {"Na/H.txt", "kRSTbDYCHCPJ"},
+      {"UE/U.md", "CLqU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(96u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7058,26 +7095,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"A.txt", "sFjrS"},
-      {"FKx/F.txt", "sGJZlQaN"},
-      {"a/O.txt", "qhiDFoikuZy"},
-      {"kun/Col/L.cfg", "uidc"},
-      {"o.md", "aA"},
-      {"w.dat", "JMDocIQ"}
+      {"u.bin", "lZDaq"}
     },
       {},
       {
-      {"A.txt", "sFjrS"},
-      {"FKx/F.txt", "sGJZlQaN"},
-      {"a/O.txt", "qhiDFoikuZy"},
-      {"kun/Col/L.cfg", "uidc"},
-      {"o.md", "aA"},
-      {"w.dat", "JMDocIQ"}
+      {"u.bin", "lZDaq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(196u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7089,16 +7117,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"V.md", "nEZ"}
+      {"Gnzd/cn/D.dat", "wQcZpY"},
+      {"Y.cfg", "ATywDhiPpTM"},
+      {"jsZJ/Z.cfg", "LcZIL"},
+      {"wbBM/J.dat", "W"},
+      {"z/Lhdm/T.cfg", "fuaoCKMKNpH"}
     },
       {},
       {
-      {"V.md", "nEZ"}
+      {"Gnzd/cn/D.dat", "wQcZpY"},
+      {"Y.cfg", "ATywDhiPpTM"},
+      {"jsZJ/Z.cfg", "LcZIL"},
+      {"wbBM/J.dat", "W"},
+      {"z/Lhdm/T.cfg", "fuaoCKMKNpH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(229u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7110,20 +7147,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"C.txt", "YHPh"},
-      {"R.txt", "ESiHmsAoxS"},
-      {"wsL/f.cfg", "tBssmwpsOfebU"}
+      {"NH/JPOh/Y.md", "SHB"},
+      {"St/r/e.md", "IGYIkkpVjpYaz"},
+      {"qcvx/txOX/Q.bin", "tisZcMVOxpdnhAps"},
+      {"t.bin", "semdivA"}
     },
       {},
       {
-      {"C.txt", "YHPh"},
-      {"R.txt", "ESiHmsAoxS"},
-      {"wsL/f.cfg", "tBssmwpsOfebU"}
+      {"NH/JPOh/Y.md", "SHB"},
+      {"St/r/e.md", "IGYIkkpVjpYaz"},
+      {"qcvx/txOX/Q.bin", "tisZcMVOxpdnhAps"},
+      {"t.bin", "semdivA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(96u),
+      static_cast<std::size_t>(228u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7135,22 +7175,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"f.md", "yQWduqeJcbLcOON"},
-      {"lunu/f.cfg", "OyXnDDzaND"},
-      {"sN/tepx/m.bin", "fncgNCNN"},
-      {"uynu/i.md", "SEtIU"}
+      {"Zu/gHc/x.txt", "VRNnbnwxzXWUBh"}
     },
       {},
       {
-      {"f.md", "yQWduqeJcbLcOON"},
-      {"lunu/f.cfg", "OyXnDDzaND"},
-      {"sN/tepx/m.bin", "fncgNCNN"},
-      {"uynu/i.md", "SEtIU"}
+      {"Zu/gHc/x.txt", "VRNnbnwxzXWUBh"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(156u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7162,24 +7197,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"B.md", "AWiqAoNP"},
-      {"F/YxW/W.dat", "E"},
-      {"OSo/i.md", "FoLfSshriq"},
-      {"Rhfi/S/M.txt", "DRMCPqtKceyWVwSB"},
-      {"SGSh/ee/p.txt", "pA"}
+      {"L/C.dat", "ohlrJ"},
+      {"wdF/j.bin", "n"}
     },
       {},
       {
-      {"B.md", "AWiqAoNP"},
-      {"F/YxW/W.dat", "E"},
-      {"OSo/i.md", "FoLfSshriq"},
-      {"Rhfi/S/M.txt", "DRMCPqtKceyWVwSB"},
-      {"SGSh/ee/p.txt", "pA"}
+      {"L/C.dat", "ohlrJ"},
+      {"wdF/j.bin", "n"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(190u),
+      static_cast<std::size_t>(92u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7191,16 +7221,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"ir/eXE/B.cfg", "EyTjNVFKxcQH"}
+      {"J.txt", "IOvNspR"},
+      {"ref/i.cfg", "TrHNpTPmQt"}
     },
       {},
       {
-      {"ir/eXE/B.cfg", "EyTjNVFKxcQH"}
+      {"J.txt", "IOvNspR"},
+      {"ref/i.cfg", "TrHNpTPmQt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(92u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7212,26 +7245,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"M.md", "AyJM"},
-      {"R.md", "HxXNmRnhiPFT"},
-      {"Z.dat", "laWlpjxqFtq"},
-      {"eG/c.dat", "ffOLKZdRnIvUIOOE"},
-      {"llNq/GE/H.bin", "kLEXrAZiZ"},
-      {"n/DRw/l.md", "DrlV"}
+      {"S/X/g.dat", "E"},
+      {"l/N.bin", "QZdnTbAFBrhVf"},
+      {"t/G.dat", "bPUkgiglkWsEiQ"}
     },
       {},
       {
-      {"M.md", "AyJM"},
-      {"R.md", "HxXNmRnhiPFT"},
-      {"Z.dat", "laWlpjxqFtq"},
-      {"eG/c.dat", "ffOLKZdRnIvUIOOE"},
-      {"llNq/GE/H.bin", "kLEXrAZiZ"},
-      {"n/DRw/l.md", "DrlV"}
+      {"S/X/g.dat", "E"},
+      {"l/N.bin", "QZdnTbAFBrhVf"},
+      {"t/G.dat", "bPUkgiglkWsEiQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(214u),
+      static_cast<std::size_t>(134u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7243,16 +7271,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"V.cfg", "wakgDKFJtHEnnJ"}
+      {"N/Ro/u.cfg", "IdGeMuTLFYzEK"},
+      {"PX/Y.cfg", "iJL"},
+      {"Vl/YvBk/R.md", "scnqEOzqkDM"},
+      {"dnhc/u/s.md", "ZDdmbFQIf"}
     },
       {},
       {
-      {"V.cfg", "wakgDKFJtHEnnJ"}
+      {"N/Ro/u.cfg", "IdGeMuTLFYzEK"},
+      {"PX/Y.cfg", "iJL"},
+      {"Vl/YvBk/R.md", "scnqEOzqkDM"},
+      {"dnhc/u/s.md", "ZDdmbFQIf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(201u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7264,13 +7299,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"T/M.bin", "J"}
+      {"i/M.bin", "HjRYybyYw"}
     },
       {},
       {
-      {"T/M.bin", "J"}
+      {"i/M.bin", "HjRYybyYw"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -7285,26 +7321,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"C.cfg", "mSesl"},
-      {"KDN/tpe/t.md", "iahrRGkQd"},
-      {"P.txt", "OveFovGlxcdX"},
-      {"i.dat", "fAPRymj"},
-      {"n.cfg", "EB"},
-      {"vWD/wD/t.cfg", "EeMHLzIJYQtWwOAQ"}
+      {"B.bin", "OdgvMWoj"},
+      {"C.bin", "tiTbuNJb"},
+      {"nu/t.dat", "vVGqckl"},
+      {"x/U.dat", "Hvl"}
     },
       {},
       {
-      {"C.cfg", "mSesl"},
-      {"KDN/tpe/t.md", "iahrRGkQd"},
-      {"P.txt", "OveFovGlxcdX"},
-      {"i.dat", "fAPRymj"},
-      {"n.cfg", "EB"},
-      {"vWD/wD/t.cfg", "EeMHLzIJYQtWwOAQ"}
+      {"B.bin", "OdgvMWoj"},
+      {"C.bin", "tiTbuNJb"},
+      {"nu/t.dat", "vVGqckl"},
+      {"x/U.dat", "Hvl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(195u),
+      static_cast<std::size_t>(169u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7316,16 +7349,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"EjP/J/W.md", "RlqwNEYBSdwQkzM"}
+      {"O.md", "fEEgsQLtCaeZNzY"},
+      {"VIL/E.md", "e"},
+      {"c.dat", "XV"},
+      {"gE/P.cfg", "c"},
+      {"ij/pYhK/d.txt", "EzphnHpv"}
     },
       {},
       {
-      {"EjP/J/W.md", "RlqwNEYBSdwQkzM"}
+      {"O.md", "fEEgsQLtCaeZNzY"},
+      {"VIL/E.md", "e"},
+      {"c.dat", "XV"},
+      {"gE/P.cfg", "c"},
+      {"ij/pYhK/d.txt", "EzphnHpv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(196u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7337,26 +7379,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"LuN/zS/Q.bin", "e"},
-      {"Q.bin", "gfkJfuY"},
-      {"lsWh/CMs/Z.dat", "aOrepqqemnjGvxb"},
-      {"uQ/N.md", "mGWV"},
-      {"y.cfg", "pIUbQAVJgPe"},
-      {"y.md", "ZwxdPDhKfkhHJ"}
+      {"LDn/Y.cfg", "JZTIwZce"},
+      {"Z.cfg", "ZjTHXwuQ"}
     },
       {},
       {
-      {"LuN/zS/Q.bin", "e"},
-      {"Q.bin", "gfkJfuY"},
-      {"lsWh/CMs/Z.dat", "aOrepqqemnjGvxb"},
-      {"uQ/N.md", "mGWV"},
-      {"y.cfg", "pIUbQAVJgPe"},
-      {"y.md", "ZwxdPDhKfkhHJ"}
+      {"LDn/Y.cfg", "JZTIwZce"},
+      {"Z.cfg", "ZjTHXwuQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(209u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7368,20 +7403,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"ul/tO/Y.txt", "okEMAgKoVRmuB"},
-      {"wgqL/e/a.dat", "rStAbgHFRx"},
-      {"xGl/Z.txt", "JyXsmNMzCHGsU"}
+      {"L.cfg", "S"}
     },
       {},
       {
-      {"ul/tO/Y.txt", "okEMAgKoVRmuB"},
-      {"wgqL/e/a.dat", "rStAbgHFRx"},
-      {"xGl/Z.txt", "JyXsmNMzCHGsU"}
+      {"L.cfg", "S"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(134u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7393,18 +7425,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"VyOt/m.md", "fL"},
-      {"r/u.txt", "UwJBfxoawjcAy"}
+      {"E/R.bin", "EntnqYo"},
+      {"s.txt", "DDfKvwd"}
     },
       {},
       {
-      {"VyOt/m.md", "fL"},
-      {"r/u.txt", "UwJBfxoawjcAy"}
+      {"E/R.bin", "EntnqYo"},
+      {"s.txt", "DDfKvwd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(75u),
+      static_cast<std::size_t>(94u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7416,26 +7449,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"MDU/ZT/m.bin", "to"},
-      {"V/K.dat", "TZRyeVe"},
-      {"b.dat", "vRHSBFtL"},
-      {"j.bin", "toDDMg"},
-      {"l.bin", "lHly"},
-      {"t.cfg", "des"}
+      {"Y.bin", "KSHSE"}
     },
       {},
       {
-      {"MDU/ZT/m.bin", "to"},
-      {"V/K.dat", "TZRyeVe"},
-      {"b.dat", "vRHSBFtL"},
-      {"j.bin", "toDDMg"},
-      {"l.bin", "lHly"},
-      {"t.cfg", "des"}
+      {"Y.bin", "KSHSE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(189u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7447,24 +7471,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"ML/kA/X.bin", "XYvLNvCB"},
-      {"cJp/eHd/m.dat", "cinVSYmhXfhLMlh"},
-      {"l.dat", "tqnzJCxZUz"},
-      {"qGwO/DhrF/M.md", "dUyyyzAGb"},
-      {"tZ/Zv/i.dat", "ahcuCstX"}
+      {"Fm/xx/C.dat", "jQ"},
+      {"HQ/s/H.md", "GYGoeDWVgyU"},
+      {"Z.md", "TFtXcrFTlYVv"}
     },
       {},
       {
-      {"ML/kA/X.bin", "XYvLNvCB"},
-      {"cJp/eHd/m.dat", "cinVSYmhXfhLMlh"},
-      {"l.dat", "tqnzJCxZUz"},
-      {"qGwO/DhrF/M.md", "dUyyyzAGb"},
-      {"tZ/Zv/i.dat", "ahcuCstX"}
+      {"Fm/xx/C.dat", "jQ"},
+      {"HQ/s/H.md", "GYGoeDWVgyU"},
+      {"Z.md", "TFtXcrFTlYVv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(205u),
+      static_cast<std::size_t>(137u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7476,16 +7497,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"n.bin", "cB"}
+      {"F.md", "jCkqSvnvSNX"},
+      {"xsPz/ZVl/r.bin", "Isrlurx"}
     },
       {},
       {
-      {"n.bin", "cB"}
+      {"F.md", "jCkqSvnvSNX"},
+      {"xsPz/ZVl/r.bin", "Isrlurx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(95u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7497,24 +7521,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"S.txt", "tGJwGdOr"},
-      {"Y/r.cfg", "xGEjAys"},
-      {"d.cfg", "vits"},
-      {"uJ/IlG/G.txt", "RORBMuf"},
-      {"v.txt", "WIOCqRaF"}
+      {"L.bin", "zFtMeopkl"},
+      {"nTRc/kV/z.txt", "WOSIgteUXZ"}
     },
       {},
       {
-      {"S.txt", "tGJwGdOr"},
-      {"Y/r.cfg", "xGEjAys"},
-      {"d.cfg", "vits"},
-      {"uJ/IlG/G.txt", "RORBMuf"},
-      {"v.txt", "WIOCqRaF"}
+      {"L.bin", "zFtMeopkl"},
+      {"nTRc/kV/z.txt", "WOSIgteUXZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(159u),
+      static_cast<std::size_t>(94u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7526,26 +7545,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"Ayal/E.bin", "SUac"},
-      {"J.md", "hsuoTYuP"},
-      {"R/P.txt", "XghHqFzxOLFMbKX"},
-      {"ULc/r.dat", "UGFjzwdeGwll"},
-      {"ulSy/I.dat", "ZyDgQpdcpXdMy"},
-      {"x/f/z.txt", "kTTRROxqL"}
+      {"z.bin", "h"}
     },
       {},
       {
-      {"Ayal/E.bin", "SUac"},
-      {"J.md", "hsuoTYuP"},
-      {"R/P.txt", "XghHqFzxOLFMbKX"},
-      {"ULc/r.dat", "UGFjzwdeGwll"},
-      {"ulSy/I.dat", "ZyDgQpdcpXdMy"},
-      {"x/f/z.txt", "kTTRROxqL"}
+      {"z.bin", "h"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(220u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7557,16 +7567,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"O.txt", "xNJVrascmNu"}
+      {"c.bin", "TobKPJGbiBcPrfBw"},
+      {"gFt/M.txt", "McWNVsbYnQLSkSrz"}
     },
       {},
       {
-      {"O.txt", "xNJVrascmNu"}
+      {"c.bin", "TobKPJGbiBcPrfBw"},
+      {"gFt/M.txt", "McWNVsbYnQLSkSrz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(101u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7578,16 +7591,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"a.txt", "QyVnyDkpKdGWDG"}
+      {"G.md", "GnZBaN"},
+      {"LiG/vYTe/x.txt", "WLGnygemKdM"},
+      {"t.bin", "QxNR"},
+      {"vWTd/U.cfg", "k"},
+      {"zPc/LBg/s.md", "spIWdphwEbRTASHI"}
     },
       {},
       {
-      {"a.txt", "QyVnyDkpKdGWDG"}
+      {"G.md", "GnZBaN"},
+      {"LiG/vYTe/x.txt", "WLGnygemKdM"},
+      {"t.bin", "QxNR"},
+      {"vWTd/U.cfg", "k"},
+      {"zPc/LBg/s.md", "spIWdphwEbRTASHI"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(223u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7599,20 +7621,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"Qt/d.bin", "OWpDt"},
-      {"W.bin", "j"},
-      {"s/Z.md", "tD"}
+      {"uPWO/GzB/T.cfg", "Fjc"}
     },
       {},
       {
-      {"Qt/d.bin", "OWpDt"},
-      {"W.bin", "j"},
-      {"s/Z.md", "tD"}
+      {"uPWO/GzB/T.cfg", "Fjc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(91u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7624,16 +7643,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"CNyS/A.md", "XNupfSYd"}
+      {"G.md", "gzAnQmaoaYOh"},
+      {"HrE/oCQh/K.dat", "XnqgLk"},
+      {"Xcg/H.dat", "JUIOrkeJ"},
+      {"ft/K/j.cfg", "NV"}
     },
       {},
       {
-      {"CNyS/A.md", "XNupfSYd"}
+      {"G.md", "gzAnQmaoaYOh"},
+      {"HrE/oCQh/K.dat", "XnqgLk"},
+      {"Xcg/H.dat", "JUIOrkeJ"},
+      {"ft/K/j.cfg", "NV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(197u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7645,22 +7671,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"Kt/Q.txt", "kJwOHwTAsTGjOHnV"},
-      {"YTL/wv/p.cfg", "dkwgY"},
-      {"qhg/z/G.dat", "DmAo"},
-      {"ts/Z.dat", "wyPpYE"}
+      {"A.dat", "UspNmMKmdDWSxUjK"},
+      {"C.cfg", "jEVEAmZGoHCg"},
+      {"J.bin", "OJNeNYs"},
+      {"Kna/g/q.dat", "ohaSmuyzvNdYE"},
+      {"hQm/P.txt", "aWXJBMhK"},
+      {"l.txt", "kbScqBHSeUFTwfWB"}
     },
       {},
       {
-      {"Kt/Q.txt", "kJwOHwTAsTGjOHnV"},
-      {"YTL/wv/p.cfg", "dkwgY"},
-      {"qhg/z/G.dat", "DmAo"},
-      {"ts/Z.dat", "wyPpYE"}
+      {"A.dat", "UspNmMKmdDWSxUjK"},
+      {"C.cfg", "jEVEAmZGoHCg"},
+      {"J.bin", "OJNeNYs"},
+      {"Kna/g/q.dat", "ohaSmuyzvNdYE"},
+      {"hQm/P.txt", "aWXJBMhK"},
+      {"l.txt", "kbScqBHSeUFTwfWB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(152u),
+      static_cast<std::size_t>(299u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7672,16 +7703,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"CL/b.dat", "sPFOy"}
+      {"DPm/tcFH/H.cfg", "nOXP"},
+      {"SBUD/Z.txt", "CMdrHKnhP"},
+      {"oL/w/F.md", "kumXaD"},
+      {"r.txt", "OmFJDij"},
+      {"twBU/T.bin", "EtSguGT"}
     },
       {},
       {
-      {"CL/b.dat", "sPFOy"}
+      {"DPm/tcFH/H.cfg", "nOXP"},
+      {"SBUD/Z.txt", "CMdrHKnhP"},
+      {"oL/w/F.md", "kumXaD"},
+      {"r.txt", "OmFJDij"},
+      {"twBU/T.bin", "EtSguGT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(232u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7693,26 +7733,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"QnL/FxjQ/Q.bin", "QPSfrWem"},
-      {"X.md", "jNJT"},
-      {"dvR/r.bin", "tCiOMOKnwOGeUMq"},
-      {"g/e.bin", "HzQnuXdzttILY"},
-      {"h/y.bin", "Yx"},
-      {"ySQl/a.bin", "IKtkyeU"}
+      {"X/P.cfg", "lVXJBCNGpXJq"},
+      {"e/pBIg/D.md", "cDNrKKZGdDhnI"}
     },
       {},
       {
-      {"QnL/FxjQ/Q.bin", "QPSfrWem"},
-      {"X.md", "jNJT"},
-      {"dvR/r.bin", "tCiOMOKnwOGeUMq"},
-      {"g/e.bin", "HzQnuXdzttILY"},
-      {"h/y.bin", "Yx"},
-      {"ySQl/a.bin", "IKtkyeU"}
+      {"X/P.cfg", "lVXJBCNGpXJq"},
+      {"e/pBIg/D.md", "cDNrKKZGdDhnI"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(211u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7724,16 +7757,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"C/s.cfg", "IrUjNxn"}
+      {"AX/C.txt", "ppoRJDBOL"},
+      {"guEJ/Y.dat", "ktSyQVfFmT"}
     },
       {},
       {
-      {"C/s.cfg", "IrUjNxn"}
+      {"AX/C.txt", "ppoRJDBOL"},
+      {"guEJ/Y.dat", "ktSyQVfFmT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7745,22 +7781,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"Gd/d.bin", "fIQ"},
-      {"IE/m.dat", "ZbzOanmHtjQ"},
-      {"R.dat", "hobLovHzD"},
-      {"uRry/S.md", "QD"}
+      {"U.md", "koawkevEcRelC"},
+      {"q/SKEc/J.bin", "ijvZnPkDpgKqXoH"}
     },
       {},
       {
-      {"Gd/d.bin", "fIQ"},
-      {"IE/m.dat", "ZbzOanmHtjQ"},
-      {"R.dat", "hobLovHzD"},
-      {"uRry/S.md", "QD"}
+      {"U.md", "koawkevEcRelC"},
+      {"q/SKEc/J.bin", "ijvZnPkDpgKqXoH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(140u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7772,13 +7805,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"JgBu/b.dat", "fO"}
+      {"f.bin", "qGSkKaNxmeOpW"}
     },
       {},
       {
-      {"JgBu/b.dat", "fO"}
+      {"f.bin", "qGSkKaNxmeOpW"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -7793,13 +7827,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"NHOQ/c.bin", "T"}
+      {"a.bin", "MxPD"}
     },
       {},
       {
-      {"NHOQ/c.bin", "T"}
+      {"a.bin", "MxPD"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -7814,24 +7849,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"LyrM/B.cfg", "BdLoGfcqDp"},
-      {"QZi/wOd/f.dat", "yRQIYEHMC"},
-      {"R/vz/d.bin", "rghxqJRAuoIL"},
-      {"a.cfg", "XIQdgTbkuSOV"},
-      {"m.cfg", "tzcXOKV"}
+      {"L.md", "okGQCbTinjQvZrk"}
     },
       {},
       {
-      {"LyrM/B.cfg", "BdLoGfcqDp"},
-      {"QZi/wOd/f.dat", "yRQIYEHMC"},
-      {"R/vz/d.bin", "rghxqJRAuoIL"},
-      {"a.cfg", "XIQdgTbkuSOV"},
-      {"m.cfg", "tzcXOKV"}
+      {"L.md", "okGQCbTinjQvZrk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(201u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7843,20 +7871,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"OOML/Q/v.txt", "ltkFaMplRrmtqh"},
-      {"T.txt", "abMSM"},
-      {"VkvJ/I.cfg", "ckPOtGQLP"}
+      {"Y.dat", "sUvOYAZcoEZvQve"}
     },
       {},
       {
-      {"OOML/Q/v.txt", "ltkFaMplRrmtqh"},
-      {"T.txt", "abMSM"},
-      {"VkvJ/I.cfg", "ckPOtGQLP"}
+      {"Y.dat", "sUvOYAZcoEZvQve"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(124u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7868,18 +7893,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"C/p.cfg", "OJTd"},
-      {"sdsB/RR/O.bin", "SzjKfKQR"}
+      {"jC/OGjh/l.cfg", "cnSOtYZQmuAk"},
+      {"s/Ng/s.dat", "xBLVXIExrRHiSN"},
+      {"u/oa/d.dat", "DzgamNxgla"},
+      {"u/x.bin", "lksxetb"}
     },
       {},
       {
-      {"C/p.cfg", "OJTd"},
-      {"sdsB/RR/O.bin", "SzjKfKQR"}
+      {"jC/OGjh/l.cfg", "cnSOtYZQmuAk"},
+      {"s/Ng/s.dat", "xBLVXIExrRHiSN"},
+      {"u/oa/d.dat", "DzgamNxgla"},
+      {"u/x.bin", "lksxetb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(75u),
+      static_cast<std::size_t>(229u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7891,16 +7921,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"Csk/E/J.dat", "WymABqlFRhupER"}
+      {"S.dat", "MquvqqpWbjAEYd"},
+      {"SFd/V.txt", "JLvcWRwV"},
+      {"T/d/u.dat", "u"},
+      {"VfFk/V.bin", "PVHdlm"},
+      {"maGU/k.md", "NUdlETaVilvhSb"},
+      {"obs/D.txt", "opEYoAcRo"}
     },
       {},
       {
-      {"Csk/E/J.dat", "WymABqlFRhupER"}
+      {"S.dat", "MquvqqpWbjAEYd"},
+      {"SFd/V.txt", "JLvcWRwV"},
+      {"T/d/u.dat", "u"},
+      {"VfFk/V.bin", "PVHdlm"},
+      {"maGU/k.md", "NUdlETaVilvhSb"},
+      {"obs/D.txt", "opEYoAcRo"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(293u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7912,16 +7953,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"m/N.cfg", "TXTvDeUiUKqk"}
+      {"M.dat", "pKSOdyYgjgS"},
+      {"YQn/K.dat", "OfgQRqhfKGPp"}
     },
       {},
       {
-      {"m/N.cfg", "TXTvDeUiUKqk"}
+      {"M.dat", "pKSOdyYgjgS"},
+      {"YQn/K.dat", "OfgQRqhfKGPp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7933,18 +7977,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"W.md", "NGRhJ"},
-      {"v.dat", "NuncaXNvmW"}
+      {"a.dat", "sreKyLALgbSdQlN"},
+      {"m.cfg", "BDqanJhGDL"},
+      {"qobq/n.bin", "kOyOGtj"},
+      {"tQ/TegY/A.dat", "vwsDrAPjmxyZRnIu"}
     },
       {},
       {
-      {"W.md", "NGRhJ"},
-      {"v.dat", "NuncaXNvmW"}
+      {"a.dat", "sreKyLALgbSdQlN"},
+      {"m.cfg", "BDqanJhGDL"},
+      {"qobq/n.bin", "kOyOGtj"},
+      {"tQ/TegY/A.dat", "vwsDrAPjmxyZRnIu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(73u),
+      static_cast<std::size_t>(196u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7956,22 +8005,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"Fb/MXIZ/X.dat", "mFneEMOowXvUsAV"},
-      {"J/CuVQ/o.bin", "hQEEIIlYD"},
-      {"Km/Nkd/F.dat", "mvMHBMDx"},
-      {"v/Mh/e.cfg", "RspVRpiwsIjQ"}
+      {"DZB/SjKX/Z.bin", "FWOsNXAm"},
+      {"fBw/J.md", "IQiCg"},
+      {"uMS/MDzw/l.dat", "tIQVkNgxMtFtIrT"}
     },
       {},
       {
-      {"Fb/MXIZ/X.dat", "mFneEMOowXvUsAV"},
-      {"J/CuVQ/o.bin", "hQEEIIlYD"},
-      {"Km/Nkd/F.dat", "mvMHBMDx"},
-      {"v/Mh/e.cfg", "RspVRpiwsIjQ"}
+      {"DZB/SjKX/Z.bin", "FWOsNXAm"},
+      {"fBw/J.md", "IQiCg"},
+      {"uMS/MDzw/l.dat", "tIQVkNgxMtFtIrT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(165u),
+      static_cast<std::size_t>(155u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -7983,26 +8031,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"HTo/d.txt", "meMKWdnbBWtCKSaJ"},
-      {"idsO/a.cfg", "kTIDgYieOiKJ"},
-      {"igWg/E/c.txt", "JWFfKfWKhjORhlZI"},
-      {"k.bin", "NcIX"},
-      {"njUG/P.bin", "DbvhscCLn"},
-      {"tqS/feJ/k.dat", "GyZTsAWiw"}
+      {"MpI/z.md", "iZUWfjemnSVlVMz"},
+      {"S.bin", "GgwSFzkWA"},
+      {"bu/l.dat", "BH"},
+      {"m.dat", "MWTRrkvBSWfeEL"}
     },
       {},
       {
-      {"HTo/d.txt", "meMKWdnbBWtCKSaJ"},
-      {"idsO/a.cfg", "kTIDgYieOiKJ"},
-      {"igWg/E/c.txt", "JWFfKfWKhjORhlZI"},
-      {"k.bin", "NcIX"},
-      {"njUG/P.bin", "DbvhscCLn"},
-      {"tqS/feJ/k.dat", "GyZTsAWiw"}
+      {"MpI/z.md", "iZUWfjemnSVlVMz"},
+      {"S.bin", "GgwSFzkWA"},
+      {"bu/l.dat", "BH"},
+      {"m.dat", "MWTRrkvBSWfeEL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(204u),
+      static_cast<std::size_t>(191u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8014,16 +8059,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"z.md", "PuHo"}
+      {"USKz/J/z.dat", "lZlXdAqko"},
+      {"WiKV/z/b.dat", "BsTKSp"},
+      {"fEYn/I.dat", "M"},
+      {"u.cfg", "HbyVtTrHXUmF"},
+      {"v.txt", "BeZmPC"}
     },
       {},
       {
-      {"z.md", "PuHo"}
+      {"USKz/J/z.dat", "lZlXdAqko"},
+      {"WiKV/z/b.dat", "BsTKSp"},
+      {"fEYn/I.dat", "M"},
+      {"u.cfg", "HbyVtTrHXUmF"},
+      {"v.txt", "BeZmPC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(235u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8035,22 +8089,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"A.md", "FRRKiDCHHKT"},
-      {"E/Da/z.cfg", "KncYoVsi"},
-      {"Iju/r.md", "wN"},
-      {"px/Nqy/M.md", "BsIsIRNYaQuI"}
+      {"Ne/F.bin", "iRqdIbSsa"},
+      {"Xhag/n/C.dat", "OpJwTUV"}
     },
       {},
       {
-      {"A.md", "FRRKiDCHHKT"},
-      {"E/Da/z.cfg", "KncYoVsi"},
-      {"Iju/r.md", "wN"},
-      {"px/Nqy/M.md", "BsIsIRNYaQuI"}
+      {"Ne/F.bin", "iRqdIbSsa"},
+      {"Xhag/n/C.dat", "OpJwTUV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(139u),
+      static_cast<std::size_t>(97u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8062,24 +8113,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"BRa/c/w.txt", "fhg"},
-      {"UqW/I/V.dat", "iUwNYimsF"},
-      {"YE/i/q.cfg", "JIMVOdnX"},
-      {"p/G.bin", "jjhgLdhjsLgc"},
-      {"u.bin", "ZRdQcktgyr"}
+      {"TK/VYs/p.txt", "jNSooXaoPPpJ"}
     },
       {},
       {
-      {"BRa/c/w.txt", "fhg"},
-      {"UqW/I/V.dat", "iUwNYimsF"},
-      {"YE/i/q.cfg", "JIMVOdnX"},
-      {"p/G.bin", "jjhgLdhjsLgc"},
-      {"u.bin", "ZRdQcktgyr"}
+      {"TK/VYs/p.txt", "jNSooXaoPPpJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(191u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8091,16 +8135,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"g.md", "iOatsOhiWPGdZN"}
+      {"G/Nr/A.dat", "dxsRPHRswjH"},
+      {"R.dat", "RtElKzdkoB"},
+      {"VEeQ/j.cfg", "AGVCgNj"},
+      {"hh/i/X.dat", "V"}
     },
       {},
       {
-      {"g.md", "iOatsOhiWPGdZN"}
+      {"G/Nr/A.dat", "dxsRPHRswjH"},
+      {"R.dat", "RtElKzdkoB"},
+      {"VEeQ/j.cfg", "AGVCgNj"},
+      {"hh/i/X.dat", "V"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(197u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8112,24 +8163,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"N.dat", "MP"},
-      {"R.cfg", "SmkNTEReXd"},
-      {"RzPQ/q/Z.md", "otBAMWrnURmqKp"},
-      {"b.md", "SUyhWybDmSN"},
-      {"w.cfg", "dUbVdrhJFPsu"}
+      {"C.txt", "TcnI"},
+      {"i/xqp/h.bin", "eLZrWtM"},
+      {"y/a.bin", "blmt"}
     },
       {},
       {
-      {"N.dat", "MP"},
-      {"R.cfg", "SmkNTEReXd"},
-      {"RzPQ/q/Z.md", "otBAMWrnURmqKp"},
-      {"b.md", "SUyhWybDmSN"},
-      {"w.cfg", "dUbVdrhJFPsu"}
+      {"C.txt", "TcnI"},
+      {"i/xqp/h.bin", "eLZrWtM"},
+      {"y/a.bin", "blmt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(166u),
+      static_cast<std::size_t>(131u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8141,18 +8189,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"Lzy/nl/L.md", "tPLZBAVWCVVpgr"},
-      {"dsHf/ob/k.txt", "fIZgxizLZXNM"}
+      {"B.bin", "pbqyLLC"},
+      {"F.txt", "jwsiHOtDesMVRQ"},
+      {"I/j.dat", "VgzUURpRqhwTPl"},
+      {"YQL/WkKU/W.txt", "XHjRY"},
+      {"jqKo/s.dat", "wxCxBDW"}
     },
       {},
       {
-      {"Lzy/nl/L.md", "tPLZBAVWCVVpgr"},
-      {"dsHf/ob/k.txt", "fIZgxizLZXNM"}
+      {"B.bin", "pbqyLLC"},
+      {"F.txt", "jwsiHOtDesMVRQ"},
+      {"I/j.dat", "VgzUURpRqhwTPl"},
+      {"YQL/WkKU/W.txt", "XHjRY"},
+      {"jqKo/s.dat", "wxCxBDW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(89u),
+      static_cast<std::size_t>(255u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8164,24 +8219,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"H.cfg", "HiOpoGxxZ"},
-      {"ajKC/ihU/r.md", "a"},
-      {"i.bin", "VivLPWcoAxA"},
-      {"molp/fF/W.txt", "blU"},
-      {"u/K.txt", "AWFBGkH"}
+      {"P.dat", "p"},
+      {"YRDF/k.md", "hQwODEBYMqISPDb"},
+      {"a/S.dat", "bicfAalXUDTHR"},
+      {"hM/V.txt", "bDFaKEMSWEK"},
+      {"r.bin", "QIVyeyuhp"}
     },
       {},
       {
-      {"H.cfg", "HiOpoGxxZ"},
-      {"ajKC/ihU/r.md", "a"},
-      {"i.bin", "VivLPWcoAxA"},
-      {"molp/fF/W.txt", "blU"},
-      {"u/K.txt", "AWFBGkH"}
+      {"P.dat", "p"},
+      {"YRDF/k.md", "hQwODEBYMqISPDb"},
+      {"a/S.dat", "bicfAalXUDTHR"},
+      {"hM/V.txt", "bDFaKEMSWEK"},
+      {"r.bin", "QIVyeyuhp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(164u),
+      static_cast<std::size_t>(194u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8193,24 +8249,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"RYs/xqkN/n.cfg", "PdttDqHVooPE"},
-      {"Rcmy/cl/Y.bin", "LmsgbSSfdGzSie"},
-      {"dysm/gZrp/n.md", "sQ"},
-      {"e.txt", "ttlvo"},
-      {"k.cfg", "rPkj"}
+      {"D.md", "PzJ"},
+      {"Dx/T.txt", "VFFkjf"},
+      {"E.bin", "vYOJcIhTeDl"},
+      {"duL/C.txt", "hIAdminkcolwrHve"}
     },
       {},
       {
-      {"RYs/xqkN/n.cfg", "PdttDqHVooPE"},
-      {"Rcmy/cl/Y.bin", "LmsgbSSfdGzSie"},
-      {"dysm/gZrp/n.md", "sQ"},
-      {"e.txt", "ttlvo"},
-      {"k.cfg", "rPkj"}
+      {"D.md", "PzJ"},
+      {"Dx/T.txt", "VFFkjf"},
+      {"E.bin", "vYOJcIhTeDl"},
+      {"duL/C.txt", "hIAdminkcolwrHve"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(199u),
+      static_cast<std::size_t>(165u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8222,26 +8277,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"R.cfg", "iRuKmHDR"},
-      {"Z.dat", "SnM"},
-      {"Z/P.txt", "EjV"},
-      {"bpzZ/DEe/G.dat", "UZtKAIJbBGzZ"},
-      {"i/G.cfg", "pUGSNfIOOrjeOko"},
-      {"q/vCA/c.bin", "zWXMPtRo"}
+      {"IdWU/p/g.dat", "lIoNjmNu"},
+      {"eEe/a.md", "JXuKoav"},
+      {"eay/LPv/e.txt", "lBRSavf"},
+      {"g.dat", "zVApfgrxZ"},
+      {"s.md", "aIguE"}
     },
       {},
       {
-      {"R.cfg", "iRuKmHDR"},
-      {"Z.dat", "SnM"},
-      {"Z/P.txt", "EjV"},
-      {"bpzZ/DEe/G.dat", "UZtKAIJbBGzZ"},
-      {"i/G.cfg", "pUGSNfIOOrjeOko"},
-      {"q/vCA/c.bin", "zWXMPtRo"}
+      {"IdWU/p/g.dat", "lIoNjmNu"},
+      {"eEe/a.md", "JXuKoav"},
+      {"eay/LPv/e.txt", "lBRSavf"},
+      {"g.dat", "zVApfgrxZ"},
+      {"s.md", "aIguE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(207u),
+      static_cast<std::size_t>(199u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8253,26 +8307,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"L/w.cfg", "pGooNomGXHgSerpX"},
-      {"X.cfg", "aoWOBWBx"},
-      {"ceFV/f.cfg", "wyqTqBHgDiuQVGQk"},
-      {"gWk/M/X.cfg", "KuEa"},
-      {"h.cfg", "tpLqDj"},
-      {"rfPk/q.bin", "dkGv"}
+      {"H.dat", "DixuJbwzBhQ"},
+      {"S/qx/H.dat", "dUU"},
+      {"b.md", "XrS"}
     },
       {},
       {
-      {"L/w.cfg", "pGooNomGXHgSerpX"},
-      {"X.cfg", "aoWOBWBx"},
-      {"ceFV/f.cfg", "wyqTqBHgDiuQVGQk"},
-      {"gWk/M/X.cfg", "KuEa"},
-      {"h.cfg", "tpLqDj"},
-      {"rfPk/q.bin", "dkGv"}
+      {"H.dat", "DixuJbwzBhQ"},
+      {"S/qx/H.dat", "dUU"},
+      {"b.md", "XrS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(216u),
+      static_cast<std::size_t>(133u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8284,20 +8333,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"M.dat", "BckFQwVVBygU"},
-      {"N.bin", "cymvvFJxzxovjJg"},
-      {"jo/u.cfg", "GoCcG"}
+      {"Cv/H.cfg", "BuEHrtgj"},
+      {"LCeL/znzS/G.dat", "CNqGvgFlm"},
+      {"P.dat", "DlIrZAZeVVJE"},
+      {"W.cfg", "pvMWWx"},
+      {"kqnT/m.bin", "eFeFoeEn"}
     },
       {},
       {
-      {"M.dat", "BckFQwVVBygU"},
-      {"N.bin", "cymvvFJxzxovjJg"},
-      {"jo/u.cfg", "GoCcG"}
+      {"Cv/H.cfg", "BuEHrtgj"},
+      {"LCeL/znzS/G.dat", "CNqGvgFlm"},
+      {"P.dat", "DlIrZAZeVVJE"},
+      {"W.cfg", "pvMWWx"},
+      {"kqnT/m.bin", "eFeFoeEn"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(125u),
+      static_cast<std::size_t>(236u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8309,20 +8363,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"JNe/Q/z.cfg", "oBhTXItH"},
-      {"T/V.dat", "mdhMI"},
-      {"j.txt", "QEYojFyfIYynCFsG"}
+      {"Rf/Vfh/m.cfg", "GBhcZxf"}
     },
       {},
       {
-      {"JNe/Q/z.cfg", "oBhTXItH"},
-      {"T/V.dat", "mdhMI"},
-      {"j.txt", "QEYojFyfIYynCFsG"}
+      {"Rf/Vfh/m.cfg", "GBhcZxf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(83u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8334,24 +8385,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"G.md", "tcPwcxHhn"},
-      {"X.txt", "lO"},
-      {"l.dat", "TEatMncEyp"},
-      {"naP/k/U.dat", "jwyJ"},
-      {"t.bin", "DPwwTcx"}
+      {"mC/AO/q.bin", "HQDkuDOjPhWj"},
+      {"z.cfg", "soB"}
     },
       {},
       {
-      {"G.md", "tcPwcxHhn"},
-      {"X.txt", "lO"},
-      {"l.dat", "TEatMncEyp"},
-      {"naP/k/U.dat", "jwyJ"},
-      {"t.bin", "DPwwTcx"}
+      {"mC/AO/q.bin", "HQDkuDOjPhWj"},
+      {"z.cfg", "soB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(154u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8363,24 +8409,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"FXR/soY/P.dat", "rIuYqwjsHk"},
-      {"Fd/dNd/B.txt", "oEgWnL"},
-      {"i.txt", "qXlvEnynrgpgC"},
-      {"l/mRE/d.cfg", "gqJxjQhMrxdbaI"},
-      {"v.md", "IPJHPpTVgc"}
+      {"Hc/D.txt", "y"},
+      {"KD/U.dat", "y"},
+      {"bR/PTiW/t.dat", "KrGzV"}
     },
       {},
       {
-      {"FXR/soY/P.dat", "rIuYqwjsHk"},
-      {"Fd/dNd/B.txt", "oEgWnL"},
-      {"i.txt", "qXlvEnynrgpgC"},
-      {"l/mRE/d.cfg", "gqJxjQhMrxdbaI"},
-      {"v.md", "IPJHPpTVgc"}
+      {"Hc/D.txt", "y"},
+      {"KD/U.dat", "y"},
+      {"bR/PTiW/t.dat", "KrGzV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(204u),
+      static_cast<std::size_t>(122u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8392,26 +8435,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"Byy/n.cfg", "KGQekaFZbUdCNqBq"},
-      {"STRs/W.bin", "BFEajmirA"},
-      {"Vz/xHbK/q.dat", "PxIFGiXVsLjRDq"},
-      {"kaIv/h.txt", "gnIvMItUTGJIqN"},
-      {"q.cfg", "zFf"},
-      {"u/Q/l.dat", "IMRUHVXHSsgvNo"}
+      {"a.txt", "NNDBmk"}
     },
       {},
       {
-      {"Byy/n.cfg", "KGQekaFZbUdCNqBq"},
-      {"STRs/W.bin", "BFEajmirA"},
-      {"Vz/xHbK/q.dat", "PxIFGiXVsLjRDq"},
-      {"kaIv/h.txt", "gnIvMItUTGJIqN"},
-      {"q.cfg", "zFf"},
-      {"u/Q/l.dat", "IMRUHVXHSsgvNo"}
+      {"a.txt", "NNDBmk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(215u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8423,24 +8457,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"A/kUhf/H.dat", "LOwDE"},
-      {"K.cfg", "mPmHXoC"},
-      {"Smok/w.cfg", "JhiMIugmBRiWKYAC"},
-      {"b/A.cfg", "mgXtNdLaKUXei"},
-      {"i/W.dat", "rWl"}
+      {"E.txt", "gfkgskyC"},
+      {"SxQh/PeZt/L.txt", "spVWvehGMw"},
+      {"X.dat", "pgoEmPl"},
+      {"f.cfg", "xyqfuMbklSSMgSp"},
+      {"xQty/J.cfg", "rTBQMdFWIB"}
     },
       {},
       {
-      {"A/kUhf/H.dat", "LOwDE"},
-      {"K.cfg", "mPmHXoC"},
-      {"Smok/w.cfg", "JhiMIugmBRiWKYAC"},
-      {"b/A.cfg", "mgXtNdLaKUXei"},
-      {"i/W.dat", "rWl"}
+      {"E.txt", "gfkgskyC"},
+      {"SxQh/PeZt/L.txt", "spVWvehGMw"},
+      {"X.dat", "pgoEmPl"},
+      {"f.cfg", "xyqfuMbklSSMgSp"},
+      {"xQty/J.cfg", "rTBQMdFWIB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(195u),
+      static_cast<std::size_t>(254u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8452,22 +8487,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"C.bin", "clcW"},
-      {"DFS/T/H.dat", "EFmyTM"},
-      {"Nq/WX/d.cfg", "vcBkyuaU"},
-      {"XxBi/srvP/s.md", "VWN"}
+      {"qLI/xG/K.dat", "RAKzsLNyEroyF"}
     },
       {},
       {
-      {"C.bin", "clcW"},
-      {"DFS/T/H.dat", "EFmyTM"},
-      {"Nq/WX/d.cfg", "vcBkyuaU"},
-      {"XxBi/srvP/s.md", "VWN"}
+      {"qLI/xG/K.dat", "RAKzsLNyEroyF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(141u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8479,16 +8509,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"CmF/d.md", "puYpaqhMpNK"}
+      {"C.bin", "d"},
+      {"k/K.bin", "U"},
+      {"kwaQ/k.txt", "UYROjxqWM"},
+      {"wwT/O.bin", "IleIRppuBi"}
     },
       {},
       {
-      {"CmF/d.md", "puYpaqhMpNK"}
+      {"C.bin", "d"},
+      {"k/K.bin", "U"},
+      {"kwaQ/k.txt", "UYROjxqWM"},
+      {"wwT/O.bin", "IleIRppuBi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(161u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8500,26 +8537,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"C.md", "fEmwDDoiEtvBX"},
-      {"MYhI/A.cfg", "jChNovQeWgMfQvff"},
-      {"N/N.txt", "XqDPTf"},
-      {"P.md", "NqNiBTkkqOx"},
-      {"PeJ/c.dat", "xsLIeyodXJPUuDrj"},
-      {"Rh/bQK/o.md", "deDmpyBh"}
+      {"o/PcKe/U.txt", "JFBdOQLdFO"}
     },
       {},
       {
-      {"C.md", "fEmwDDoiEtvBX"},
-      {"MYhI/A.cfg", "jChNovQeWgMfQvff"},
-      {"N/N.txt", "XqDPTf"},
-      {"P.md", "NqNiBTkkqOx"},
-      {"PeJ/c.dat", "xsLIeyodXJPUuDrj"},
-      {"Rh/bQK/o.md", "deDmpyBh"}
+      {"o/PcKe/U.txt", "JFBdOQLdFO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(224u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8531,18 +8559,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"BIG/BD/p.dat", "quqLtArphm"},
-      {"ayyb/TK/s.bin", "I"}
+      {"Cxta/Gv/Z.md", "t"},
+      {"V/N.bin", "jF"},
+      {"Y.md", "ZMCjSOYJdMpH"},
+      {"m.bin", "pbMtivPbgJKW"},
+      {"w.dat", "JCnchrBMGAEEL"}
     },
       {},
       {
-      {"BIG/BD/p.dat", "quqLtArphm"},
-      {"ayyb/TK/s.bin", "I"}
+      {"Cxta/Gv/Z.md", "t"},
+      {"V/N.bin", "jF"},
+      {"Y.md", "ZMCjSOYJdMpH"},
+      {"m.bin", "pbMtivPbgJKW"},
+      {"w.dat", "JCnchrBMGAEEL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(86u),
+      static_cast<std::size_t>(223u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8554,16 +8589,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"v.dat", "ekezVsUJep"}
+      {"Ge/V/z.cfg", "eFiNbTGlXkWJW"},
+      {"I.md", "ZkzbHC"}
     },
       {},
       {
-      {"v.dat", "ekezVsUJep"}
+      {"Ge/V/z.cfg", "eFiNbTGlXkWJW"},
+      {"I.md", "ZkzbHC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8575,18 +8613,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"HIAP/ztu/f.dat", "xgQWhuL"},
-      {"yX/s.dat", "KwLdOLukPhBdjZx"}
+      {"Yxb/M.txt", "vkijyrZRlw"}
     },
       {},
       {
-      {"HIAP/ztu/f.dat", "xgQWhuL"},
-      {"yX/s.dat", "KwLdOLukPhBdjZx"}
+      {"Yxb/M.txt", "vkijyrZRlw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(85u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8598,22 +8635,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"N.dat", "PhK"},
-      {"R/Dt/L.txt", "RFGVjHfMecikBY"},
-      {"X.bin", "WjKZIaZaGBQjsfu"},
-      {"i.bin", "BgjI"}
+      {"CAA/eHIA/g.cfg", "zPuM"},
+      {"IQ/SY/K.cfg", "NrVHKKeskRhDEhr"},
+      {"Kbyl/R.md", "gdyD"},
+      {"Mz/o.txt", "kjKrDXPDn"},
+      {"ULAq/x.txt", "dTNMkCg"}
     },
       {},
       {
-      {"N.dat", "PhK"},
-      {"R/Dt/L.txt", "RFGVjHfMecikBY"},
-      {"X.bin", "WjKZIaZaGBQjsfu"},
-      {"i.bin", "BgjI"}
+      {"CAA/eHIA/g.cfg", "zPuM"},
+      {"IQ/SY/K.cfg", "NrVHKKeskRhDEhr"},
+      {"Kbyl/R.md", "gdyD"},
+      {"Mz/o.txt", "kjKrDXPDn"},
+      {"ULAq/x.txt", "dTNMkCg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(148u),
+      static_cast<std::size_t>(258u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8625,22 +8665,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"H.txt", "IOOcWwVDUH"},
-      {"LFuz/JM/J.txt", "KeRTCFjRmals"},
-      {"bHS/U.txt", "wzjUsFIM"},
-      {"s.dat", "TRidAtZVsrz"}
+      {"mbwP/XIav/F.txt", "CsbwNZqshp"},
+      {"n.cfg", "B"},
+      {"z/FLUy/x.dat", "srGAyqnlGGnU"}
     },
       {},
       {
-      {"H.txt", "IOOcWwVDUH"},
-      {"LFuz/JM/J.txt", "KeRTCFjRmals"},
-      {"bHS/U.txt", "wzjUsFIM"},
-      {"s.dat", "TRidAtZVsrz"}
+      {"mbwP/XIav/F.txt", "CsbwNZqshp"},
+      {"n.cfg", "B"},
+      {"z/FLUy/x.dat", "srGAyqnlGGnU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(153u),
+      static_cast<std::size_t>(135u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8652,18 +8691,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"UAlk/u.cfg", "FwGDNnbJhHf"},
-      {"YhRu/BWg/C.txt", "NEWgvlsCae"}
+      {"S/GmFa/K.bin", "XILld"},
+      {"gd/Ph/V.bin", "fEnEp"},
+      {"m.cfg", "QPFzejNUAsS"},
+      {"x.cfg", "lvk"}
     },
       {},
       {
-      {"UAlk/u.cfg", "FwGDNnbJhHf"},
-      {"YhRu/BWg/C.txt", "NEWgvlsCae"}
+      {"S/GmFa/K.bin", "XILld"},
+      {"gd/Ph/V.bin", "fEnEp"},
+      {"m.cfg", "QPFzejNUAsS"},
+      {"x.cfg", "lvk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(85u),
+      static_cast<std::size_t>(193u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8675,20 +8719,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"Pkhv/vSzl/A.cfg", "qMYVSs"},
-      {"h/iSVB/z.txt", "hesyBgXM"},
-      {"tjIm/AYM/M.md", "eBZYShSoBILTS"}
+      {"h/nFw/b.bin", "FnLfWYP"}
     },
       {},
       {
-      {"Pkhv/vSzl/A.cfg", "qMYVSs"},
-      {"h/iSVB/z.txt", "hesyBgXM"},
-      {"tjIm/AYM/M.md", "eBZYShSoBILTS"}
+      {"h/nFw/b.bin", "FnLfWYP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(129u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8700,13 +8741,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"Qayk/SR/a.bin", "AXzyh"}
+      {"Q.cfg", "BKKyRyqBP"}
     },
       {},
       {
-      {"Qayk/SR/a.bin", "AXzyh"}
+      {"Q.cfg", "BKKyRyqBP"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -8721,20 +8763,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"Awgk/R.bin", "Lyt"},
-      {"BPV/p.bin", "Kz"},
-      {"L/S.bin", "fKSvPlANqjB"}
+      {"a/w.cfg", "Ui"}
     },
       {},
       {
-      {"Awgk/R.bin", "Lyt"},
-      {"BPV/p.bin", "Kz"},
-      {"L/S.bin", "fKSvPlANqjB"}
+      {"a/w.cfg", "Ui"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(96u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8746,16 +8785,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"ilgk/I.bin", "fiEPuoWSu"}
+      {"C/P.txt", "myQyyN"},
+      {"I.txt", "VzjtHGgVX"},
+      {"p.txt", "s"}
     },
       {},
       {
-      {"ilgk/I.bin", "fiEPuoWSu"}
+      {"C/P.txt", "myQyyN"},
+      {"I.txt", "VzjtHGgVX"},
+      {"p.txt", "s"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(131u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8767,20 +8811,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"CTqR/RydM/M.cfg", "rTPSvIENccAS"},
-      {"nX/K.md", "NmWUDLCwjavnomO"},
-      {"s.md", "UvuEomA"}
+      {"DZq/cI/h.md", "KGvuNr"},
+      {"YeWU/S.md", "xNDhChujXgeiibKl"},
+      {"fDE/J.dat", "R"},
+      {"k/M.cfg", "AzERrC"},
+      {"sN/egux/s.md", "lUgCihxiroi"}
     },
       {},
       {
-      {"CTqR/RydM/M.cfg", "rTPSvIENccAS"},
-      {"nX/K.md", "NmWUDLCwjavnomO"},
-      {"s.md", "UvuEomA"}
+      {"DZq/cI/h.md", "KGvuNr"},
+      {"YeWU/S.md", "xNDhChujXgeiibKl"},
+      {"fDE/J.dat", "R"},
+      {"k/M.cfg", "AzERrC"},
+      {"sN/egux/s.md", "lUgCihxiroi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(137u),
+      static_cast<std::size_t>(233u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8792,22 +8841,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"YG/Z.bin", "LplY"},
-      {"ZbV/Wjdf/R.txt", "UX"},
-      {"a.md", "uPVAWm"},
-      {"lf/ys/D.txt", "ogQG"}
+      {"jRFJ/c/o.dat", "ArMHGkrYwz"},
+      {"oL/s.txt", "HYAI"}
     },
       {},
       {
-      {"YG/Z.bin", "LplY"},
-      {"ZbV/Wjdf/R.txt", "UX"},
-      {"a.md", "uPVAWm"},
-      {"lf/ys/D.txt", "ogQG"}
+      {"jRFJ/c/o.dat", "ArMHGkrYwz"},
+      {"oL/s.txt", "HYAI"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(134u),
+      static_cast<std::size_t>(102u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8819,24 +8865,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"H.dat", "zGU"},
-      {"Lyb/w/X.md", "pwDkNMURQ"},
-      {"TRNb/KOd/t.txt", "bBgTYkKevwdVrB"},
-      {"o.cfg", "K"},
-      {"z.dat", "PrwZfPe"}
+      {"y.bin", "XCyroOdNtiIBF"}
     },
       {},
       {
-      {"H.dat", "zGU"},
-      {"Lyb/w/X.md", "pwDkNMURQ"},
-      {"TRNb/KOd/t.txt", "bBgTYkKevwdVrB"},
-      {"o.cfg", "K"},
-      {"z.dat", "PrwZfPe"}
+      {"y.bin", "XCyroOdNtiIBF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(165u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8848,13 +8887,16 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"lkUJ/rAWz/t.md", "eYTorBBPnHiU"}
+      {"U/i.dat", "Z"},
+      {"i/E/J.dat", "MdfXhJhe"}
     },
       {},
       {
-      {"lkUJ/rAWz/t.md", "eYTorBBPnHiU"}
+      {"U/i.dat", "Z"},
+      {"i/E/J.dat", "MdfXhJhe"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -8869,20 +8911,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"fR/AZTQ/m.dat", "RUTuPAsTfFSp"},
-      {"hE/GJq/h.cfg", "dPhKVK"},
-      {"k/u.md", "veLP"}
+      {"c/S.md", "Kg"},
+      {"l/C/J.cfg", "ivgwgSpmq"},
+      {"ykiJ/pHiw/c.cfg", "TRzCFfUxM"}
     },
       {},
       {
-      {"fR/AZTQ/m.dat", "RUTuPAsTfFSp"},
-      {"hE/GJq/h.cfg", "dPhKVK"},
-      {"k/u.md", "veLP"}
+      {"c/S.md", "Kg"},
+      {"l/C/J.cfg", "ivgwgSpmq"},
+      {"ykiJ/pHiw/c.cfg", "TRzCFfUxM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(131u),
+      static_cast<std::size_t>(130u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8894,22 +8937,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"E.md", "Lm"},
-      {"P.md", "ktDozNyHUGOCF"},
-      {"Q.cfg", "kUkiJQbRvBXN"},
-      {"Zy/i.cfg", "d"}
+      {"C.bin", "YNAivLkTlj"},
+      {"QGbx/P.md", "XWraZCGcfal"},
+      {"u/U.dat", "oGcrjd"},
+      {"xxo/u.cfg", "DmSynO"}
     },
       {},
       {
-      {"E.md", "Lm"},
-      {"P.md", "ktDozNyHUGOCF"},
-      {"Q.cfg", "kUkiJQbRvBXN"},
-      {"Zy/i.cfg", "d"}
+      {"C.bin", "YNAivLkTlj"},
+      {"QGbx/P.md", "XWraZCGcfal"},
+      {"u/U.dat", "oGcrjd"},
+      {"xxo/u.cfg", "DmSynO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(136u),
+      static_cast<std::size_t>(192u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8921,16 +8965,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"c.dat", "sZMgVHP"}
+      {"V.dat", "LPzPCmRcCSLQy"},
+      {"i/F.txt", "zNxHcKzIaD"},
+      {"taA/y.dat", "ppNWrHkvS"},
+      {"uYOh/W.md", "CLnYmUBaKbf"}
     },
       {},
       {
-      {"c.dat", "sZMgVHP"}
+      {"V.dat", "LPzPCmRcCSLQy"},
+      {"i/F.txt", "zNxHcKzIaD"},
+      {"taA/y.dat", "ppNWrHkvS"},
+      {"uYOh/W.md", "CLnYmUBaKbf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(197u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8942,20 +8993,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"TfD/BFG/o.md", "woydrzSqK"},
-      {"gtY/o.dat", "qdaGAfyNeT"},
-      {"v.md", "WKkY"}
+      {"CZY/w.bin", "c"},
+      {"g.md", "YNpZy"}
     },
       {},
       {
-      {"TfD/BFG/o.md", "woydrzSqK"},
-      {"gtY/o.dat", "qdaGAfyNeT"},
-      {"v.md", "WKkY"}
+      {"CZY/w.bin", "c"},
+      {"g.md", "YNpZy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(128u),
+      static_cast<std::size_t>(90u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8967,24 +9017,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"Na/f.md", "U"},
-      {"R.cfg", "l"},
-      {"U.bin", "oOBBDEilpAhJI"},
-      {"i.dat", "CVZ"},
-      {"m/D.bin", "cK"}
+      {"FM/Y.bin", "rvfYSJ"},
+      {"PIw/XzWE/l.md", "iLVnDZxXPUsp"},
+      {"xkF/b.md", "qUHEViBOz"}
     },
       {},
       {
-      {"Na/f.md", "U"},
-      {"R.cfg", "l"},
-      {"U.bin", "oOBBDEilpAhJI"},
-      {"i.dat", "CVZ"},
-      {"m/D.bin", "cK"}
+      {"FM/Y.bin", "rvfYSJ"},
+      {"PIw/XzWE/l.md", "iLVnDZxXPUsp"},
+      {"xkF/b.md", "qUHEViBOz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(144u),
+      static_cast<std::size_t>(159u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -8996,16 +9043,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"VHnz/Y.bin", "QrFCroPnIlP"}
+      {"S.md", "obVun"},
+      {"cArS/j/n.txt", "LflVxZziW"},
+      {"p.txt", "ohAm"}
     },
       {},
       {
-      {"VHnz/Y.bin", "QrFCroPnIlP"}
+      {"S.md", "obVun"},
+      {"cArS/j/n.txt", "LflVxZziW"},
+      {"p.txt", "ohAm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(134u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9017,24 +9069,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"K/Vv/x.md", "VnwmtuhPLuUbP"},
-      {"P.bin", "k"},
-      {"R.md", "ecy"},
-      {"ohM/Rp/e.dat", "sW"},
-      {"pDn/c.md", "QIkBjpQksF"}
+      {"O/X.md", "zmccEGTojFfrT"},
+      {"P.md", "IlPUteyPtqEqcwV"},
+      {"p/pb/e.cfg", "biZtbY"},
+      {"y.dat", "Vkkb"}
     },
       {},
       {
-      {"K/Vv/x.md", "VnwmtuhPLuUbP"},
-      {"P.bin", "k"},
-      {"R.md", "ecy"},
-      {"ohM/Rp/e.dat", "sW"},
-      {"pDn/c.md", "QIkBjpQksF"}
+      {"O/X.md", "zmccEGTojFfrT"},
+      {"P.md", "IlPUteyPtqEqcwV"},
+      {"p/pb/e.cfg", "biZtbY"},
+      {"y.dat", "Vkkb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(153u),
+      static_cast<std::size_t>(198u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9046,26 +9097,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"D/V/t.bin", "yUNCLdpyx"},
-      {"G.cfg", "sSnSVgaBh"},
-      {"Ih/v.dat", "ArSTMuqvVv"},
-      {"qdZi/R.dat", "AJueFNtQmEiZEa"},
-      {"t/kaw/Z.cfg", "uVQcyMD"},
-      {"xafZ/xxE/S.dat", "ZzUQKnyta"}
+      {"C/Et/u.dat", "i"}
     },
       {},
       {
-      {"D/V/t.bin", "yUNCLdpyx"},
-      {"G.cfg", "sSnSVgaBh"},
-      {"Ih/v.dat", "ArSTMuqvVv"},
-      {"qdZi/R.dat", "AJueFNtQmEiZEa"},
-      {"t/kaw/Z.cfg", "uVQcyMD"},
-      {"xafZ/xxE/S.dat", "ZzUQKnyta"}
+      {"C/Et/u.dat", "i"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(220u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9077,16 +9119,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"cB/I.cfg", "vHD"}
+      {"AYxb/g.cfg", "zUdD"},
+      {"V/HlcF/e.md", "GuPr"},
+      {"ZYu/R/n.dat", "axZdUsDIWjFYwg"}
     },
       {},
       {
-      {"cB/I.cfg", "vHD"}
+      {"AYxb/g.cfg", "zUdD"},
+      {"V/HlcF/e.md", "GuPr"},
+      {"ZYu/R/n.dat", "axZdUsDIWjFYwg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(133u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9098,16 +9145,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"G.md", "mhpm"}
+      {"JxT/r.dat", "SfnhoNgbLHivaBRl"},
+      {"V/K.md", "uxnZDUwD"},
+      {"WO/O.bin", "JDjspiN"},
+      {"ZZhf/L.cfg", "PsDzWGECHhl"}
     },
       {},
       {
-      {"G.md", "mhpm"}
+      {"JxT/r.dat", "SfnhoNgbLHivaBRl"},
+      {"V/K.md", "uxnZDUwD"},
+      {"WO/O.bin", "JDjspiN"},
+      {"ZZhf/L.cfg", "PsDzWGECHhl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(198u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9119,26 +9173,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"A/t.bin", "OKMNzyflZlo"},
-      {"SJIJ/FD/J.txt", "WQbhTLenifrO"},
-      {"a.md", "riOpLRfXmQcm"},
-      {"vu/ANm/J.txt", "OlqpQxmczH"},
-      {"y/PwfQ/H.md", "Lqnh"},
-      {"y/W.dat", "KwvWVrCJDCJxVnfx"}
+      {"EG/Qk/q.txt", "xU"}
     },
       {},
       {
-      {"A/t.bin", "OKMNzyflZlo"},
-      {"SJIJ/FD/J.txt", "WQbhTLenifrO"},
-      {"a.md", "riOpLRfXmQcm"},
-      {"vu/ANm/J.txt", "OlqpQxmczH"},
-      {"y/PwfQ/H.md", "Lqnh"},
-      {"y/W.dat", "KwvWVrCJDCJxVnfx"}
+      {"EG/Qk/q.txt", "xU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(224u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9150,20 +9195,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"F/f.bin", "FYYiGZUFnGc"},
-      {"J.md", "xwBjofUdZkx"},
-      {"S.dat", "yxusohvvX"}
+      {"b/W/l.dat", "VxTGnnliA"},
+      {"nSF/BmB/K.bin", "VNO"},
+      {"tuz/j.bin", "FtOhgfDgMkbZiEEm"},
+      {"yWKL/QB/r.txt", "oAdZGDuUzwm"}
     },
       {},
       {
-      {"F/f.bin", "FYYiGZUFnGc"},
-      {"J.md", "xwBjofUdZkx"},
-      {"S.dat", "yxusohvvX"}
+      {"b/W/l.dat", "VxTGnnliA"},
+      {"nSF/BmB/K.bin", "VNO"},
+      {"tuz/j.bin", "FtOhgfDgMkbZiEEm"},
+      {"yWKL/QB/r.txt", "oAdZGDuUzwm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(121u),
+      static_cast<std::size_t>(203u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9175,16 +9223,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"L/Gf/U.md", "MwXZkhLzaMZ"}
+      {"ZH/F.bin", "BFCJWsERQkiPS"},
+      {"c/FJ/O.dat", "DPejvMQRipvZEQAt"},
+      {"j/fBI/R.dat", "y"},
+      {"o/qDgi/j.dat", "QA"}
     },
       {},
       {
-      {"L/Gf/U.md", "MwXZkhLzaMZ"}
+      {"ZH/F.bin", "BFCJWsERQkiPS"},
+      {"c/FJ/O.dat", "DPejvMQRipvZEQAt"},
+      {"j/fBI/R.dat", "y"},
+      {"o/qDgi/j.dat", "QA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(203u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9196,13 +9251,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"mnOz/S.md", "DsW"}
+      {"c.dat", "gSUZhVbQPacRfiHU"}
     },
       {},
       {
-      {"mnOz/S.md", "DsW"}
+      {"c.dat", "gSUZhVbQPacRfiHU"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -9217,22 +9273,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"IV/Q.txt", "fdD"},
-      {"O.md", "rYi"},
-      {"W/xg/v.md", "ieqGpjjtgoFbp"},
-      {"oyv/dR/f.dat", "BUPsBXCkhJIWaKAh"}
+      {"Ac/sg/S.dat", "cvxWiAOMp"},
+      {"KXMM/s.md", "YKst"},
+      {"QUx/k.txt", "pk"},
+      {"QYH/MH/L.dat", "URmq"},
+      {"q/H.bin", "RxqTLO"},
+      {"y.cfg", "sOEiGLFAVb"}
     },
       {},
       {
-      {"IV/Q.txt", "fdD"},
-      {"O.md", "rYi"},
-      {"W/xg/v.md", "ieqGpjjtgoFbp"},
-      {"oyv/dR/f.dat", "BUPsBXCkhJIWaKAh"}
+      {"Ac/sg/S.dat", "cvxWiAOMp"},
+      {"KXMM/s.md", "YKst"},
+      {"QUx/k.txt", "pk"},
+      {"QYH/MH/L.dat", "URmq"},
+      {"q/H.bin", "RxqTLO"},
+      {"y.cfg", "sOEiGLFAVb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(136u),
+      static_cast<std::size_t>(265u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9244,18 +9305,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"B/G.dat", "RlhitdNPKl"},
-      {"W/j/h.bin", "yaEMolAli"}
+      {"A.bin", "NTGO"},
+      {"Ok/fx/z.md", "vXn"},
+      {"T/rgL/u.md", "RooW"},
+      {"W.txt", "PVWR"},
+      {"fm/E/m.md", "JXPRtux"}
     },
       {},
       {
-      {"B/G.dat", "RlhitdNPKl"},
-      {"W/j/h.bin", "yaEMolAli"}
+      {"A.bin", "NTGO"},
+      {"Ok/fx/z.md", "vXn"},
+      {"T/rgL/u.md", "RooW"},
+      {"W.txt", "PVWR"},
+      {"fm/E/m.md", "JXPRtux"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(81u),
+      static_cast<std::size_t>(197u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9267,13 +9335,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"m/A.txt", "ipFukkTCGM"}
+      {"r.cfg", "TLGwufvFjTsiAvh"}
     },
       {},
       {
-      {"m/A.txt", "ipFukkTCGM"}
+      {"r.cfg", "TLGwufvFjTsiAvh"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -9288,18 +9357,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"RbQA/m/m.txt", "UmDZlk"},
-      {"Wx/mXxu/G.dat", "IGaiVTsxLixqIvq"}
+      {"i/bzb/Q.cfg", "llQsCcKvBmeO"},
+      {"klL/QQYH/c.md", "H"}
     },
       {},
       {
-      {"RbQA/m/m.txt", "UmDZlk"},
-      {"Wx/mXxu/G.dat", "IGaiVTsxLixqIvq"}
+      {"i/bzb/Q.cfg", "llQsCcKvBmeO"},
+      {"klL/QQYH/c.md", "H"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(82u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9311,22 +9381,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"KV/kaC/s.md", "CxYlCyji"},
-      {"Nml/wQ/Y.md", "fvmZsev"},
-      {"j.md", "ppBzeZy"},
-      {"tCTL/wH/L.bin", "xpgXxMzRUdxsP"}
+      {"P/m.md", "ZM"}
     },
       {},
       {
-      {"KV/kaC/s.md", "CxYlCyji"},
-      {"Nml/wQ/Y.md", "fvmZsev"},
-      {"j.md", "ppBzeZy"},
-      {"tCTL/wH/L.bin", "xpgXxMzRUdxsP"}
+      {"P/m.md", "ZM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(144u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9338,22 +9403,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"Hl/a/i.dat", "PvcrtNYmfmUy"},
-      {"i/Wfr/S.md", "bacmSTTHhZsi"},
-      {"u.dat", "aOEF"},
-      {"xVKW/SysC/R.cfg", "OlKBwWFuJ"}
+      {"H.dat", "HFpgMfaFoDOBkLvO"}
     },
       {},
       {
-      {"Hl/a/i.dat", "PvcrtNYmfmUy"},
-      {"i/Wfr/S.md", "bacmSTTHhZsi"},
-      {"u.dat", "aOEF"},
-      {"xVKW/SysC/R.cfg", "OlKBwWFuJ"}
+      {"H.dat", "HFpgMfaFoDOBkLvO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(149u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9365,16 +9425,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"x.cfg", "qmXbbcWLKrsRiKfE"}
+      {"Lc/RI/a.dat", "dQnswuMtEBfA"},
+      {"V.md", "CyZrJSCfCTOjk"}
     },
       {},
       {
-      {"x.cfg", "qmXbbcWLKrsRiKfE"}
+      {"Lc/RI/a.dat", "dQnswuMtEBfA"},
+      {"V.md", "CyZrJSCfCTOjk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9386,22 +9449,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"GUO/vH/h.bin", "zofjuVpXvVXFQeo"},
-      {"Km/x.txt", "U"},
-      {"kdc/h.dat", "AciWBqi"},
-      {"nT/FM/T.cfg", "vy"}
+      {"Jtjg/OOok/M.cfg", "iWbnpjxhMKCOIlRw"},
+      {"N.bin", "DWw"},
+      {"g/Fwyw/R.md", "bBMEQi"},
+      {"xCkI/I/d.txt", "qd"}
     },
       {},
       {
-      {"GUO/vH/h.bin", "zofjuVpXvVXFQeo"},
-      {"Km/x.txt", "U"},
-      {"kdc/h.dat", "AciWBqi"},
-      {"nT/FM/T.cfg", "vy"}
+      {"Jtjg/OOok/M.cfg", "iWbnpjxhMKCOIlRw"},
+      {"N.bin", "DWw"},
+      {"g/Fwyw/R.md", "bBMEQi"},
+      {"xCkI/I/d.txt", "qd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(148u),
+      static_cast<std::size_t>(200u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9413,16 +9477,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"DEf/YPWN/J.dat", "NCWPyWnNAyTvpfMO"}
+      {"Fgw/c.dat", "xlduSbthrqPc"},
+      {"G/J/O.md", "Tu"},
+      {"pr/Ea/d.md", "SdqMkVXszpuLugVO"}
     },
       {},
       {
-      {"DEf/YPWN/J.dat", "NCWPyWnNAyTvpfMO"}
+      {"Fgw/c.dat", "xlduSbthrqPc"},
+      {"G/J/O.md", "Tu"},
+      {"pr/Ea/d.md", "SdqMkVXszpuLugVO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(135u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9434,26 +9503,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"Gx/S.dat", "twBGBpZet"},
-      {"K.cfg", "KAHfVmFVmsJUrgYL"},
-      {"Nq/xWb/z.md", "GvZLpHoUU"},
-      {"RZr/elG/H.txt", "odtGIAAx"},
-      {"fFK/g/v.cfg", "YtpcRg"},
-      {"xuJ/jsTY/k.txt", "uX"}
+      {"CP/z/E.bin", "sdIBnljYaP"},
+      {"iIeM/AwfK/J.md", "wJpPQQZznxC"}
     },
       {},
       {
-      {"Gx/S.dat", "twBGBpZet"},
-      {"K.cfg", "KAHfVmFVmsJUrgYL"},
-      {"Nq/xWb/z.md", "GvZLpHoUU"},
-      {"RZr/elG/H.txt", "odtGIAAx"},
-      {"fFK/g/v.cfg", "YtpcRg"},
-      {"xuJ/jsTY/k.txt", "uX"}
+      {"CP/z/E.bin", "sdIBnljYaP"},
+      {"iIeM/AwfK/J.md", "wJpPQQZznxC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(224u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9465,20 +9527,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"MVJA/U.dat", "cBJMMqU"},
-      {"cjlM/C/F.dat", "zCz"},
-      {"y/J.bin", "DePvFIIgb"}
+      {"DhD/VJq/q.bin", "MefjVvgMqDfkB"},
+      {"HF/gy/H.cfg", "E"},
+      {"S/W.bin", "c"},
+      {"x.dat", "BpHUamDXOXxk"}
     },
       {},
       {
-      {"MVJA/U.dat", "cBJMMqU"},
-      {"cjlM/C/F.dat", "zCz"},
-      {"y/J.bin", "DePvFIIgb"}
+      {"DhD/VJq/q.bin", "MefjVvgMqDfkB"},
+      {"HF/gy/H.cfg", "E"},
+      {"S/W.bin", "c"},
+      {"x.dat", "BpHUamDXOXxk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(120u),
+      static_cast<std::size_t>(190u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9490,20 +9555,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"H.cfg", "eU"},
-      {"b/OaRy/O.md", "qOqbO"},
-      {"z.md", "WCefXHjhEaGS"}
+      {"CC/qq/f.bin", "tzpkTZZiuUS"},
+      {"R.txt", "RdU"}
     },
       {},
       {
-      {"H.cfg", "eU"},
-      {"b/OaRy/O.md", "qOqbO"},
-      {"z.md", "WCefXHjhEaGS"}
+      {"CC/qq/f.bin", "tzpkTZZiuUS"},
+      {"R.txt", "RdU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(95u),
+      static_cast<std::size_t>(102u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9515,20 +9579,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"H/A.bin", "vIf"},
-      {"c.bin", "jNOIxwoBgvyDSN"},
-      {"j.txt", "qfruwyWx"}
+      {"N.txt", "qZnGTxOyCkyLjPFT"},
+      {"Osrr/L.bin", "iEhhJLuHMSf"},
+      {"W.md", "WISvnoXnH"},
+      {"g.cfg", "ezmtEHAg"},
+      {"g/d/h.txt", "safM"}
     },
       {},
       {
-      {"H/A.bin", "vIf"},
-      {"c.bin", "jNOIxwoBgvyDSN"},
-      {"j.txt", "qfruwyWx"}
+      {"N.txt", "qZnGTxOyCkyLjPFT"},
+      {"Osrr/L.bin", "iEhhJLuHMSf"},
+      {"W.md", "WISvnoXnH"},
+      {"g.cfg", "ezmtEHAg"},
+      {"g/d/h.txt", "safM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(101u),
+      static_cast<std::size_t>(236u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9540,16 +9609,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"K.md", "br"}
+      {"TYiQ/WzaF/i.md", "ULYvffFGYj"},
+      {"WAq/b.bin", "SOGpBfbY"}
     },
       {},
       {
-      {"K.md", "br"}
+      {"TYiQ/WzaF/i.md", "ULYvffFGYj"},
+      {"WAq/b.bin", "SOGpBfbY"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(104u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9561,22 +9633,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"N.dat", "ts"},
-      {"Zcq/i.bin", "wrQkdRL"},
-      {"sBt/S.bin", "RhazzxuBwP"},
-      {"w.cfg", "CMiTjSHHvkCbopAH"}
+      {"UFw/y.md", "lRuifcUO"},
+      {"sTww/f.bin", "TSQUZJnzsPxSd"}
     },
       {},
       {
-      {"N.dat", "ts"},
-      {"Zcq/i.bin", "wrQkdRL"},
-      {"sBt/S.bin", "RhazzxuBwP"},
-      {"w.cfg", "CMiTjSHHvkCbopAH"}
+      {"UFw/y.md", "lRuifcUO"},
+      {"sTww/f.bin", "TSQUZJnzsPxSd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(138u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9588,13 +9657,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"pU/R.txt", "rCTO"}
+      {"ZB/k.txt", "dEiLXcYYer"}
     },
       {},
       {
-      {"pU/R.txt", "rCTO"}
+      {"ZB/k.txt", "dEiLXcYYer"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -9609,16 +9679,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"O.md", "RdUHPISQg"}
+      {"QAl/QcOg/M.dat", "gyeBtnwGfafv"},
+      {"a.bin", "ufeFdcv"}
     },
       {},
       {
-      {"O.md", "RdUHPISQg"}
+      {"QAl/QcOg/M.dat", "gyeBtnwGfafv"},
+      {"a.bin", "ufeFdcv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(122u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9630,18 +9703,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"W.dat", "QSgoafDjIoSe"},
-      {"flx/F.md", "lBEFHG"}
+      {"D.cfg", "lgCqMVOrTITlT"},
+      {"H/j.md", "PXgllJgikOkLUZ"},
+      {"Qy/w.txt", "vf"},
+      {"e.txt", "vZFisOrzZJgGoTd"},
+      {"tzyg/J.bin", "WIWgEdluX"}
     },
       {},
       {
-      {"W.dat", "QSgoafDjIoSe"},
-      {"flx/F.md", "lBEFHG"}
+      {"D.cfg", "lgCqMVOrTITlT"},
+      {"H/j.md", "PXgllJgikOkLUZ"},
+      {"Qy/w.txt", "vf"},
+      {"e.txt", "vZFisOrzZJgGoTd"},
+      {"tzyg/J.bin", "WIWgEdluX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(81u),
+      static_cast<std::size_t>(236u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9653,16 +9733,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"jDNp/E.dat", "oLlJkdrATVaYya"}
+      {"Y.dat", "M"},
+      {"fx/wHH/w.dat", "DMcPvN"}
     },
       {},
       {
-      {"jDNp/E.dat", "oLlJkdrATVaYya"}
+      {"Y.dat", "M"},
+      {"fx/wHH/w.dat", "DMcPvN"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9674,24 +9757,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"GKAG/i.txt", "Pj"},
-      {"I.bin", "QkAJeiyIlg"},
-      {"Y/eweP/L.bin", "zyQnMSb"},
-      {"b.dat", "pgPDpxg"},
-      {"gA/L.cfg", "bhebWRLBNOIayXb"}
+      {"e.cfg", "mSpCjFPV"}
     },
       {},
       {
-      {"GKAG/i.txt", "Pj"},
-      {"I.bin", "QkAJeiyIlg"},
-      {"Y/eweP/L.bin", "zyQnMSb"},
-      {"b.dat", "pgPDpxg"},
-      {"gA/L.cfg", "bhebWRLBNOIayXb"}
+      {"e.cfg", "mSpCjFPV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(162u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9703,24 +9779,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"S.txt", "olFOyL"},
-      {"UfM/tY/Q.md", "IxOIKttFIzuPPq"},
-      {"fmlW/G.dat", "CIjPfdrMfc"},
-      {"v.txt", "yicDrt"},
-      {"w/I.dat", "OiGjjnINU"}
+      {"gO/S/e.dat", "orgjteGmtVQfcyIN"},
+      {"gS/w/i.md", "IDQUcecYU"},
+      {"i/zUJ/B.dat", "iXhoBstyE"}
     },
       {},
       {
-      {"S.txt", "olFOyL"},
-      {"UfM/tY/Q.md", "IxOIKttFIzuPPq"},
-      {"fmlW/G.dat", "CIjPfdrMfc"},
-      {"v.txt", "yicDrt"},
-      {"w/I.dat", "OiGjjnINU"}
+      {"gO/S/e.dat", "orgjteGmtVQfcyIN"},
+      {"gS/w/i.md", "IDQUcecYU"},
+      {"i/zUJ/B.dat", "iXhoBstyE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(187u),
+      static_cast<std::size_t>(164u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9732,26 +9805,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"g.cfg", "JBFcrnXRh"},
-      {"mtCw/U.txt", "bsvJDhkU"},
-      {"oh/syT/a.cfg", "wsQkYuybv"},
-      {"sWn/BX/z.dat", "Sf"},
-      {"xP/C/H.cfg", "CIfLOCYHNBvuu"},
-      {"yYu/J.txt", "ftlDXmWgMkBGQZ"}
+      {"ep/X.md", "oNuiMWZuxy"}
     },
       {},
       {
-      {"g.cfg", "JBFcrnXRh"},
-      {"mtCw/U.txt", "bsvJDhkU"},
-      {"oh/syT/a.cfg", "wsQkYuybv"},
-      {"sWn/BX/z.dat", "Sf"},
-      {"xP/C/H.cfg", "CIfLOCYHNBvuu"},
-      {"yYu/J.txt", "ftlDXmWgMkBGQZ"}
+      {"ep/X.md", "oNuiMWZuxy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(218u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9763,16 +9827,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"WOb/YFK/S.md", "vevTLXgvBoORcYn"}
+      {"Iywy/Ztqg/U.cfg", "tbljXgypGGCbSQBd"},
+      {"V/Ow/W.md", "Er"},
+      {"p/V.md", "dROJXIjkeQUdn"}
     },
       {},
       {
-      {"WOb/YFK/S.md", "vevTLXgvBoORcYn"}
+      {"Iywy/Ztqg/U.cfg", "tbljXgypGGCbSQBd"},
+      {"V/Ow/W.md", "Er"},
+      {"p/V.md", "dROJXIjkeQUdn"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(162u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9784,13 +9853,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"Z.bin", "ynaVfWKATOBeP"}
+      {"p.md", "I"}
     },
       {},
       {
-      {"Z.bin", "ynaVfWKATOBeP"}
+      {"p.md", "I"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -9805,16 +9875,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"Qo/y/N.md", "EcZDaZxRy"}
+      {"Hjb/z.cfg", "JmDKwdX"},
+      {"k/X/T.dat", "ceFOZhFO"}
     },
       {},
       {
-      {"Qo/y/N.md", "EcZDaZxRy"}
+      {"Hjb/z.cfg", "JmDKwdX"},
+      {"k/X/T.dat", "ceFOZhFO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(96u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9826,18 +9899,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"C/j.txt", "jSVEmHHHeEH"},
-      {"b.cfg", "GlDECAoGJDp"}
+      {"A/gS/g.dat", "RCYunbgeu"},
+      {"BC/F.dat", "nRvpv"}
     },
       {},
       {
-      {"C/j.txt", "jSVEmHHHeEH"},
-      {"b.cfg", "GlDECAoGJDp"}
+      {"A/gS/g.dat", "RCYunbgeu"},
+      {"BC/F.dat", "nRvpv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(82u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9849,18 +9923,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"Mm/M.txt", "QZrfJQ"},
-      {"T/U.cfg", "odhs"}
+      {"B/g.md", "nAUHbAqEAdwxrfo"},
+      {"N.cfg", "DGUCDTgX"},
+      {"XDXN/O/G.md", "RflzSyjzt"},
+      {"a.bin", "pjgJATptDFrskgtX"}
     },
       {},
       {
-      {"Mm/M.txt", "QZrfJQ"},
-      {"T/U.cfg", "odhs"}
+      {"B/g.md", "nAUHbAqEAdwxrfo"},
+      {"N.cfg", "DGUCDTgX"},
+      {"XDXN/O/G.md", "RflzSyjzt"},
+      {"a.bin", "pjgJATptDFrskgtX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(78u),
+      static_cast<std::size_t>(198u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9872,16 +9951,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"dR/H.cfg", "Ofg"}
+      {"ERxx/BG/u.bin", "MMg"},
+      {"N/g.dat", "nweHkgnpYhUcMXE"},
+      {"mBNw/H.txt", "PpQVUui"}
     },
       {},
       {
-      {"dR/H.cfg", "Ofg"}
+      {"ERxx/BG/u.bin", "MMg"},
+      {"N/g.dat", "nweHkgnpYhUcMXE"},
+      {"mBNw/H.txt", "PpQVUui"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(158u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9893,22 +9977,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"Am/Mx/G.txt", "oKtempN"},
-      {"c/pNV/h.dat", "vboCbLmdgb"},
-      {"fzUy/qGb/y.txt", "NOCDkyV"},
-      {"xLh/S.cfg", "fKaWHcczz"}
+      {"LGS/lxu/o.bin", "wD"},
+      {"w.dat", "dVaaBYhGhumqO"}
     },
       {},
       {
-      {"Am/Mx/G.txt", "oKtempN"},
-      {"c/pNV/h.dat", "vboCbLmdgb"},
-      {"fzUy/qGb/y.txt", "NOCDkyV"},
-      {"xLh/S.cfg", "fKaWHcczz"}
+      {"LGS/lxu/o.bin", "wD"},
+      {"w.dat", "dVaaBYhGhumqO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(156u),
+      static_cast<std::size_t>(95u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9920,16 +10001,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"n.cfg", "JouoxTgh"}
+      {"J.bin", "UBvlpLOXzg"},
+      {"js/l/p.bin", "IeiuAwyxlHG"}
     },
       {},
       {
-      {"n.cfg", "JouoxTgh"}
+      {"J.bin", "UBvlpLOXzg"},
+      {"js/l/p.bin", "IeiuAwyxlHG"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(95u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9941,22 +10025,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"AHQ/CXJH/J.md", "rIPSYMknUMp"},
-      {"h/VBz/j.bin", "PVvYiLlk"},
-      {"iVqo/g.cfg", "Jfy"},
-      {"x.md", "QpjGsqidQTYnS"}
+      {"JT/OK/Y.bin", "YHdMW"},
+      {"Z.cfg", "GzfVnJniI"},
+      {"dSEA/WmyQ/y.txt", "nFzYeksZnwB"},
+      {"m/K/h.cfg", "gwNz"},
+      {"wLOp/IzW/C.txt", "YnPARvruHcOnHzE"}
     },
       {},
       {
-      {"AHQ/CXJH/J.md", "rIPSYMknUMp"},
-      {"h/VBz/j.bin", "PVvYiLlk"},
-      {"iVqo/g.cfg", "Jfy"},
-      {"x.md", "QpjGsqidQTYnS"}
+      {"JT/OK/Y.bin", "YHdMW"},
+      {"Z.cfg", "GzfVnJniI"},
+      {"dSEA/WmyQ/y.txt", "nFzYeksZnwB"},
+      {"m/K/h.cfg", "gwNz"},
+      {"wLOp/IzW/C.txt", "YnPARvruHcOnHzE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(152u),
+      static_cast<std::size_t>(200u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -9968,13 +10055,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"SK/Q.txt", "MsdPAOtzM"}
+      {"I.bin", "BrvwmyGe"}
     },
       {},
       {
-      {"SK/Q.txt", "MsdPAOtzM"}
+      {"I.bin", "BrvwmyGe"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -9989,26 +10077,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"G/J.cfg", "YzRfrW"},
-      {"Wcdp/H.txt", "MESnwVdKNd"},
-      {"Wup/c.bin", "NFIr"},
-      {"j/P/p.md", "xRZekVAhl"},
-      {"oVO/T/T.md", "t"},
-      {"q.cfg", "YeESzhpR"}
+      {"D.cfg", "EHenqPkzUJHUeI"},
+      {"ICT/u.dat", "f"},
+      {"Sx/p.cfg", "Et"}
     },
       {},
       {
-      {"G/J.cfg", "YzRfrW"},
-      {"Wcdp/H.txt", "MESnwVdKNd"},
-      {"Wup/c.bin", "NFIr"},
-      {"j/P/p.md", "xRZekVAhl"},
-      {"oVO/T/T.md", "t"},
-      {"q.cfg", "YeESzhpR"}
+      {"D.cfg", "EHenqPkzUJHUeI"},
+      {"ICT/u.dat", "f"},
+      {"Sx/p.cfg", "Et"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(202u),
+      static_cast<std::size_t>(133u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10020,26 +10103,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"AU/pehB/F.txt", "oi"},
-      {"Ce/Q.md", "EB"},
-      {"DcK/y.txt", "uRrSEdeuLFvSh"},
-      {"K.bin", "llyzvnrDVW"},
-      {"ldW/u.cfg", "tqnVKF"},
-      {"ps/Qbqp/A.dat", "xkGrEpXnXKNNJD"}
+      {"O.dat", "GW"},
+      {"W/Uea/W.bin", "bLKBsNlUOjv"}
     },
       {},
       {
-      {"AU/pehB/F.txt", "oi"},
-      {"Ce/Q.md", "EB"},
-      {"DcK/y.txt", "uRrSEdeuLFvSh"},
-      {"K.bin", "llyzvnrDVW"},
-      {"ldW/u.cfg", "tqnVKF"},
-      {"ps/Qbqp/A.dat", "xkGrEpXnXKNNJD"}
+      {"O.dat", "GW"},
+      {"W/Uea/W.bin", "bLKBsNlUOjv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(204u),
+      static_cast<std::size_t>(71u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10051,24 +10127,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"GH/P/b.bin", "lMJ"},
-      {"e.dat", "fiCKILkaZsOI"},
-      {"j/K.bin", "lnkQwKC"},
-      {"n/u.md", "EOaYBSePUtfmwFr"},
-      {"r.bin", "ZXJ"}
+      {"P/J.dat", "nRMaiVZSrEVRNQP"}
     },
       {},
       {
-      {"GH/P/b.bin", "lMJ"},
-      {"e.dat", "fiCKILkaZsOI"},
-      {"j/K.bin", "lnkQwKC"},
-      {"n/u.md", "EOaYBSePUtfmwFr"},
-      {"r.bin", "ZXJ"}
+      {"P/J.dat", "nRMaiVZSrEVRNQP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(185u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10080,13 +10149,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"rz/o.md", "MvEXAy"}
+      {"O.md", "qTdnkZpUjeEfxZgw"}
     },
       {},
       {
-      {"rz/o.md", "MvEXAy"}
+      {"O.md", "qTdnkZpUjeEfxZgw"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -10101,16 +10171,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"C/B/i.bin", "VXR"}
+      {"F.bin", "DPiBNEJ"},
+      {"x.cfg", "SwaYHHs"},
+      {"z.bin", "OzRpBWCnIbx"}
     },
       {},
       {
-      {"C/B/i.bin", "VXR"}
+      {"F.bin", "DPiBNEJ"},
+      {"x.cfg", "SwaYHHs"},
+      {"z.bin", "OzRpBWCnIbx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(128u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10122,22 +10197,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"F.md", "tQM"},
-      {"Hh/QuuJ/O.cfg", "HhJ"},
-      {"P.dat", "GsnAUpoAv"},
-      {"qs/DUQp/l.txt", "pMAvsKYK"}
+      {"Aku/bgg/r.bin", "vvEauZJtkLADyGxn"},
+      {"F/L.dat", "Q"},
+      {"V.bin", "hs"},
+      {"Y.bin", "TikPaYmmu"},
+      {"c/x.dat", "SWdIYKBNjTzG"},
+      {"iac/EJ/l.dat", "lEodcIzvB"}
     },
       {},
       {
-      {"F.md", "tQM"},
-      {"Hh/QuuJ/O.cfg", "HhJ"},
-      {"P.dat", "GsnAUpoAv"},
-      {"qs/DUQp/l.txt", "pMAvsKYK"}
+      {"Aku/bgg/r.bin", "vvEauZJtkLADyGxn"},
+      {"F/L.dat", "Q"},
+      {"V.bin", "hs"},
+      {"Y.bin", "TikPaYmmu"},
+      {"c/x.dat", "SWdIYKBNjTzG"},
+      {"iac/EJ/l.dat", "lEodcIzvB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(133u),
+      static_cast<std::size_t>(269u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10149,24 +10229,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"F/e.bin", "iVmaR"},
-      {"HhDw/HUz/N.md", "ealZcdXTHZMCYQIa"},
-      {"W.txt", "XdSQrTehTNvm"},
-      {"cg/g.txt", "HYBOQEyHUQfqx"},
-      {"q.txt", "gKaRUOWYoqT"}
+      {"A.txt", "YcQ"},
+      {"igt/i.md", "XHIUizOkPiJGH"},
+      {"n.md", "wIbBjhiEpqIdpvqv"}
     },
       {},
       {
-      {"F/e.bin", "iVmaR"},
-      {"HhDw/HUz/N.md", "ealZcdXTHZMCYQIa"},
-      {"W.txt", "XdSQrTehTNvm"},
-      {"cg/g.txt", "HYBOQEyHUQfqx"},
-      {"q.txt", "gKaRUOWYoqT"}
+      {"A.txt", "YcQ"},
+      {"igt/i.md", "XHIUizOkPiJGH"},
+      {"n.md", "wIbBjhiEpqIdpvqv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(199u),
+      static_cast<std::size_t>(133u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10178,16 +10255,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"U/qTW/X.md", "rbbVFCovK"}
+      {"f.dat", "TDpJCsXw"},
+      {"sE/F.md", "pKB"}
     },
       {},
       {
-      {"U/qTW/X.md", "rbbVFCovK"}
+      {"f.dat", "TDpJCsXw"},
+      {"sE/F.md", "pKB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(93u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10199,22 +10279,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"H.cfg", "quxNgcplx"},
-      {"O/J/P.md", "LLi"},
-      {"V/mS/v.dat", "oFMOdiLRyipFsvi"},
-      {"w.txt", "yYhiVzdmOdtmqM"}
+      {"B.cfg", "qRSNvJLq"},
+      {"c/uhW/e.cfg", "ddDFAlwqt"},
+      {"f.dat", "KCUvAiIwTlAc"}
     },
       {},
       {
-      {"H.cfg", "quxNgcplx"},
-      {"O/J/P.md", "LLi"},
-      {"V/mS/v.dat", "oFMOdiLRyipFsvi"},
-      {"w.txt", "yYhiVzdmOdtmqM"}
+      {"B.cfg", "qRSNvJLq"},
+      {"c/uhW/e.cfg", "ddDFAlwqt"},
+      {"f.dat", "KCUvAiIwTlAc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(146u),
+      static_cast<std::size_t>(137u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10226,22 +10305,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"H.txt", "CzUToYol"},
-      {"TRg/anFA/m.txt", "yjWBCtp"},
-      {"rz/udUj/i.cfg", "sIFBnYMAWnEbsqLo"},
-      {"sI/tBR/r.md", "HGhUOnXBPCq"}
+      {"g.dat", "VqtmJfpD"}
     },
       {},
       {
-      {"H.txt", "CzUToYol"},
-      {"TRg/anFA/m.txt", "yjWBCtp"},
-      {"rz/udUj/i.cfg", "sIFBnYMAWnEbsqLo"},
-      {"sI/tBR/r.md", "HGhUOnXBPCq"}
+      {"g.dat", "VqtmJfpD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(159u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10253,26 +10327,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"F/s/Q.cfg", "jGxRQpgUyFacIN"},
-      {"cH/u.txt", "NfhzxrfUHcu"},
-      {"cgK/t.bin", "giZgtpMOfOac"},
-      {"u/m.txt", "uQBCVgkvHSOoJqIp"},
-      {"xV/r/Y.dat", "kfQnoQINpWlmUfM"},
-      {"zgSO/X.bin", "GtFaqAnIFuUBbQN"}
+      {"B.txt", "YvukLcshMsTeRm"},
+      {"O.bin", "PViDuLs"},
+      {"oR/t.cfg", "V"},
+      {"r.cfg", "dyimabByJ"}
     },
       {},
       {
-      {"F/s/Q.cfg", "jGxRQpgUyFacIN"},
-      {"cH/u.txt", "NfhzxrfUHcu"},
-      {"cgK/t.bin", "giZgtpMOfOac"},
-      {"u/m.txt", "uQBCVgkvHSOoJqIp"},
-      {"xV/r/Y.dat", "kfQnoQINpWlmUfM"},
-      {"zgSO/X.bin", "GtFaqAnIFuUBbQN"}
+      {"B.txt", "YvukLcshMsTeRm"},
+      {"O.bin", "PViDuLs"},
+      {"oR/t.cfg", "V"},
+      {"r.cfg", "dyimabByJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(255u),
+      static_cast<std::size_t>(168u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10284,13 +10355,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"J.bin", "OcYrJySH"}
+      {"yaC/i/V.md", "mRtKf"}
     },
       {},
       {
-      {"J.bin", "OcYrJySH"}
+      {"yaC/i/V.md", "mRtKf"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -10305,22 +10377,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"M/hqR/c.txt", "ezWjk"},
-      {"Q.md", "gAj"},
-      {"q/t/I.cfg", "gazcCQpKsQCZMWMQ"},
-      {"s/zAO/Q.cfg", "l"}
+      {"H/GPrj/V.bin", "CXsQmFcmKZuQvE"},
+      {"Sg/YYX/w.dat", "sKaFXkqYVtXb"},
+      {"g/o.txt", "tOcMfri"},
+      {"pKR/rK/i.md", "UaozDyuKVu"}
     },
       {},
       {
-      {"M/hqR/c.txt", "ezWjk"},
-      {"Q.md", "gAj"},
-      {"q/t/I.cfg", "gazcCQpKsQCZMWMQ"},
-      {"s/zAO/Q.cfg", "l"}
+      {"H/GPrj/V.bin", "CXsQmFcmKZuQvE"},
+      {"Sg/YYX/w.dat", "sKaFXkqYVtXb"},
+      {"g/o.txt", "tOcMfri"},
+      {"pKR/rK/i.md", "UaozDyuKVu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(144u),
+      static_cast<std::size_t>(224u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10332,26 +10405,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"UtFQ/i.cfg", "aj"},
-      {"V/WIFl/W.cfg", "nZIInNjpAkSQ"},
-      {"Y.cfg", "nYiX"},
-      {"cMvj/b/e.dat", "cjUsvrXveIBKE"},
-      {"pGD/R/H.md", "FEXfiC"},
-      {"u/Y/Q.txt", "KPACDrKGqik"}
+      {"FFnU/oby/g.md", "QJpwJNBIpXHbmyts"},
+      {"PuUO/U.txt", "pYHVAu"}
     },
       {},
       {
-      {"UtFQ/i.cfg", "aj"},
-      {"V/WIFl/W.cfg", "nZIInNjpAkSQ"},
-      {"Y.cfg", "nYiX"},
-      {"cMvj/b/e.dat", "cjUsvrXveIBKE"},
-      {"pGD/R/H.md", "FEXfiC"},
-      {"u/Y/Q.txt", "KPACDrKGqik"}
+      {"FFnU/oby/g.md", "QJpwJNBIpXHbmyts"},
+      {"PuUO/U.txt", "pYHVAu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(214u),
+      static_cast<std::size_t>(125u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10363,20 +10429,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"F.cfg", "grxZonIHFq"},
-      {"MvcZ/f.txt", "ZRlLiOe"},
-      {"pg/v.bin", "aOULUDzRElcjI"}
+      {"Kwb/x/T.md", "RHUZqItEM"},
+      {"O/j.dat", "qDSwbF"},
+      {"Q.txt", "F"}
     },
       {},
       {
-      {"F.cfg", "grxZonIHFq"},
-      {"MvcZ/f.txt", "ZRlLiOe"},
-      {"pg/v.bin", "aOULUDzRElcjI"}
+      {"Kwb/x/T.md", "RHUZqItEM"},
+      {"O/j.dat", "qDSwbF"},
+      {"Q.txt", "F"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(120u),
+      static_cast<std::size_t>(136u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10388,16 +10455,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"VU/S.txt", "EtrtZ"}
+      {"C/k.txt", "wBEyg"},
+      {"MRe/p.txt", "sAFVgQwAuuqorsyn"},
+      {"n/z.txt", "QKcNGaGO"},
+      {"tNAE/PXU/i.cfg", "BzTzmD"},
+      {"x.bin", "dfZtDYUokIe"}
     },
       {},
       {
-      {"VU/S.txt", "EtrtZ"}
+      {"C/k.txt", "wBEyg"},
+      {"MRe/p.txt", "sAFVgQwAuuqorsyn"},
+      {"n/z.txt", "QKcNGaGO"},
+      {"tNAE/PXU/i.cfg", "BzTzmD"},
+      {"x.bin", "dfZtDYUokIe"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(256u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10409,24 +10485,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"C.md", "iO"},
-      {"Gmah/k/X.txt", "SVeyv"},
-      {"W.bin", "ekepX"},
-      {"dx/bjm/j.dat", "zYLcjivmRRiTVQy"},
-      {"k/D.bin", "j"}
+      {"Dezt/f/y.txt", "VGaUkURrAUaSPh"},
+      {"H/DP/O.txt", "cXdUTubUaiWMdPb"},
+      {"x.cfg", "LzzpilSdMoEEi"}
     },
       {},
       {
-      {"C.md", "iO"},
-      {"Gmah/k/X.txt", "SVeyv"},
-      {"W.bin", "ekepX"},
-      {"dx/bjm/j.dat", "zYLcjivmRRiTVQy"},
-      {"k/D.bin", "j"}
+      {"Dezt/f/y.txt", "VGaUkURrAUaSPh"},
+      {"H/DP/O.txt", "cXdUTubUaiWMdPb"},
+      {"x.cfg", "LzzpilSdMoEEi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(164u),
+      static_cast<std::size_t>(122u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10438,22 +10511,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"GSFw/u.dat", "IfeXKNNnPmpuzwc"},
-      {"K/j/V.txt", "AuqKeJycDfc"},
-      {"Q/oc/X.dat", "cYqRYKrTyvEXjqj"},
-      {"SIfj/V.txt", "mfvf"}
+      {"AfTc/ZSq/y.cfg", "sKSn"},
+      {"L/HU/H.bin", "UkSkzAL"},
+      {"S/LR/R.md", "F"},
+      {"d.bin", "OMHUBSvnZzHW"},
+      {"o/i.txt", "BYtVWNoyQ"}
     },
       {},
       {
-      {"GSFw/u.dat", "IfeXKNNnPmpuzwc"},
-      {"K/j/V.txt", "AuqKeJycDfc"},
-      {"Q/oc/X.dat", "cYqRYKrTyvEXjqj"},
-      {"SIfj/V.txt", "mfvf"}
+      {"AfTc/ZSq/y.cfg", "sKSn"},
+      {"L/HU/H.bin", "UkSkzAL"},
+      {"S/LR/R.md", "F"},
+      {"d.bin", "OMHUBSvnZzHW"},
+      {"o/i.txt", "BYtVWNoyQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(166u),
+      static_cast<std::size_t>(230u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10465,13 +10541,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"qRxe/PJB/E.md", "iLaziMHpjafHElM"}
+      {"pQ/JkaV/h.bin", "LK"}
     },
       {},
       {
-      {"qRxe/PJB/E.md", "iLaziMHpjafHElM"}
+      {"pQ/JkaV/h.bin", "LK"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -10486,26 +10563,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"OlAX/c.txt", "yRUCt"},
-      {"UeYY/hi/L.bin", "qHBUUoQqmy"},
-      {"b.md", "fBaruG"},
-      {"c/u.cfg", "MaPuuWrPfpPM"},
-      {"f.txt", "GO"},
-      {"q/zrh/D.cfg", "wNnNbBKLxbSr"}
+      {"X.dat", "anqRsAjTDIIncelO"},
+      {"lcVI/P.dat", "jbOVIB"}
     },
       {},
       {
-      {"OlAX/c.txt", "yRUCt"},
-      {"UeYY/hi/L.bin", "qHBUUoQqmy"},
-      {"b.md", "fBaruG"},
-      {"c/u.cfg", "MaPuuWrPfpPM"},
-      {"f.txt", "GO"},
-      {"q/zrh/D.cfg", "wNnNbBKLxbSr"}
+      {"X.dat", "anqRsAjTDIIncelO"},
+      {"lcVI/P.dat", "jbOVIB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(202u),
+      static_cast<std::size_t>(101u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10517,18 +10587,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"M.md", "DzxizcYVCZHGSM"},
-      {"l.dat", "UYSHG"}
+      {"fkoB/q.dat", "hNLyrOmnLZ"},
+      {"xX/CO/m.dat", "BgkZ"}
     },
       {},
       {
-      {"M.md", "DzxizcYVCZHGSM"},
-      {"l.dat", "UYSHG"}
+      {"fkoB/q.dat", "hNLyrOmnLZ"},
+      {"xX/CO/m.dat", "BgkZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(82u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10540,26 +10611,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"Rc/t.txt", "CKTRQufLzZgxSFc"},
-      {"S.bin", "hCTsaLMbQHRI"},
-      {"Z/jw/D.md", "jBxwXLkVdh"},
-      {"emvc/d.bin", "fNzm"},
-      {"i.txt", "vkUb"},
-      {"n/q.dat", "unLTOKgCyjc"}
+      {"B/Jc/J.bin", "wjeepiErkcMVvqdA"},
+      {"IAcl/BMrU/G.bin", "UbgDFXcYqKX"},
+      {"Unp/U/C.cfg", "PcrkXCBwbmu"}
     },
       {},
       {
-      {"Rc/t.txt", "CKTRQufLzZgxSFc"},
-      {"S.bin", "hCTsaLMbQHRI"},
-      {"Z/jw/D.md", "jBxwXLkVdh"},
-      {"emvc/d.bin", "fNzm"},
-      {"i.txt", "vkUb"},
-      {"n/q.dat", "unLTOKgCyjc"}
+      {"B/Jc/J.bin", "wjeepiErkcMVvqdA"},
+      {"IAcl/BMrU/G.bin", "UbgDFXcYqKX"},
+      {"Unp/U/C.cfg", "PcrkXCBwbmu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(210u),
+      static_cast<std::size_t>(188u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10571,26 +10637,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"ANHY/RGso/U.cfg", "KwhErUyOTpkbBDs"},
-      {"EKm/iZzn/J.bin", "IrLz"},
-      {"IY/QO/G.txt", "MlmOJ"},
-      {"MY/YW/s.bin", "mnGaQeWCTYzmMJm"},
-      {"r.dat", "mlBzSwXlXKCCtBIU"},
-      {"ycJH/I.dat", "K"}
+      {"g.dat", "czAkdETSCNSeIc"}
     },
       {},
       {
-      {"ANHY/RGso/U.cfg", "KwhErUyOTpkbBDs"},
-      {"EKm/iZzn/J.bin", "IrLz"},
-      {"IY/QO/G.txt", "MlmOJ"},
-      {"MY/YW/s.bin", "mnGaQeWCTYzmMJm"},
-      {"r.dat", "mlBzSwXlXKCCtBIU"},
-      {"ycJH/I.dat", "K"}
+      {"g.dat", "czAkdETSCNSeIc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(255u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10602,22 +10659,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"Hd/G.dat", "pVkMwSIi"},
-      {"eHz/E.cfg", "SEtCDiRdYAj"},
-      {"h/y.txt", "nkoqcEnkxALLmiEh"},
-      {"y/z.md", "bdymFTcS"}
+      {"JeM/wk/F.dat", "VTKhKcPeuSsxR"},
+      {"w/KP/J.cfg", "MH"}
     },
       {},
       {
-      {"Hd/G.dat", "pVkMwSIi"},
-      {"eHz/E.cfg", "SEtCDiRdYAj"},
-      {"h/y.txt", "nkoqcEnkxALLmiEh"},
-      {"y/z.md", "bdymFTcS"}
+      {"JeM/wk/F.dat", "VTKhKcPeuSsxR"},
+      {"w/KP/J.cfg", "MH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(155u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10629,22 +10683,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"OuPb/B/A.md", "AWDlZnNEFN"},
-      {"U/dr/U.txt", "SNYx"},
-      {"aiW/J.md", "TBnQEgyXCNrWNZ"},
-      {"z.dat", "kkhMB"}
+      {"TRrD/zn/G.bin", "WMtCbYQkjKlsn"}
     },
       {},
       {
-      {"OuPb/B/A.md", "AWDlZnNEFN"},
-      {"U/dr/U.txt", "SNYx"},
-      {"aiW/J.md", "TBnQEgyXCNrWNZ"},
-      {"z.dat", "kkhMB"}
+      {"TRrD/zn/G.bin", "WMtCbYQkjKlsn"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(153u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10656,16 +10705,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"Y.bin", "kcqJmkUxtXxP"}
+      {"J.dat", "Ut"},
+      {"SF/s.cfg", "LFkm"},
+      {"g.md", "Sv"},
+      {"s.bin", "atjfMnNCsDlN"},
+      {"s/h.md", "IGoa"}
     },
       {},
       {
-      {"Y.bin", "kcqJmkUxtXxP"}
+      {"J.dat", "Ut"},
+      {"SF/s.cfg", "LFkm"},
+      {"g.md", "Sv"},
+      {"s.bin", "atjfMnNCsDlN"},
+      {"s/h.md", "IGoa"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(194u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10677,26 +10735,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"JLc/P.md", "jCpHL"},
-      {"X/QOCz/B.dat", "Ukpgdbz"},
-      {"a.txt", "tGWaSltHnsu"},
-      {"a/M.txt", "xwrjkafNTXXPOTS"},
-      {"h.md", "edgAONafuTDt"},
-      {"sM/G.md", "zbBIqlgbPImDBc"}
+      {"RGUw/R.dat", "bWLEEtqgxgcyQ"},
+      {"kwic/h.md", "BX"}
     },
       {},
       {
-      {"JLc/P.md", "jCpHL"},
-      {"X/QOCz/B.dat", "Ukpgdbz"},
-      {"a.txt", "tGWaSltHnsu"},
-      {"a/M.txt", "xwrjkafNTXXPOTS"},
-      {"h.md", "edgAONafuTDt"},
-      {"sM/G.md", "zbBIqlgbPImDBc"}
+      {"RGUw/R.dat", "bWLEEtqgxgcyQ"},
+      {"kwic/h.md", "BX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(214u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10708,26 +10759,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"AWB/W.dat", "ZylntwQCihlrNe"},
-      {"G.cfg", "IpEGaWx"},
-      {"RQ/z.txt", "OwuzE"},
-      {"U.txt", "UBMlCPOft"},
-      {"X/I.md", "cHgjRErtKYVtQsYe"},
-      {"r/N.cfg", "gCKoUvHtVgzSftXM"}
+      {"J/t/r.md", "JZuxAVqmVLhf"}
     },
       {},
       {
-      {"AWB/W.dat", "ZylntwQCihlrNe"},
-      {"G.cfg", "IpEGaWx"},
-      {"RQ/z.txt", "OwuzE"},
-      {"U.txt", "UBMlCPOft"},
-      {"X/I.md", "cHgjRErtKYVtQsYe"},
-      {"r/N.cfg", "gCKoUvHtVgzSftXM"}
+      {"J/t/r.md", "JZuxAVqmVLhf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(212u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10739,20 +10781,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"GE/rF/G.dat", "pGkVDVDM"},
-      {"e.bin", "plQmjKbC"},
-      {"q.cfg", "C"}
+      {"c.bin", "JMwmazZ"}
     },
       {},
       {
-      {"GE/rF/G.dat", "pGkVDVDM"},
-      {"e.bin", "plQmjKbC"},
-      {"q.cfg", "C"}
+      {"c.bin", "JMwmazZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(120u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10764,16 +10803,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"zma/izZ/P.dat", "AccftBjzYqBKcuTd"}
+      {"M.bin", "bwNFdVGlplmA"},
+      {"SGFq/g/g.txt", "bGhvhkqyeeqgxQBW"},
+      {"a.txt", "YISCQ"},
+      {"fA/Gkqh/Z.cfg", "igOoSOb"},
+      {"ns/q.txt", "YiZoyGHFqgRwwwgt"},
+      {"t/m.bin", "s"}
     },
       {},
       {
-      {"zma/izZ/P.dat", "AccftBjzYqBKcuTd"}
+      {"M.bin", "bwNFdVGlplmA"},
+      {"SGFq/g/g.txt", "bGhvhkqyeeqgxQBW"},
+      {"a.txt", "YISCQ"},
+      {"fA/Gkqh/Z.cfg", "igOoSOb"},
+      {"ns/q.txt", "YiZoyGHFqgRwwwgt"},
+      {"t/m.bin", "s"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(323u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10785,24 +10835,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"D.dat", "euTpwzSSVteZJmv"},
-      {"W.bin", "RMBacYjbuY"},
-      {"npV/ZVX/s.bin", "dNhRGHYXeIAIP"},
-      {"p.dat", "DfnoEKZY"},
-      {"z/ail/c.dat", "cbxU"}
+      {"W.dat", "gsaxMNOCE"}
     },
       {},
       {
-      {"D.dat", "euTpwzSSVteZJmv"},
-      {"W.bin", "RMBacYjbuY"},
-      {"npV/ZVX/s.bin", "dNhRGHYXeIAIP"},
-      {"p.dat", "DfnoEKZY"},
-      {"z/ail/c.dat", "cbxU"}
+      {"W.dat", "gsaxMNOCE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(194u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10814,26 +10857,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"EUi/mX/H.md", "JJc"},
-      {"LhBP/u/J.cfg", "mPtxer"},
-      {"W.txt", "jMvMZbw"},
-      {"Y.md", "LWfbifq"},
-      {"thqu/b.txt", "MtzugmaEneG"},
-      {"toR/p/e.dat", "IhuliaSGC"}
+      {"g.txt", "sOTt"}
     },
       {},
       {
-      {"EUi/mX/H.md", "JJc"},
-      {"LhBP/u/J.cfg", "mPtxer"},
-      {"W.txt", "jMvMZbw"},
-      {"Y.md", "LWfbifq"},
-      {"thqu/b.txt", "MtzugmaEneG"},
-      {"toR/p/e.dat", "IhuliaSGC"}
+      {"g.txt", "sOTt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(204u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10845,16 +10879,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"apUf/q.md", "wrwPjmLlTR"}
+      {"R.md", "xRQfLzggOoq"},
+      {"ZUoO/z/o.bin", "iWaCHHtbeq"}
     },
       {},
       {
-      {"apUf/q.md", "wrwPjmLlTR"}
+      {"R.md", "xRQfLzggOoq"},
+      {"ZUoO/z/o.bin", "iWaCHHtbeq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(95u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10866,16 +10903,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"VI/kIXN/w.txt", "VUNlnuHJAxDMMg"}
+      {"Q.cfg", "dyXecEKNonWsTd"},
+      {"YiK/k.dat", "buMokDgR"}
     },
       {},
       {
-      {"VI/kIXN/w.txt", "VUNlnuHJAxDMMg"}
+      {"Q.cfg", "dyXecEKNonWsTd"},
+      {"YiK/k.dat", "buMokDgR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10887,16 +10927,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"Ycdt/f.md", "ay"}
+      {"Jve/Oh/V.txt", "hixWDkRgNiQHK"},
+      {"Oqo/u.bin", "AS"},
+      {"UDyG/Q.dat", "HA"},
+      {"vI/Y.cfg", "iaoD"},
+      {"y/d/M.txt", "Wr"}
     },
       {},
       {
-      {"Ycdt/f.md", "ay"}
+      {"Jve/Oh/V.txt", "hixWDkRgNiQHK"},
+      {"Oqo/u.bin", "AS"},
+      {"UDyG/Q.dat", "HA"},
+      {"vI/Y.cfg", "iaoD"},
+      {"y/d/M.txt", "Wr"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(228u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10908,20 +10957,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"J.md", "CHQdwqyfZ"},
-      {"Ji/i.txt", "fZXagHEmxPZpS"},
-      {"U/X.dat", "nyLe"}
+      {"qFg/T.cfg", "BxDUF"}
     },
       {},
       {
-      {"J.md", "CHQdwqyfZ"},
-      {"Ji/i.txt", "fZXagHEmxPZpS"},
-      {"U/X.dat", "nyLe"}
+      {"qFg/T.cfg", "BxDUF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(122u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10933,20 +10979,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"c.cfg", "aOnfJM"},
-      {"n/Z/N.md", "BpRxtvIDqauIg"},
-      {"rH/k.txt", "IwxQufBC"}
+      {"O.bin", "rQSYr"},
+      {"RZZ/R.dat", "VEPVACZ"}
     },
       {},
       {
-      {"c.cfg", "aOnfJM"},
-      {"n/Z/N.md", "BpRxtvIDqauIg"},
-      {"rH/k.txt", "IwxQufBC"}
+      {"O.bin", "rQSYr"},
+      {"RZZ/R.dat", "VEPVACZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(120u),
+      static_cast<std::size_t>(90u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10958,22 +11003,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"B/Yk/h.dat", "nGPvIqntULtK"},
-      {"J.md", "cG"},
-      {"dXTd/G.txt", "Lf"},
-      {"dyu/A.bin", "cZlDXpxvjLNsD"}
+      {"GeX/r/o.bin", "HHwHA"},
+      {"P.md", "ErPuojMl"},
+      {"RSe/m.txt", "tyD"}
     },
       {},
       {
-      {"B/Yk/h.dat", "nGPvIqntULtK"},
-      {"J.md", "cG"},
-      {"dXTd/G.txt", "Lf"},
-      {"dyu/A.bin", "cZlDXpxvjLNsD"}
+      {"GeX/r/o.bin", "HHwHA"},
+      {"P.md", "ErPuojMl"},
+      {"RSe/m.txt", "tyD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(136u),
+      static_cast<std::size_t>(132u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -10985,16 +11029,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"V.md", "yDp"}
+      {"E.cfg", "jWUpQs"},
+      {"OHn/Jn/c.bin", "LpbmuQSrX"},
+      {"Q/toPc/B.dat", "f"},
+      {"Th/Rukj/N.cfg", "pwEuKDtPqnzmzbk"},
+      {"g/xzn/c.txt", "wxVJODXSnnCj"},
+      {"xMlU/T.bin", "l"}
     },
       {},
       {
-      {"V.md", "yDp"}
+      {"E.cfg", "jWUpQs"},
+      {"OHn/Jn/c.bin", "LpbmuQSrX"},
+      {"Q/toPc/B.dat", "f"},
+      {"Th/Rukj/N.cfg", "pwEuKDtPqnzmzbk"},
+      {"g/xzn/c.txt", "wxVJODXSnnCj"},
+      {"xMlU/T.bin", "l"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(320u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11006,16 +11061,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"LwSH/Q.cfg", "toAiNeTxmILkK"}
+      {"a.txt", "wTjbSccHMHaKmFDb"},
+      {"eOL/d.bin", "OpE"},
+      {"izM/a.cfg", "MeVIVxruvbJxJEG"},
+      {"tQl/LSfx/Y.cfg", "BtUIeD"}
     },
       {},
       {
-      {"LwSH/Q.cfg", "toAiNeTxmILkK"}
+      {"a.txt", "wTjbSccHMHaKmFDb"},
+      {"eOL/d.bin", "OpE"},
+      {"izM/a.cfg", "MeVIVxruvbJxJEG"},
+      {"tQl/LSfx/Y.cfg", "BtUIeD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(201u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11027,26 +11089,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"AV/DzLg/Q.dat", "alhTdwGDAy"},
-      {"F.txt", "hRccfFCPtxCZYEKd"},
-      {"I/o.bin", "poi"},
-      {"Mw/Gzhz/g.txt", "ycpQyp"},
-      {"U.txt", "nIC"},
-      {"io/suDN/g.txt", "ZKyd"}
+      {"Ey/j.bin", "OlEp"},
+      {"I/k/L.md", "ynhgBL"}
     },
       {},
       {
-      {"AV/DzLg/Q.dat", "alhTdwGDAy"},
-      {"F.txt", "hRccfFCPtxCZYEKd"},
-      {"I/o.bin", "poi"},
-      {"Mw/Gzhz/g.txt", "ycpQyp"},
-      {"U.txt", "nIC"},
-      {"io/suDN/g.txt", "ZKyd"}
+      {"Ey/j.bin", "OlEp"},
+      {"I/k/L.md", "ynhgBL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(209u),
+      static_cast<std::size_t>(92u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11058,16 +11113,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"Lf/w.dat", "CkLWCEsrSolBZ"}
+      {"S.dat", "mCATEmopa"},
+      {"T.md", "SkXUejp"},
+      {"W.dat", "dnz"},
+      {"dCW/O/p.bin", "daHPJicwIwxtetif"},
+      {"hpHJ/i/x.txt", "YjCzihPPlbMUiEeg"},
+      {"z.md", "BQitxDXEFJSngVrm"}
     },
       {},
       {
-      {"Lf/w.dat", "CkLWCEsrSolBZ"}
+      {"S.dat", "mCATEmopa"},
+      {"T.md", "SkXUejp"},
+      {"W.dat", "dnz"},
+      {"dCW/O/p.bin", "daHPJicwIwxtetif"},
+      {"hpHJ/i/x.txt", "YjCzihPPlbMUiEeg"},
+      {"z.md", "BQitxDXEFJSngVrm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(296u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11079,20 +11145,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"NJG/ayry/O.dat", "lKtxC"},
-      {"e/qyE/b.bin", "dOjV"},
-      {"zszo/S.md", "p"}
+      {"Q.cfg", "uKPxVZsiUF"},
+      {"Wj/ugR/q.txt", "pxkeLm"},
+      {"Zq/q.md", "B"},
+      {"hwJW/V.dat", "qvfrpPNbPB"},
+      {"krae/J.bin", "IdcHGutVhqZ"}
     },
       {},
       {
-      {"NJG/ayry/O.dat", "lKtxC"},
-      {"e/qyE/b.bin", "dOjV"},
-      {"zszo/S.md", "p"}
+      {"Q.cfg", "uKPxVZsiUF"},
+      {"Wj/ugR/q.txt", "pxkeLm"},
+      {"Zq/q.md", "B"},
+      {"hwJW/V.dat", "qvfrpPNbPB"},
+      {"krae/J.bin", "IdcHGutVhqZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(122u),
+      static_cast<std::size_t>(229u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11104,20 +11175,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"EuR/pqW/V.cfg", "DDLkDw"},
-      {"e.cfg", "NxuAAjMYb"},
-      {"hH/DlN/n.md", "GvSOQKzlWbEGHWs"}
+      {"jO/h.md", "ZwKNKRx"},
+      {"lDTD/e/K.txt", "WLupDpsSQmibzIuB"},
+      {"r/a.bin", "S"}
     },
       {},
       {
-      {"EuR/pqW/V.cfg", "DDLkDw"},
-      {"e.cfg", "NxuAAjMYb"},
-      {"hH/DlN/n.md", "GvSOQKzlWbEGHWs"}
+      {"jO/h.md", "ZwKNKRx"},
+      {"lDTD/e/K.txt", "WLupDpsSQmibzIuB"},
+      {"r/a.bin", "S"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(121u),
+      static_cast<std::size_t>(162u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11129,16 +11201,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"N/y.txt", "qmXNybuyc"}
+      {"PJ/kvwW/F.md", "kSPXEGHO"},
+      {"hr/HJ/e.cfg", "WO"},
+      {"tpAS/q/h.cfg", "XB"},
+      {"u.txt", "rXhfzOjLOJefEP"}
     },
       {},
       {
-      {"N/y.txt", "qmXNybuyc"}
+      {"PJ/kvwW/F.md", "kSPXEGHO"},
+      {"hr/HJ/e.cfg", "WO"},
+      {"tpAS/q/h.cfg", "XB"},
+      {"u.txt", "rXhfzOjLOJefEP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(191u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11150,24 +11229,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"Awid/StB/J.bin", "rHdMBry"},
-      {"F.cfg", "VAuhqDCNkg"},
-      {"N.md", "FaWRRDj"},
-      {"bDWx/e.bin", "NeoFrkk"},
-      {"jlVG/kTJ/W.txt", "TvKZ"}
+      {"I.txt", "kYZucjYbA"}
     },
       {},
       {
-      {"Awid/StB/J.bin", "rHdMBry"},
-      {"F.cfg", "VAuhqDCNkg"},
-      {"N.md", "FaWRRDj"},
-      {"bDWx/e.bin", "NeoFrkk"},
-      {"jlVG/kTJ/W.txt", "TvKZ"}
+      {"I.txt", "kYZucjYbA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(184u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11179,16 +11251,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"Lw/HTSy/x.bin", "CiDuuTwIo"}
+      {"FNBG/Gu/d.txt", "LNCTCjITP"},
+      {"Ot/lto/f.bin", "UFfQkljCClz"},
+      {"jy/s.cfg", "eAGqcZIWDqAuAVXC"},
+      {"lgh/L/e.cfg", "MhbDtuPksiIlB"}
     },
       {},
       {
-      {"Lw/HTSy/x.bin", "CiDuuTwIo"}
+      {"FNBG/Gu/d.txt", "LNCTCjITP"},
+      {"Ot/lto/f.bin", "UFfQkljCClz"},
+      {"jy/s.cfg", "eAGqcZIWDqAuAVXC"},
+      {"lgh/L/e.cfg", "MhbDtuPksiIlB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(229u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11200,13 +11279,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"NY/X.dat", "zuHdGuV"}
+      {"oD/f/g.cfg", "pEuNYkj"}
     },
       {},
       {
-      {"NY/X.dat", "zuHdGuV"}
+      {"oD/f/g.cfg", "pEuNYkj"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -11221,18 +11301,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"KC/JK/m.dat", "jPDnTVf"},
-      {"OYe/M/C.md", "AIbE"}
+      {"F.md", "cSzui"},
+      {"qXiE/a/l.dat", "IDzckkMWcAinzU"}
     },
       {},
       {
-      {"KC/JK/m.dat", "jPDnTVf"},
-      {"OYe/M/C.md", "AIbE"}
+      {"F.md", "cSzui"},
+      {"qXiE/a/l.dat", "IDzckkMWcAinzU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(82u),
+      static_cast<std::size_t>(89u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11244,26 +11325,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"AOZx/yjvv/t.dat", "UTNBwKo"},
-      {"W/zJR/O.cfg", "inYPheROK"},
-      {"X/K.bin", "IRPXibkc"},
-      {"q/o.txt", "lJvaIG"},
-      {"t/E.bin", "imVptgofwB"},
-      {"zAQM/OZx/a.dat", "isqr"}
+      {"WuM/x.bin", "tULDB"},
+      {"hWLK/J.cfg", "AofhGvTXMp"},
+      {"j.dat", "IsakBn"},
+      {"zuP/i.bin", "VnAz"}
     },
       {},
       {
-      {"AOZx/yjvv/t.dat", "UTNBwKo"},
-      {"W/zJR/O.cfg", "inYPheROK"},
-      {"X/K.bin", "IRPXibkc"},
-      {"q/o.txt", "lJvaIG"},
-      {"t/E.bin", "imVptgofwB"},
-      {"zAQM/OZx/a.dat", "isqr"}
+      {"WuM/x.bin", "tULDB"},
+      {"hWLK/J.cfg", "AofhGvTXMp"},
+      {"j.dat", "IsakBn"},
+      {"zuP/i.bin", "VnAz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(215u),
+      static_cast<std::size_t>(189u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11275,22 +11353,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"S.md", "GfXGNooeTaTpgi"},
-      {"Z.dat", "uItTLCGYrJutsRh"},
-      {"lz/F.dat", "MSVpVbkPOYiQ"},
-      {"v.bin", "hEIYgE"}
+      {"I.bin", "gjEFvwETMD"},
+      {"Q/S/D.md", "SftRDFAkeLd"},
+      {"b.dat", "Zry"},
+      {"kJ/d.txt", "ApCUlEu"},
+      {"uN/e/q.cfg", "O"}
     },
       {},
       {
-      {"S.md", "GfXGNooeTaTpgi"},
-      {"Z.dat", "uItTLCGYrJutsRh"},
-      {"lz/F.dat", "MSVpVbkPOYiQ"},
-      {"v.bin", "hEIYgE"}
+      {"I.bin", "gjEFvwETMD"},
+      {"Q/S/D.md", "SftRDFAkeLd"},
+      {"b.dat", "Zry"},
+      {"kJ/d.txt", "ApCUlEu"},
+      {"uN/e/q.cfg", "O"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(154u),
+      static_cast<std::size_t>(225u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11302,26 +11383,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"B.txt", "MzrQgZsKlDah"},
-      {"Eos/M.dat", "MfvSlDhsKHMMCU"},
-      {"Jbs/qEgv/x.bin", "CMj"},
-      {"U/ZMUg/L.dat", "iKxBBCQNpgQt"},
-      {"joWm/S/o.dat", "OFSinrSiuD"},
-      {"y.bin", "KZDZLdmpoupTLgg"}
+      {"Rkp/UBtc/U.cfg", "befnDShzSZAV"}
     },
       {},
       {
-      {"B.txt", "MzrQgZsKlDah"},
-      {"Eos/M.dat", "MfvSlDhsKHMMCU"},
-      {"Jbs/qEgv/x.bin", "CMj"},
-      {"U/ZMUg/L.dat", "iKxBBCQNpgQt"},
-      {"joWm/S/o.dat", "OFSinrSiuD"},
-      {"y.bin", "KZDZLdmpoupTLgg"}
+      {"Rkp/UBtc/U.cfg", "befnDShzSZAV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(201u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11333,16 +11405,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"kTh/pYy/p.md", "dJlsb"}
+      {"OG/CQl/I.dat", "ZWKkXsmEzTHkU"},
+      {"dGIe/UHfB/D.md", "UVnxyuTbwgfcVpHj"},
+      {"sC/PTBt/v.md", "hpnxbuMEFDbCrE"},
+      {"w.md", "aBmbVqbIOtqv"}
     },
       {},
       {
-      {"kTh/pYy/p.md", "dJlsb"}
+      {"OG/CQl/I.dat", "ZWKkXsmEzTHkU"},
+      {"dGIe/UHfB/D.md", "UVnxyuTbwgfcVpHj"},
+      {"sC/PTBt/v.md", "hpnxbuMEFDbCrE"},
+      {"w.md", "aBmbVqbIOtqv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(257u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11354,26 +11433,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"BlxW/k.bin", "GkmlCLQZDzjeJvF"},
-      {"O.bin", "HFdomTDbatucYRy"},
-      {"SL/KweH/J.md", "XDY"},
-      {"Z.dat", "k"},
-      {"bMX/V.cfg", "Cpidx"},
-      {"x/q.cfg", "kjaTNx"}
+      {"CXq/O.md", "cuLAqLyv"},
+      {"I/eiB/r.md", "Iu"},
+      {"iKc/r.md", "vTTkHItKwW"},
+      {"rvU/Z/g.cfg", "cNdnTix"}
     },
       {},
       {
-      {"BlxW/k.bin", "GkmlCLQZDzjeJvF"},
-      {"O.bin", "HFdomTDbatucYRy"},
-      {"SL/KweH/J.md", "XDY"},
-      {"Z.dat", "k"},
-      {"bMX/V.cfg", "Cpidx"},
-      {"x/q.cfg", "kjaTNx"}
+      {"CXq/O.md", "cuLAqLyv"},
+      {"I/eiB/r.md", "Iu"},
+      {"iKc/r.md", "vTTkHItKwW"},
+      {"rvU/Z/g.cfg", "cNdnTix"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(208u),
+      static_cast<std::size_t>(190u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11385,24 +11461,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"ibr/Ygsb/d.cfg", "QiWOHozw"},
-      {"jOC/f.md", "gqqfGZ"},
-      {"n.bin", "klAHeZ"},
-      {"qP/OT/w.bin", "cQbPWYOimEnYFCb"},
-      {"s/r/z.bin", "nohBZ"}
+      {"L.bin", "uxyQ"},
+      {"XlDX/OE/a.md", "YIlu"}
     },
       {},
       {
-      {"ibr/Ygsb/d.cfg", "QiWOHozw"},
-      {"jOC/f.md", "gqqfGZ"},
-      {"n.bin", "klAHeZ"},
-      {"qP/OT/w.bin", "cQbPWYOimEnYFCb"},
-      {"s/r/z.bin", "nohBZ"}
+      {"L.bin", "uxyQ"},
+      {"XlDX/OE/a.md", "YIlu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(193u),
+      static_cast<std::size_t>(89u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11414,24 +11485,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"R.bin", "lFE"},
-      {"j.dat", "gFydlhuwOdfbBd"},
-      {"m.bin", "dPMrQNqNFFoRGV"},
-      {"pj/n.dat", "T"},
-      {"z.cfg", "VWhJAT"}
+      {"E.txt", "XuUw"}
     },
       {},
       {
-      {"R.bin", "lFE"},
-      {"j.dat", "gFydlhuwOdfbBd"},
-      {"m.bin", "dPMrQNqNFFoRGV"},
-      {"pj/n.dat", "T"},
-      {"z.cfg", "VWhJAT"}
+      {"E.txt", "XuUw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(159u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11443,26 +11507,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"BUIP/F.cfg", "Rr"},
-      {"NKd/A.md", "i"},
-      {"NjRp/J/z.cfg", "WMfSOjPRSxiMDYs"},
-      {"RWNU/uO/S.md", "fmDxKKbJRwb"},
-      {"r/v.txt", "VbsgKJQDyNK"},
-      {"z.md", "vNONUx"}
+      {"Bgs/f.txt", "eKcwrSkTASa"},
+      {"JGw/AWg/B.bin", "cfmdXeahH"},
+      {"hMuD/yob/o.cfg", "hd"}
     },
       {},
       {
-      {"BUIP/F.cfg", "Rr"},
-      {"NKd/A.md", "i"},
-      {"NjRp/J/z.cfg", "WMfSOjPRSxiMDYs"},
-      {"RWNU/uO/S.md", "fmDxKKbJRwb"},
-      {"r/v.txt", "VbsgKJQDyNK"},
-      {"z.md", "vNONUx"}
+      {"Bgs/f.txt", "eKcwrSkTASa"},
+      {"JGw/AWg/B.bin", "cfmdXeahH"},
+      {"hMuD/yob/o.cfg", "hd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(217u),
+      static_cast<std::size_t>(162u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11474,18 +11533,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"VPyY/f.md", "XbqfxRqm"},
-      {"r/F.cfg", "mGmLmjifLa"}
+      {"K/GLg/N.md", "XaUterjF"},
+      {"YO/I/q.bin", "CvdBiQWkvTcwcGah"},
+      {"kJH/jP/W.txt", "VPEKaTsAhk"},
+      {"lFeL/V.cfg", "xJsB"},
+      {"tf/Gay/k.txt", "gPcQwxaBdUHfMgh"}
     },
       {},
       {
-      {"VPyY/f.md", "XbqfxRqm"},
-      {"r/F.cfg", "mGmLmjifLa"}
+      {"K/GLg/N.md", "XaUterjF"},
+      {"YO/I/q.bin", "CvdBiQWkvTcwcGah"},
+      {"kJH/jP/W.txt", "VPEKaTsAhk"},
+      {"lFeL/V.cfg", "xJsB"},
+      {"tf/Gay/k.txt", "gPcQwxaBdUHfMgh"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(81u),
+      static_cast<std::size_t>(264u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11497,18 +11563,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"J.md", "BcsUzYSxLhcRhlMW"},
-      {"l.md", "ogePrBVdrVxSOWox"}
+      {"ZHG/y.bin", "UrttVDvTakg"}
     },
       {},
       {
-      {"J.md", "BcsUzYSxLhcRhlMW"},
-      {"l.md", "ogePrBVdrVxSOWox"}
+      {"ZHG/y.bin", "UrttVDvTakg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(84u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11520,20 +11585,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"D.dat", "GMS"},
-      {"J/t/m.cfg", "addFTvMBG"},
-      {"QQWD/j.cfg", "KTNHXzhjqx"}
+      {"NI/O.cfg", "rsLJEYwNOm"},
+      {"PE/QdHW/H.txt", "ZIZNDoJJacCpKDf"},
+      {"Z.dat", "VOfcfG"},
+      {"q.md", "QZxTPQhOjPmu"}
     },
       {},
       {
-      {"D.dat", "GMS"},
-      {"J/t/m.cfg", "addFTvMBG"},
-      {"QQWD/j.cfg", "KTNHXzhjqx"}
+      {"NI/O.cfg", "rsLJEYwNOm"},
+      {"PE/QdHW/H.txt", "ZIZNDoJJacCpKDf"},
+      {"Z.dat", "VOfcfG"},
+      {"q.md", "QZxTPQhOjPmu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(98u),
+      static_cast<std::size_t>(201u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11545,16 +11613,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"cVv/e.bin", "XxJdlEnTjSOsh"}
+      {"CPO/v.dat", "SCzhJUOgbCIOTGLt"},
+      {"SKae/C.dat", "tGNTtMWJT"},
+      {"ZXe/A.cfg", "OMzTD"},
+      {"o/TKfV/e.dat", "LOuTg"},
+      {"sSPU/B/S.md", "kl"}
     },
       {},
       {
-      {"cVv/e.bin", "XxJdlEnTjSOsh"}
+      {"CPO/v.dat", "SCzhJUOgbCIOTGLt"},
+      {"SKae/C.dat", "tGNTtMWJT"},
+      {"ZXe/A.cfg", "OMzTD"},
+      {"o/TKfV/e.dat", "LOuTg"},
+      {"sSPU/B/S.md", "kl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(259u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11566,16 +11643,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"s/dp/J.cfg", "JsVVBnPq"}
+      {"B.md", "ghg"},
+      {"FfB/C.md", "jEpvzsPOtsU"},
+      {"Y.cfg", "DeBw"},
+      {"s/PQ/f.dat", "YX"},
+      {"wN/A.cfg", "ZUvzex"}
     },
       {},
       {
-      {"s/dp/J.cfg", "JsVVBnPq"}
+      {"B.md", "ghg"},
+      {"FfB/C.md", "jEpvzsPOtsU"},
+      {"Y.cfg", "DeBw"},
+      {"s/PQ/f.dat", "YX"},
+      {"wN/A.cfg", "ZUvzex"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(199u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11587,20 +11673,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"Yl/D.cfg", "PUkyf"},
-      {"gSw/Fr/w.cfg", "lIS"},
-      {"x.dat", "IKCJMqEFx"}
+      {"Y.md", "YNcHBJVTPQSgckR"}
     },
       {},
       {
-      {"Yl/D.cfg", "PUkyf"},
-      {"gSw/Fr/w.cfg", "lIS"},
-      {"x.dat", "IKCJMqEFx"}
+      {"Y.md", "YNcHBJVTPQSgckR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(100u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11612,26 +11695,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"E.md", "tURgidYX"},
-      {"EJPQ/w/y.bin", "Xaar"},
-      {"Neu/qxp/R.bin", "APJFzfTdVEd"},
-      {"QaH/O.dat", "ssqAGjEpdd"},
-      {"n.cfg", "Tt"},
-      {"n/K.dat", "fEo"}
+      {"rC/wHPU/n.dat", "mGXhCWv"}
     },
       {},
       {
-      {"E.md", "tURgidYX"},
-      {"EJPQ/w/y.bin", "Xaar"},
-      {"Neu/qxp/R.bin", "APJFzfTdVEd"},
-      {"QaH/O.dat", "ssqAGjEpdd"},
-      {"n.cfg", "Tt"},
-      {"n/K.dat", "fEo"}
+      {"rC/wHPU/n.dat", "mGXhCWv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(206u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11643,26 +11717,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"Ag/RmFo/Y.bin", "ByjHpcCpUSAgzjz"},
-      {"duMT/UR/E.cfg", "TPr"},
-      {"j/Ft/A.bin", "GdrNmCZUiziRhv"},
-      {"jInx/KKTA/G.txt", "wXgJBIgluwoDUz"},
-      {"x.dat", "pobJwJOEucVGsAeK"},
-      {"z.cfg", "zdgfBjYpW"}
+      {"J/eotg/u.cfg", "WQHjq"},
+      {"R.bin", "XPWbFa"},
+      {"T.md", "dKlwemiCTNbilWu"},
+      {"VCej/o.txt", "Gi"},
+      {"shN/Aa/y.txt", "fyC"}
     },
       {},
       {
-      {"Ag/RmFo/Y.bin", "ByjHpcCpUSAgzjz"},
-      {"duMT/UR/E.cfg", "TPr"},
-      {"j/Ft/A.bin", "GdrNmCZUiziRhv"},
-      {"jInx/KKTA/G.txt", "wXgJBIgluwoDUz"},
-      {"x.dat", "pobJwJOEucVGsAeK"},
-      {"z.cfg", "zdgfBjYpW"}
+      {"J/eotg/u.cfg", "WQHjq"},
+      {"R.bin", "XPWbFa"},
+      {"T.md", "dKlwemiCTNbilWu"},
+      {"VCej/o.txt", "Gi"},
+      {"shN/Aa/y.txt", "fyC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(262u),
+      static_cast<std::size_t>(227u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11674,24 +11747,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"E.bin", "MQ"},
-      {"eAw/Xa/h.cfg", "qzfOxLGNJPt"},
-      {"h/K.bin", "ZopytzhWVFhcLA"},
-      {"j.md", "M"},
-      {"n.cfg", "NFYMFRsoBp"}
+      {"n.md", "CsIHR"}
     },
       {},
       {
-      {"E.bin", "MQ"},
-      {"eAw/Xa/h.cfg", "qzfOxLGNJPt"},
-      {"h/K.bin", "ZopytzhWVFhcLA"},
-      {"j.md", "M"},
-      {"n.cfg", "NFYMFRsoBp"}
+      {"n.md", "CsIHR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(160u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11703,18 +11769,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"K/a.bin", "L"},
-      {"k/S.bin", "iAUHxUsujFNi"}
+      {"cP/z.dat", "z"}
     },
       {},
       {
-      {"K/a.bin", "L"},
-      {"k/S.bin", "iAUHxUsujFNi"}
+      {"cP/z.dat", "z"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(72u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11726,24 +11791,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"DUF/a.md", "s"},
-      {"O/b.bin", "tbpZUnd"},
-      {"Q/B.md", "Tspsfaa"},
-      {"gtP/d.txt", "XEFlDbrRyI"},
-      {"vsIQ/tx/Y.dat", "caZbZKeBUbdHhjh"}
+      {"I.cfg", "aXCAaEhSxcZZR"},
+      {"kN/dzmU/o.dat", "Oid"},
+      {"n.cfg", "UEenNbP"}
     },
       {},
       {
-      {"DUF/a.md", "s"},
-      {"O/b.bin", "tbpZUnd"},
-      {"Q/B.md", "Tspsfaa"},
-      {"gtP/d.txt", "XEFlDbrRyI"},
-      {"vsIQ/tx/Y.dat", "caZbZKeBUbdHhjh"}
+      {"I.cfg", "aXCAaEhSxcZZR"},
+      {"kN/dzmU/o.dat", "Oid"},
+      {"n.cfg", "UEenNbP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(159u),
+      static_cast<std::size_t>(98u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11755,26 +11817,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"D.md", "WxdJlsRrrPlvcITa"},
-      {"H.txt", "hBTlQmXtieaKd"},
-      {"Oqyf/g.dat", "BeOVjHnldkaAQKG"},
-      {"ZpJ/T.dat", "XcrJBIaE"},
-      {"bR/v.dat", "BiVVPaJtcudPG"},
-      {"xHY/J.dat", "gYpX"}
+      {"m.dat", "hGvNDbOLoSEGOBs"}
     },
       {},
       {
-      {"D.md", "WxdJlsRrrPlvcITa"},
-      {"H.txt", "hBTlQmXtieaKd"},
-      {"Oqyf/g.dat", "BeOVjHnldkaAQKG"},
-      {"ZpJ/T.dat", "XcrJBIaE"},
-      {"bR/v.dat", "BiVVPaJtcudPG"},
-      {"xHY/J.dat", "gYpX"}
+      {"m.dat", "hGvNDbOLoSEGOBs"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(229u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11786,16 +11839,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"ZHh/d.txt", "MCWeFSTrbN"}
+      {"J/fCad/O.dat", "NuxR"},
+      {"N.dat", "yVj"},
+      {"a.bin", "wCdoFLbcy"},
+      {"d.dat", "prOeMKzxDxXlwH"},
+      {"vAt/f/m.bin", "bpjh"}
     },
       {},
       {
-      {"ZHh/d.txt", "MCWeFSTrbN"}
+      {"J/fCad/O.dat", "NuxR"},
+      {"N.dat", "yVj"},
+      {"a.bin", "wCdoFLbcy"},
+      {"d.dat", "prOeMKzxDxXlwH"},
+      {"vAt/f/m.bin", "bpjh"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(225u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11807,16 +11869,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"mHth/yZ/v.txt", "WwvhrBNbUV"}
+      {"Buq/QeD/k.bin", "a"},
+      {"d/B.txt", "BkvhJDEfcOUoM"}
     },
       {},
       {
-      {"mHth/yZ/v.txt", "WwvhrBNbUV"}
+      {"Buq/QeD/k.bin", "a"},
+      {"d/B.txt", "BkvhJDEfcOUoM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(94u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11828,20 +11893,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"OQN/HX/z.cfg", "QXlX"},
-      {"e.txt", "LrBFo"},
-      {"iR/HHu/f.bin", "KmDgG"}
+      {"P/QTa/s.dat", "NVbKiqRo"},
+      {"X.bin", "m"},
+      {"eFE/n.txt", "wQuVnV"}
     },
       {},
       {
-      {"OQN/HX/z.cfg", "QXlX"},
-      {"e.txt", "LrBFo"},
-      {"iR/HHu/f.bin", "KmDgG"}
+      {"P/QTa/s.dat", "NVbKiqRo"},
+      {"X.bin", "m"},
+      {"eFE/n.txt", "wQuVnV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(98u),
+      static_cast<std::size_t>(129u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11853,26 +11919,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"HGmu/y.txt", "nE"},
-      {"K/ad/A.cfg", "TjCtreznCvaH"},
-      {"UIW/G.md", "lqJoUUjOBvGT"},
-      {"V/l/h.cfg", "HJh"},
-      {"Xml/PoR/k.dat", "gvtehdc"},
-      {"l.txt", "tdH"}
+      {"D.md", "EPlbzJDHqufn"},
+      {"N.md", "gA"},
+      {"WuIQ/Ap/G.md", "miEKUinrExW"},
+      {"id/U.dat", "rgfVQQi"},
+      {"x.cfg", "LLhUOlPnjrzaB"}
     },
       {},
       {
-      {"HGmu/y.txt", "nE"},
-      {"K/ad/A.cfg", "TjCtreznCvaH"},
-      {"UIW/G.md", "lqJoUUjOBvGT"},
-      {"V/l/h.cfg", "HJh"},
-      {"Xml/PoR/k.dat", "gvtehdc"},
-      {"l.txt", "tdH"}
+      {"D.md", "EPlbzJDHqufn"},
+      {"N.md", "gA"},
+      {"WuIQ/Ap/G.md", "miEKUinrExW"},
+      {"id/U.dat", "rgfVQQi"},
+      {"x.cfg", "LLhUOlPnjrzaB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(214u),
+      static_cast<std::size_t>(228u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11884,20 +11949,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"MZpR/S.bin", "CiWnb"},
-      {"WfI/c.cfg", "lHLALWPHWcjxAW"},
-      {"r.txt", "CwBOBunUl"}
+      {"A.bin", "RKTyvycOZOzEZ"},
+      {"EY/J.md", "AaHsZKMiNH"}
     },
       {},
       {
-      {"MZpR/S.bin", "CiWnb"},
-      {"WfI/c.cfg", "lHLALWPHWcjxAW"},
-      {"r.txt", "CwBOBunUl"}
+      {"A.bin", "RKTyvycOZOzEZ"},
+      {"EY/J.md", "AaHsZKMiNH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(126u),
+      static_cast<std::size_t>(98u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11909,18 +11973,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"bOUI/T.txt", "eUEMVvmmHCovoShj"},
-      {"f.cfg", "SdPYYjICo"}
+      {"Bxp/e.dat", "mYwhp"},
+      {"l/od/Z.cfg", "PabN"}
     },
       {},
       {
-      {"bOUI/T.txt", "eUEMVvmmHCovoShj"},
-      {"f.cfg", "SdPYYjICo"}
+      {"Bxp/e.dat", "mYwhp"},
+      {"l/od/Z.cfg", "PabN"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(90u),
+      static_cast<std::size_t>(94u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11932,16 +11997,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"Jk/y.bin", "P"}
+      {"j/k.bin", "CWaqENRGOGCvDlwb"},
+      {"l.cfg", "moTZnXZkokdNeHY"},
+      {"oc/X.md", "vCmv"},
+      {"uN/n.txt", "AJQPxXOzWvf"}
     },
       {},
       {
-      {"Jk/y.bin", "P"}
+      {"j/k.bin", "CWaqENRGOGCvDlwb"},
+      {"l.cfg", "moTZnXZkokdNeHY"},
+      {"oc/X.md", "vCmv"},
+      {"uN/n.txt", "AJQPxXOzWvf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(198u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11953,16 +12025,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"MQO/r.txt", "tZTvd"}
+      {"G.txt", "BiSeAijewmcaVF"},
+      {"WmhR/B.txt", "deKrGuI"}
     },
       {},
       {
-      {"MQO/r.txt", "tZTvd"}
+      {"G.txt", "BiSeAijewmcaVF"},
+      {"WmhR/B.txt", "deKrGuI"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(99u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -11974,24 +12049,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"i.dat", "vSFokgj"},
-      {"iGB/S.dat", "PKggWoYoeabsWyD"},
-      {"m.cfg", "CjtTOguWL"},
-      {"n/Ma/X.cfg", "vwocKvp"},
-      {"q/b.md", "eiEjwviAvEJgty"}
+      {"Aa/P.bin", "IUmnd"},
+      {"KgAI/kI/m.dat", "Y"},
+      {"X/pr/m.cfg", "rVJFhvzikWaBP"},
+      {"h.dat", "Y"},
+      {"p.bin", "PyBU"}
     },
       {},
       {
-      {"i.dat", "vSFokgj"},
-      {"iGB/S.dat", "PKggWoYoeabsWyD"},
-      {"m.cfg", "CjtTOguWL"},
-      {"n/Ma/X.cfg", "vwocKvp"},
-      {"q/b.md", "eiEjwviAvEJgty"}
+      {"Aa/P.bin", "IUmnd"},
+      {"KgAI/kI/m.dat", "Y"},
+      {"X/pr/m.cfg", "rVJFhvzikWaBP"},
+      {"h.dat", "Y"},
+      {"p.bin", "PyBU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(187u),
+      static_cast<std::size_t>(224u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12003,24 +12079,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"Qu/O.txt", "JFAIDpRxTMFJZGZU"},
-      {"t/xv/i.dat", "KXVNmqvjFJ"},
-      {"vmD/iEZY/K.md", "wHLXFDBNpBTij"},
-      {"y.bin", "JDpxDERVXVs"},
-      {"y.txt", "FPwa"}
+      {"FXZv/M.txt", "xEBYrrEXcZBlRhP"}
     },
       {},
       {
-      {"Qu/O.txt", "JFAIDpRxTMFJZGZU"},
-      {"t/xv/i.dat", "KXVNmqvjFJ"},
-      {"vmD/iEZY/K.md", "wHLXFDBNpBTij"},
-      {"y.bin", "JDpxDERVXVs"},
-      {"y.txt", "FPwa"}
+      {"FXZv/M.txt", "xEBYrrEXcZBlRhP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(206u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12032,20 +12101,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"FE/tb/a.txt", "n"},
-      {"pZh/h.md", "nvKBu"},
-      {"ztZ/E.md", "FGUlpDw"}
+      {"L.cfg", "U"},
+      {"U.bin", "idQT"}
     },
       {},
       {
-      {"FE/tb/a.txt", "n"},
-      {"pZh/h.md", "nvKBu"},
-      {"ztZ/E.md", "FGUlpDw"}
+      {"L.cfg", "U"},
+      {"U.bin", "idQT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(97u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12057,16 +12125,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"os/K.bin", "X"}
+      {"F.dat", "GhHAVcoeHnXyZIW"},
+      {"e/q.txt", "xJKIA"},
+      {"nPL/c.dat", "I"},
+      {"xf/H.bin", "xTCiaHmJWOLNq"},
+      {"ySSZ/u.md", "OyOgWVgBm"}
     },
       {},
       {
-      {"os/K.bin", "X"}
+      {"F.dat", "GhHAVcoeHnXyZIW"},
+      {"e/q.txt", "xJKIA"},
+      {"nPL/c.dat", "I"},
+      {"xf/H.bin", "xTCiaHmJWOLNq"},
+      {"ySSZ/u.md", "OyOgWVgBm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(231u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12078,16 +12155,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"A.md", "vRq"}
+      {"F.txt", "ZJPKbOJYW"},
+      {"W/XFQ/e.bin", "zcugXTnEJsat"}
     },
       {},
       {
-      {"A.md", "vRq"}
+      {"F.txt", "ZJPKbOJYW"},
+      {"W/XFQ/e.bin", "zcugXTnEJsat"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(94u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12099,16 +12179,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"zMp/N.dat", "tlmLkDaUauFw"}
+      {"NfPd/fy/j.md", "ranMVjFVNAAnxD"},
+      {"ODRv/y.dat", "GCKgj"}
     },
       {},
       {
-      {"zMp/N.dat", "tlmLkDaUauFw"}
+      {"NfPd/fy/j.md", "ranMVjFVNAAnxD"},
+      {"ODRv/y.dat", "GCKgj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(122u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12120,22 +12203,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"K.cfg", "RSGIcnyjBAAfHIW"},
-      {"O.cfg", "gyxDpKGmF"},
-      {"R.bin", "MOj"},
-      {"r/a.cfg", "Utc"}
+      {"yG/W/Y.cfg", "ixlMq"}
     },
       {},
       {
-      {"K.cfg", "RSGIcnyjBAAfHIW"},
-      {"O.cfg", "gyxDpKGmF"},
-      {"R.bin", "MOj"},
-      {"r/a.cfg", "Utc"}
+      {"yG/W/Y.cfg", "ixlMq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(138u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12147,24 +12225,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"HLai/w.md", "CWgNOQYl"},
-      {"M/N/g.txt", "voT"},
-      {"R.md", "PSWYlAcLqD"},
-      {"fxcu/uVa/m.bin", "CRqayFIPoaRV"},
-      {"qj/cT/W.cfg", "RTRE"}
+      {"ESoy/WCO/v.bin", "IOgeu"},
+      {"gG/z/S.bin", "dQ"},
+      {"i/o.txt", "XypkOUoiXJRQYxTN"},
+      {"q.txt", "howIqJd"}
     },
       {},
       {
-      {"HLai/w.md", "CWgNOQYl"},
-      {"M/N/g.txt", "voT"},
-      {"R.md", "PSWYlAcLqD"},
-      {"fxcu/uVa/m.bin", "CRqayFIPoaRV"},
-      {"qj/cT/W.cfg", "RTRE"}
+      {"ESoy/WCO/v.bin", "IOgeu"},
+      {"gG/z/S.bin", "dQ"},
+      {"i/o.txt", "XypkOUoiXJRQYxTN"},
+      {"q.txt", "howIqJd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(189u),
+      static_cast<std::size_t>(198u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12176,22 +12253,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"HYz/h.cfg", "sFcInCcRc"},
-      {"Tf/l.md", "BWJ"},
-      {"ZY/I.dat", "NIOesPHBYOYt"},
-      {"m.bin", "RHhtuJ"}
+      {"KnZ/HyBT/I.md", "hALGeSVDovSXB"},
+      {"UMwq/o/N.cfg", "YIEfcbbbc"},
+      {"bczp/i/e.txt", "hF"},
+      {"qBDq/R.md", "OC"},
+      {"wCef/EW/m.txt", "GoEzbkputAfeyX"}
     },
       {},
       {
-      {"HYz/h.cfg", "sFcInCcRc"},
-      {"Tf/l.md", "BWJ"},
-      {"ZY/I.dat", "NIOesPHBYOYt"},
-      {"m.bin", "RHhtuJ"}
+      {"KnZ/HyBT/I.md", "hALGeSVDovSXB"},
+      {"UMwq/o/N.cfg", "YIEfcbbbc"},
+      {"bczp/i/e.txt", "hF"},
+      {"qBDq/R.md", "OC"},
+      {"wCef/EW/m.txt", "GoEzbkputAfeyX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(144u),
+      static_cast<std::size_t>(256u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12203,18 +12283,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"j/K/m.md", "ods"},
-      {"mL/P.bin", "vVNLtiCh"}
+      {"oqh/w.bin", "VcQYsUgAtr"}
     },
       {},
       {
-      {"j/K/m.md", "ods"},
-      {"mL/P.bin", "vVNLtiCh"}
+      {"oqh/w.bin", "VcQYsUgAtr"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(75u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12226,13 +12305,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"lHN/M.dat", "FXxnXowuQR"}
+      {"g.cfg", "mGXIoZBaduWre"}
     },
       {},
       {
-      {"lHN/M.dat", "FXxnXowuQR"}
+      {"g.cfg", "mGXIoZBaduWre"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -12247,20 +12327,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"Hd/yNdM/P.bin", "kX"},
-      {"O.dat", "PpZsIfTbOY"},
-      {"lor/xAu/T.dat", "n"}
+      {"nwYk/vm/Z.dat", "yUpWrhvvMX"}
     },
       {},
       {
-      {"Hd/yNdM/P.bin", "kX"},
-      {"O.dat", "PpZsIfTbOY"},
-      {"lor/xAu/T.dat", "n"}
+      {"nwYk/vm/Z.dat", "yUpWrhvvMX"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(102u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12272,20 +12349,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"S.md", "N"},
-      {"jre/Iaa/d.txt", "tmJnUfMVn"},
-      {"t.md", "LWXqyEcUocmJQxuf"}
+      {"qwt/t.bin", "NjrFKhmfE"}
     },
       {},
       {
-      {"S.md", "N"},
-      {"jre/Iaa/d.txt", "tmJnUfMVn"},
-      {"t.md", "LWXqyEcUocmJQxuf"}
+      {"qwt/t.bin", "NjrFKhmfE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(99u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12297,22 +12371,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"Z.cfg", "CZmOKCEYmVBDT"},
-      {"cm/m/z.cfg", "gb"},
-      {"phAJ/x/W.dat", "NzZndR"},
-      {"xSs/x.dat", "jRM"}
+      {"A/X.md", "aMnRbTsShPJOUMa"},
+      {"CF/u.cfg", "sdBlqrnTO"},
+      {"WJOk/k.txt", "tHXvuqgMh"},
+      {"Y.md", "oasiTWLnkMrrPFB"}
     },
       {},
       {
-      {"Z.cfg", "CZmOKCEYmVBDT"},
-      {"cm/m/z.cfg", "gb"},
-      {"phAJ/x/W.dat", "NzZndR"},
-      {"xSs/x.dat", "jRM"}
+      {"A/X.md", "aMnRbTsShPJOUMa"},
+      {"CF/u.cfg", "sdBlqrnTO"},
+      {"WJOk/k.txt", "tHXvuqgMh"},
+      {"Y.md", "oasiTWLnkMrrPFB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(144u),
+      static_cast<std::size_t>(201u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12324,18 +12399,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"O.md", "NIl"},
-      {"pre/M.dat", "HLnwfAIaCNOGD"}
+      {"F/M.dat", "keBChynAFhJejjWa"},
+      {"I.md", "Flsy"},
+      {"MF/S.dat", "suNLfi"},
+      {"qBI/w.txt", "nH"}
     },
       {},
       {
-      {"O.md", "NIl"},
-      {"pre/M.dat", "HLnwfAIaCNOGD"}
+      {"F/M.dat", "keBChynAFhJejjWa"},
+      {"I.md", "Flsy"},
+      {"MF/S.dat", "suNLfi"},
+      {"qBI/w.txt", "nH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(71u),
+      static_cast<std::size_t>(189u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12347,20 +12427,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"LU/UZ/i.cfg", "GFRYxktnNiUaFzy"},
-      {"LUb/NkJ/d.cfg", "YClfcPBGjwIp"},
-      {"yE/j.txt", "D"}
+      {"BSOB/uyc/a.md", "uZVrdMPZm"},
+      {"MRl/Id/k.md", "SmOkjyNMsWDbSkd"}
     },
       {},
       {
-      {"LU/UZ/i.cfg", "GFRYxktnNiUaFzy"},
-      {"LUb/NkJ/d.cfg", "YClfcPBGjwIp"},
-      {"yE/j.txt", "D"}
+      {"BSOB/uyc/a.md", "uZVrdMPZm"},
+      {"MRl/Id/k.md", "SmOkjyNMsWDbSkd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(139u),
+      static_cast<std::size_t>(102u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12372,20 +12451,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"JZnq/u.bin", "ZR"},
-      {"K.txt", "sMW"},
-      {"wS/pCB/f.cfg", "aFKpidnexzSytSBZ"}
+      {"DrZ/W.cfg", "gDyPAFnm"}
     },
       {},
       {
-      {"JZnq/u.bin", "ZR"},
-      {"K.txt", "sMW"},
-      {"wS/pCB/f.cfg", "aFKpidnexzSytSBZ"}
+      {"DrZ/W.cfg", "gDyPAFnm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(92u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12397,22 +12473,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"J.txt", "RmKDpanMRevxbrx"},
-      {"Zv/Z.md", "xCpECFUZazqcY"},
-      {"inhA/KWVO/M.cfg", "ktJFyVndTPXpMZ"},
-      {"s.cfg", "lkCbzOXuJrNvb"}
+      {"Gc/E/Z.txt", "jcxMJpjvmboa"},
+      {"J/j.md", "LSOCefwvHfOmOd"},
+      {"PisH/B.txt", "QMcj"},
+      {"S.bin", "OOPK"},
+      {"d.cfg", "H"}
     },
       {},
       {
-      {"J.txt", "RmKDpanMRevxbrx"},
-      {"Zv/Z.md", "xCpECFUZazqcY"},
-      {"inhA/KWVO/M.cfg", "ktJFyVndTPXpMZ"},
-      {"s.cfg", "lkCbzOXuJrNvb"}
+      {"Gc/E/Z.txt", "jcxMJpjvmboa"},
+      {"J/j.md", "LSOCefwvHfOmOd"},
+      {"PisH/B.txt", "QMcj"},
+      {"S.bin", "OOPK"},
+      {"d.cfg", "H"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(165u),
+      static_cast<std::size_t>(233u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12424,18 +12503,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"F.md", "kIlqbGddwXcFjrQW"},
-      {"N/U.txt", "c"}
+      {"CGra/x.bin", "VTKEoHcGGKK"},
+      {"N/H/p.cfg", "jbU"},
+      {"V.bin", "uQEaytcDXiWQqwm"},
+      {"VooP/N.txt", "LjNjBOGcOAFhtO"},
+      {"d.txt", "HYJjxAyGs"}
     },
       {},
       {
-      {"F.md", "kIlqbGddwXcFjrQW"},
-      {"N/U.txt", "c"}
+      {"CGra/x.bin", "VTKEoHcGGKK"},
+      {"N/H/p.cfg", "jbU"},
+      {"V.bin", "uQEaytcDXiWQqwm"},
+      {"VooP/N.txt", "LjNjBOGcOAFhtO"},
+      {"d.txt", "HYJjxAyGs"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(84u),
+      static_cast<std::size_t>(261u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12447,20 +12533,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"P.bin", "hyOZWAefiuNg"},
-      {"e.cfg", "nMhPkECAYUDzqYH"},
-      {"undk/b.txt", "J"}
+      {"tpex/f.bin", "hgms"}
     },
       {},
       {
-      {"P.bin", "hyOZWAefiuNg"},
-      {"e.cfg", "nMhPkECAYUDzqYH"},
-      {"undk/b.txt", "J"}
+      {"tpex/f.bin", "hgms"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(125u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12472,16 +12555,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"L.bin", "Z"}
+      {"G/hwg/u.dat", "LFDPt"},
+      {"Q.md", "YC"},
+      {"Vi/i.dat", "wgNwgymLzOsVM"},
+      {"d.dat", "xRDoRTQjaABcF"},
+      {"qdjP/BBb/a.bin", "DRL"},
+      {"vY/U.bin", "VIvQHlSOsAzP"}
     },
       {},
       {
-      {"L.bin", "Z"}
+      {"G/hwg/u.dat", "LFDPt"},
+      {"Q.md", "YC"},
+      {"Vi/i.dat", "wgNwgymLzOsVM"},
+      {"d.dat", "xRDoRTQjaABcF"},
+      {"qdjP/BBb/a.bin", "DRL"},
+      {"vY/U.bin", "VIvQHlSOsAzP"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(229u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12493,22 +12587,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"I/XBil/d.txt", "ZlaWKTAPkf"},
-      {"S.cfg", "RPXviBlaDIvB"},
-      {"i.bin", "QyWb"},
-      {"vn/L.cfg", "NLeiB"}
+      {"F.md", "HtfYvr"},
+      {"OZOH/dUM/h.dat", "PEbID"},
+      {"T/F.cfg", "Xmrbnadb"},
+      {"h/T.bin", "KPeAaTvXxzuzdOG"},
+      {"sEd/CPm/W.cfg", "Pmndk"},
+      {"t.cfg", "OgRvAshGgw"}
     },
       {},
       {
-      {"I/XBil/d.txt", "ZlaWKTAPkf"},
-      {"S.cfg", "RPXviBlaDIvB"},
-      {"i.bin", "QyWb"},
-      {"vn/L.cfg", "NLeiB"}
+      {"F.md", "HtfYvr"},
+      {"OZOH/dUM/h.dat", "PEbID"},
+      {"T/F.cfg", "Xmrbnadb"},
+      {"h/T.bin", "KPeAaTvXxzuzdOG"},
+      {"sEd/CPm/W.cfg", "Pmndk"},
+      {"t.cfg", "OgRvAshGgw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(144u),
+      static_cast<std::size_t>(292u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12520,24 +12619,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"KTUc/B.bin", "Q"},
-      {"L.bin", "zrloWJlqS"},
-      {"a.txt", "fjzlEbq"},
-      {"k.txt", "hTmUfMrT"},
-      {"t.txt", "wVEVQC"}
+      {"gj/Khnw/c.cfg", "QufRhICoXMauXj"}
     },
       {},
       {
-      {"KTUc/B.bin", "Q"},
-      {"L.bin", "zrloWJlqS"},
-      {"a.txt", "fjzlEbq"},
-      {"k.txt", "hTmUfMrT"},
-      {"t.txt", "wVEVQC"}
+      {"gj/Khnw/c.cfg", "QufRhICoXMauXj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(154u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12549,22 +12641,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"J.dat", "enCoHtjN"},
-      {"UViY/h.md", "ILQnbmZSPwTvgkCx"},
-      {"ryc/fB/i.dat", "ANMn"},
-      {"s.md", "ZzUpTocApEXnzE"}
+      {"vkUw/sQc/Z.dat", "MOJo"}
     },
       {},
       {
-      {"J.dat", "enCoHtjN"},
-      {"UViY/h.md", "ILQnbmZSPwTvgkCx"},
-      {"ryc/fB/i.dat", "ANMn"},
-      {"s.md", "ZzUpTocApEXnzE"}
+      {"vkUw/sQc/Z.dat", "MOJo"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(150u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12576,22 +12663,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"G.dat", "K"},
-      {"Y.cfg", "V"},
-      {"Zz/k.cfg", "fovhbHbf"},
-      {"r/ltD/S.dat", "J"}
+      {"Yx/k.cfg", "XGWnneRdB"}
     },
       {},
       {
-      {"G.dat", "K"},
-      {"Y.cfg", "V"},
-      {"Zz/k.cfg", "fovhbHbf"},
-      {"r/ltD/S.dat", "J"}
+      {"Yx/k.cfg", "XGWnneRdB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(124u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12603,24 +12685,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"H.txt", "qlzTu"},
-      {"W.bin", "VJBYvsCpadeCEE"},
-      {"czf/TMd/G.bin", "ICHBX"},
-      {"p/yV/v.dat", "zTDrzJz"},
-      {"sEKa/dix/a.dat", "zpbFSOQsNL"}
+      {"E.dat", "uuNmHSUOE"},
+      {"K/q.cfg", "hDXREqQxAsszt"},
+      {"U.cfg", "BUI"},
+      {"axt/Ir/h.bin", "kqeselPVMjECSF"},
+      {"t/VVf/Y.bin", "RlH"}
     },
       {},
       {
-      {"H.txt", "qlzTu"},
-      {"W.bin", "VJBYvsCpadeCEE"},
-      {"czf/TMd/G.bin", "ICHBX"},
-      {"p/yV/v.dat", "zTDrzJz"},
-      {"sEKa/dix/a.dat", "zpbFSOQsNL"}
+      {"E.dat", "uuNmHSUOE"},
+      {"K/q.cfg", "hDXREqQxAsszt"},
+      {"U.cfg", "BUI"},
+      {"axt/Ir/h.bin", "kqeselPVMjECSF"},
+      {"t/VVf/Y.bin", "RlH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(184u),
+      static_cast<std::size_t>(236u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12632,26 +12715,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"CTnS/Owej/W.dat", "segZoNPbyoOlJJ"},
-      {"O.txt", "UjhATCBDfaHu"},
-      {"Q.cfg", "lddK"},
-      {"XBIQ/of/b.cfg", "xhcEEt"},
-      {"m/yV/k.md", "QjDab"},
-      {"nnJM/k.dat", "BNqVHJgpWYkSvqE"}
+      {"XuWj/v.md", "zkpoZJIKSl"}
     },
       {},
       {
-      {"CTnS/Owej/W.dat", "segZoNPbyoOlJJ"},
-      {"O.txt", "UjhATCBDfaHu"},
-      {"Q.cfg", "lddK"},
-      {"XBIQ/of/b.cfg", "xhcEEt"},
-      {"m/yV/k.md", "QjDab"},
-      {"nnJM/k.dat", "BNqVHJgpWYkSvqE"}
+      {"XuWj/v.md", "zkpoZJIKSl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(216u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12663,13 +12737,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"N.txt", "UH"}
+      {"Mtlv/v/h.cfg", "JhMvwnLLuhyyvtqE"}
     },
       {},
       {
-      {"N.txt", "UH"}
+      {"Mtlv/v/h.cfg", "JhMvwnLLuhyyvtqE"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -12684,20 +12759,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"jPXD/Ez/h.cfg", "HHmbOzRtyzDWRC"},
-      {"rU/v.dat", "NhqNqnObmseZdc"},
-      {"v.bin", "LuDVLcxVcU"}
+      {"Bhb/im/i.md", "wxFgJSRtg"},
+      {"nT/GqoA/T.md", "X"}
     },
       {},
       {
-      {"jPXD/Ez/h.cfg", "HHmbOzRtyzDWRC"},
-      {"rU/v.dat", "NhqNqnObmseZdc"},
-      {"v.bin", "LuDVLcxVcU"}
+      {"Bhb/im/i.md", "wxFgJSRtg"},
+      {"nT/GqoA/T.md", "X"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(137u),
+      static_cast<std::size_t>(100u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12709,24 +12783,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"E.dat", "FjIujSfMmzDVNKu"},
-      {"R.dat", "dFps"},
-      {"i.txt", "JeZHBpFiAxOMXLcF"},
-      {"kEG/u.bin", "kX"},
-      {"xAb/POVq/R.txt", "dQxIjBW"}
+      {"a.dat", "HnangcNNAgng"}
     },
       {},
       {
-      {"E.dat", "FjIujSfMmzDVNKu"},
-      {"R.dat", "dFps"},
-      {"i.txt", "JeZHBpFiAxOMXLcF"},
-      {"kEG/u.bin", "kX"},
-      {"xAb/POVq/R.txt", "dQxIjBW"}
+      {"a.dat", "HnangcNNAgng"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(165u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12738,20 +12805,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"RV/v.cfg", "HGi"},
-      {"X/Rsnz/P.bin", "mu"},
-      {"ny/SJoY/S.cfg", "aJlcMhco"}
+      {"Z.cfg", "PdAtCzuVgiz"}
     },
       {},
       {
-      {"RV/v.cfg", "HGi"},
-      {"X/Rsnz/P.bin", "mu"},
-      {"ny/SJoY/S.cfg", "aJlcMhco"}
+      {"Z.cfg", "PdAtCzuVgiz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(97u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12763,16 +12827,27 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"IvE/P.txt", "yEuYYnPOvlT"}
+      {"Bj/lmJ/j.bin", "tVENtjHBDCGGOLeR"},
+      {"GEnr/IimZ/A.txt", "mdXEVtgkBmxa"},
+      {"KqVJ/rg/C.md", "yd"},
+      {"Nnz/Aljy/u.cfg", "YElpiyOqfnHl"},
+      {"ks/TKj/z.txt", "SssaKzksBQ"},
+      {"w.md", "TePTuCdVHRIjPp"}
     },
       {},
       {
-      {"IvE/P.txt", "yEuYYnPOvlT"}
+      {"Bj/lmJ/j.bin", "tVENtjHBDCGGOLeR"},
+      {"GEnr/IimZ/A.txt", "mdXEVtgkBmxa"},
+      {"KqVJ/rg/C.md", "yd"},
+      {"Nnz/Aljy/u.cfg", "YElpiyOqfnHl"},
+      {"ks/TKj/z.txt", "SssaKzksBQ"},
+      {"w.md", "TePTuCdVHRIjPp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(357u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12784,22 +12859,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"BAlO/sP/L.cfg", "JcvnNPvuTfAaca"},
-      {"eGp/uBz/E.txt", "Bare"},
-      {"g.txt", "HELVAfgHYqqatxF"},
-      {"jP/D/N.txt", "jyZDmMaFzYQB"}
+      {"MBKP/x.txt", "A"},
+      {"aKH/b.bin", "GbgoO"},
+      {"jR/p.cfg", "UtPKiAKAOZKK"},
+      {"v/O/r.cfg", "BM"}
     },
       {},
       {
-      {"BAlO/sP/L.cfg", "JcvnNPvuTfAaca"},
-      {"eGp/uBz/E.txt", "Bare"},
-      {"g.txt", "HELVAfgHYqqatxF"},
-      {"jP/D/N.txt", "jyZDmMaFzYQB"}
+      {"MBKP/x.txt", "A"},
+      {"aKH/b.bin", "GbgoO"},
+      {"jR/p.cfg", "UtPKiAKAOZKK"},
+      {"v/O/r.cfg", "BM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(160u),
+      static_cast<std::size_t>(189u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12811,18 +12887,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"k/rTiz/A.dat", "cBXbx"},
-      {"x.md", "exWnHVWjJzFcT"}
+      {"Q/fLXg/j.dat", "fNGKzz"}
     },
       {},
       {
-      {"k/rTiz/A.dat", "cBXbx"},
-      {"x.md", "exWnHVWjJzFcT"}
+      {"Q/fLXg/j.dat", "fNGKzz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(81u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12834,16 +12909,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"F/j.md", "JVbQzhUUO"}
+      {"I.cfg", "pvCneXHXYzMLH"},
+      {"TuO/O.cfg", "MgQTIdNEXOJVmWWJ"}
     },
       {},
       {
-      {"F/j.md", "JVbQzhUUO"}
+      {"I.cfg", "pvCneXHXYzMLH"},
+      {"TuO/O.cfg", "MgQTIdNEXOJVmWWJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(98u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12855,16 +12933,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"Ksk/Y.bin", "WFcRfIcdQ"}
+      {"KM/pr/m.md", "AHJYgTUsNbw"},
+      {"Z.bin", "T"},
+      {"gp/I.dat", "PEfCSeSyR"},
+      {"opHF/dGA/t.dat", "tXD"},
+      {"p.cfg", "nfMXqxwf"}
     },
       {},
       {
-      {"Ksk/Y.bin", "WFcRfIcdQ"}
+      {"KM/pr/m.md", "AHJYgTUsNbw"},
+      {"Z.bin", "T"},
+      {"gp/I.dat", "PEfCSeSyR"},
+      {"opHF/dGA/t.dat", "tXD"},
+      {"p.cfg", "nfMXqxwf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(229u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12876,16 +12963,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"C/hL/C.dat", "HUmUPkrKSl"}
+      {"Ba/ZCl/X.txt", "mf"},
+      {"H.txt", "AWJswroPKeRhpg"},
+      {"MHt/VjD/r.dat", "LwGqQbN"},
+      {"TZ/h.bin", "gihuj"},
+      {"YYS/T.md", "eaWwkDC"}
     },
       {},
       {
-      {"C/hL/C.dat", "HUmUPkrKSl"}
+      {"Ba/ZCl/X.txt", "mf"},
+      {"H.txt", "AWJswroPKeRhpg"},
+      {"MHt/VjD/r.dat", "LwGqQbN"},
+      {"TZ/h.bin", "gihuj"},
+      {"YYS/T.md", "eaWwkDC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(234u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12897,16 +12993,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"w/EiDi/w.txt", "sSLrDW"}
+      {"BdV/nmT/z.cfg", "AH"},
+      {"CrN/YoQ/i.bin", "w"},
+      {"chJ/C.md", "n"},
+      {"hpqU/dY/c.cfg", "vObtqyCOWbfzB"}
     },
       {},
       {
-      {"w/EiDi/w.txt", "sSLrDW"}
+      {"BdV/nmT/z.cfg", "AH"},
+      {"CrN/YoQ/i.bin", "w"},
+      {"chJ/C.md", "n"},
+      {"hpqU/dY/c.cfg", "vObtqyCOWbfzB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(166u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12918,13 +13021,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"zUe/Z.txt", "gQWCkHMgmUjvTM"}
+      {"M.dat", "qpUEJOWYGSTFLbe"}
     },
       {},
       {
-      {"zUe/Z.txt", "gQWCkHMgmUjvTM"}
+      {"M.dat", "qpUEJOWYGSTFLbe"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -12939,22 +13043,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"K.dat", "nKLIpezcAoOOpOk"},
-      {"Ng/k.cfg", "bKWOrUCqHAFbPbD"},
-      {"S.txt", "TzTykFSFpeb"},
-      {"i.dat", "CaZxoSIxafd"}
+      {"CE/q/k.txt", "ymoPzkoGAbQWY"},
+      {"S.bin", "HGlcKiCVd"},
+      {"TPA/UXZ/V.cfg", "ufbBwDgcnQg"},
+      {"wLV/u.txt", "lD"}
     },
       {},
       {
-      {"K.dat", "nKLIpezcAoOOpOk"},
-      {"Ng/k.cfg", "bKWOrUCqHAFbPbD"},
-      {"S.txt", "TzTykFSFpeb"},
-      {"i.dat", "CaZxoSIxafd"}
+      {"CE/q/k.txt", "ymoPzkoGAbQWY"},
+      {"S.bin", "HGlcKiCVd"},
+      {"TPA/UXZ/V.cfg", "ufbBwDgcnQg"},
+      {"wLV/u.txt", "lD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(155u),
+      static_cast<std::size_t>(221u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12966,18 +13071,25 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"CG/N.txt", "tZfX"},
-      {"qk/I/o.md", "hcCoumy"}
+      {"U.bin", "ylSuhBApAZFw"},
+      {"X.dat", "PJbZ"},
+      {"Yfb/K.dat", "lolYq"},
+      {"cz/P/n.dat", "SfrPhzH"},
+      {"t.cfg", "McEdJ"}
     },
       {},
       {
-      {"CG/N.txt", "tZfX"},
-      {"qk/I/o.md", "hcCoumy"}
+      {"U.bin", "ylSuhBApAZFw"},
+      {"X.dat", "PJbZ"},
+      {"Yfb/K.dat", "lolYq"},
+      {"cz/P/n.dat", "SfrPhzH"},
+      {"t.cfg", "McEdJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(76u),
+      static_cast<std::size_t>(225u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -12989,20 +13101,2287 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"H.bin", "fy"},
-      {"U.md", "ff"},
-      {"vtI/D.cfg", "F"}
+      {"Gfk/Jwpy/s.cfg", "VhFWBDoqiOLY"},
+      {"KeqH/u.md", "ycGjCAertjSe"},
+      {"uAj/rt/E.dat", "GF"},
+      {"v.bin", "kbWtlx"}
     },
       {},
       {
-      {"H.bin", "fy"},
-      {"U.md", "ff"},
-      {"vtI/D.cfg", "F"}
+      {"Gfk/Jwpy/s.cfg", "VhFWBDoqiOLY"},
+      {"KeqH/u.md", "ycGjCAertjSe"},
+      {"uAj/rt/E.dat", "GF"},
+      {"v.bin", "kbWtlx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(85u),
+      static_cast<std::size_t>(221u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_512",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"LkRU/w.bin", "QThntqNIEOh"},
+      {"VM/m.cfg", "H"},
+      {"v.txt", "GHnuAYnFm"}
+    },
+      {},
+      {
+      {"LkRU/w.bin", "QThntqNIEOh"},
+      {"VM/m.cfg", "H"},
+      {"v.txt", "GHnuAYnFm"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(134u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_513",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"CVG/bt/F.dat", "jeHGjq"},
+      {"m.bin", "geleB"},
+      {"n.bin", "hzVBwiQvuiRQrLbR"},
+      {"nI/i.bin", "axOlnXxavMx"},
+      {"z.dat", "KsGLq"}
+    },
+      {},
+      {
+      {"CVG/bt/F.dat", "jeHGjq"},
+      {"m.bin", "geleB"},
+      {"n.bin", "hzVBwiQvuiRQrLbR"},
+      {"nI/i.bin", "axOlnXxavMx"},
+      {"z.dat", "KsGLq"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(236u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_514",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"J/S/I.md", "yjXcRNdk"},
+      {"MbxN/p/K.cfg", "VbijViuoqqDxYr"}
+    },
+      {},
+      {
+      {"J/S/I.md", "yjXcRNdk"},
+      {"MbxN/p/K.cfg", "VbijViuoqqDxYr"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(96u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_515",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"HH/a.md", "vxqLYq"},
+      {"U/X.txt", "FYnEMvNOoOIpnJMr"}
+    },
+      {},
+      {
+      {"HH/a.md", "vxqLYq"},
+      {"U/X.txt", "FYnEMvNOoOIpnJMr"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(93u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_516",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"QVOw/q.dat", "MqjmolLTE"},
+      {"v.bin", "UklujQKjTCWArfo"},
+      {"yqz/S.bin", "svSUtL"}
+    },
+      {},
+      {
+      {"QVOw/q.dat", "MqjmolLTE"},
+      {"v.bin", "UklujQKjTCWArfo"},
+      {"yqz/S.bin", "svSUtL"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(159u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_517",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"Y.cfg", "m"},
+      {"c.bin", "xQpSAIo"},
+      {"fS/ddCf/w.bin", "QqinMQ"},
+      {"tgb/WoR/v.dat", "nnJDNscuxUnx"}
+    },
+      {},
+      {
+      {"Y.cfg", "m"},
+      {"c.bin", "xQpSAIo"},
+      {"fS/ddCf/w.bin", "QqinMQ"},
+      {"tgb/WoR/v.dat", "nnJDNscuxUnx"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(165u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_518",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"Mx/l.bin", "TUzcITkNfnLL"},
+      {"O/UAi/f.cfg", "Svrq"}
+    },
+      {},
+      {
+      {"Mx/l.bin", "TUzcITkNfnLL"},
+      {"O/UAi/f.cfg", "Svrq"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(100u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_519",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"Xa/N.dat", "hWsYMmJu"},
+      {"hxYA/iEof/M.dat", "ZyzUBmoGoZ"},
+      {"p.dat", "nSzWfuxYp"}
+    },
+      {},
+      {
+      {"Xa/N.dat", "hWsYMmJu"},
+      {"hxYA/iEof/M.dat", "ZyzUBmoGoZ"},
+      {"p.dat", "nSzWfuxYp"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(161u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_520",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"M.dat", "NKIM"},
+      {"m/l.dat", "vAvSswaUMcS"}
+    },
+      {},
+      {
+      {"M.dat", "NKIM"},
+      {"m/l.dat", "vAvSswaUMcS"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(89u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_521",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"E.bin", "bdSqTzwgLlGmZ"},
+      {"rQ/Df/e.cfg", "Rl"}
+    },
+      {},
+      {
+      {"E.bin", "bdSqTzwgLlGmZ"},
+      {"rQ/Df/e.cfg", "Rl"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(98u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_522",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"HmY/gWze/H.md", "ShB"},
+      {"saGm/k.cfg", "UNVGVoLe"}
+    },
+      {},
+      {
+      {"HmY/gWze/H.md", "ShB"},
+      {"saGm/k.cfg", "UNVGVoLe"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(96u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_523",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"Ccc/a.dat", "GzKPHLNql"},
+      {"Qbc/g.cfg", "fZN"},
+      {"Y.cfg", "ak"},
+      {"b/R.md", "LcolAImSmZeue"},
+      {"rif/d.txt", "aY"}
+    },
+      {},
+      {
+      {"Ccc/a.dat", "GzKPHLNql"},
+      {"Qbc/g.cfg", "fZN"},
+      {"Y.cfg", "ak"},
+      {"b/R.md", "LcolAImSmZeue"},
+      {"rif/d.txt", "aY"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(224u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_524",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"E.md", "cyDSZCRlUuqi"},
+      {"p/RW/L.cfg", "kswdsjX"},
+      {"sBmU/v/g.txt", "XgqPUxuYxHOkLQw"}
+    },
+      {},
+      {
+      {"E.md", "cyDSZCRlUuqi"},
+      {"p/RW/L.cfg", "kswdsjX"},
+      {"sBmU/v/g.txt", "XgqPUxuYxHOkLQw"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(137u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_525",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"Bj/m/g.md", "nOBZsgEo"},
+      {"Qx/OBfW/q.md", "QEcOLURIqOi"},
+      {"c.bin", "cos"}
+    },
+      {},
+      {
+      {"Bj/m/g.md", "nOBZsgEo"},
+      {"Qx/OBfW/q.md", "QEcOLURIqOi"},
+      {"c.bin", "cos"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(160u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_526",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"b.dat", "LLmaIsHpbYfycgG"},
+      {"g.dat", "SX"},
+      {"y/UW/C.md", "yDXnwwa"}
+    },
+      {},
+      {
+      {"b.dat", "LLmaIsHpbYfycgG"},
+      {"g.dat", "SX"},
+      {"y/UW/C.md", "yDXnwwa"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(131u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_527",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"Mj/Tfd/B.dat", "NIgJ"},
+      {"S.txt", "jQkqVhSqNaNP"},
+      {"oXf/pXgi/z.cfg", "hNKYj"}
+    },
+      {},
+      {
+      {"Mj/Tfd/B.dat", "NIgJ"},
+      {"S.txt", "jQkqVhSqNaNP"},
+      {"oXf/pXgi/z.cfg", "hNKYj"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(137u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_528",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"WUsB/TxK/U.cfg", "rpVEXpoHx"},
+      {"iU/f/r.bin", "gIGkC"}
+    },
+      {},
+      {
+      {"WUsB/TxK/U.cfg", "rpVEXpoHx"},
+      {"iU/f/r.bin", "gIGkC"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(103u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_529",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"bo/c.dat", "FRSLSbYoCG"}
+    },
+      {},
+      {
+      {"bo/c.dat", "FRSLSbYoCG"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_530",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"N/VHgV/X.bin", "HyPrzKqzUx"},
+      {"z.txt", "REUzuyQmTwuCC"}
+    },
+      {},
+      {
+      {"N/VHgV/X.bin", "HyPrzKqzUx"},
+      {"z.txt", "REUzuyQmTwuCC"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(102u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_531",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"gClj/Y.dat", "VmCVvKHO"},
+      {"h.cfg", "s"}
+    },
+      {},
+      {
+      {"gClj/Y.dat", "VmCVvKHO"},
+      {"h.cfg", "s"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(98u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_532",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"v.cfg", "VdbJSzYTNXrXTe"},
+      {"w.md", "PhcPw"}
+    },
+      {},
+      {
+      {"v.cfg", "VdbJSzYTNXrXTe"},
+      {"w.md", "PhcPw"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(99u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_533",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"L/t/Y.md", "DaEGbszWV"}
+    },
+      {},
+      {
+      {"L/t/Y.md", "DaEGbszWV"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_534",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"Q.bin", "Ps"},
+      {"Y.cfg", "Uk"},
+      {"a.bin", "nxUOflGVgXWKQZyu"},
+      {"q/W.bin", "lw"}
+    },
+      {},
+      {
+      {"Q.bin", "Ps"},
+      {"Y.cfg", "Uk"},
+      {"a.bin", "nxUOflGVgXWKQZyu"},
+      {"q/W.bin", "lw"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(163u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_535",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"b.bin", "brZFnCptZat"}
+    },
+      {},
+      {
+      {"b.bin", "brZFnCptZat"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_536",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"XgL/Bc/y.txt", "OlCnn"}
+    },
+      {},
+      {
+      {"XgL/Bc/y.txt", "OlCnn"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_537",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"O.bin", "vfUUnhyUaTVyTX"}
+    },
+      {},
+      {
+      {"O.bin", "vfUUnhyUaTVyTX"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_538",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"G.txt", "cGXezcjlBB"},
+      {"N.dat", "LrNMLz"},
+      {"W.bin", "QKnnhYtNYTSO"},
+      {"i.txt", "tyNwFOB"},
+      {"i/m/m.bin", "GZ"},
+      {"nOjW/kO/N.cfg", "dKHaXGbih"}
+    },
+      {},
+      {
+      {"G.txt", "cGXezcjlBB"},
+      {"N.dat", "LrNMLz"},
+      {"W.bin", "QKnnhYtNYTSO"},
+      {"i.txt", "tyNwFOB"},
+      {"i/m/m.bin", "GZ"},
+      {"nOjW/kO/N.cfg", "dKHaXGbih"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(258u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_539",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"P.md", "BNPpQkvwPEODEK"},
+      {"Vvar/N.bin", "yqGvdAkxulaohJc"}
+    },
+      {},
+      {
+      {"P.md", "BNPpQkvwPEODEK"},
+      {"Vvar/N.bin", "yqGvdAkxulaohJc"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(98u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_540",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"D.txt", "EWJWFJZGae"},
+      {"HMK/e.md", "HFQIQWMMx"}
+    },
+      {},
+      {
+      {"D.txt", "EWJWFJZGae"},
+      {"HMK/e.md", "HFQIQWMMx"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(95u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_541",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"M.dat", "gatPGURq"}
+    },
+      {},
+      {
+      {"M.dat", "gatPGURq"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_542",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"rdAz/K.md", "THYJcOkCpE"}
+    },
+      {},
+      {
+      {"rdAz/K.md", "THYJcOkCpE"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_543",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"F.txt", "b"},
+      {"GpOC/k.md", "SYWtjLbsZ"},
+      {"e/r.txt", "blOcJIKzMfIswQ"}
+    },
+      {},
+      {
+      {"F.txt", "b"},
+      {"GpOC/k.md", "SYWtjLbsZ"},
+      {"e/r.txt", "blOcJIKzMfIswQ"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(128u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_544",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"LgVd/X.bin", "VuvxkzZPAoqvSdt"}
+    },
+      {},
+      {
+      {"LgVd/X.bin", "VuvxkzZPAoqvSdt"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_545",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"Fk/XD/g.md", "vBYxFPBnbYeYCG"},
+      {"JmN/jAO/R.cfg", "gitatfntZAeppLtC"},
+      {"Z.txt", "xFyw"},
+      {"e.md", "UyLvOZnD"},
+      {"n.txt", "aLznWOTogIu"},
+      {"r/sb/R.bin", "CtDDHxeSXxeLf"}
+    },
+      {},
+      {
+      {"Fk/XD/g.md", "vBYxFPBnbYeYCG"},
+      {"JmN/jAO/R.cfg", "gitatfntZAeppLtC"},
+      {"Z.txt", "xFyw"},
+      {"e.md", "UyLvOZnD"},
+      {"n.txt", "aLznWOTogIu"},
+      {"r/sb/R.bin", "CtDDHxeSXxeLf"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(298u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_546",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"a.md", "hN"},
+      {"b.bin", "AbCVyMmYocKsd"},
+      {"gWV/jdq/Q.md", "BoOzzitZcOsbM"}
+    },
+      {},
+      {
+      {"a.md", "hN"},
+      {"b.bin", "AbCVyMmYocKsd"},
+      {"gWV/jdq/Q.md", "BoOzzitZcOsbM"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(128u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_547",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"AVtk/tF/D.md", "qmamWWoP"},
+      {"F/R.cfg", "pqIgHEgjxiwge"},
+      {"H/w.txt", "eZMbd"},
+      {"R.txt", "DvJFMOaUC"},
+      {"Xjvu/d.cfg", "UvW"},
+      {"b.dat", "YaBEY"}
+    },
+      {},
+      {
+      {"AVtk/tF/D.md", "qmamWWoP"},
+      {"F/R.cfg", "pqIgHEgjxiwge"},
+      {"H/w.txt", "eZMbd"},
+      {"R.txt", "DvJFMOaUC"},
+      {"Xjvu/d.cfg", "UvW"},
+      {"b.dat", "YaBEY"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(287u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_548",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"tdE/MT/P.dat", "OAgFkcjp"}
+    },
+      {},
+      {
+      {"tdE/MT/P.dat", "OAgFkcjp"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_549",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"qhnY/c/g.dat", "CJCKmrkxsYlHoBKM"}
+    },
+      {},
+      {
+      {"qhnY/c/g.dat", "CJCKmrkxsYlHoBKM"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_550",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"Ib/s.cfg", "nAVpdKmprgq"},
+      {"Jfz/h.bin", "ibmDoG"},
+      {"R.md", "fisHeFjQD"},
+      {"ekiJ/N.cfg", "ES"}
+    },
+      {},
+      {
+      {"Ib/s.cfg", "nAVpdKmprgq"},
+      {"Jfz/h.bin", "ibmDoG"},
+      {"R.md", "fisHeFjQD"},
+      {"ekiJ/N.cfg", "ES"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(191u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_551",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"Cw/eey/E.cfg", "Kj"},
+      {"G/O.bin", "cWkFMlDVEqAWOI"},
+      {"S.txt", "AyYIAWANyK"},
+      {"SZf/T.txt", "TKduAMqLxQnOieva"},
+      {"l/n/E.md", "FeabvwaMyKZ"}
+    },
+      {},
+      {
+      {"Cw/eey/E.cfg", "Kj"},
+      {"G/O.bin", "cWkFMlDVEqAWOI"},
+      {"S.txt", "AyYIAWANyK"},
+      {"SZf/T.txt", "TKduAMqLxQnOieva"},
+      {"l/n/E.md", "FeabvwaMyKZ"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(259u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_552",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"Q/zlga/g.dat", "ErgHQahs"}
+    },
+      {},
+      {
+      {"Q/zlga/g.dat", "ErgHQahs"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_553",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"JqZX/UA/x.bin", "emxEA"},
+      {"VSGZ/p.dat", "UZsIwsg"},
+      {"n.cfg", "nhaahRm"},
+      {"rB/VkF/v.dat", "DBRoELRz"},
+      {"w.cfg", "YYprfPfV"}
+    },
+      {},
+      {
+      {"JqZX/UA/x.bin", "emxEA"},
+      {"VSGZ/p.dat", "UZsIwsg"},
+      {"n.cfg", "nhaahRm"},
+      {"rB/VkF/v.dat", "DBRoELRz"},
+      {"w.cfg", "YYprfPfV"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(235u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_554",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"C/U/C.txt", "AOooSlhw"},
+      {"EHer/UuhL/Y.txt", "cibk"},
+      {"V/i.cfg", "bdCpagHRWYlv"},
+      {"ZQN/jjJ/t.dat", "MHewUAmPDY"},
+      {"e.txt", "uAViaYGTXJ"},
+      {"rf/W.bin", "vWlHz"}
+    },
+      {},
+      {
+      {"C/U/C.txt", "AOooSlhw"},
+      {"EHer/UuhL/Y.txt", "cibk"},
+      {"V/i.cfg", "bdCpagHRWYlv"},
+      {"ZQN/jjJ/t.dat", "MHewUAmPDY"},
+      {"e.txt", "uAViaYGTXJ"},
+      {"rf/W.bin", "vWlHz"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(301u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_555",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"W.cfg", "El"},
+      {"XCB/wwC/n.dat", "ETSyGHjVNl"}
+    },
+      {},
+      {
+      {"W.cfg", "El"},
+      {"XCB/wwC/n.dat", "ETSyGHjVNl"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(71u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_556",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"K.dat", "YIdMGZUvtaD"},
+      {"az/h/q.dat", "daTCYCzg"}
+    },
+      {},
+      {
+      {"K.dat", "YIdMGZUvtaD"},
+      {"az/h/q.dat", "daTCYCzg"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(96u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_557",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"KU/PR/n.dat", "TscddAIUuziA"},
+      {"b.dat", "eIOHBfpNmdzrV"},
+      {"feK/X.cfg", "UucYDBYQqFKqtOq"},
+      {"nS/U/d.md", "xWOwzSvv"},
+      {"t.bin", "NxHABESRAtrfwER"},
+      {"tiTw/uGI/q.md", "d"}
+    },
+      {},
+      {
+      {"KU/PR/n.dat", "TscddAIUuziA"},
+      {"b.dat", "eIOHBfpNmdzrV"},
+      {"feK/X.cfg", "UucYDBYQqFKqtOq"},
+      {"nS/U/d.md", "xWOwzSvv"},
+      {"t.bin", "NxHABESRAtrfwER"},
+      {"tiTw/uGI/q.md", "d"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(326u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_558",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"QjGE/c.cfg", "KdBHPpozJdUyEV"},
+      {"T.txt", "pqiPwvKzjpfS"},
+      {"f/HxHv/s.md", "WUoLKioTSFwvAWKV"},
+      {"scl/MdC/a.cfg", "liSYFkDhjI"}
+    },
+      {},
+      {
+      {"QjGE/c.cfg", "KdBHPpozJdUyEV"},
+      {"T.txt", "pqiPwvKzjpfS"},
+      {"f/HxHv/s.md", "WUoLKioTSFwvAWKV"},
+      {"scl/MdC/a.cfg", "liSYFkDhjI"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(228u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_559",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"I.md", "dM"}
+    },
+      {},
+      {
+      {"I.md", "dM"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_560",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"a/j.md", "eelS"}
+    },
+      {},
+      {
+      {"a/j.md", "eelS"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_561",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"I.txt", "wvWhM"},
+      {"r/TOA/T.cfg", "Cauha"}
+    },
+      {},
+      {
+      {"I.txt", "wvWhM"},
+      {"r/TOA/T.cfg", "Cauha"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(90u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_562",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"V.bin", "FsludyNUxVhvT"},
+      {"V.md", "xbSOkjqvyW"}
+    },
+      {},
+      {
+      {"V.bin", "FsludyNUxVhvT"},
+      {"V.md", "xbSOkjqvyW"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(98u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_563",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"h.cfg", "APYmXuzWo"},
+      {"i.bin", "EFKiFfpRlJ"},
+      {"j.cfg", "szvb"},
+      {"k.bin", "ftXkYdFdqaNLW"},
+      {"l.dat", "EDKRWM"},
+      {"oCl/b.cfg", "VdVrFVj"}
+    },
+      {},
+      {
+      {"h.cfg", "APYmXuzWo"},
+      {"i.bin", "EFKiFfpRlJ"},
+      {"j.cfg", "szvb"},
+      {"k.bin", "ftXkYdFdqaNLW"},
+      {"l.dat", "EDKRWM"},
+      {"oCl/b.cfg", "VdVrFVj"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(259u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_564",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"G/h.txt", "DMlrxMysKNnq"},
+      {"u.cfg", "sQYSFAvskNjmCGfQ"},
+      {"w.cfg", "yLHIyItVQ"}
+    },
+      {},
+      {
+      {"G/h.txt", "DMlrxMysKNnq"},
+      {"u.cfg", "sQYSFAvskNjmCGfQ"},
+      {"w.cfg", "yLHIyItVQ"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(160u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_565",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"Th/d.md", "mQGNWQ"},
+      {"eS/y.bin", "ybnFGeJ"},
+      {"gj/QY/Z.txt", "vVuyZRZuoqdV"},
+      {"p/e/J.txt", "ORWn"}
+    },
+      {},
+      {
+      {"Th/d.md", "mQGNWQ"},
+      {"eS/y.bin", "ybnFGeJ"},
+      {"gj/QY/Z.txt", "vVuyZRZuoqdV"},
+      {"p/e/J.txt", "ORWn"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(195u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_566",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"L/aNXa/u.cfg", "J"},
+      {"jHoN/L.dat", "ApgNVvmRfTekcrA"},
+      {"o.cfg", "A"},
+      {"t/UW/F.md", "GAwoqvtXzTqHFGE"},
+      {"tRVe/Q.cfg", "RovnOPYOzxEoC"}
+    },
+      {},
+      {
+      {"L/aNXa/u.cfg", "J"},
+      {"jHoN/L.dat", "ApgNVvmRfTekcrA"},
+      {"o.cfg", "A"},
+      {"t/UW/F.md", "GAwoqvtXzTqHFGE"},
+      {"tRVe/Q.cfg", "RovnOPYOzxEoC"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(236u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_567",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"F.bin", "ktOJwrJxiKV"},
+      {"F/MT/M.bin", "VPqhaOpTBxxkj"},
+      {"SoXf/YV/n.txt", "QOYYTJyWoyrd"},
+      {"VoYu/IqA/R.bin", "IOobPzeWhXWBLHtH"}
+    },
+      {},
+      {
+      {"F.bin", "ktOJwrJxiKV"},
+      {"F/MT/M.bin", "VPqhaOpTBxxkj"},
+      {"SoXf/YV/n.txt", "QOYYTJyWoyrd"},
+      {"VoYu/IqA/R.bin", "IOobPzeWhXWBLHtH"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(224u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_568",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"z/U.bin", "TaBKffpVfxNe"}
+    },
+      {},
+      {
+      {"z/U.bin", "TaBKffpVfxNe"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_569",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"B.txt", "xQ"}
+    },
+      {},
+      {
+      {"B.txt", "xQ"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_570",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"CN/D.md", "PoZ"},
+      {"E/N.md", "nZKElCwqzv"},
+      {"O.bin", "luCEmNmC"}
+    },
+      {},
+      {
+      {"CN/D.md", "PoZ"},
+      {"E/N.md", "nZKElCwqzv"},
+      {"O.bin", "luCEmNmC"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(130u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_571",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"MSw/MG/Z.cfg", "uWv"},
+      {"PQ/R.cfg", "TDIkgBGpDNO"}
+    },
+      {},
+      {
+      {"MSw/MG/Z.cfg", "uWv"},
+      {"PQ/R.cfg", "TDIkgBGpDNO"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(95u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_572",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"Estl/r.cfg", "SBKcJQXwoYWcLX"},
+      {"VO/x.txt", "HdYEHRZWFhh"},
+      {"WUk/n/M.txt", "PqyUDjDtlVPaTMZ"},
+      {"Y/pX/f.cfg", "tLgM"}
+    },
+      {},
+      {
+      {"Estl/r.cfg", "SBKcJQXwoYWcLX"},
+      {"VO/x.txt", "HdYEHRZWFhh"},
+      {"WUk/n/M.txt", "PqyUDjDtlVPaTMZ"},
+      {"Y/pX/f.cfg", "tLgM"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(229u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_573",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"r.txt", "meiiDXYeDsBSY"}
+    },
+      {},
+      {
+      {"r.txt", "meiiDXYeDsBSY"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_574",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"JgGJ/J/n.dat", "LjTfjbkXtVRfZll"},
+      {"mi/E.md", "AKoJMnNNwzlcZQd"}
+    },
+      {},
+      {
+      {"JgGJ/J/n.dat", "LjTfjbkXtVRfZll"},
+      {"mi/E.md", "AKoJMnNNwzlcZQd"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(123u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_575",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"Wx/g.cfg", "ztkicQItOnLN"},
+      {"dc/H.txt", "cNnqXlC"},
+      {"nSi/c.md", "TBpe"},
+      {"rKVY/O.txt", "mtdVRGTBf"}
+    },
+      {},
+      {
+      {"Wx/g.cfg", "ztkicQItOnLN"},
+      {"dc/H.txt", "cNnqXlC"},
+      {"nSi/c.md", "TBpe"},
+      {"rKVY/O.txt", "mtdVRGTBf"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(191u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_576",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"EgU/fj/y.bin", "fDqeYDbMtFuvn"},
+      {"F/o/f.bin", "wVdWHCpBHo"}
+    },
+      {},
+      {
+      {"EgU/fj/y.bin", "fDqeYDbMtFuvn"},
+      {"F/o/f.bin", "wVdWHCpBHo"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_577",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"J.dat", "dNFeuG"},
+      {"Mtcr/h/z.cfg", "ovKKujaDPQPaIPu"},
+      {"Y/ze/s.txt", "IY"},
+      {"bH/I.dat", "naapVGk"},
+      {"y/hDr/j.dat", "eDWXbQlhg"}
+    },
+      {},
+      {
+      {"J.dat", "dNFeuG"},
+      {"Mtcr/h/z.cfg", "ovKKujaDPQPaIPu"},
+      {"Y/ze/s.txt", "IY"},
+      {"bH/I.dat", "naapVGk"},
+      {"y/hDr/j.dat", "eDWXbQlhg"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(233u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_578",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"ZKj/JrQk/H.dat", "WWmBkrwvKMyoKr"},
+      {"g.cfg", "plLmDQyfVYOe"}
+    },
+      {},
+      {
+      {"ZKj/JrQk/H.dat", "WWmBkrwvKMyoKr"},
+      {"g.cfg", "plLmDQyfVYOe"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(124u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_579",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"AAh/K.txt", "xwljGCRZVKxSP"},
+      {"B.md", "jnuAirVD"}
+    },
+      {},
+      {
+      {"AAh/K.txt", "xwljGCRZVKxSP"},
+      {"B.md", "jnuAirVD"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(102u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_580",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"DqQ/vaHM/y.bin", "kFCwmRxZxA"},
+      {"RXCy/DG/X.txt", "mndLHKUJ"},
+      {"c.md", "LKYfI"},
+      {"q.bin", "bGDRTsqEOUaarWe"}
+    },
+      {},
+      {
+      {"DqQ/vaHM/y.bin", "kFCwmRxZxA"},
+      {"RXCy/DG/X.txt", "mndLHKUJ"},
+      {"c.md", "LKYfI"},
+      {"q.bin", "bGDRTsqEOUaarWe"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(198u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_581",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"U.cfg", "zYt"},
+      {"aIL/i.dat", "n"},
+      {"c.md", "eXF"},
+      {"j.cfg", "Qot"}
+    },
+      {},
+      {
+      {"U.cfg", "zYt"},
+      {"aIL/i.dat", "n"},
+      {"c.md", "eXF"},
+      {"j.cfg", "Qot"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(137u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_582",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"V.dat", "klTPq"},
+      {"Y.dat", "jKsrX"},
+      {"h/m.txt", "jHFRHQKB"}
+    },
+      {},
+      {
+      {"V.dat", "klTPq"},
+      {"Y.dat", "jKsrX"},
+      {"h/m.txt", "jHFRHQKB"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(124u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_583",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"e.md", "c"},
+      {"gU/aQNK/w.bin", "cogCNXbyJLnm"}
+    },
+      {},
+      {
+      {"e.md", "c"},
+      {"gU/aQNK/w.bin", "cogCNXbyJLnm"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(69u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_584",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"IwIC/AQE/R.cfg", "TKvSffAwV"},
+      {"KXz/u.txt", "QEoNphNpDR"}
+    },
+      {},
+      {
+      {"IwIC/AQE/R.cfg", "TKvSffAwV"},
+      {"KXz/u.txt", "QEoNphNpDR"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(103u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_585",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"NIT/G.dat", "UQ"},
+      {"T/R.dat", "wmOF"},
+      {"eC/xAnn/s.cfg", "AhAcKUcHyRJS"},
+      {"uHSc/gHFo/m.bin", "nmaFSROOytdbJlok"},
+      {"xgSX/e.bin", "FsmeKeKXI"}
+    },
+      {},
+      {
+      {"NIT/G.dat", "UQ"},
+      {"T/R.dat", "wmOF"},
+      {"eC/xAnn/s.cfg", "AhAcKUcHyRJS"},
+      {"uHSc/gHFo/m.bin", "nmaFSROOytdbJlok"},
+      {"xgSX/e.bin", "FsmeKeKXI"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(262u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_586",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"P.txt", "NwfztWkLchR"},
+      {"l/L.bin", "ERI"}
+    },
+      {},
+      {
+      {"P.txt", "NwfztWkLchR"},
+      {"l/L.bin", "ERI"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(96u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_587",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"ImuP/W.bin", "mIrGKFBC"}
+    },
+      {},
+      {
+      {"ImuP/W.bin", "mIrGKFBC"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_588",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"Nu/z.md", "LAMwbSLY"},
+      {"hoAR/y.txt", "hbLWyMNcPDIj"}
+    },
+      {},
+      {
+      {"Nu/z.md", "LAMwbSLY"},
+      {"hoAR/y.txt", "hbLWyMNcPDIj"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(95u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_589",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"kp/z/r.txt", "xOflHCYrHIkWX"},
+      {"tD/L.bin", "rlGMnJUNjWVYv"},
+      {"u/SmS/t.cfg", "UgWHgTRBGIDWdpEC"}
+    },
+      {},
+      {
+      {"kp/z/r.txt", "xOflHCYrHIkWX"},
+      {"tD/L.bin", "rlGMnJUNjWVYv"},
+      {"u/SmS/t.cfg", "UgWHgTRBGIDWdpEC"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(164u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_590",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"CA/ISe/k.md", "speMMBudeZLixvA"},
+      {"S/n.dat", "FLJNVrsZSIcbxKX"},
+      {"g.bin", "ewUWPmEunGgowl"}
+    },
+      {},
+      {
+      {"CA/ISe/k.md", "speMMBudeZLixvA"},
+      {"S/n.dat", "FLJNVrsZSIcbxKX"},
+      {"g.bin", "ewUWPmEunGgowl"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(168u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_591",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      3u,
+      {
+      {"G/P.bin", "If"},
+      {"MRq/j.dat", "qgSsNEfP"},
+      {"Ylan/C.md", "zlfOWklb"},
+      {"oBBg/P.txt", "JzrWZnhcTTHaDFJy"}
+    },
+      {},
+      {
+      {"G/P.bin", "If"},
+      {"MRq/j.dat", "qgSsNEfP"},
+      {"Ylan/C.md", "zlfOWklb"},
+      {"oBBg/P.txt", "JzrWZnhcTTHaDFJy"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(130u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_592",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"MNh/p.dat", "XCTeXNlYsf"},
+      {"R.dat", "fpueWIdmFnkz"},
+      {"a.cfg", "j"},
+      {"h/C.bin", "IdNXT"}
+    },
+      {},
+      {
+      {"MNh/p.dat", "XCTeXNlYsf"},
+      {"R.dat", "fpueWIdmFnkz"},
+      {"a.cfg", "j"},
+      {"h/C.bin", "IdNXT"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(170u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_593",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"BVTx/C.md", "fmkUYjIhKNNgX"},
+      {"nQik/MAXc/F.dat", "ccemJetkYDcdRDPN"}
+    },
+      {},
+      {
+      {"BVTx/C.md", "fmkUYjIhKNNgX"},
+      {"nQik/MAXc/F.dat", "ccemJetkYDcdRDPN"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(102u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_594",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"O.dat", "uAFPGHIkE"},
+      {"P/e.dat", "lPtVfZcT"},
+      {"b.txt", "mAdBkJF"},
+      {"hIAP/Y.md", "WBzNErvFAHLIJi"}
+    },
+      {},
+      {
+      {"O.dat", "uAFPGHIkE"},
+      {"P/e.dat", "lPtVfZcT"},
+      {"b.txt", "mAdBkJF"},
+      {"hIAP/Y.md", "WBzNErvFAHLIJi"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(169u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_595",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"h.txt", "vsjUkzpzAoHLdjur"}
+    },
+      {},
+      {
+      {"h.txt", "vsjUkzpzAoHLdjur"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_596",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      1u,
+      {
+      {"E.cfg", "blJtva"}
+    },
+      {},
+      {
+      {"E.cfg", "blJtva"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(56u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_597",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      2u,
+      {
+      {"L.dat", "UuZqeK"},
+      {"U/z.txt", "dEvga"},
+      {"Z.cfg", "ruHpDzCCvjddhUjB"},
+      {"Z.md", "Nn"},
+      {"Z.txt", "mOoqgWCP"},
+      {"adO/L.bin", "vrGkeXMOQRv"}
+    },
+      {},
+      {
+      {"L.dat", "UuZqeK"},
+      {"U/z.txt", "dEvga"},
+      {"Z.cfg", "ruHpDzCCvjddhUjB"},
+      {"Z.md", "Nn"},
+      {"Z.txt", "mOoqgWCP"},
+      {"adO/L.bin", "vrGkeXMOQRv"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(255u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_598",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"X.cfg", "kYPlKhZBYC"},
+      {"aXV/r/f.txt", "opbK"},
+      {"u.cfg", "jkDtARrzSiXkQ"},
+      {"uQ/D.bin", "izSxeAhakk"}
+    },
+      {},
+      {
+      {"X.cfg", "kYPlKhZBYC"},
+      {"aXV/r/f.txt", "opbK"},
+      {"u.cfg", "jkDtARrzSiXkQ"},
+      {"uQ/D.bin", "izSxeAhakk"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(192u),
+      { 0x00, 0x00 },
+      { static_cast<std::uint32_t>(1u) },
+      {},
+      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
+    },
+    {
+      "AUTO_EndOfFile_TrailingArchives_SMALL_599",
+      "unbundle",
+      "eof_oob",
+      "UNP_EOF_001",
+      "",
+      {},
+      4u,
+      {
+      {"C/d.cfg", "Zy"},
+      {"QP/x.bin", "Xh"},
+      {"YWf/F.txt", "RoxdW"},
+      {"c/Z.dat", "sOFqIbeqHHRiOm"},
+      {"hlhh/V.dat", "we"},
+      {"oaOt/V.dat", "MQyXQzaKuyoAu"}
+    },
+      {},
+      {
+      {"C/d.cfg", "Zy"},
+      {"QP/x.bin", "Xh"},
+      {"YWf/F.txt", "RoxdW"},
+      {"c/Z.dat", "sOFqIbeqHHRiOm"},
+      {"hlhh/V.dat", "we"},
+      {"oaOt/V.dat", "MQyXQzaKuyoAu"}
+    },
+      static_cast<std::uint32_t>(0u),
+      static_cast<std::size_t>(258u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13014,13 +15393,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"EQRzaiFAntgcZGrTjEoGO.txt", "DfbwrvXQdiMUrdEbUvXCATDWwtuerjfUdROqqIeW"}
+      {"AeEQXCQTRoxJtqvNwTwwLqRccTT/VcPKuxNKvnWlmGZlxkyO/BHHrrnAOmzK.txt", "NpsgMYjvuqEwCBcWwyrkgFCnnthnpQDYEBCKWgFfyNMTiRHuUUGCJI"}
     },
       {},
       {
-      {"EQRzaiFAntgcZGrTjEoGO.txt", "DfbwrvXQdiMUrdEbUvXCATDWwtuerjfUdROqqIeW"}
+      {"AeEQXCQTRoxJtqvNwTwwLqRccTT/VcPKuxNKvnWlmGZlxkyO/BHHrrnAOmzK.txt", "NpsgMYjvuqEwCBcWwyrkgFCnnthnpQDYEBCKWgFfyNMTiRHuUUGCJI"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -13035,16 +15415,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"gaywrOgiiiqPOYaluKyrUopRVHDpozhAe/UzTxCyvzNxkQNvhwAO.dat", "vSOabXrDoUgYWqvisIapkcJXhgIeBeGUDptaLuKPSFeBUzzoDfgBgoHtypJ"}
+      {"ANbIHxLjZtrQuuykZsGwiCvCVBiBSYSSzdqv/Rhk/FIaGCP.md", "KcLLgWeWsjiWJhJufjnKbbaDZjZZx"},
+      {"AjzdsoA.cfg", "BjINXeMr"},
+      {"GB.cfg", "zqORGYETOROTUVxDORzGpgcjaaxCmfpOBbGfmoDPSRPzQMBfWeN"},
+      {"GFXbYTOqDJJhYXMDmMALJhYX/eMXlysihnbCRnLzkvjTWyVc/ZgKeQUovH.cfg", "ZuxBRFJcY"}
     },
       {},
       {
-      {"gaywrOgiiiqPOYaluKyrUopRVHDpozhAe/UzTxCyvzNxkQNvhwAO.dat", "vSOabXrDoUgYWqvisIapkcJXhgIeBeGUDptaLuKPSFeBUzzoDfgBgoHtypJ"}
+      {"ANbIHxLjZtrQuuykZsGwiCvCVBiBSYSSzdqv/Rhk/FIaGCP.md", "KcLLgWeWsjiWJhJufjnKbbaDZjZZx"},
+      {"AjzdsoA.cfg", "BjINXeMr"},
+      {"GB.cfg", "zqORGYETOROTUVxDORzGpgcjaaxCmfpOBbGfmoDPSRPzQMBfWeN"},
+      {"GFXbYTOqDJJhYXMDmMALJhYX/eMXlysihnbCRnLzkvjTWyVc/ZgKeQUovH.cfg", "ZuxBRFJcY"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(395u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13056,22 +15443,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"AQ/ssfKYfOsIsGLBsFMEZeAumAu.txt", "scwWIsTwtM"},
-      {"CMSoDNRCMsEWyBvCFlRPze.bin", "rBTzxbjoqtxgFUZUrNIcQcGiAghYENdtnuNgTuSfbdOtHZTdzzKT"},
-      {"KgGzBrnbg/DAALxaCZxQXmePPpvB/ZCMkWfNfPhftKWk.dat", "EpnBvcAXELRZISN"},
-      {"TrQheJOjSDsjPBGLFzIroljPbJTlmwVQ.md", "XVxhGeoYRuPLvOVyypcWNwNlqRUiTlpLqiXaIOdWKJsqmWrpStuMnBrojYEcEquUdXatSFar"}
+      {"DqTBgzjHqNCLLPEcrO/hPnPkMtbIUeWgDBxChHet.cfg", "yvPDCRqSzGdlXwVRFJgOPYrQigdljeGbVeScBog"}
     },
       {},
       {
-      {"AQ/ssfKYfOsIsGLBsFMEZeAumAu.txt", "scwWIsTwtM"},
-      {"CMSoDNRCMsEWyBvCFlRPze.bin", "rBTzxbjoqtxgFUZUrNIcQcGiAghYENdtnuNgTuSfbdOtHZTdzzKT"},
-      {"KgGzBrnbg/DAALxaCZxQXmePPpvB/ZCMkWfNfPhftKWk.dat", "EpnBvcAXELRZISN"},
-      {"TrQheJOjSDsjPBGLFzIroljPbJTlmwVQ.md", "XVxhGeoYRuPLvOVyypcWNwNlqRUiTlpLqiXaIOdWKJsqmWrpStuMnBrojYEcEquUdXatSFar"}
+      {"DqTBgzjHqNCLLPEcrO/hPnPkMtbIUeWgDBxChHet.cfg", "yvPDCRqSzGdlXwVRFJgOPYrQigdljeGbVeScBog"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(326u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13083,18 +15465,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"MtoCXVkarehmOsBgAUxxNYcz.md", "QbLERnGBMBjZHdRUFpFVyJFaePsrjfQmhMhxCqRMGJWAfnuVsrtLjnJRYZusLIgkfqx"},
-      {"OrgIIjraFXcFpUd/hFFFGF/tgJBofjneqU.dat", "QeCkwmeUDyNXPMcWaJLHgkjravjpzefPolPilYfQUnvVkUeKIFguhdpGvnYATndS"}
+      {"FlxcN.dat", "JcwICdomHRUmrREWNhHN"},
+      {"JujEZuHUFWeeRZPgTGrzxduPsdZYw/vZSmdNWCRmqJNDNU/gGHc.bin", "FMWNopSEaVVgwkxbLyeXNyQsuBIzyvsKY"}
     },
       {},
       {
-      {"MtoCXVkarehmOsBgAUxxNYcz.md", "QbLERnGBMBjZHdRUFpFVyJFaePsrjfQmhMhxCqRMGJWAfnuVsrtLjnJRYZusLIgkfqx"},
-      {"OrgIIjraFXcFpUd/hFFFGF/tgJBofjneqU.dat", "QeCkwmeUDyNXPMcWaJLHgkjravjpzefPolPilYfQUnvVkUeKIFguhdpGvnYATndS"}
+      {"FlxcN.dat", "JcwICdomHRUmrREWNhHN"},
+      {"JujEZuHUFWeeRZPgTGrzxduPsdZYw/vZSmdNWCRmqJNDNU/gGHc.bin", "FMWNopSEaVVgwkxbLyeXNyQsuBIzyvsKY"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(190u),
+      static_cast<std::size_t>(125u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13106,22 +15489,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"CwSNXKiMPLoMqOSOmWraPZPok.bin", "FqUUnpxuHFVDWIcKbkOoOpCFwHqKISuuqQoKXUkwXSBvsXWtciYZaLSx"},
-      {"QHAbvQrr/fNFnRsgqAwxxccr.bin", "fruhTVpGjUQANYuKOBjRmczpYOZlpZcBrBixmFysHOVbNyplRpnbtTDhLaKNUVuqXjdwMDJHPZL"},
-      {"QZOPRbBdiFHTtIOeRvOgjJ/fCwCbwpTgecTERwJgJzKBkr/wDAo.cfg", "yJjztUdQhUPwQWaHONzwYsySvLruqfIZClgVf"},
-      {"gaShUBCFPcClhmTsijvk/d/TvpXEekfGSTBBHoVMSmWpA.cfg", "XGvcy"}
+      {"TXtYzWDIMoinckbRQwi.txt", "TewfymAOL"},
+      {"bIHavTEHwmxyk/rtQfrSPrNHxlzYAeI/wcFudeKfBsYranvds.cfg", "psKIXWRepdChshpNFWKiFLwSAZNTNtKvhhElJEFXwVqFOfJlyYvfFHSMK"}
     },
       {},
       {
-      {"CwSNXKiMPLoMqOSOmWraPZPok.bin", "FqUUnpxuHFVDWIcKbkOoOpCFwHqKISuuqQoKXUkwXSBvsXWtciYZaLSx"},
-      {"QHAbvQrr/fNFnRsgqAwxxccr.bin", "fruhTVpGjUQANYuKOBjRmczpYOZlpZcBrBixmFysHOVbNyplRpnbtTDhLaKNUVuqXjdwMDJHPZL"},
-      {"QZOPRbBdiFHTtIOeRvOgjJ/fCwCbwpTgecTERwJgJzKBkr/wDAo.cfg", "yJjztUdQhUPwQWaHONzwYsySvLruqfIZClgVf"},
-      {"gaShUBCFPcClhmTsijvk/d/TvpXEekfGSTBBHoVMSmWpA.cfg", "XGvcy"}
+      {"TXtYzWDIMoinckbRQwi.txt", "TewfymAOL"},
+      {"bIHavTEHwmxyk/rtQfrSPrNHxlzYAeI/wcFudeKfBsYranvds.cfg", "psKIXWRepdChshpNFWKiFLwSAZNTNtKvhhElJEFXwVqFOfJlyYvfFHSMK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(456u),
+      static_cast<std::size_t>(128u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13133,18 +15513,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"FZNWnAyJmeFI.txt", "nEEIHKtOFgKNbRfHZThLWaVg"},
-      {"HQmGMCfztLERpxta/sleqpj/WfMzYklYmd.md", "hBmEzNdmfJsDNilIRcDTudtqBduWbTPSbCRMJmMnpxEGSdOrpXWZjWkITDcopvfZVnav"}
+      {"DvtkuoarT/MMQYZnuiYGmJ.dat", "WIrtFqUWDzKOhkwnzsfoUOypEAXmOQIKvTQYawCsnOminMUeVZNmpX"},
+      {"HDESVO/XrDqWtLBxUePSMaMmNIa.txt", "BxZTCIdFYSbLitOUmZGpfPJUuQR"},
+      {"Hjpc/SIvWvMiPkTjcPDTTyyT/KSNom.bin", "UZrYHzxd"}
     },
       {},
       {
-      {"FZNWnAyJmeFI.txt", "nEEIHKtOFgKNbRfHZThLWaVg"},
-      {"HQmGMCfztLERpxta/sleqpj/WfMzYklYmd.md", "hBmEzNdmfJsDNilIRcDTudtqBduWbTPSbCRMJmMnpxEGSdOrpXWZjWkITDcopvfZVnav"}
+      {"DvtkuoarT/MMQYZnuiYGmJ.dat", "WIrtFqUWDzKOhkwnzsfoUOypEAXmOQIKvTQYawCsnOminMUeVZNmpX"},
+      {"HDESVO/XrDqWtLBxUePSMaMmNIa.txt", "BxZTCIdFYSbLitOUmZGpfPJUuQR"},
+      {"Hjpc/SIvWvMiPkTjcPDTTyyT/KSNom.bin", "UZrYHzxd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(120u),
+      static_cast<std::size_t>(354u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13156,18 +15539,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"BOJhtPmCLqwVNvtUYYiGUuUXyNrLFuPu.bin", "dOeoMsHYtbgLkKGohSrurKnlpyFNgmktZOJlbmxtKLQpEgea"},
-      {"CLpvHkzPNiMF/St.dat", "PryGSjGYwEYtIeTcHeloIHJRroMh"}
+      {"DfNHPngRGbTwCnoIlIl/XqECoPWvEtgnono/jFSwuNBHKQrZOgjyKaaFRVxSzrN.bin", "QgzBrorASLMgHuoNpONKTSSYFkfpzfChcIDaMGaHVHyYLEoIvVxVkHDBQmk"}
     },
       {},
       {
-      {"BOJhtPmCLqwVNvtUYYiGUuUXyNrLFuPu.bin", "dOeoMsHYtbgLkKGohSrurKnlpyFNgmktZOJlbmxtKLQpEgea"},
-      {"CLpvHkzPNiMF/St.dat", "PryGSjGYwEYtIeTcHeloIHJRroMh"}
+      {"DfNHPngRGbTwCnoIlIl/XqECoPWvEtgnono/jFSwuNBHKQrZOgjyKaaFRVxSzrN.bin", "QgzBrorASLMgHuoNpONKTSSYFkfpzfChcIDaMGaHVHyYLEoIvVxVkHDBQmk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(164u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13179,22 +15561,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"DdWmpozsvRJTwADQHPlnHaWohqdffY.txt", "yTLzHXMgIMqMYKtd"},
-      {"GlNZGKyYViXpOGyraer.dat", "pKTwQfrkvXRDwwrFoXRxuvaoxcBHbXrLiuTkxDkVNtJHlFRxBNejgykqHtpOVxFpZlKytikC"},
-      {"HOBp/BMEcxjqbhdmEdvuahvZYDGIJrJCw/vFGKhSSZHIgxotsaWyFHSkfqtVOYeA.md", "erjKMJsQnwLUuROQjCuVSHcTpLXNvOZSAdHEFKAbrsMWeyAgHMGEzbEkHBHvZvHtVHHe"},
-      {"MewpDPstvVH/ITONiKUdcs.dat", "OXFInAYhGMCYmDaDRYlB"}
+      {"BwWj/tLBlyoSdkSbPO.bin", "FTTBBcbTSSyqZiYAImpGuWEvdjVzIoDXdJaCdoUO"}
     },
       {},
       {
-      {"DdWmpozsvRJTwADQHPlnHaWohqdffY.txt", "yTLzHXMgIMqMYKtd"},
-      {"GlNZGKyYViXpOGyraer.dat", "pKTwQfrkvXRDwwrFoXRxuvaoxcBHbXrLiuTkxDkVNtJHlFRxBNejgykqHtpOVxFpZlKytikC"},
-      {"HOBp/BMEcxjqbhdmEdvuahvZYDGIJrJCw/vFGKhSSZHIgxotsaWyFHSkfqtVOYeA.md", "erjKMJsQnwLUuROQjCuVSHcTpLXNvOZSAdHEFKAbrsMWeyAgHMGEzbEkHBHvZvHtVHHe"},
-      {"MewpDPstvVH/ITONiKUdcs.dat", "OXFInAYhGMCYmDaDRYlB"}
+      {"BwWj/tLBlyoSdkSbPO.bin", "FTTBBcbTSSyqZiYAImpGuWEvdjVzIoDXdJaCdoUO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(456u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13206,28 +15583,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"DcjcShOTirRacpFdqAHyrizZ/lDgBuJALTqxVasSfxRGvALksRHq.dat", "UcKzdihfakJeeyKGJJVGAtVAeCtIviXHXZLbFAXkIScTUTBLDygnwPqRMkrZagvmRnIRTyZBV"},
-      {"GpirRbLeLjZOLcwzJyDEUHjWGVkNzJIxYPt/Vtix.cfg", "lWXEjzpooHzZudkHnzFxJqguckwrsMUNpRarlLCoYMSPLhejbRdaCmXjxHAtp"},
-      {"HDlgLRMDAMkcrkrTTlNJSxKfCRHVNkwhPN/nbdxEwvIAL.bin", "WUldURUSuYVGdBpKzHnBueEs"},
-      {"IZYLWKMUBNWePVdUNsbOjLntIDGlOWTJkJb/bzHQCVy/gEiWYRIKqdRbnZU.txt", "CUOkSYZQUHvBqVOhnFYmLOPfUpEFQtENgPFqEUlDZsLfBXiLPmKirdBc"},
-      {"NWuVWYgBBohCBGZEuzvKgOqR/HlLjugyrPQUZvKSzq.dat", "QgrtVNJhdMEKXvSeuKSyGEHHKprLbWYRXraHwEQeqSBvBmXmPmjtPSmteRSXPQnZhoFLfANgfMtd"},
-      {"PEpYqYjJOylARMGoBPRauHsfFEoK/thwZsyo.cfg", "iTbRRvCAGHqqlo"},
-      {"QfRgHBXgFqVovOoZ/QcytagACHdZJAsWRrehdi/vfAhQXYrRUcSVkhEgLXoQrIo.bin", "nGPBNqyitwEnzeSLCBRAsbDvOFMDUlgvayZGAPMpS"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"DcjcShOTirRacpFdqAHyrizZ/lDgBuJALTqxVasSfxRGvALksRHq.dat", "UcKzdihfakJeeyKGJJVGAtVAeCtIviXHXZLbFAXkIScTUTBLDygnwPqRMkrZagvmRnIRTyZBV"},
-      {"GpirRbLeLjZOLcwzJyDEUHjWGVkNzJIxYPt/Vtix.cfg", "lWXEjzpooHzZudkHnzFxJqguckwrsMUNpRarlLCoYMSPLhejbRdaCmXjxHAtp"},
-      {"HDlgLRMDAMkcrkrTTlNJSxKfCRHVNkwhPN/nbdxEwvIAL.bin", "WUldURUSuYVGdBpKzHnBueEs"},
-      {"IZYLWKMUBNWePVdUNsbOjLntIDGlOWTJkJb/bzHQCVy/gEiWYRIKqdRbnZU.txt", "CUOkSYZQUHvBqVOhnFYmLOPfUpEFQtENgPFqEUlDZsLfBXiLPmKirdBc"},
-      {"NWuVWYgBBohCBGZEuzvKgOqR/HlLjugyrPQUZvKSzq.dat", "QgrtVNJhdMEKXvSeuKSyGEHHKprLbWYRXraHwEQeqSBvBmXmPmjtPSmteRSXPQnZhoFLfANgfMtd"},
-      {"PEpYqYjJOylARMGoBPRauHsfFEoK/thwZsyo.cfg", "iTbRRvCAGHqqlo"},
-      {"QfRgHBXgFqVovOoZ/QcytagACHdZJAsWRrehdi/vfAhQXYrRUcSVkhEgLXoQrIo.bin", "nGPBNqyitwEnzeSLCBRAsbDvOFMDUlgvayZGAPMpS"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(914u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13239,18 +15607,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"msMpyZyLEFFkzRgoJFbHpifFiCW/hWVhCbQTigXFeBIhvC/MlLcwnSeckrQciLpKvwUuuVTWIKfZA.bin", "EVJiHMSYJUIsRueD"},
-      {"nsKgHNNfhtsGafbLVrRQCYdct.bin", "hFOqAYScBwEaqfUVNCgHNsJzqQTINgqkWaIdqftdMsdVKCrSIlvFuLmWz"}
+      {"DZVWQAqdqCUgHEDEbzbmrtZiwoy.cfg", "ZmyXGJHyTFqRoJubJqOCEsAkeOFNlELfpKJYZFMfPdMQEanGr"},
+      {"EaNhMMaTKisdlIxwGQ/kECKxnHCMvNVaDDIiWWDRVLUXNzg.md", "hNWCBlsCjX"},
+      {"EbRcxFou/zKrcFOaaTgIFUCwsRhfbXG.txt", "pa"}
     },
       {},
       {
-      {"msMpyZyLEFFkzRgoJFbHpifFiCW/hWVhCbQTigXFeBIhvC/MlLcwnSeckrQciLpKvwUuuVTWIKfZA.bin", "EVJiHMSYJUIsRueD"},
-      {"nsKgHNNfhtsGafbLVrRQCYdct.bin", "hFOqAYScBwEaqfUVNCgHNsJzqQTINgqkWaIdqftdMsdVKCrSIlvFuLmWz"}
+      {"DZVWQAqdqCUgHEDEbzbmrtZiwoy.cfg", "ZmyXGJHyTFqRoJubJqOCEsAkeOFNlELfpKJYZFMfPdMQEanGr"},
+      {"EaNhMMaTKisdlIxwGQ/kECKxnHCMvNVaDDIiWWDRVLUXNzg.md", "hNWCBlsCjX"},
+      {"EbRcxFou/zKrcFOaaTgIFUCwsRhfbXG.txt", "pa"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(193u),
+      static_cast<std::size_t>(356u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13262,13 +15633,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"DI/NOAFVXwBnIDENWdocWhWPQFraJ.md", "fW"}
+      {"LfCSiC/BuvzNCia/mSoS.txt", "rKmzPyosLfCUwixuzXLqHeSjRQusCh"}
     },
       {},
       {
-      {"DI/NOAFVXwBnIDENWdocWhWPQFraJ.md", "fW"}
+      {"LfCSiC/BuvzNCia/mSoS.txt", "rKmzPyosLfCUwixuzXLqHeSjRQusCh"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -13283,20 +15655,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"FPqKjzzCcmUKwPIzKxgDJiZnQ.dat", "FegGULCASRytMJDlPUXAQEyPziHouFc"},
-      {"IrIq/bnq.txt", "nbOZiLdPMykMhJledoLPmaRUsTPSFhdorcMkOEIcKxfzbUGpEKPqBhO"},
-      {"MB/d.md", "TjXGqltUNmSSmxGWvSljDd"}
+      {"BDeWZTROGloOJsEx/yffRmY.cfg", "GnSmQwSmFjbWSkkTRZgxlvFZNRXzXiePshtjsXfbEmQnqVgkoSjiWFlWYwunIRihtZsd"},
+      {"IMLSiL/NAcpEjCsFGDYrzmODkvlhJv/xCkumvTARlRYNRLVuwVDa.md", "DKlNnTOWdeNobZMcvOXqPzQpjpOoeKdKrcfogrzIZjkIhcubpKAGVGJalnZYQNxaERvCz"}
     },
       {},
       {
-      {"FPqKjzzCcmUKwPIzKxgDJiZnQ.dat", "FegGULCASRytMJDlPUXAQEyPziHouFc"},
-      {"IrIq/bnq.txt", "nbOZiLdPMykMhJledoLPmaRUsTPSFhdorcMkOEIcKxfzbUGpEKPqBhO"},
-      {"MB/d.md", "TjXGqltUNmSSmxGWvSljDd"}
+      {"BDeWZTROGloOJsEx/yffRmY.cfg", "GnSmQwSmFjbWSkkTRZgxlvFZNRXzXiePshtjsXfbEmQnqVgkoSjiWFlWYwunIRihtZsd"},
+      {"IMLSiL/NAcpEjCsFGDYrzmODkvlhJv/xCkumvTARlRYNRLVuwVDa.md", "DKlNnTOWdeNobZMcvOXqPzQpjpOoeKdKrcfogrzIZjkIhcubpKAGVGJalnZYQNxaERvCz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(140u),
+      static_cast<std::size_t>(255u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13308,22 +15679,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"HCcexFhjNDJsD.txt", "HcRAQdaednoXJuOmUVjpImjfFyvcFgyJiEluztZksJVLmuWglOwzQeQamWWhmcnlndPE"},
-      {"ItClEZxL/eYQrCLucUUcXAGvPVUH.dat", "FDnkhTazCoaRWPovncnEL"},
-      {"aFSyEYcJcgJyPFhlpaz.bin", "cykGAdzTIWfadkyGABxRPejmQNsrlWtWrEMQ"},
-      {"jEuwHLieQKLRLg/oICkIkNkPedtybEMIVERa.md", "LbQqLkuEFyDWrxkWSApaJuOLnFPKrLW"}
+      {"DEnDateLYfadlIOrubulZfRMX.txt", "gFChFvmMDdyzTVzXQByCSeXVwFgVytKcuQMQEIflZeyp"},
+      {"HJPMFU/RRpMmCuyofjSNDwEBknHnmgROmwQTrxD/mLrdAUTCgAGnxndAXwxRHcXxVYDo.md", "GuzAzylXwfkrRmfACmlMCcZm"},
+      {"KFLukPGJTue.cfg", "KuvkVOVqLXAaLezeIQzeqqUKKldRPxcFZmWwCstByZBkfTEkyHJLTa"}
     },
       {},
       {
-      {"HCcexFhjNDJsD.txt", "HcRAQdaednoXJuOmUVjpImjfFyvcFgyJiEluztZksJVLmuWglOwzQeQamWWhmcnlndPE"},
-      {"ItClEZxL/eYQrCLucUUcXAGvPVUH.dat", "FDnkhTazCoaRWPovncnEL"},
-      {"aFSyEYcJcgJyPFhlpaz.bin", "cykGAdzTIWfadkyGABxRPejmQNsrlWtWrEMQ"},
-      {"jEuwHLieQKLRLg/oICkIkNkPedtybEMIVERa.md", "LbQqLkuEFyDWrxkWSApaJuOLnFPKrLW"}
+      {"DEnDateLYfadlIOrubulZfRMX.txt", "gFChFvmMDdyzTVzXQByCSeXVwFgVytKcuQMQEIflZeyp"},
+      {"HJPMFU/RRpMmCuyofjSNDwEBknHnmgROmwQTrxD/mLrdAUTCgAGnxndAXwxRHcXxVYDo.md", "GuzAzylXwfkrRmfACmlMCcZm"},
+      {"KFLukPGJTue.cfg", "KuvkVOVqLXAaLezeIQzeqqUKKldRPxcFZmWwCstByZBkfTEkyHJLTa"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(341u),
+      static_cast<std::size_t>(400u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13335,26 +15705,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"CKElCJHsqQf/uvjKCvoJAMjdtLJNj.md", "ZlPRfvWwEqnTJOsoZHwaSbRwEnrsSlRAuRZqAFNHdeIJkUViVo"},
-      {"DNHvHdbqUkniMLLqWV.md", "DtmyUEZOMNabEyBUCIoPYdcCdVOdiioFuVYyrcmEgXLvgjClxbmXo"},
-      {"LohapAeVvkKoVuZW/FNDLuhdFsNW/vFnRWctUTsfCF.dat", "CsvPrQbFquykTGFPOtJeMqYHklqW"},
-      {"QBiBThTEcjqusFZlRvNaZWPuAabYiWgKqV/qsDoWwdpiKCjdmtxQTUEWb.md", "pCvKhzCikBUNKXjOCyeEOTAimDzfGqJEbhWjnukKrBhhcUUHZHeBoaCyQSJeMZVOcBiHGBhzXIjlosLf"},
-      {"TFHVEKKMyurIkQvKQ.cfg", "lSJZlIQCOSYvLIOemKkQsWHjKQTrOBJxvOrHAbB"},
-      {"VbsfxDLxxjIvELVzjVi/XrTssZNRT.bin", "NXqSjtopPGUS"}
+      {"BtDhrZsHorLmBcTFRSjEtZNPVpkhn.dat", "XMfFxLJLWaZgzaB"},
+      {"IGLno/rXquEvYNsVZPMzuKURgmSLxBkEFEwdFM.bin", "BJbzqzkHnqOKjlujCAwsoGGPkwBAmzdOFQBxpEZempNVaWbLPqUrUoyVWFeCSWkaUHpi"}
     },
       {},
       {
-      {"CKElCJHsqQf/uvjKCvoJAMjdtLJNj.md", "ZlPRfvWwEqnTJOsoZHwaSbRwEnrsSlRAuRZqAFNHdeIJkUViVo"},
-      {"DNHvHdbqUkniMLLqWV.md", "DtmyUEZOMNabEyBUCIoPYdcCdVOdiioFuVYyrcmEgXLvgjClxbmXo"},
-      {"LohapAeVvkKoVuZW/FNDLuhdFsNW/vFnRWctUTsfCF.dat", "CsvPrQbFquykTGFPOtJeMqYHklqW"},
-      {"QBiBThTEcjqusFZlRvNaZWPuAabYiWgKqV/qsDoWwdpiKCjdmtxQTUEWb.md", "pCvKhzCikBUNKXjOCyeEOTAimDzfGqJEbhWjnukKrBhhcUUHZHeBoaCyQSJeMZVOcBiHGBhzXIjlosLf"},
-      {"TFHVEKKMyurIkQvKQ.cfg", "lSJZlIQCOSYvLIOemKkQsWHjKQTrOBJxvOrHAbB"},
-      {"VbsfxDLxxjIvELVzjVi/XrTssZNRT.bin", "NXqSjtopPGUS"}
+      {"BtDhrZsHorLmBcTFRSjEtZNPVpkhn.dat", "XMfFxLJLWaZgzaB"},
+      {"IGLno/rXquEvYNsVZPMzuKURgmSLxBkEFEwdFM.bin", "BJbzqzkHnqOKjlujCAwsoGGPkwBAmzdOFQBxpEZempNVaWbLPqUrUoyVWFeCSWkaUHpi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(670u),
+      static_cast<std::size_t>(160u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13366,32 +15729,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"DxIDouzoaIBgAiwAap/vW.txt", "VNZoY"},
-      {"FSXeXiopodd/oNoyEZVjNNRaFmJXskrowPeHElmaqEk/PuIJQILMNkvwChOhwALwVJ.dat", "TyKveSmyJK"},
-      {"GqjfUcMNnwRcMMJUIbTLJFrpiODUPqgh.txt", "zORAVliORQDmUMoIRlkudCTpsoBjQuxBfjO"},
-      {"JIAWQzltlstd.md", "RkXBlWlbJjttITGLaZrAdMEryTrBXXOtWKgJtUtmoknFYPwtPtdp"},
-      {"LfzGBtipvRrGGfEgbKJUeFLPvb.txt", "FNzJTUdhNIuMcpVUcFlvKUPdmbOCEw"},
-      {"MByXoLZpMOboNOZKPudnOeTSdiSmz.cfg", "LpFKmplpJBkYGnMPqDsiLqhhgAxKstwSqkag"},
-      {"UOVOLUazMcdTXkGpDcOLqhBJDTvWHC/eriqypCvvxdQi/AZUrdlbwFDQHZiEefdoBXAppHnYPAVFG.bin", "rEkSUcyPlZiVgRSUxxfTKbNdipYpsftaXnLyPTCoYKVEmpeSSMwB"},
-      {"aeEyXDebJacNBLlhRWgukFpLCmGdrRMImD/TPYinjNjyLAfVXFYOzEqDVZsYxjHT.cfg", "fwYyCyeAEgCRHPSCpkTkkbzOecfyfEDyVANpuSFkTRqcArXZOcioitvFEqoIfIF"},
-      {"kvrVWPJd/gVRvKYai/gCGZhxNVGOiWw.dat", "J"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"DxIDouzoaIBgAiwAap/vW.txt", "VNZoY"},
-      {"FSXeXiopodd/oNoyEZVjNNRaFmJXskrowPeHElmaqEk/PuIJQILMNkvwChOhwALwVJ.dat", "TyKveSmyJK"},
-      {"GqjfUcMNnwRcMMJUIbTLJFrpiODUPqgh.txt", "zORAVliORQDmUMoIRlkudCTpsoBjQuxBfjO"},
-      {"JIAWQzltlstd.md", "RkXBlWlbJjttITGLaZrAdMEryTrBXXOtWKgJtUtmoknFYPwtPtdp"},
-      {"LfzGBtipvRrGGfEgbKJUeFLPvb.txt", "FNzJTUdhNIuMcpVUcFlvKUPdmbOCEw"},
-      {"MByXoLZpMOboNOZKPudnOeTSdiSmz.cfg", "LpFKmplpJBkYGnMPqDsiLqhhgAxKstwSqkag"},
-      {"UOVOLUazMcdTXkGpDcOLqhBJDTvWHC/eriqypCvvxdQi/AZUrdlbwFDQHZiEefdoBXAppHnYPAVFG.bin", "rEkSUcyPlZiVgRSUxxfTKbNdipYpsftaXnLyPTCoYKVEmpeSSMwB"},
-      {"aeEyXDebJacNBLlhRWgukFpLCmGdrRMImD/TPYinjNjyLAfVXFYOzEqDVZsYxjHT.cfg", "fwYyCyeAEgCRHPSCpkTkkbzOecfyfEDyVANpuSFkTRqcArXZOcioitvFEqoIfIF"},
-      {"kvrVWPJd/gVRvKYai/gCGZhxNVGOiWw.dat", "J"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(985u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13403,16 +15753,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"DwnjcOgWmJzdAkWJjYlspBwVPlb.txt", "eRmWYSrgboBNDqXoMugrOogNhhLFoiOdyyaGQfekDeRQSyOIpUiTkrQwiuMrufiDjga"}
+      {"AAsmUFNsZptzC/jwysZcWqFFZJSYFPGOPMptvtZmKK/zxuuRWDlhoPbkVAnhMiwTFMGLoweSg.md", "Im"},
+      {"KXhbBnfnGmIab/FT.dat", "fDeCCFiKVaHUMDPnsVQFqtHUdwySjUpRrzMYGIcJ"},
+      {"P/YufOOkvOXJFKrENycFo/hAV.cfg", "drpuTyPiDITeWiuKLhDIaWJBIvNYpXYgopzJeicvvAJsMCEbrUXWfDWuCffwYnUQPXxaD"}
     },
       {},
       {
-      {"DwnjcOgWmJzdAkWJjYlspBwVPlb.txt", "eRmWYSrgboBNDqXoMugrOogNhhLFoiOdyyaGQfekDeRQSyOIpUiTkrQwiuMrufiDjga"}
+      {"AAsmUFNsZptzC/jwysZcWqFFZJSYFPGOPMptvtZmKK/zxuuRWDlhoPbkVAnhMiwTFMGLoweSg.md", "Im"},
+      {"KXhbBnfnGmIab/FT.dat", "fDeCCFiKVaHUMDPnsVQFqtHUdwySjUpRrzMYGIcJ"},
+      {"P/YufOOkvOXJFKrENycFo/hAV.cfg", "drpuTyPiDITeWiuKLhDIaWJBIvNYpXYgopzJeicvvAJsMCEbrUXWfDWuCffwYnUQPXxaD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(354u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13424,18 +15779,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"mYDvxxQZeNCItPICasQFXMZAByNkNiUMQeKm/dRoVIYhGOnQyIvwxBzQHFpblW/rCHlFXgCnLszgpSoZS.txt", "RwZtatwUiHhMtBAoQyePpfIUhlyPZuLVDGmgBi"},
-      {"nyNH/cfHnIBK.bin", "ukmgyAeOQIsmazegQFxdiSXXWBqDegPitkfkjIhJrvfOQCjJfZWAlxGtYVhoYzPDoJbKVUYCKFsytJaR"}
+      {"QTuuSmiPZZzXiydxycuc.bin", "cRSXgoTxcVXVuKMyNVSWHIMeiXCkmiuEF"},
+      {"iZTRSHONPBK.md", "GNScRXyQXeSUyStrBJLiDXfLRwynijByIT"}
     },
       {},
       {
-      {"mYDvxxQZeNCItPICasQFXMZAByNkNiUMQeKm/dRoVIYhGOnQyIvwxBzQHFpblW/rCHlFXgCnLszgpSoZS.txt", "RwZtatwUiHhMtBAoQyePpfIUhlyPZuLVDGmgBi"},
-      {"nyNH/cfHnIBK.bin", "ukmgyAeOQIsmazegQFxdiSXXWBqDegPitkfkjIhJrvfOQCjJfZWAlxGtYVhoYzPDoJbKVUYCKFsytJaR"}
+      {"QTuuSmiPZZzXiydxycuc.bin", "cRSXgoTxcVXVuKMyNVSWHIMeiXCkmiuEF"},
+      {"iZTRSHONPBK.md", "GNScRXyQXeSUyStrBJLiDXfLRwynijByIT"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(219u),
+      static_cast<std::size_t>(169u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13447,13 +15803,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"vVKEunkpzhpKIGnccUdqiTFwjfqceiX/JxMXalIpxMkypvzDOjjjQBoCVNzX/PIpVrsJQYnLgAMMQhi.dat", "gnkdSHgnTVvoCpLXWBvFLBJqZcaj"}
+      {"DRRMzyIxjjxwOuxDoVskja.cfg", "JJhSkiUvVfHxAUrVgntFbfVQuSFJKpXnZzasxYFycaUugDfeFUCEEHVBNWgqlMbtbzKltiwDvvc"}
     },
       {},
       {
-      {"vVKEunkpzhpKIGnccUdqiTFwjfqceiX/JxMXalIpxMkypvzDOjjjQBoCVNzX/PIpVrsJQYnLgAMMQhi.dat", "gnkdSHgnTVvoCpLXWBvFLBJqZcaj"}
+      {"DRRMzyIxjjxwOuxDoVskja.cfg", "JJhSkiUvVfHxAUrVgntFbfVQuSFJKpXnZzasxYFycaUugDfeFUCEEHVBNWgqlMbtbzKltiwDvvc"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -13468,36 +15825,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"BNrZPtxCBhHbZL/JmIp.bin", "SsMRHFGJwzhFwdVKpPqBaSkrStmnU"},
-      {"BSdfxMO/fCdXNXAFRhVWaGOVDjyxRSYbMwlmxxdAh/cAWjLuJaYXaZoZIAJu.cfg", "rMmWBdDcDtsUYnpvvOhbyAqrWNcBFdCYAdxcTOzDZjHELfZRPGLtvDzFxq"},
-      {"FEzgebpuw.dat", "XHtfwoTYMDAVGiEPmkHXPHeMlxbpgQfJWqaALomxqccFvJZDxvFcvaFbZh"},
-      {"FgFPGQbSViPuTcQHiuvzjck/zVFZqNTjzFgoW/rCMqdSspZMAgJUJoeZYOcIbOGM.txt", "LPshYyHtwOjhCeHJe"},
-      {"FraPVdfC.cfg", "xJDEzKKxmSTWVyPMForiTYLJfxSMbFRIMUL"},
-      {"HvwDBgfXERZx.cfg", "jX"},
-      {"OKQhlMehffl/byPCsmL.cfg", "hQtBePtrIkDP"},
-      {"SBFE.dat", "XYGRqVeoDYbQXOqZiaMiTZEcIkwqmIweQlNUedyEadMuppdTbguIXHQTbJdtYiXCfe"},
-      {"YJUd.txt", "DtPlrysYXwiz"},
-      {"cxDUJyISE.cfg", "KgugFmTmCoSSTXt"},
-      {"eoLYwPhEjTSlW/VkUqTPxbCqRYqxj.cfg", "JUlkLMuqTJRxQEhnymisWTHkTFGQteGUaSSrdFnwXcTUEFYWxsGmRxtnqpwayXQnQt"}
+      {"KztHLEbIKuw/LLZAtlKSkx/puHHIvPsN.dat", "PAViFqcHfyxRZeohYFpMKmUYzzHRCrumFuvFnYZ"},
+      {"PQinwEFD/wGhfGnyfQlHLatBgayz.dat", "wbCzBIcAqfPvRpWWyDohFKIheFhUsav"},
+      {"TRHOdSnZdDpDCBRmZXHiKWupqLbqtR.bin", "BUioxpLLjQTktFqaczMGydavbnDYDGaHjZPyxURnUoNxU"}
     },
       {},
       {
-      {"BNrZPtxCBhHbZL/JmIp.bin", "SsMRHFGJwzhFwdVKpPqBaSkrStmnU"},
-      {"BSdfxMO/fCdXNXAFRhVWaGOVDjyxRSYbMwlmxxdAh/cAWjLuJaYXaZoZIAJu.cfg", "rMmWBdDcDtsUYnpvvOhbyAqrWNcBFdCYAdxcTOzDZjHELfZRPGLtvDzFxq"},
-      {"FEzgebpuw.dat", "XHtfwoTYMDAVGiEPmkHXPHeMlxbpgQfJWqaALomxqccFvJZDxvFcvaFbZh"},
-      {"FgFPGQbSViPuTcQHiuvzjck/zVFZqNTjzFgoW/rCMqdSspZMAgJUJoeZYOcIbOGM.txt", "LPshYyHtwOjhCeHJe"},
-      {"FraPVdfC.cfg", "xJDEzKKxmSTWVyPMForiTYLJfxSMbFRIMUL"},
-      {"HvwDBgfXERZx.cfg", "jX"},
-      {"OKQhlMehffl/byPCsmL.cfg", "hQtBePtrIkDP"},
-      {"SBFE.dat", "XYGRqVeoDYbQXOqZiaMiTZEcIkwqmIweQlNUedyEadMuppdTbguIXHQTbJdtYiXCfe"},
-      {"YJUd.txt", "DtPlrysYXwiz"},
-      {"cxDUJyISE.cfg", "KgugFmTmCoSSTXt"},
-      {"eoLYwPhEjTSlW/VkUqTPxbCqRYqxj.cfg", "JUlkLMuqTJRxQEhnymisWTHkTFGQteGUaSSrdFnwXcTUEFYWxsGmRxtnqpwayXQnQt"}
+      {"KztHLEbIKuw/LLZAtlKSkx/puHHIvPsN.dat", "PAViFqcHfyxRZeohYFpMKmUYzzHRCrumFuvFnYZ"},
+      {"PQinwEFD/wGhfGnyfQlHLatBgayz.dat", "wbCzBIcAqfPvRpWWyDohFKIheFhUsav"},
+      {"TRHOdSnZdDpDCBRmZXHiKWupqLbqtR.bin", "BUioxpLLjQTktFqaczMGydavbnDYDGaHjZPyxURnUoNxU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(896u),
+      static_cast<std::size_t>(354u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13509,16 +15851,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"vY/hsjUoePuNeQaBMWwfhGtlmmqOEdvS.bin", "VXxCTFpLsjwlarHQkWrexc"}
+      {"GclZfimmLddeBURhQVTwbXBfGPTWvmgNUh/CfnyPeOyJSVFbmYvLNeMObEftWIxlkH.dat", "HbmlZzoVEBoOCKWtKgDfqLCbWxDNCsirjKmonuuaSNLyeRmhxaM"},
+      {"JNfUpxLTqQmdJSiRZRvQtnvSCjiQ/wNATW.txt", "ZbnSteKaPnBDPUJXJcVInXSetiOGBaRiInqrCFRbBezfTlLuJWLzEsq"}
     },
       {},
       {
-      {"vY/hsjUoePuNeQaBMWwfhGtlmmqOEdvS.bin", "VXxCTFpLsjwlarHQkWrexc"}
+      {"GclZfimmLddeBURhQVTwbXBfGPTWvmgNUh/CfnyPeOyJSVFbmYvLNeMObEftWIxlkH.dat", "HbmlZzoVEBoOCKWtKgDfqLCbWxDNCsirjKmonuuaSNLyeRmhxaM"},
+      {"JNfUpxLTqQmdJSiRZRvQtnvSCjiQ/wNATW.txt", "ZbnSteKaPnBDPUJXJcVInXSetiOGBaRiInqrCFRbBezfTlLuJWLzEsq"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(297u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13530,28 +15875,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"HpgHlEhTUKF/tR.md", "PDHbTLzyGkpDxvgZouttmsThbpyhKijNazSbBPqzzfWjyDvVdBniqp"},
-      {"QSlnCMgxCLpVorVqWytg.txt", "ZmPAUypRvbtwRKAMzDzEXkeztxqLaJiISLNvalI"},
-      {"TkFCWTuNkxOcKTripTLJ.cfg", "OpCgwrWVYcDhVTVIiaTQXFSRwSUNyJhIdyucVszhoWGeJiwlkMcn"},
-      {"UkZjuSCpVKHWXqgzU/IvVHyxuGwcbwyujICDaQIBs/rII.md", "ojvSyxJSNlYFjCOEcOhQRiiEjoEfrdkKHotAqAaiIkOjBCVzS"},
-      {"XjtIaHvYEv/ObDI.dat", "oIAxKkKRFIWdAilJrAzbYGufCtFyioxbcPZZFKZYAeKqtoOKcBpjzOeYAnrSiJoUuDDmQc"},
-      {"ZoFBXk/DgyJSrxW.dat", "PJzUOEwwIuXnrSnOfLwoOISXQndiNQRecXcAV"},
-      {"jCxqFzwWW.bin", "XmWEMohWkNlyr"}
+      {"BeRgxEyvBQJIltTdkKzeW/WUfWfxtfxWRcEnciQisBJjPQ.md", "bAKhTKgNwZzCcqAqKLXIg"},
+      {"PnLD/roAjjOFoHTlyhVaFruLTERGXmXXXJSm/mZ.txt", "uCXQhfaaxGQHQtFBzvAdODsVtmnAPpoXHaMsParxoN"}
     },
       {},
       {
-      {"HpgHlEhTUKF/tR.md", "PDHbTLzyGkpDxvgZouttmsThbpyhKijNazSbBPqzzfWjyDvVdBniqp"},
-      {"QSlnCMgxCLpVorVqWytg.txt", "ZmPAUypRvbtwRKAMzDzEXkeztxqLaJiISLNvalI"},
-      {"TkFCWTuNkxOcKTripTLJ.cfg", "OpCgwrWVYcDhVTVIiaTQXFSRwSUNyJhIdyucVszhoWGeJiwlkMcn"},
-      {"UkZjuSCpVKHWXqgzU/IvVHyxuGwcbwyujICDaQIBs/rII.md", "ojvSyxJSNlYFjCOEcOhQRiiEjoEfrdkKHotAqAaiIkOjBCVzS"},
-      {"XjtIaHvYEv/ObDI.dat", "oIAxKkKRFIWdAilJrAzbYGufCtFyioxbcPZZFKZYAeKqtoOKcBpjzOeYAnrSiJoUuDDmQc"},
-      {"ZoFBXk/DgyJSrxW.dat", "PJzUOEwwIuXnrSnOfLwoOISXQndiNQRecXcAV"},
-      {"jCxqFzwWW.bin", "XmWEMohWkNlyr"}
+      {"BeRgxEyvBQJIltTdkKzeW/WUfWfxtfxWRcEnciQisBJjPQ.md", "bAKhTKgNwZzCcqAqKLXIg"},
+      {"PnLD/roAjjOFoHTlyhVaFruLTERGXmXXXJSm/mZ.txt", "uCXQhfaaxGQHQtFBzvAdODsVtmnAPpoXHaMsParxoN"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(716u),
+      static_cast<std::size_t>(198u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13563,13 +15899,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"gHUJpbTeMIaylxyqamKWWDKCSBI/VxuVLmnbBzdUZzHoCQvuhQfwMQrNxUSiGapw/XBTcRCLQwEeAiBkrAecIzEwhEfzLmmqO.txt", "eTFmyNvCmgMKhCGSGHTkAFyMwUWNNAtBvakaDbLfEWfdxGG"}
+      {"Dwc/fMjoKoYbjIiOqeJaEuEp/uzKwVBAWlnawxGkTJnxFSDtMlDEwF.dat", "OzxnhIRfCBcrGNqXOawzkgnBIutMLw"}
     },
       {},
       {
-      {"gHUJpbTeMIaylxyqamKWWDKCSBI/VxuVLmnbBzdUZzHoCQvuhQfwMQrNxUSiGapw/XBTcRCLQwEeAiBkrAecIzEwhEfzLmmqO.txt", "eTFmyNvCmgMKhCGSGHTkAFyMwUWNNAtBvakaDbLfEWfdxGG"}
+      {"Dwc/fMjoKoYbjIiOqeJaEuEp/uzKwVBAWlnawxGkTJnxFSDtMlDEwF.dat", "OzxnhIRfCBcrGNqXOawzkgnBIutMLw"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -13584,20 +15921,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"NMAuDNsHDaWvnAwr/kuaXIjFVvXIjEr.md", "iVlWIScCYDECyvVMxyqGEjcSOyzVBrFWFepuBwupDt"},
-      {"PKtBvLiaCCpxvPMjP.txt", "pEsNISAwdqaqbAXMNSAqtRPFYuhZIsRqcFGtbXuFZAhlXDKuipfvuxoKTCVaHacwNUJkYNsgJqQWio"},
-      {"SKMZzVYSjulSDMOycvRnSp/HnExjdkynidNxRcOw/DWfQbQpjcqelY.bin", "ruzTqyxJlHwYbRGIktIIaXwQmmCeVPBayaucAlxueseILWNuCzRfsMUbwubSwehuUrDyNdhZGTnPXSWz"}
+      {"OPvelueXfbXBbWjEJo/ggZCXHrTjbDALTjEBGqAelYgASTDDYWlbe/jIglhdMiYzCGdNEJvVfRTc.md", "ukzlOlsoWqrxMRMbiSXlZMbNfeIpcGlRin"}
     },
       {},
       {
-      {"NMAuDNsHDaWvnAwr/kuaXIjFVvXIjEr.md", "iVlWIScCYDECyvVMxyqGEjcSOyzVBrFWFepuBwupDt"},
-      {"PKtBvLiaCCpxvPMjP.txt", "pEsNISAwdqaqbAXMNSAqtRPFYuhZIsRqcFGtbXuFZAhlXDKuipfvuxoKTCVaHacwNUJkYNsgJqQWio"},
-      {"SKMZzVYSjulSDMOycvRnSp/HnExjdkynidNxRcOw/DWfQbQpjcqelY.bin", "ruzTqyxJlHwYbRGIktIIaXwQmmCeVPBayaucAlxueseILWNuCzRfsMUbwubSwehuUrDyNdhZGTnPXSWz"}
+      {"OPvelueXfbXBbWjEJo/ggZCXHrTjbDALTjEBGqAelYgASTDDYWlbe/jIglhdMiYzCGdNEJvVfRTc.md", "ukzlOlsoWqrxMRMbiSXlZMbNfeIpcGlRin"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(156u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13609,20 +15943,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"ATHCgN/RhsazyAMFCxZxUcBFeprIlynsWDSjjUKOJ/eLEKtJEDbQQv.md", "hQjXiNnnQTaFJAQrxNoLisBIPGJdY"},
-      {"CxsTUghhOEIVfSIGCoOTEDvYrKKDPmmp/OgeGFvJ.bin", "qfbHpYYbqLpxZDLTCknPJvfFMsuqQZvTAxoeiglETvHcXfuXnLpJgYyMAYJfIeFPkzQzlKHzqFWC"},
-      {"EGGWmrKXMlCSSXINjtnVdxwwEEiwhbX/GUeziTGRmAEypltnShNRjtLwid/qPOhTNYXbgMMnzyqYCpdzduXpwX.cfg", "ocYywkSazsFQTzzdrykTTyhbJfq"}
+      {"QgfYhjqRzmQi/NqIJLTfMLcja.md", "LoJjgnDNjjuFqnsBEYOhfryOosHsglriUDtk"},
+      {"YCiXCuXgZnXSIgXXhoEB/l.cfg", "lSAjJocwXKZtaLvJhTQxhXNOQywrbEPdnkcjxgk"},
+      {"YTLGUJoYpLejQPdZgawUQRKSMdrctbxp/vlHDHSUnjcA.md", "HHQrazZsYGbgouwgqFpuzRstXixAzYYtnOuHIOcPwrBaqaRlacQhPBQbZ"}
     },
       {},
       {
-      {"ATHCgN/RhsazyAMFCxZxUcBFeprIlynsWDSjjUKOJ/eLEKtJEDbQQv.md", "hQjXiNnnQTaFJAQrxNoLisBIPGJdY"},
-      {"CxsTUghhOEIVfSIGCoOTEDvYrKKDPmmp/OgeGFvJ.bin", "qfbHpYYbqLpxZDLTCknPJvfFMsuqQZvTAxoeiglETvHcXfuXnLpJgYyMAYJfIeFPkzQzlKHzqFWC"},
-      {"EGGWmrKXMlCSSXINjtnVdxwwEEiwhbX/GUeziTGRmAEypltnShNRjtLwid/qPOhTNYXbgMMnzyqYCpdzduXpwX.cfg", "ocYywkSazsFQTzzdrykTTyhbJfq"}
+      {"QgfYhjqRzmQi/NqIJLTfMLcja.md", "LoJjgnDNjjuFqnsBEYOhfryOosHsglriUDtk"},
+      {"YCiXCuXgZnXSIgXXhoEB/l.cfg", "lSAjJocwXKZtaLvJhTQxhXNOQywrbEPdnkcjxgk"},
+      {"YTLGUJoYpLejQPdZgawUQRKSMdrctbxp/vlHDHSUnjcA.md", "HHQrazZsYGbgouwgqFpuzRstXixAzYYtnOuHIOcPwrBaqaRlacQhPBQbZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(342u),
+      static_cast<std::size_t>(329u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13634,13 +15969,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"ItTxgfgOmqhkNeOK/izHDilnNhDwRpXVHXknroUNjLGwTdsbu/rfVguAQCXvpKngeK.bin", "acOaYiwceNThjNnkfLhMPG"}
+      {"FjfKSoaqpe/mYXuhnVHJrr.cfg", "kNDwNLGaueZBBRub"}
     },
       {},
       {
-      {"ItTxgfgOmqhkNeOK/izHDilnNhDwRpXVHXknroUNjLGwTdsbu/rfVguAQCXvpKngeK.bin", "acOaYiwceNThjNnkfLhMPG"}
+      {"FjfKSoaqpe/mYXuhnVHJrr.cfg", "kNDwNLGaueZBBRub"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -13655,18 +15991,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"DBEUbzBoiC/gfJG.cfg", "cImaEHGKbLhcYTcnpvnJAhOebQJclCnTnRpZCGipMCNkDkfwtNeuhjmMzoIVAEXIakzDB"},
-      {"DIogtgLXXcDSuRLBi/AhyUozwpngKOn.bin", "YIwrRoKnmxbwyjjMlMItOhIEi"}
+      {"AiWFvnaSWLobHbEyhYVDqFTzRwUNgsQYvU/YKcSgzkQzcaek.cfg", "sJAyJcmxWGOAtUtmj"}
     },
       {},
       {
-      {"DBEUbzBoiC/gfJG.cfg", "cImaEHGKbLhcYTcnpvnJAhOebQJclCnTnRpZCGipMCNkDkfwtNeuhjmMzoIVAEXIakzDB"},
-      {"DIogtgLXXcDSuRLBi/AhyUozwpngKOn.bin", "YIwrRoKnmxbwyjjMlMItOhIEi"}
+      {"AiWFvnaSWLobHbEyhYVDqFTzRwUNgsQYvU/YKcSgzkQzcaek.cfg", "sJAyJcmxWGOAtUtmj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(184u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13678,34 +16013,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"AMpRyHdsKIRBrbaVZK/eoSGIwsTqvpsrcwHjCGHANCWsYqGBPcZ.cfg", "rUJzUd"},
-      {"FLnWFODYoqmTTzMzsEu.bin", "CrAfKDRcCseQctgxlDZZIGMWaIzjdGXXqLDoPYEACxFmYkEFQqDjD"},
-      {"FlkoODhHvQBFOmJ.cfg", "TFWhnElguuHKzqRewbIn"},
-      {"QqgcNpPQYauktwLKVex/ixwYgZojfB.txt", "NILubWiIXROBWLHJZobGUUONwrcUFtSjxhKy"},
-      {"WW/ABrBeJamHDzLfQy/FpwkBaxoEKJyhx.txt", "zbEYqQjnGOKyXgJuvnnlcnUTFwrJtTypjwWX"},
-      {"brRsfkYlqAwkpBllKmbxLpPGazxvUDviwkN/ffMcpVZq.bin", "TdzbHyfiqBcaDeDMJwawfcDBDYHeuvCPNpRoNfgg"},
-      {"eJksKdMGzcCupCkvIzBfARyjkBNPGTcEyNtC/SRjeTFsHoLSggzwWIzqCFp.txt", "EsJFKGvmv"},
-      {"oviFysCfLMbgNgb.md", "ieToFW"},
-      {"uWJMH.md", "esxQVez"},
-      {"wjrMIXeQ.dat", "BaWwnMeUUSDwiKOSmfiOwQpPsGFZyixWDTzTZPcKRQUarFowtnIonvRv"}
+      {"BuAjVBGeDoSwrCcuMYyEHEkrzI/QYMtgKa.dat", "vVuiEOEIejoqpPM"}
     },
       {},
       {
-      {"AMpRyHdsKIRBrbaVZK/eoSGIwsTqvpsrcwHjCGHANCWsYqGBPcZ.cfg", "rUJzUd"},
-      {"FLnWFODYoqmTTzMzsEu.bin", "CrAfKDRcCseQctgxlDZZIGMWaIzjdGXXqLDoPYEACxFmYkEFQqDjD"},
-      {"FlkoODhHvQBFOmJ.cfg", "TFWhnElguuHKzqRewbIn"},
-      {"QqgcNpPQYauktwLKVex/ixwYgZojfB.txt", "NILubWiIXROBWLHJZobGUUONwrcUFtSjxhKy"},
-      {"WW/ABrBeJamHDzLfQy/FpwkBaxoEKJyhx.txt", "zbEYqQjnGOKyXgJuvnnlcnUTFwrJtTypjwWX"},
-      {"brRsfkYlqAwkpBllKmbxLpPGazxvUDviwkN/ffMcpVZq.bin", "TdzbHyfiqBcaDeDMJwawfcDBDYHeuvCPNpRoNfgg"},
-      {"eJksKdMGzcCupCkvIzBfARyjkBNPGTcEyNtC/SRjeTFsHoLSggzwWIzqCFp.txt", "EsJFKGvmv"},
-      {"oviFysCfLMbgNgb.md", "ieToFW"},
-      {"uWJMH.md", "esxQVez"},
-      {"wjrMIXeQ.dat", "BaWwnMeUUSDwiKOSmfiOwQpPsGFZyixWDTzTZPcKRQUarFowtnIonvRv"}
+      {"BuAjVBGeDoSwrCcuMYyEHEkrzI/QYMtgKa.dat", "vVuiEOEIejoqpPM"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(838u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13717,24 +16035,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"AeuglrwlKDTUh/LuLgukhqmnXvJwuUvmQ.cfg", "gLOvnCPdnbzFPUEnTFyzRahYWk"},
-      {"Q/OpCvFwghWntvcpPXKBgsncABWwk.dat", "wIJuTSZ"},
-      {"dhLquyzeMrvAxJvgCvDBRbqEk.md", "zhxixoEdivDnpzfCyG"},
-      {"tiiemQAudTFFfabNrNLfrNBVV.dat", "DdvCjliOctyzmxmtpdmtyGvkmXYPHqzddcMSMkdTAg"},
-      {"uwhpijhADQfXwqvUTKlPcM.txt", "fhwuqUcYXxOuRNwLDiYUPxyMBegyGnkrMwEJmRFDrGtzIxPvLdjWYxqEwZxYZjGmJaOcuyKFrIsqZ"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"AeuglrwlKDTUh/LuLgukhqmnXvJwuUvmQ.cfg", "gLOvnCPdnbzFPUEnTFyzRahYWk"},
-      {"Q/OpCvFwghWntvcpPXKBgsncABWwk.dat", "wIJuTSZ"},
-      {"dhLquyzeMrvAxJvgCvDBRbqEk.md", "zhxixoEdivDnpzfCyG"},
-      {"tiiemQAudTFFfabNrNLfrNBVV.dat", "DdvCjliOctyzmxmtpdmtyGvkmXYPHqzddcMSMkdTAg"},
-      {"uwhpijhADQfXwqvUTKlPcM.txt", "fhwuqUcYXxOuRNwLDiYUPxyMBegyGnkrMwEJmRFDrGtzIxPvLdjWYxqEwZxYZjGmJaOcuyKFrIsqZ"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(388u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13746,18 +16059,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"QAdieQUffRdjzzI/ywFBvXRaGroH.bin", "naxsvrGtaJaoMGTzQgErwRjyQlrRXiuSL"},
-      {"RRWCTwMRnvtjQievZzBKhfbEfUNqPIY.dat", "gD"}
+      {"TFas/jvdZEyWOiUmAWeG/YUUyGd.txt", "tJcEjCavnLyhOxCoRmyOtIeZhogeQRCjVeCVfECTiXdeHsEPUwmpvtrS"}
     },
       {},
       {
-      {"QAdieQUffRdjzzI/ywFBvXRaGroH.bin", "naxsvrGtaJaoMGTzQgErwRjyQlrRXiuSL"},
-      {"RRWCTwMRnvtjQievZzBKhfbEfUNqPIY.dat", "gD"}
+      {"TFas/jvdZEyWOiUmAWeG/YUUyGd.txt", "tJcEjCavnLyhOxCoRmyOtIeZhogeQRCjVeCVfECTiXdeHsEPUwmpvtrS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(145u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13769,24 +16081,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"AWANYhxYUeGXkevbnAr.txt", "pqPbxTBwNvDWifTrZpbOotRSqnUqsxXTuFxickJVfaloHvJWWInZkzYgWvEPUauelr"},
-      {"Dnua/QzWZBaLAceUBxgUNFRETo/TNtdveqFLCqIrWOJIyAWXrtKZvLg.txt", "CXKauYxxQLpmSdJMHblIRHeLDIcepQCV"},
-      {"FTHmZTwWvMUuUpiukWxOHO/asKuStOYSOUyObwdlQnDANQPvqyPx/NPUPbknprjFAQqgXWJ.txt", "AyYvNswCTZuzUSr"},
-      {"IKUOqsvNBDJjpDyOCbYyxho/BNlXArwKbSUaMLCMb.dat", "JopWXMrswXYIgjeFlriblzKXvJUoSFcspdeaFwvGjhL"},
-      {"LYGcUnngLDsD.cfg", "gmxfbZRREdKMGiytiFqChzyKeoVEww"}
+      {"GVLrqcnsctYMnE/bfhbBkmaPaaJVPTQNNHiMopHugXFvvDgaKJQ/oQypWMtPqPmIKPxhtlvNzPUOuJfqgne.cfg", "wQXrmsrKMCOXDZgPbXXrXvFeYwbPrGXlduOhEVXXKLRRDndjHkVTXhwnonNOoaFgtDqioVw"}
     },
       {},
       {
-      {"AWANYhxYUeGXkevbnAr.txt", "pqPbxTBwNvDWifTrZpbOotRSqnUqsxXTuFxickJVfaloHvJWWInZkzYgWvEPUauelr"},
-      {"Dnua/QzWZBaLAceUBxgUNFRETo/TNtdveqFLCqIrWOJIyAWXrtKZvLg.txt", "CXKauYxxQLpmSdJMHblIRHeLDIcepQCV"},
-      {"FTHmZTwWvMUuUpiukWxOHO/asKuStOYSOUyObwdlQnDANQPvqyPx/NPUPbknprjFAQqgXWJ.txt", "AyYvNswCTZuzUSr"},
-      {"IKUOqsvNBDJjpDyOCbYyxho/BNlXArwKbSUaMLCMb.dat", "JopWXMrswXYIgjeFlriblzKXvJUoSFcspdeaFwvGjhL"},
-      {"LYGcUnngLDsD.cfg", "gmxfbZRREdKMGiytiFqChzyKeoVEww"}
+      {"GVLrqcnsctYMnE/bfhbBkmaPaaJVPTQNNHiMopHugXFvvDgaKJQ/oQypWMtPqPmIKPxhtlvNzPUOuJfqgne.cfg", "wQXrmsrKMCOXDZgPbXXrXvFeYwbPrGXlduOhEVXXKLRRDndjHkVTXhwnonNOoaFgtDqioVw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(574u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13798,30 +16103,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"En/Q.md", "nJwtR"},
-      {"HgJyadGfSKumfXQVoigGmOriHwKVzqW/ohkxSIRMZKnvvfqgQZUkWYXVN.bin", "BzalPIScUaYqJJTxdLM"},
-      {"MJmtpPAQoAASCKtayODrgJNhywzL/rygOdlRYlksWnuxVCGVMNBb.dat", "vqjmrmubCiNOLNwiqSragLOlfBesWpkueisfucQXvyibjMqtIe"},
-      {"MUhrttxcUzSAnQtRekeNWGK.dat", "CtNpwADHycWuqlhnRxiBpcPXVDQWwr"},
-      {"PWB/IhZ.md", "CcePFFyiuBlaaBDbpDuKRdVqnIYJsZxGumpXUMiBfwhvbTFHaCXclmJmKHCBNaFyjCzqXP"},
-      {"SUTwYNwMcGBUmHIHFG/VMCoFdQvUKTSAWjTzQtPNNBNyKhQExYpQwVi/xlEICCAhfctXSdpsZxPH.cfg", "wFAPJuVGUFODSlFWrwzgMBNXSUcIFhKtoqGkygwQXepyRzcTv"},
-      {"UvkMiYxkOLPhRGyRHUkAXXsKCxElYool.cfg", "tOHkVMXNUPSWGlunwrilvsMzczkTVsPFxxyHDDouNRCrSVMVqVVIhvdczOPGyZyhFqbVnq"},
-      {"VnsbFqyqpOBQzpSNSmpNkogQSc.md", "vgTBHpiKjJLfeeuDNbJuQcnVrkAOSMVAgcGIeSNluxGpJYMryEhzifRE"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"En/Q.md", "nJwtR"},
-      {"HgJyadGfSKumfXQVoigGmOriHwKVzqW/ohkxSIRMZKnvvfqgQZUkWYXVN.bin", "BzalPIScUaYqJJTxdLM"},
-      {"MJmtpPAQoAASCKtayODrgJNhywzL/rygOdlRYlksWnuxVCGVMNBb.dat", "vqjmrmubCiNOLNwiqSragLOlfBesWpkueisfucQXvyibjMqtIe"},
-      {"MUhrttxcUzSAnQtRekeNWGK.dat", "CtNpwADHycWuqlhnRxiBpcPXVDQWwr"},
-      {"PWB/IhZ.md", "CcePFFyiuBlaaBDbpDuKRdVqnIYJsZxGumpXUMiBfwhvbTFHaCXclmJmKHCBNaFyjCzqXP"},
-      {"SUTwYNwMcGBUmHIHFG/VMCoFdQvUKTSAWjTzQtPNNBNyKhQExYpQwVi/xlEICCAhfctXSdpsZxPH.cfg", "wFAPJuVGUFODSlFWrwzgMBNXSUcIFhKtoqGkygwQXepyRzcTv"},
-      {"UvkMiYxkOLPhRGyRHUkAXXsKCxElYool.cfg", "tOHkVMXNUPSWGlunwrilvsMzczkTVsPFxxyHDDouNRCrSVMVqVVIhvdczOPGyZyhFqbVnq"},
-      {"VnsbFqyqpOBQzpSNSmpNkogQSc.md", "vgTBHpiKjJLfeeuDNbJuQcnVrkAOSMVAgcGIeSNluxGpJYMryEhzifRE"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(890u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13833,22 +16127,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"LwRzTbgnSVcnEVbk.cfg", "xljtsSWxJiOnMPcqbKZmFlyRVygiMPXOOZIyNTIGoS"},
-      {"MtmseVRiw/rdJXarTsZVkqGOh/UcY.cfg", "WIidvkqAqeFfGwjMsgUfovtTJzYBffUDHYBSIMOPBjKrkwvfTyVYEbJHTdBOtoC"},
-      {"OEgHZwkFffxkAtDdHolXSIaaolnxIKdZzxX/ggeOzjprAntfGBkeccS.bin", "FvOgdWCzIjzBVBUUioXFWoHCrJwkWFPDdiGDqaXTKxXiPaIJzxFvjUPbIBIumRkWzFQFNjQV"},
-      {"xRCgURnFpTxbSSeapLZA/pWkCh.dat", "JKizWccvhZzGcwrtPWAUyciStWJYUVzJkytOMAtsPw"}
+      {"NHnTLzIHmILdabSCAChWfeK/sPZSwkhvJBULdVir/nSlfKmyQmAWpaSIwUii.txt", "FSHmVrxtit"}
     },
       {},
       {
-      {"LwRzTbgnSVcnEVbk.cfg", "xljtsSWxJiOnMPcqbKZmFlyRVygiMPXOOZIyNTIGoS"},
-      {"MtmseVRiw/rdJXarTsZVkqGOh/UcY.cfg", "WIidvkqAqeFfGwjMsgUfovtTJzYBffUDHYBSIMOPBjKrkwvfTyVYEbJHTdBOtoC"},
-      {"OEgHZwkFffxkAtDdHolXSIaaolnxIKdZzxX/ggeOzjprAntfGBkeccS.bin", "FvOgdWCzIjzBVBUUioXFWoHCrJwkWFPDdiGDqaXTKxXiPaIJzxFvjUPbIBIumRkWzFQFNjQV"},
-      {"xRCgURnFpTxbSSeapLZA/pWkCh.dat", "JKizWccvhZzGcwrtPWAUyciStWJYUVzJkytOMAtsPw"}
+      {"NHnTLzIHmILdabSCAChWfeK/sPZSwkhvJBULdVir/nSlfKmyQmAWpaSIwUii.txt", "FSHmVrxtit"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(465u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13860,26 +16149,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"CfHhGJZMMHiDsI/rWjQkDdsgSGSTa.bin", "hmcrACuTFlPiuTwPGwKDlgld"},
-      {"GL/CBbFuVjAEVGeeFZYPXRc.cfg", "GbddXprewl"},
-      {"IEfNTnbCZXcmkgDNAas.cfg", "PkwXEqSVljjoqCtKzRVKHVlYXSumMBhkrCqfYOKGIzLKm"},
-      {"JdLMqCbZkew/sIfhUybqSoWGZJuofMYFCfgKKmk.cfg", "hDYosmsmvUNaorRH"},
-      {"KpeeUeVzmUbNRTIyqCoy.cfg", "QCjutgBtHasifLiXZMrprBLivtdfNrAdSLmYfMnuCkxREypUWMMJqyHyRjynIyyjYFCrYRLMSvZu"},
-      {"MQiehLMpr/pjiCUjIsgIwrqExgIvMPpoBcwLkJJqsoL/ZhcILVqepSzqSMJxFRRbt.bin", "kKWqGpFxeCXSoGiRaPwLRQyVdAOHqhAMaErKfVyfUTUleMPqYRUORCDXCnqnjOrUlCxSHZGhUxhIYWE"}
+      {"CdNc/RITNiNDlktXetgHrxrxsJk.md", "MnlTHaXUguckfuDaNdQNNAqfdcHGKwuw"},
+      {"DBGnKeyr/GZHBoRQSkewmDRDysUsfXmoKRcVLpG/xoLdWIIIoBXpxVHzrqBCYMZfWwDSYA.cfg", "hcIbmtdjVhTtwttgeRk"},
+      {"DXtqhoUgwqVluHXc/VwByZWwSXvUJMmRiyzQiMEacdXFE.txt", "CjPiBnYanpEFyAmoJfjct"}
     },
       {},
       {
-      {"CfHhGJZMMHiDsI/rWjQkDdsgSGSTa.bin", "hmcrACuTFlPiuTwPGwKDlgld"},
-      {"GL/CBbFuVjAEVGeeFZYPXRc.cfg", "GbddXprewl"},
-      {"IEfNTnbCZXcmkgDNAas.cfg", "PkwXEqSVljjoqCtKzRVKHVlYXSumMBhkrCqfYOKGIzLKm"},
-      {"JdLMqCbZkew/sIfhUybqSoWGZJuofMYFCfgKKmk.cfg", "hDYosmsmvUNaorRH"},
-      {"KpeeUeVzmUbNRTIyqCoy.cfg", "QCjutgBtHasifLiXZMrprBLivtdfNrAdSLmYfMnuCkxREypUWMMJqyHyRjynIyyjYFCrYRLMSvZu"},
-      {"MQiehLMpr/pjiCUjIsgIwrqExgIvMPpoBcwLkJJqsoL/ZhcILVqepSzqSMJxFRRbt.bin", "kKWqGpFxeCXSoGiRaPwLRQyVdAOHqhAMaErKfVyfUTUleMPqYRUORCDXCnqnjOrUlCxSHZGhUxhIYWE"}
+      {"CdNc/RITNiNDlktXetgHrxrxsJk.md", "MnlTHaXUguckfuDaNdQNNAqfdcHGKwuw"},
+      {"DBGnKeyr/GZHBoRQSkewmDRDysUsfXmoKRcVLpG/xoLdWIIIoBXpxVHzrqBCYMZfWwDSYA.cfg", "hcIbmtdjVhTtwttgeRk"},
+      {"DXtqhoUgwqVluHXc/VwByZWwSXvUJMmRiyzQiMEacdXFE.txt", "CjPiBnYanpEFyAmoJfjct"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(529u),
+      static_cast<std::size_t>(387u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13891,16 +16175,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"AidRjbcHXmCl.md", "NUJBWRSqdrYagXZgvfFWjdtGHENbZCkfhQKZGiBmqxZFtD"}
+      {"KMecF/bDbyYAXFI.txt", "qKSSIpuXMsljtMjFVSMRkfFOAjuiCHfSgeenqpdaVgwYyhcC"},
+      {"fZxT.dat", "cBZEcIWTZGMKLdSijEaqdEzokSCOJ"},
+      {"kdCpRAWqhdTM.dat", "gTqFCVfNHxjRVqpRe"}
     },
       {},
       {
-      {"AidRjbcHXmCl.md", "NUJBWRSqdrYagXZgvfFWjdtGHENbZCkfhQKZGiBmqxZFtD"}
+      {"KMecF/bDbyYAXFI.txt", "qKSSIpuXMsljtMjFVSMRkfFOAjuiCHfSgeenqpdaVgwYyhcC"},
+      {"fZxT.dat", "cBZEcIWTZGMKLdSijEaqdEzokSCOJ"},
+      {"kdCpRAWqhdTM.dat", "gTqFCVfNHxjRVqpRe"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(288u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13912,30 +16201,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"BrUzMsCiO/kA.txt", "lmBQuzhNGgxdcoPpZVnJFtbXhIaaSsCfLYOFxVqHTJaF"},
-      {"GW.dat", "rRJMVsanJIlZwcRDzwDHCTXlnwUlR"},
-      {"KTbHTTkMaDezhzuFEuqDaWGSZHspJFor.txt", "FmKSukkEVdImrta"},
-      {"WBuoLFiU.dat", "hZVKdfuILiNGosAVzcBAvH"},
-      {"bVar.dat", "PyUYXNcKSUQqmajujtxMhccoH"},
-      {"eOvoAzjM/mzTgbKyYSayznpFAPIVcao/y.md", "OUIfvIyhWBDyYt"},
-      {"hOc/VCYnsHktynZLWwxVgbAhxLXVn.dat", "jrCfbmlsDxjGPxvwhHcWQtCEdMYixBSvzrHSsqQkLZveVqYxNNqCrYiAhOmYHCyCavSsWQ"},
-      {"lCarUIefetgpBH/RDURPoZgLEbwSdBoZiWWAmayUgDMCMU/oJyNCuoVy.cfg", "abbEJSvRCvDqWenFbennfkjAaAseVSY"}
+      {"AKGy/VyyTPasORFReyyGnNFiNkGC/KmOkRHVEgtcmestGJ.bin", "VHPmmredTTuuHOWIJImDhsKLGYpEmuOFNyIsCGCzuApBycOXlULjjjoprEehfnlCprFduLPrRYx"},
+      {"ANVDjsoCizlyrO/OPCSzc.md", "ISvfqMqWCuYOO"}
     },
       {},
       {
-      {"BrUzMsCiO/kA.txt", "lmBQuzhNGgxdcoPpZVnJFtbXhIaaSsCfLYOFxVqHTJaF"},
-      {"GW.dat", "rRJMVsanJIlZwcRDzwDHCTXlnwUlR"},
-      {"KTbHTTkMaDezhzuFEuqDaWGSZHspJFor.txt", "FmKSukkEVdImrta"},
-      {"WBuoLFiU.dat", "hZVKdfuILiNGosAVzcBAvH"},
-      {"bVar.dat", "PyUYXNcKSUQqmajujtxMhccoH"},
-      {"eOvoAzjM/mzTgbKyYSayznpFAPIVcao/y.md", "OUIfvIyhWBDyYt"},
-      {"hOc/VCYnsHktynZLWwxVgbAhxLXVn.dat", "jrCfbmlsDxjGPxvwhHcWQtCEdMYixBSvzrHSsqQkLZveVqYxNNqCrYiAhOmYHCyCavSsWQ"},
-      {"lCarUIefetgpBH/RDURPoZgLEbwSdBoZiWWAmayUgDMCMU/oJyNCuoVy.cfg", "abbEJSvRCvDqWenFbennfkjAaAseVSY"}
+      {"AKGy/VyyTPasORFReyyGnNFiNkGC/KmOkRHVEgtcmestGJ.bin", "VHPmmredTTuuHOWIJImDhsKLGYpEmuOFNyIsCGCzuApBycOXlULjjjoprEehfnlCprFduLPrRYx"},
+      {"ANVDjsoCizlyrO/OPCSzc.md", "ISvfqMqWCuYOO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(606u),
+      static_cast<std::size_t>(301u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13947,28 +16225,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"D/xiSkEpPUVWmHzVr/otoxPQpbpmjDuqJEDskQXRNFFXYkQ.dat", "fpaLoeKHtcMMPgZzjfcnZJQfaCiBhnSpwkPSFKJZBhtzWqwAQVaAYuo"},
-      {"JjIIFImcDvX.dat", "sjsnHMiGXzpTJjKD"},
-      {"MLSQCklXaMYKZuxNiJdmCbzDrootPX/UEhyRAsJfjDBvCsdBtkLPll/qGJwXYPLtKXDrlHSA.dat", "FWxpUKwddvsIKZsvfflPiEDIVEzUJNRQ"},
-      {"TSTtsPotlqYIJzpGyFhIkg.cfg", "wMl"},
-      {"XMUyy/oTpjaCSTLYuE.dat", "hIyriqHpsqvxGUmBhGJFsJtsWyIukMZJ"},
-      {"YOaMJRmflPYeqheaGGASuqDhdEyr/zGPLTjJFAcQGQTNWFRBCMaXHbCzMOAiFG.md", "nbroyUDVsjcjpVFITPbaYBjBlMdAZdrIFWFuRFIyB"},
-      {"lyyWhwcWfRIbBcFhNq.txt", "JsARAnKuplNZBmyLTwCwkOTViZLRExCJIilyRYkjlXtGwQqScTqNPjHtAjFmriHzNzxCqCeG"}
+      {"GNyyRqJANOEyZgJqTrr/KGIkcLjaXYi.dat", "eqUmwuYPgocgcOLuHvimeFbGhwKIrAhlBUQxRGkRZTAHzTeAlvlefHzXGFQWooUuGKGoQnuaZkWqK"}
     },
       {},
       {
-      {"D/xiSkEpPUVWmHzVr/otoxPQpbpmjDuqJEDskQXRNFFXYkQ.dat", "fpaLoeKHtcMMPgZzjfcnZJQfaCiBhnSpwkPSFKJZBhtzWqwAQVaAYuo"},
-      {"JjIIFImcDvX.dat", "sjsnHMiGXzpTJjKD"},
-      {"MLSQCklXaMYKZuxNiJdmCbzDrootPX/UEhyRAsJfjDBvCsdBtkLPll/qGJwXYPLtKXDrlHSA.dat", "FWxpUKwddvsIKZsvfflPiEDIVEzUJNRQ"},
-      {"TSTtsPotlqYIJzpGyFhIkg.cfg", "wMl"},
-      {"XMUyy/oTpjaCSTLYuE.dat", "hIyriqHpsqvxGUmBhGJFsJtsWyIukMZJ"},
-      {"YOaMJRmflPYeqheaGGASuqDhdEyr/zGPLTjJFAcQGQTNWFRBCMaXHbCzMOAiFG.md", "nbroyUDVsjcjpVFITPbaYBjBlMdAZdrIFWFuRFIyB"},
-      {"lyyWhwcWfRIbBcFhNq.txt", "JsARAnKuplNZBmyLTwCwkOTViZLRExCJIilyRYkjlXtGwQqScTqNPjHtAjFmriHzNzxCqCeG"}
+      {"GNyyRqJANOEyZgJqTrr/KGIkcLjaXYi.dat", "eqUmwuYPgocgcOLuHvimeFbGhwKIrAhlBUQxRGkRZTAHzTeAlvlefHzXGFQWooUuGKGoQnuaZkWqK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(698u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -13980,20 +16247,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"QTQhRkbcZTFt/kxFvZvncFP.bin", "TPwZhtXtbFacONsqXCBQcvWhMIGVcbTjrpOWdsAUIZXXUHQPjbtqLTWkbzJmHUfHb"},
-      {"RAkuPWeZIPsBNVwJPyNjoVuIEW/YyGnrxEJYEuAk.md", "vZXicTfJufaUtGFovEOUyEeuIwyRMAExXLsLpL"},
-      {"RhRoXYwQPKiEPcwwDKQh/UbRhSpjHrjuZtTrUMFGTfzoXsYvUK.dat", "aArhawxckGzfdXMrHKJnLzJVtBBKNbpZhyAzvtFx"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"QTQhRkbcZTFt/kxFvZvncFP.bin", "TPwZhtXtbFacONsqXCBQcvWhMIGVcbTjrpOWdsAUIZXXUHQPjbtqLTWkbzJmHUfHb"},
-      {"RAkuPWeZIPsBNVwJPyNjoVuIEW/YyGnrxEJYEuAk.md", "vZXicTfJufaUtGFovEOUyEeuIwyRMAExXLsLpL"},
-      {"RhRoXYwQPKiEPcwwDKQh/UbRhSpjHrjuZtTrUMFGTfzoXsYvUK.dat", "aArhawxckGzfdXMrHKJnLzJVtBBKNbpZhyAzvtFx"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(293u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14005,22 +16271,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"IvfyTBepiLgqir/yrOVttXpCjjXyxqujNHW.md", "ASfoZhEimrvQGRmJFqZhluqpQxWefPUHqMFDUaCKXVpQwyscIWuwIsPziZgvDURqxmeiCYo"},
-      {"euUmPOoSxezxJNBhXDCJPsxVTDUsGkjK/TdAUWrfuoGpHPmEpHpCaAveLeug/UUPAZRLgeLrYpkuopSCygy.dat", "rQPBpZdXYttjCPkaecUpSNgugJtnJOlVIGsznlSHlEFgMgWQrcyfrpRy"},
-      {"gMm/qFO.cfg", "JPzyH"},
-      {"ySlAJmFcuMzcvqTdvVlAYHs/V/mSLhEQuXlyqMNdlfgDBGLOG.bin", "kPwCIKmRvbVuJMgwBqUOYZRrJiTcmFwzpMrDhrb"}
+      {"AXVVtmEvOoKo/oFQRMCnanjnIeCVZoAEOr/yDqDiFoWPMO.dat", "iOAHMATNaveJWCftxZzmYh"},
+      {"DiPqfIZReByLSAEUpWjoMmFHHADpKuDb/cNZYohhzxEYrqvyRBuxvxmyK/CFckzoxIsvrRrRuhslKnHJFWxsWnf.md", "YtOgwLUuTZd"}
     },
       {},
       {
-      {"IvfyTBepiLgqir/yrOVttXpCjjXyxqujNHW.md", "ASfoZhEimrvQGRmJFqZhluqpQxWefPUHqMFDUaCKXVpQwyscIWuwIsPziZgvDURqxmeiCYo"},
-      {"euUmPOoSxezxJNBhXDCJPsxVTDUsGkjK/TdAUWrfuoGpHPmEpHpCaAveLeug/UUPAZRLgeLrYpkuopSCygy.dat", "rQPBpZdXYttjCPkaecUpSNgugJtnJOlVIGsznlSHlEFgMgWQrcyfrpRy"},
-      {"gMm/qFO.cfg", "JPzyH"},
-      {"ySlAJmFcuMzcvqTdvVlAYHs/V/mSLhEQuXlyqMNdlfgDBGLOG.bin", "kPwCIKmRvbVuJMgwBqUOYZRrJiTcmFwzpMrDhrb"}
+      {"AXVVtmEvOoKo/oFQRMCnanjnIeCVZoAEOr/yDqDiFoWPMO.dat", "iOAHMATNaveJWCftxZzmYh"},
+      {"DiPqfIZReByLSAEUpWjoMmFHHADpKuDb/cNZYohhzxEYrqvyRBuxvxmyK/CFckzoxIsvrRrRuhslKnHJFWxsWnf.md", "YtOgwLUuTZd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(444u),
+      static_cast<std::size_t>(200u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14032,16 +16295,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"GBzXsCISgLiJaRilvezjJDdzthZGi.md", "vXOdIlaeQVijWsZWKrVKxFmrVUejzuLZzsUQOucphruHgkFFdupxAGISmfADVtKLvhFCYAirfC"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"GBzXsCISgLiJaRilvezjJDdzthZGi.md", "vXOdIlaeQVijWsZWKrVKxFmrVUejzuLZzsUQOucphruHgkFFdupxAGISmfADVtKLvhFCYAirfC"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14053,26 +16319,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"GQlcLcSLXaNITLhlVFkSgJzfQfVYSeLxBaqz/knu/VcDycxRu.md", "jLIDUhDiKQqZJVtnJkJZSgfwzeindqtLvgABXwRekKvxsfsfNoLnnmfSSCEDFLbmZK"},
-      {"XrZhnCfkOLDPPpQwkbLaIKCbvHieNFzRPQ/mMctkaYEkxuHVsATW.bin", "eAwQXwBbvxNngmYvdAXhUppyqYWROTvixv"},
-      {"YctbLolryuwesNUxWUbozum/iTwdsdQOqo.dat", "IytdPZLSSgqIQvsWLSjGaGaAKbnkFKUmjOUEWUOnkvwzBhJjJHMygdfxNWXVtvbzUYLtRc"},
-      {"YgnqtRqrRlePwXTotHyyIbNherDePPfowfm/FiKXtWruwXFJUoYGuibuxSEGfWLr/rBCDMKZvInmYL.cfg", "CmRCMxaYgqLxnznjObiYUfOtUidLxU"},
-      {"pPhFHbocNSdeRtnmLWBqbtf.bin", "yvBkSaJmSVsOBHoEMmdWjNYEKGuvWHhAYlcHQYEQ"},
-      {"roeHzvPDf.bin", "ovau"}
+      {"KcSztWvgarKa/KLEEJkmlOWoAh.txt", "oTQKkZEqZTxCzUQhmJkEKtHtSvLecobclCSXjqYfsKFkFsvHFewlfomZWiq"},
+      {"MLiFGULuERqKGAPVrngOPsVAny/awUgbNiGZ/xCbCcDxrCwBUvDTkQuExuKShlkO.cfg", "MEXQQFGYrhZNQEuccsyFYJcIS"}
     },
       {},
       {
-      {"GQlcLcSLXaNITLhlVFkSgJzfQfVYSeLxBaqz/knu/VcDycxRu.md", "jLIDUhDiKQqZJVtnJkJZSgfwzeindqtLvgABXwRekKvxsfsfNoLnnmfSSCEDFLbmZK"},
-      {"XrZhnCfkOLDPPpQwkbLaIKCbvHieNFzRPQ/mMctkaYEkxuHVsATW.bin", "eAwQXwBbvxNngmYvdAXhUppyqYWROTvixv"},
-      {"YctbLolryuwesNUxWUbozum/iTwdsdQOqo.dat", "IytdPZLSSgqIQvsWLSjGaGaAKbnkFKUmjOUEWUOnkvwzBhJjJHMygdfxNWXVtvbzUYLtRc"},
-      {"YgnqtRqrRlePwXTotHyyIbNherDePPfowfm/FiKXtWruwXFJUoYGuibuxSEGfWLr/rBCDMKZvInmYL.cfg", "CmRCMxaYgqLxnznjObiYUfOtUidLxU"},
-      {"pPhFHbocNSdeRtnmLWBqbtf.bin", "yvBkSaJmSVsOBHoEMmdWjNYEKGuvWHhAYlcHQYEQ"},
-      {"roeHzvPDf.bin", "ovau"}
+      {"KcSztWvgarKa/KLEEJkmlOWoAh.txt", "oTQKkZEqZTxCzUQhmJkEKtHtSvLecobclCSXjqYfsKFkFsvHFewlfomZWiq"},
+      {"MLiFGULuERqKGAPVrngOPsVAny/awUgbNiGZ/xCbCcDxrCwBUvDTkQuExuKShlkO.cfg", "MEXQQFGYrhZNQEuccsyFYJcIS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(767u),
+      static_cast<std::size_t>(233u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14084,28 +16343,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"IBa.txt", "izsbrlE"},
-      {"KvEMyVsevoKRSZZUDUItJogFEY/fCyJ.cfg", "sIdiUCtJVxQuVysVruKBzQcVQGIzsLqaWETFxdQMmSoWlotDdlQggWSKJaaQo"},
-      {"QJKnlxSZxRJHtWIAuIS/HGPuEHsPPHx/TBPTqzIoTfFkO.dat", "JKaNcyCrPgmOQOQeLnCcgAEQETVbHgXGDiOiYJmzYNXOazdeHuwaljkptcbcvZRjyABCTLD"},
-      {"YevbhEYp/AZPCWZeIWFFVhsXjTHSs.cfg", "QQleXDCZStjTamdaVsMTfPxAwqcmw"},
-      {"edLPMDRVJCvmE/iuBlkZ/KxMNwcWKARm.cfg", "MukGPiiLnfGSIrBqnhcVkcEU"},
-      {"hYaeqA.md", "wwMgBEMYCVJpKOSPQmfdkKvHAgYpaBiZxNmDYzsfbIGtdvqdZFXFRGHJKDvIqGpB"},
-      {"hfKmliWDaWRsRsPOimIvREvV.md", "WzczNFozvNDhbggvUVhEVykSWeNDpIlctdqaKk"}
+      {"ASTVGMAw/cRcnP.bin", "PZaioUxdHkyzWFoicXtcNqvAPChTrOcIjQGIyiAENFylyjLbQTpevoybkgsHljeXcboh"},
+      {"FgDvGHSfODgNWnYxEtmaAiremU/HafehshhapHwNDECbmxguqiUtjvrfLQXGrUo/FsMC.cfg", "ijvKMvHVPcMqOjxzKFRIUFyAxGignzE"}
     },
       {},
       {
-      {"IBa.txt", "izsbrlE"},
-      {"KvEMyVsevoKRSZZUDUItJogFEY/fCyJ.cfg", "sIdiUCtJVxQuVysVruKBzQcVQGIzsLqaWETFxdQMmSoWlotDdlQggWSKJaaQo"},
-      {"QJKnlxSZxRJHtWIAuIS/HGPuEHsPPHx/TBPTqzIoTfFkO.dat", "JKaNcyCrPgmOQOQeLnCcgAEQETVbHgXGDiOiYJmzYNXOazdeHuwaljkptcbcvZRjyABCTLD"},
-      {"YevbhEYp/AZPCWZeIWFFVhsXjTHSs.cfg", "QQleXDCZStjTamdaVsMTfPxAwqcmw"},
-      {"edLPMDRVJCvmE/iuBlkZ/KxMNwcWKARm.cfg", "MukGPiiLnfGSIrBqnhcVkcEU"},
-      {"hYaeqA.md", "wwMgBEMYCVJpKOSPQmfdkKvHAgYpaBiZxNmDYzsfbIGtdvqdZFXFRGHJKDvIqGpB"},
-      {"hfKmliWDaWRsRsPOimIvREvV.md", "WzczNFozvNDhbggvUVhEVykSWeNDpIlctdqaKk"}
+      {"ASTVGMAw/cRcnP.bin", "PZaioUxdHkyzWFoicXtcNqvAPChTrOcIjQGIyiAENFylyjLbQTpevoybkgsHljeXcboh"},
+      {"FgDvGHSfODgNWnYxEtmaAiremU/HafehshhapHwNDECbmxguqiUtjvrfLQXGrUo/FsMC.cfg", "ijvKMvHVPcMqOjxzKFRIUFyAxGignzE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(673u),
+      static_cast<std::size_t>(230u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14117,26 +16367,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"ILUfh.txt", "VqhTvuDliYeSeKhIzPLixwmrSJZCKyNYdaWmKaanZzjEjdgrWsxkDeKGmQ"},
-      {"POBXUZbUEzlkHRKGtZDVBNXmPjkZAptbld/rvPDDDXLRYWnCQlGdAWK.md", "CQ"},
-      {"QJVqFJHUWHk/ckieyxPabTzhDUJhlQzCZysYWV.md", "ZMPhHUxPrpTsxmPAvOoafQFHqwPXKaMimeykYSTjeoQZjtczLMqsGC"},
-      {"RStRPBGNrnSKyJIxOxQsjOBfBvgI/dbIQMoXodMiXSMHYJROmwCM.cfg", "gJvfXrVeEOPdHgfVFYI"},
-      {"audEdufdKNpyDcalbBBexAREXQ.cfg", "dijhSxreX"},
-      {"cgEysGqeBvOKMvoUbzoKBNbdbPKqr/QwAgtfmMGMlQOVGy/PsdmxrnuaxCOnIIcaozaX.md", "muWJKTSsqgByUjggffcCMSGSGrRNIFzcOHRHKpLaVBtzWpJZZuPb"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"ILUfh.txt", "VqhTvuDliYeSeKhIzPLixwmrSJZCKyNYdaWmKaanZzjEjdgrWsxkDeKGmQ"},
-      {"POBXUZbUEzlkHRKGtZDVBNXmPjkZAptbld/rvPDDDXLRYWnCQlGdAWK.md", "CQ"},
-      {"QJVqFJHUWHk/ckieyxPabTzhDUJhlQzCZysYWV.md", "ZMPhHUxPrpTsxmPAvOoafQFHqwPXKaMimeykYSTjeoQZjtczLMqsGC"},
-      {"RStRPBGNrnSKyJIxOxQsjOBfBvgI/dbIQMoXodMiXSMHYJROmwCM.cfg", "gJvfXrVeEOPdHgfVFYI"},
-      {"audEdufdKNpyDcalbBBexAREXQ.cfg", "dijhSxreX"},
-      {"cgEysGqeBvOKMvoUbzoKBNbdbPKqr/QwAgtfmMGMlQOVGy/PsdmxrnuaxCOnIIcaozaX.md", "muWJKTSsqgByUjggffcCMSGSGrRNIFzcOHRHKpLaVBtzWpJZZuPb"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(544u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14148,13 +16391,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"ViDxx/zVOktaRImzoImioXpqRnSGAdPeUakDjX.txt", "uvVPUZIOWFGTxAUaEvbmyOKSyUknQziZJCzBCvMWNLlJScWcwhqXKJXcECQmSMgTTNY"}
+      {"AouLCiG/xiLnXnUfRCPrPJM.dat", "DUbQaWfiZeTdCQqSIZxtDakC"}
     },
       {},
       {
-      {"ViDxx/zVOktaRImzoImioXpqRnSGAdPeUakDjX.txt", "uvVPUZIOWFGTxAUaEvbmyOKSyUknQziZJCzBCvMWNLlJScWcwhqXKJXcECQmSMgTTNY"}
+      {"AouLCiG/xiLnXnUfRCPrPJM.dat", "DUbQaWfiZeTdCQqSIZxtDakC"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -14169,20 +16413,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"HRxZNrKvyWZazmoNOabhRvua.txt", "cNtf"},
-      {"HiGDGuqspLbkgHlcgM/sAsEkXEB.txt", "IstzRSosTTCRRSN"},
-      {"qgoszuAYyDrpnojCboWLjTTdlYBzPpw/jsCzzDFotwJUmQIUv.md", "UfGhqTQSoEP"}
+      {"BL/zkYg.dat", "GooEDiKqphvwUegSTlIQSeDgBv"},
+      {"PEyRPkssSXhmSYHcYZMAFXHYmQKejiym/jeodxzuOGyesZgRQJHwkCVW/qice.md", "rz"}
     },
       {},
       {
-      {"HRxZNrKvyWZazmoNOabhRvua.txt", "cNtf"},
-      {"HiGDGuqspLbkgHlcgM/sAsEkXEB.txt", "IstzRSosTTCRRSN"},
-      {"qgoszuAYyDrpnojCboWLjTTdlYBzPpw/jsCzzDFotwJUmQIUv.md", "UfGhqTQSoEP"}
+      {"BL/zkYg.dat", "GooEDiKqphvwUegSTlIQSeDgBv"},
+      {"PEyRPkssSXhmSYHcYZMAFXHYmQKejiym/jeodxzuOGyesZgRQJHwkCVW/qice.md", "rz"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(166u),
+      static_cast<std::size_t>(133u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14194,22 +16437,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"BClCBaAyuocwGqlh/cyyqVEam.bin", "grsbtZ"},
-      {"DXHUfnTOXobNdTOWVIVWpr.md", "JTycukUAEdgVJTywZfXoxkFoQHuBpBl"},
-      {"JAfIvKlSaAfoYVrZebFKtNG/vPhdXzyoRtMfyIdcmNDHqAr.cfg", "HuyMuEhxwFfpo"},
-      {"JOCTEkLaCeM/euDUbMXcjoWIQ.dat", "ehHkqQLVECbBrykjgJcUthvzsAyJpkvKdfVnEkInmEcdfTwOHzLoLfEXsUzQKoEDgRPFyoJjbMIkoFNQ"}
+      {"CvnbFQLPGLrmyEGLXHodANCDJrl.md", "XLhHbSLAdKpmXZSTWvxhVSTHQywXSwmcIIiFiwjcbukaPqzetZVXIWOXmJCfYWfHLSsOWjSMLLK"},
+      {"LksOBanvUbkdCqxfnmaGUaossC.dat", "tpiFrbsAlDxQInRJedoOeIyeyBefyj"}
     },
       {},
       {
-      {"BClCBaAyuocwGqlh/cyyqVEam.bin", "grsbtZ"},
-      {"DXHUfnTOXobNdTOWVIVWpr.md", "JTycukUAEdgVJTywZfXoxkFoQHuBpBl"},
-      {"JAfIvKlSaAfoYVrZebFKtNG/vPhdXzyoRtMfyIdcmNDHqAr.cfg", "HuyMuEhxwFfpo"},
-      {"JOCTEkLaCeM/euDUbMXcjoWIQ.dat", "ehHkqQLVECbBrykjgJcUthvzsAyJpkvKdfVnEkInmEcdfTwOHzLoLfEXsUzQKoEDgRPFyoJjbMIkoFNQ"}
+      {"CvnbFQLPGLrmyEGLXHodANCDJrl.md", "XLhHbSLAdKpmXZSTWvxhVSTHQywXSwmcIIiFiwjcbukaPqzetZVXIWOXmJCfYWfHLSsOWjSMLLK"},
+      {"LksOBanvUbkdCqxfnmaGUaossC.dat", "tpiFrbsAlDxQInRJedoOeIyeyBefyj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(283u),
+      static_cast<std::size_t>(265u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14221,22 +16461,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"NWTeSEuwaMxBh/zjFCgjRpweLmlWdOWwAEeEtIpgSjU.cfg", "ZQdakdOqOBOaoZsBapfXhwpElMvoWsMtknKzALXngq"},
-      {"OuUSOwzuTrZLRlQ/UDQwjxKkEcDsTmvyfaL/OfEMkCBwOAKYBGBytTxOjvMmH.cfg", "uxHZebVXXbWAvhpoGgRJsLEnPJOXPTXEtHjiKazfSLUtofPRgysRbAteeuAVxyOUGM"},
-      {"aHvOGhJcJwNHXEYNvHFiLN/USiNhwsMmvYQHTQQxF/lV.md", "ewDdrMhAwmmouQKemMGviTGUomLMaUIFIQOqsPEqEpn"},
-      {"fEzQTvOspvCsOAIf.dat", "NyWKQVyaHfEDJHStzCIHlZ"}
+      {"DLOgbhME/qxKvkccgUpIjDWBBWrTM/KLCdIjtTnCFVLE.md", "dcDZXqqcwAfaAzVpChd"}
     },
       {},
       {
-      {"NWTeSEuwaMxBh/zjFCgjRpweLmlWdOWwAEeEtIpgSjU.cfg", "ZQdakdOqOBOaoZsBapfXhwpElMvoWsMtknKzALXngq"},
-      {"OuUSOwzuTrZLRlQ/UDQwjxKkEcDsTmvyfaL/OfEMkCBwOAKYBGBytTxOjvMmH.cfg", "uxHZebVXXbWAvhpoGgRJsLEnPJOXPTXEtHjiKazfSLUtofPRgysRbAteeuAVxyOUGM"},
-      {"aHvOGhJcJwNHXEYNvHFiLN/USiNhwsMmvYQHTQQxF/lV.md", "ewDdrMhAwmmouQKemMGviTGUomLMaUIFIQOqsPEqEpn"},
-      {"fEzQTvOspvCsOAIf.dat", "NyWKQVyaHfEDJHStzCIHlZ"}
+      {"DLOgbhME/qxKvkccgUpIjDWBBWrTM/KLCdIjtTnCFVLE.md", "dcDZXqqcwAfaAzVpChd"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(486u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14248,16 +16483,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"PmkdhuLnxiqCwU/iTjzCFzvRZGxvn/qFAiKcfgwejvFveuurLC.bin", "itzvsUGsaAgwIxFBchcEIxMNBdkHnHyDOvHhNYZOPbNAHJCarntdtLnvRLdswbYBPpDaQdqVMNJK"}
+      {"JuBfzTshlZbmKsEIAjSOfPsrBwWwwY.cfg", "oacbMWeZBcxL"},
+      {"NnZZbwhdmgGfEFqgGvfPL.cfg", "YrfUpJKELihhRHcBqeTBGntSCpPyUfbDLrTNFVorGsjvWo"},
+      {"OAkPNsEiiJYLEIJVoIYbwlPPbo/TamVzdvPfNgNpLTkYegkiOkeTGmQP.md", "BidsWFKFmtVPrHzQbCVLuJbnKgDbHczynLrgWJjitD"}
     },
       {},
       {
-      {"PmkdhuLnxiqCwU/iTjzCFzvRZGxvn/qFAiKcfgwejvFveuurLC.bin", "itzvsUGsaAgwIxFBchcEIxMNBdkHnHyDOvHhNYZOPbNAHJCarntdtLnvRLdswbYBPpDaQdqVMNJK"}
+      {"JuBfzTshlZbmKsEIAjSOfPsrBwWwwY.cfg", "oacbMWeZBcxL"},
+      {"NnZZbwhdmgGfEFqgGvfPL.cfg", "YrfUpJKELihhRHcBqeTBGntSCpPyUfbDLrTNFVorGsjvWo"},
+      {"OAkPNsEiiJYLEIJVoIYbwlPPbo/TamVzdvPfNgNpLTkYegkiOkeTGmQP.md", "BidsWFKFmtVPrHzQbCVLuJbnKgDbHczynLrgWJjitD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(301u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14269,24 +16509,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"FKHHKueNJFSwuWwHKrAcTCwPqHgMWwxyxg/VgechNojYajfLDBfXjCGqiWA/RYSJrOr.dat", "XIBHdFzHKfAjvcYDdptVlvTEWrTttRSUGKGyvbwrlutOeUNeSMYZuveuefGrqvCckhOmAzEcKjH"},
-      {"HgVmpaFNuvkobzaf/IVISlAciBZqFHbGggvStV/bKlxArcIYftpdqpAdKZQddFcXDDdzUf.dat", "drFopNgPLhsaZzDKILLDKsXseOCQTwqgXjTGhJLXLUfuFnKrdnGnVSgtDkuVoyMgKvuTHXqFMbOsjZb"},
-      {"NIJNWYcP/rUqGZEsMLmuNiaaMDvJtnyTTB/kHDcMxPPnvjJd.bin", "ROtwSoTezPUApuBegfNQRciHWRHMIvLFqpJSjHcjcDSUcPHScBlVymBcDfyIko"},
-      {"PBPgqe/fyggsZiygtOlNP.txt", "WvKuYTkKOochQKYzlsTNlWbjnNnzdfxUYrqjWrhythxAqvJCeCWFLOjBGhbK"},
-      {"QEDDtd.bin", "sBoAeUKu"}
+      {"QbxkDHwJsGqzfsdS/GVNCGYWQNprcDlfSbtpUvWjKlMrwclDaxzV/eWKFkTIKEkQHOpUsSU.cfg", "eifkvYvjhWwdPPvaPQRehCTraCkAuGCQBBIZFuWTEQbcfnGwProqLAiRNDTUIPk"}
     },
       {},
       {
-      {"FKHHKueNJFSwuWwHKrAcTCwPqHgMWwxyxg/VgechNojYajfLDBfXjCGqiWA/RYSJrOr.dat", "XIBHdFzHKfAjvcYDdptVlvTEWrTttRSUGKGyvbwrlutOeUNeSMYZuveuefGrqvCckhOmAzEcKjH"},
-      {"HgVmpaFNuvkobzaf/IVISlAciBZqFHbGggvStV/bKlxArcIYftpdqpAdKZQddFcXDDdzUf.dat", "drFopNgPLhsaZzDKILLDKsXseOCQTwqgXjTGhJLXLUfuFnKrdnGnVSgtDkuVoyMgKvuTHXqFMbOsjZb"},
-      {"NIJNWYcP/rUqGZEsMLmuNiaaMDvJtnyTTB/kHDcMxPPnvjJd.bin", "ROtwSoTezPUApuBegfNQRciHWRHMIvLFqpJSjHcjcDSUcPHScBlVymBcDfyIko"},
-      {"PBPgqe/fyggsZiygtOlNP.txt", "WvKuYTkKOochQKYzlsTNlWbjnNnzdfxUYrqjWrhythxAqvJCeCWFLOjBGhbK"},
-      {"QEDDtd.bin", "sBoAeUKu"}
+      {"QbxkDHwJsGqzfsdS/GVNCGYWQNprcDlfSbtpUvWjKlMrwclDaxzV/eWKFkTIKEkQHOpUsSU.cfg", "eifkvYvjhWwdPPvaPQRehCTraCkAuGCQBBIZFuWTEQbcfnGwProqLAiRNDTUIPk"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(762u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14298,13 +16531,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"zQorvPTbdZHLwwGoqvZDHgX/hWnhRaMQTujE.txt", "vIIPJMeRBdeRiUwlwnAeTkxEJxSztdagokIOYfSgXyGFPCRvFXFuuWGUoqqBPQFsn"}
+      {"Es/FuXdYkHZR.txt", "iIjYezoHOvoCDgUxtqbQOOHbHHXji"}
     },
       {},
       {
-      {"zQorvPTbdZHLwwGoqvZDHgX/hWnhRaMQTujE.txt", "vIIPJMeRBdeRiUwlwnAeTkxEJxSztdagokIOYfSgXyGFPCRvFXFuuWGUoqqBPQFsn"}
+      {"Es/FuXdYkHZR.txt", "iIjYezoHOvoCDgUxtqbQOOHbHHXji"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -14319,30 +16553,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"HYAxKvd.dat", "pRYeZYUylBUmvfOjMDaH"},
-      {"NeftsDAy/ZvotAJhhoTBLFsGkjCusaFRpbvuhJfO.txt", "obpvrOUnhzGHMruSRUhgTqXqRrhYyGGvLPFCWBatB"},
-      {"TqerHuCxJIjWsPJjImc/kgLEzeHUHfnhaPZfvjMRbNraDOVs/TYsqNfvvSnfIDVNrdRjvIOKmVSpkge.bin", "FQVDpLLbFVZNGjP"},
-      {"USeAdzyRJqZXDvznaspOPWtshOdbT/ulzEWMNpKVYrHYgJcA.bin", "FxwpmOqLkIMFWjoLZPmioHPaP"},
-      {"YFSqmIwvwqbyl/OPzcoxTvYJpnKRhLdDfiq.dat", "jfhEDstxFbdXaVSoyIyKqhwhtrUuGAiLspi"},
-      {"djBX/vPAbxzacPhzLuXwMxJk.dat", "UAYfPWPAVDxRHReVEclZbsRhEZHjuCddvyByvmTFUGsOlsCPizGaKSY"},
-      {"hxFkpKKmz/rrdEfGRiWYOXlB.bin", "hgfNjrtzkyoQClwPTwHjGEmXEugllxVVRrFsrOgNtDicGnkxjdqUFBfTcQcrHwei"},
-      {"isuMEsaOHosuHqALELHVQD.bin", "XfBTjdcxHSQpgjIQirSPAapSjjmgPZhNCsnqLo"}
+      {"PEUBCaptWGSYV/MrAtr/yOMRuZVORkLoNsIlNHUA.md", "DKMVckDglumqzieLwQeygQYpVshcHAgPadoJqfgvbMbx"},
+      {"UwGIOjclffX/HLMkdmiAjphaCDzDhuLGfPTMAMUkwvaNQ/mM.dat", "WPeFwMjqvDnrwlsMUzoSyYEsnMzFQtKdLJ"},
+      {"oBYx/dOPqbXuxFNpubKAQPyjCfMgKBed.dat", "jaggbVUYZLVOCidgdEJ"}
     },
       {},
       {
-      {"HYAxKvd.dat", "pRYeZYUylBUmvfOjMDaH"},
-      {"NeftsDAy/ZvotAJhhoTBLFsGkjCusaFRpbvuhJfO.txt", "obpvrOUnhzGHMruSRUhgTqXqRrhYyGGvLPFCWBatB"},
-      {"TqerHuCxJIjWsPJjImc/kgLEzeHUHfnhaPZfvjMRbNraDOVs/TYsqNfvvSnfIDVNrdRjvIOKmVSpkge.bin", "FQVDpLLbFVZNGjP"},
-      {"USeAdzyRJqZXDvznaspOPWtshOdbT/ulzEWMNpKVYrHYgJcA.bin", "FxwpmOqLkIMFWjoLZPmioHPaP"},
-      {"YFSqmIwvwqbyl/OPzcoxTvYJpnKRhLdDfiq.dat", "jfhEDstxFbdXaVSoyIyKqhwhtrUuGAiLspi"},
-      {"djBX/vPAbxzacPhzLuXwMxJk.dat", "UAYfPWPAVDxRHReVEclZbsRhEZHjuCddvyByvmTFUGsOlsCPizGaKSY"},
-      {"hxFkpKKmz/rrdEfGRiWYOXlB.bin", "hgfNjrtzkyoQClwPTwHjGEmXEugllxVVRrFsrOgNtDicGnkxjdqUFBfTcQcrHwei"},
-      {"isuMEsaOHosuHqALELHVQD.bin", "XfBTjdcxHSQpgjIQirSPAapSjjmgPZhNCsnqLo"}
+      {"PEUBCaptWGSYV/MrAtr/yOMRuZVORkLoNsIlNHUA.md", "DKMVckDglumqzieLwQeygQYpVshcHAgPadoJqfgvbMbx"},
+      {"UwGIOjclffX/HLMkdmiAjphaCDzDhuLGfPTMAMUkwvaNQ/mM.dat", "WPeFwMjqvDnrwlsMUzoSyYEsnMzFQtKdLJ"},
+      {"oBYx/dOPqbXuxFNpubKAQPyjCfMgKBed.dat", "jaggbVUYZLVOCidgdEJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(844u),
+      static_cast<std::size_t>(421u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14354,24 +16579,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"DdnAlbdL/lAwdemHDzCPFcnotxkR/CxzoLBRWrYvDs.cfg", "dYGzy"},
-      {"FPpppOrZhGAWufNYSHhzpPIrtPJLQ.dat", "SaKAEZcvdPIblAFsGisuppEuA"},
-      {"FWfYsvbnrLmDI/ENSpTpotnG/ZWinrPJxapFZunEjbdWutnWSkKUGpG.cfg", "McTXKComKaRZGWjxYbTubCABMI"},
-      {"JPetTRwFH/fmA.txt", "pYRpHxXMUqhccSnWBQouvpuXehKoVJvohWfVBQVbhPPZAHEmoiuJfrhobbCyAmtkXOfrTWnyazfd"},
-      {"LNPhZzaCzmyIgDkcvGg.cfg", "KPPTnJFVliVbsoTB"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"DdnAlbdL/lAwdemHDzCPFcnotxkR/CxzoLBRWrYvDs.cfg", "dYGzy"},
-      {"FPpppOrZhGAWufNYSHhzpPIrtPJLQ.dat", "SaKAEZcvdPIblAFsGisuppEuA"},
-      {"FWfYsvbnrLmDI/ENSpTpotnG/ZWinrPJxapFZunEjbdWutnWSkKUGpG.cfg", "McTXKComKaRZGWjxYbTubCABMI"},
-      {"JPetTRwFH/fmA.txt", "pYRpHxXMUqhccSnWBQouvpuXehKoVJvohWfVBQVbhPPZAHEmoiuJfrhobbCyAmtkXOfrTWnyazfd"},
-      {"LNPhZzaCzmyIgDkcvGg.cfg", "KPPTnJFVliVbsoTB"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(471u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14383,13 +16603,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"DqUh/f.md", "DNHdQpvrhwSJYUFCUZxRbuaDsPEdkAGFuMbyAwzGxeVKBEvSVNtKDlVKDctAWaUeBKGAcFILiYZqKiO"}
+      {"BIDluOmYOI.md", "cmuJytXme"}
     },
       {},
       {
-      {"DqUh/f.md", "DNHdQpvrhwSJYUFCUZxRbuaDsPEdkAGFuMbyAwzGxeVKBEvSVNtKDlVKDctAWaUeBKGAcFILiYZqKiO"}
+      {"BIDluOmYOI.md", "cmuJytXme"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -14404,28 +16625,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"Ctv/YsGqrELnTKHJnuaaySSNnvOkI.md", "tvqgxuVGXjgMGNMMFmcDNzLnPRvoOPURmphQ"},
-      {"HmuOSeCXEDGAMXzpXvpmjXlnvvmJ/TiAdEOuWXRtr.txt", "nmqVJZQKWGmpGDOZYDMnTPkjupOktGMsJVACvLFhxXkdECehJxOjUgfrzwPfJusLWYQCYpFQEt"},
-      {"PHXTYYoPjWN/Ub/sX.md", "EmXnYbqOlbEWN"},
-      {"Th/MmdoWdWpXkHENxg.cfg", "j"},
-      {"TxfoyB.cfg", "WzWKxdEusuqMVNqigelKsfdSSFwZPQrnXkcGlUsTVlKSGMcNfrbRECOKKXngtoHdlUQk"},
-      {"csSWAUYVpJPg/RpgBhJIJSwoBepkNdFoWCENgNY.cfg", "MwvFPsDE"},
-      {"fQlAjC.bin", "MYphtPSfyVrccpxiycgzszsQepMTAKxzxRDTzlaaoPifRSGBHnsTSdWrtilKYXmczqBtDONrelJ"}
+      {"LgGNyieRCqJLpAWpFuPwiXVuMaNl.cfg", "nnOUqzBwsqaCCYSKbOPTfYlUhtPrJKbhH"}
     },
       {},
       {
-      {"Ctv/YsGqrELnTKHJnuaaySSNnvOkI.md", "tvqgxuVGXjgMGNMMFmcDNzLnPRvoOPURmphQ"},
-      {"HmuOSeCXEDGAMXzpXvpmjXlnvvmJ/TiAdEOuWXRtr.txt", "nmqVJZQKWGmpGDOZYDMnTPkjupOktGMsJVACvLFhxXkdECehJxOjUgfrzwPfJusLWYQCYpFQEt"},
-      {"PHXTYYoPjWN/Ub/sX.md", "EmXnYbqOlbEWN"},
-      {"Th/MmdoWdWpXkHENxg.cfg", "j"},
-      {"TxfoyB.cfg", "WzWKxdEusuqMVNqigelKsfdSSFwZPQrnXkcGlUsTVlKSGMcNfrbRECOKKXngtoHdlUQk"},
-      {"csSWAUYVpJPg/RpgBhJIJSwoBepkNdFoWCENgNY.cfg", "MwvFPsDE"},
-      {"fQlAjC.bin", "MYphtPSfyVrccpxiycgzszsQepMTAKxzxRDTzlaaoPifRSGBHnsTSdWrtilKYXmczqBtDONrelJ"}
+      {"LgGNyieRCqJLpAWpFuPwiXVuMaNl.cfg", "nnOUqzBwsqaCCYSKbOPTfYlUhtPrJKbhH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(604u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14437,22 +16647,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"CTIrqxY.dat", "bKdboMYITJPhgtqavPJuUrjJsQNCmnRPwGikPNIjApDqfHCgG"},
-      {"FQYKJIBpMksSsiXyRNXKzh/VGfCr.dat", "TvWpoepxOubGoviOtNjpoVACyjuCdSYjYkbbKAgoWTzdmgouxcJODFpMDPqtpHna"},
-      {"JJKLsXwQNrgnZJCTft.txt", "ruDvwigzOVDCKouOMyroCVwKUPsWwsDqLTGcyOdNWWuLIIjNhrVIoORTkrQlkg"},
-      {"KjILulPRtxtJTCiW/RvVRRfwZNGlXHzi.txt", "lAzcigXXuTauVYNNRVLoEFabBotTEhSIZVgDMapdYBMFkdhfkffEb"}
+      {"BPvIEdMr/kESAgUSTDhwvUowqFBPdNdVx.dat", "TzFoIHMHoPJBapvBoIGCsDpbFCwETgzPEhltfYuEKUSRGrnWhjbPC"},
+      {"CiGlPbSOrNzYY/tDFUQqKGiVb.txt", "wYVAjXCVkijNmuaBXfF"}
     },
       {},
       {
-      {"CTIrqxY.dat", "bKdboMYITJPhgtqavPJuUrjJsQNCmnRPwGikPNIjApDqfHCgG"},
-      {"FQYKJIBpMksSsiXyRNXKzh/VGfCr.dat", "TvWpoepxOubGoviOtNjpoVACyjuCdSYjYkbbKAgoWTzdmgouxcJODFpMDPqtpHna"},
-      {"JJKLsXwQNrgnZJCTft.txt", "ruDvwigzOVDCKouOMyroCVwKUPsWwsDqLTGcyOdNWWuLIIjNhrVIoORTkrQlkg"},
-      {"KjILulPRtxtJTCiW/RvVRRfwZNGlXHzi.txt", "lAzcigXXuTauVYNNRVLoEFabBotTEhSIZVgDMapdYBMFkdhfkffEb"}
+      {"BPvIEdMr/kESAgUSTDhwvUowqFBPdNdVx.dat", "TzFoIHMHoPJBapvBoIGCsDpbFCwETgzPEhltfYuEKUSRGrnWhjbPC"},
+      {"CiGlPbSOrNzYY/tDFUQqKGiVb.txt", "wYVAjXCVkijNmuaBXfF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(400u),
+      static_cast<std::size_t>(234u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14464,22 +16671,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"FcmcnmTKNpVVgeqjmbBBtJhSY/a.md", "yIybcUhgBxgKGhMBgKFLckIKycXHQnRJKOytOhEBluSAKLNHYvfFbeFBCVLukvJdbTxA"},
-      {"Y.bin", "HyhnsbiCEPIjuLBfeYuytDWKamRwfBjqyLjRUBbsFyfdnTNjBEycMiULAjNQmge"},
-      {"jLeDFsCgEXMfYSZNYbXsaqlKRcgoipeSygYp/rBiOxjRpytOIWUjFzTPzDCEzOmvN/vtcsRzzSchtI.md", "SukqCMpjlqjFxwqxTHJCDzjnKDjoLfFgWryVyqt"},
-      {"rQxjvhz/yfBdkMNFtYEfbBDKfhnrnXhoSm/x.md", "CvKlCNiuAo"}
+      {"CYdpvtpzeBdqiDdBtESuTcuuMG.cfg", "XcXDPJcjmgLSwDFkPnyUOxJBZQytpyilpyQYL"}
     },
       {},
       {
-      {"FcmcnmTKNpVVgeqjmbBBtJhSY/a.md", "yIybcUhgBxgKGhMBgKFLckIKycXHQnRJKOytOhEBluSAKLNHYvfFbeFBCVLukvJdbTxA"},
-      {"Y.bin", "HyhnsbiCEPIjuLBfeYuytDWKamRwfBjqyLjRUBbsFyfdnTNjBEycMiULAjNQmge"},
-      {"jLeDFsCgEXMfYSZNYbXsaqlKRcgoipeSygYp/rBiOxjRpytOIWUjFzTPzDCEzOmvN/vtcsRzzSchtI.md", "SukqCMpjlqjFxwqxTHJCDzjnKDjoLfFgWryVyqt"},
-      {"rQxjvhz/yfBdkMNFtYEfbBDKfhnrnXhoSm/x.md", "CvKlCNiuAo"}
+      {"CYdpvtpzeBdqiDdBtESuTcuuMG.cfg", "XcXDPJcjmgLSwDFkPnyUOxJBZQytpyilpyQYL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(462u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14491,18 +16693,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"AywGcLkCrBFnyvKScPfpYmNdudoIUt/JyngMFRSCIiLwXBXCpo/EaEbaigKCmYPdCVdFuK.dat", "uMZOFwRqtZFBIB"},
-      {"BbhKQHPJBd.cfg", "yLrULGMTolXQBNvzTnD"}
+      {"RazDXhruJXQ.dat", "HRYdeVthCHUEr"},
+      {"fFFfQhAgLlWAqwG/PvOQeDBMPcOMJeGRSEQdiTfrHmDDlpX/cdgLWHmGLYnXqPS.cfg", "rwHCbCqXkuwPIGllyLLVbzCyTjoTuRhCQBAgDUFNTigQppGvwyFZ"},
+      {"mmwwMgbuSjLdmRRYsoT.md", "yPQhxlRNCcrtKzTsQZZAjOZYrmepRtdpJMRdJxVOEjCjm"}
     },
       {},
       {
-      {"AywGcLkCrBFnyvKScPfpYmNdudoIUt/JyngMFRSCIiLwXBXCpo/EaEbaigKCmYPdCVdFuK.dat", "uMZOFwRqtZFBIB"},
-      {"BbhKQHPJBd.cfg", "yLrULGMTolXQBNvzTnD"}
+      {"RazDXhruJXQ.dat", "HRYdeVthCHUEr"},
+      {"fFFfQhAgLlWAqwG/PvOQeDBMPcOMJeGRSEQdiTfrHmDDlpX/cdgLWHmGLYnXqPS.cfg", "rwHCbCqXkuwPIGllyLLVbzCyTjoTuRhCQBAgDUFNTigQppGvwyFZ"},
+      {"mmwwMgbuSjLdmRRYsoT.md", "yPQhxlRNCcrtKzTsQZZAjOZYrmepRtdpJMRdJxVOEjCjm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(184u),
+      static_cast<std::size_t>(363u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14514,26 +16719,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"AXUXAlJJuiLikGGnXZrvtWk.bin", "hTwOdotSMbGtXSEFPoaZeEZwYRysEiKtaKMgLmqpEVGHSyRxOmIjFXryQUEubmEMdgVtsisaxddTOpi"},
-      {"CEIGQwHAxOaoWdzJRktwACMOZWKF.dat", "xwncDHcHcOvHVpxrUy"},
-      {"EH/OnLwbSHqdcrSPQNHdPemAH.md", "vIHJkXaQruwZciTzDXuPrgwnzZcuUAbjJncruKupDwJemGCOhNLFiymPA"},
-      {"FxuolwfrESlqiDDToDdQw.cfg", "rT"},
-      {"SGzfHeHHMqjEgtUyYgmSbITayeCLNXRxf/utLmdxOLXFCiGZMvxkFHzfEokWVNT/oJTjeZOAsVsmmCuEqcG.dat", "cHABAIxVweWwTNlICsDJLmuiHuoJdnPIOoNydpRRYxwnGnNQosjFIfcifnstBXC"},
-      {"Sl.md", "JlWLRttxXMJivVFwFgZzBWHPMeBpdoKRpwkHNSPpcSLvzhJFDeTZwymXjRsvACtEhHJCVIuhLkLgTu"}
+      {"LZrFgkYDyDawLzPEfmQdiRMbvfVqyJSDXvz/rXZZdEXPqJgrIkbbWnVAHYcW/xAmyyufpPfKDePPzaOqySUoekWeQMh.txt", "cITXFVXPJuoUYokhZBzWHNBHpdfegxVNEOqzFPBUcMnqTE"},
+      {"YGyRPcdAoyjUjVwZyfBGssFrqDIVsjFFTL/iCkeDylZPmmwkbQNJbYLgIOOnCS/XUTmzDaB.dat", "aqZxJxWWSPmzCUjkRoaMHZeqmaaQTmjc"}
     },
       {},
       {
-      {"AXUXAlJJuiLikGGnXZrvtWk.bin", "hTwOdotSMbGtXSEFPoaZeEZwYRysEiKtaKMgLmqpEVGHSyRxOmIjFXryQUEubmEMdgVtsisaxddTOpi"},
-      {"CEIGQwHAxOaoWdzJRktwACMOZWKF.dat", "xwncDHcHcOvHVpxrUy"},
-      {"EH/OnLwbSHqdcrSPQNHdPemAH.md", "vIHJkXaQruwZciTzDXuPrgwnzZcuUAbjJncruKupDwJemGCOhNLFiymPA"},
-      {"FxuolwfrESlqiDDToDdQw.cfg", "rT"},
-      {"SGzfHeHHMqjEgtUyYgmSbITayeCLNXRxf/utLmdxOLXFCiGZMvxkFHzfEokWVNT/oJTjeZOAsVsmmCuEqcG.dat", "cHABAIxVweWwTNlICsDJLmuiHuoJdnPIOoNydpRRYxwnGnNQosjFIfcifnstBXC"},
-      {"Sl.md", "JlWLRttxXMJivVFwFgZzBWHPMeBpdoKRpwkHNSPpcSLvzhJFDeTZwymXjRsvACtEhHJCVIuhLkLgTu"}
+      {"LZrFgkYDyDawLzPEfmQdiRMbvfVqyJSDXvz/rXZZdEXPqJgrIkbbWnVAHYcW/xAmyyufpPfKDePPzaOqySUoekWeQMh.txt", "cITXFVXPJuoUYokhZBzWHNBHpdfegxVNEOqzFPBUcMnqTE"},
+      {"YGyRPcdAoyjUjVwZyfBGssFrqDIVsjFFTL/iCkeDylZPmmwkbQNJbYLgIOOnCS/XUTmzDaB.dat", "aqZxJxWWSPmzCUjkRoaMHZeqmaaQTmjc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(658u),
+      static_cast<std::size_t>(333u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14545,18 +16743,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"DJZriQe/IIFhjOUFwCenuLNIBvCvMxWhGovhahMVLP/hGZYJtOIf.txt", "ZDZzTOVxZUCndEEYvtuCszLWOudsYLEqYflmiFewx"},
-      {"FiMhQxXUIBYuSl/GHuRXtPDjPtjZDAIkLePOgi.dat", "qzqzhDuoQBBannjfiPtvbeDvdRTuNLYgtXS"}
+      {"CivLnJHgYrORLZIJH.txt", "JSMcIPZjzqvWmpqOZhDxELWMaoZsOV"}
     },
       {},
       {
-      {"DJZriQe/IIFhjOUFwCenuLNIBvCvMxWhGovhahMVLP/hGZYJtOIf.txt", "ZDZzTOVxZUCndEEYvtuCszLWOudsYLEqYflmiFewx"},
-      {"FiMhQxXUIBYuSl/GHuRXtPDjPtjZDAIkLePOgi.dat", "qzqzhDuoQBBannjfiPtvbeDvdRTuNLYgtXS"}
+      {"CivLnJHgYrORLZIJH.txt", "JSMcIPZjzqvWmpqOZhDxELWMaoZsOV"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(193u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14568,16 +16765,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"DSjEklzjphRNWiSbJdEbuM/UdnSyFVhJECyYSf.dat", "frMIaOnTGnhXRyOsmSDCIyleCNbHmJIXPHdpfBkiuagoBTPBeYR"}
+      {"F/ryWEXjLwYeYIkBUys.dat", "terCjGvNjumNqUtQVqUDpGEoMLUTXGILjLPMdTYoDuOCmxJgRTmYGOwkRZqdqMcfWdibNvjj"},
+      {"NsJRnviSGE.txt", "NfdCDYggVXYzvpDckhDEZWeZtyMYOfprDjvAbsyJvLSzMFMLcUAikrAXB"}
     },
       {},
       {
-      {"DSjEklzjphRNWiSbJdEbuM/UdnSyFVhJECyYSf.dat", "frMIaOnTGnhXRyOsmSDCIyleCNbHmJIXPHdpfBkiuagoBTPBeYR"}
+      {"F/ryWEXjLwYeYIkBUys.dat", "terCjGvNjumNqUtQVqUDpGEoMLUTXGILjLPMdTYoDuOCmxJgRTmYGOwkRZqdqMcfWdibNvjj"},
+      {"NsJRnviSGE.txt", "NfdCDYggVXYzvpDckhDEZWeZtyMYOfprDjvAbsyJvLSzMFMLcUAikrAXB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(255u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14589,26 +16789,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"QbxOcdDEgOTaFivOuYy.md", "xvactfpkqvqJVsjLnzsLOwDTnFhxuCaAIUzFTuQycLIDaLiwqwIQlzjLFbkfkZjMYlZFfGnaoQpfZW"},
-      {"eauzFfPCAVFgS.bin", "vwkqDRUlUtFJzIbvELuKvVaticvfJNEdkSqYyjC"},
-      {"gaOBAYtQIUPioCN.txt", "AjinOXxUBOMCcuUyWaQtTIZmzZVVqBQpLUApTaP"},
-      {"iTbbrrjtBy/XtAUDoXoYmspsAJeHTkRIO.bin", "CjvNpGKzZstyFfiRATboEegb"},
-      {"uyttrHqDYvLsGBCxWBxHfFJIBjdLSEgN/JbZX.txt", "WQBlGocEeMcydXETFozMSULkAPrDXtbBJQHHjzWYLbdBpjqRXvBszvjkO"},
-      {"zdPUuKXdVpJhEtAEvCYTGgkByQRC/AhjopPcreqdSRJmtWkUkaG.cfg", "HapcuJlDejYNcNNLMRaQFRyiaLyWLUEHQwkqkAUNvToOJTrHAXcduGYvcEQuLiWkIgLsJhfEWOekD"}
+      {"DIZkFuFhgJFKGeGkvyWUQqybRkAOCpnhiic/EHLhJEtJmppBTbnIGTauPrgL.dat", "KCUjEpWzHUHFpEGosXyVHjgtDgsNhhTGuYToIUiHFSIVnuDYpmjYUf"},
+      {"EApqEXWSwgtupRUxBhdLtguKMTXuASxt/CHGpMXcXVseZpeUkGhyyfOTfeFPE.cfg", "KRAkwJxQPJOHLRxFiNUzZUGBijlDdVcPyi"}
     },
       {},
       {
-      {"QbxOcdDEgOTaFivOuYy.md", "xvactfpkqvqJVsjLnzsLOwDTnFhxuCaAIUzFTuQycLIDaLiwqwIQlzjLFbkfkZjMYlZFfGnaoQpfZW"},
-      {"eauzFfPCAVFgS.bin", "vwkqDRUlUtFJzIbvELuKvVaticvfJNEdkSqYyjC"},
-      {"gaOBAYtQIUPioCN.txt", "AjinOXxUBOMCcuUyWaQtTIZmzZVVqBQpLUApTaP"},
-      {"iTbbrrjtBy/XtAUDoXoYmspsAJeHTkRIO.bin", "CjvNpGKzZstyFfiRATboEegb"},
-      {"uyttrHqDYvLsGBCxWBxHfFJIBjdLSEgN/JbZX.txt", "WQBlGocEeMcydXETFozMSULkAPrDXtbBJQHHjzWYLbdBpjqRXvBszvjkO"},
-      {"zdPUuKXdVpJhEtAEvCYTGgkByQRC/AhjopPcreqdSRJmtWkUkaG.cfg", "HapcuJlDejYNcNNLMRaQFRyiaLyWLUEHQwkqkAUNvToOJTrHAXcduGYvcEQuLiWkIgLsJhfEWOekD"}
+      {"DIZkFuFhgJFKGeGkvyWUQqybRkAOCpnhiic/EHLhJEtJmppBTbnIGTauPrgL.dat", "KCUjEpWzHUHFpEGosXyVHjgtDgsNhhTGuYToIUiHFSIVnuDYpmjYUf"},
+      {"EApqEXWSwgtupRUxBhdLtguKMTXuASxt/CHGpMXcXVseZpeUkGhyyfOTfeFPE.cfg", "KRAkwJxQPJOHLRxFiNUzZUGBijlDdVcPyi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(597u),
+      static_cast<std::size_t>(294u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14620,22 +16813,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"CSmVrIezogWLKjEYaGSeOfEahFIIzmcJAfwO/qTDttWzmODKAphVvXeaeQnBkrJdAuWFw/cVgyb.dat", "WBQDWjxyRmZyCnTPU"},
-      {"EOMLvuNEiMCIezJrsd/SGegUCIfDWNIuvlSbopDSdzfvUUuUgFJPL/TTaNHNJNHFIXSOqQ.cfg", "GPzSQgiSyOnOpgmtSrrpYvJXWQGbQC"},
-      {"SSyCZojegIWiBlbgTxytPrlGCw.cfg", "uPuwGFpTHbRl"},
-      {"YkhcINFabiqzNZUhG/uHFmDuZAQDNpd.cfg", "rQXiakMTwZgsSsNJOomGGtukdCIqZTXIRJdmzxDMuurfdPcdlqSHGYUK"}
+      {"sakaAtzqAUURxnXVxFSGJAf/xCMWLEGWqRAiqazsltzdKlPjJPmyLfn.dat", "czdDszQXlXNEbpgelQToAJqwjvuFwJDZmydeBrKnQunrZVyPCwHFBuyvOaXpPf"}
     },
       {},
       {
-      {"CSmVrIezogWLKjEYaGSeOfEahFIIzmcJAfwO/qTDttWzmODKAphVvXeaeQnBkrJdAuWFw/cVgyb.dat", "WBQDWjxyRmZyCnTPU"},
-      {"EOMLvuNEiMCIezJrsd/SGegUCIfDWNIuvlSbopDSdzfvUUuUgFJPL/TTaNHNJNHFIXSOqQ.cfg", "GPzSQgiSyOnOpgmtSrrpYvJXWQGbQC"},
-      {"SSyCZojegIWiBlbgTxytPrlGCw.cfg", "uPuwGFpTHbRl"},
-      {"YkhcINFabiqzNZUhG/uHFmDuZAQDNpd.cfg", "rQXiakMTwZgsSsNJOomGGtukdCIqZTXIRJdmzxDMuurfdPcdlqSHGYUK"}
+      {"sakaAtzqAUURxnXVxFSGJAf/xCMWLEGWqRAiqazsltzdKlPjJPmyLfn.dat", "czdDszQXlXNEbpgelQToAJqwjvuFwJDZmydeBrKnQunrZVyPCwHFBuyvOaXpPf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(402u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14647,16 +16835,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"CbuQWbLuoYFfAMBOEwBVVapDoylDjNljtQSa/BcgxnBOwNIOKvIIxvgol.bin", "OfNsnnZNIZKphFeuoTNtSWAKfcCpgHqwwazvGvGCbhxuPPrKTQep"}
+      {"NFnaWhabymxiTyHATu/MfnwttDQtysosTfOTwf/hdmihNIGVwRTucmnjXKdmxgcaB.txt", "KppfqWUyWGPVkYAo"},
+      {"QmqaVulopNtSAIGumXg.dat", "KlzPGKvecWiOCYjKWCbuFztpQaRvFkqadFQOqwsLCTkZTfotATOdSUpgDMcYKCxhmLCweer"},
+      {"Tg.dat", "KSgzrCETLBMEJyMrpVhlqVixkZQl"}
     },
       {},
       {
-      {"CbuQWbLuoYFfAMBOEwBVVapDoylDjNljtQSa/BcgxnBOwNIOKvIIxvgol.bin", "OfNsnnZNIZKphFeuoTNtSWAKfcCpgHqwwazvGvGCbhxuPPrKTQep"}
+      {"NFnaWhabymxiTyHATu/MfnwttDQtysosTfOTwf/hdmihNIGVwRTucmnjXKdmxgcaB.txt", "KppfqWUyWGPVkYAo"},
+      {"QmqaVulopNtSAIGumXg.dat", "KlzPGKvecWiOCYjKWCbuFztpQaRvFkqadFQOqwsLCTkZTfotATOdSUpgDMcYKCxhmLCweer"},
+      {"Tg.dat", "KSgzrCETLBMEJyMrpVhlqVixkZQl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(427u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14668,18 +16861,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"GZByeQMwdijKlfmckjqjIyYRWA/lum.bin", "HkuBLeEcfklaLMmZbxSLIrJiJehKQToXEnxFlVaQWuiY"},
-      {"GhnOIOqwMAoNqkbqHTeWWoEhYnKhJZo.cfg", "nxvzsLJURtPmZvkVdRDwVnlqahPAMmudaeUTpmQSphqYTdVtNlRqRjUuinZ"}
+      {"At/LwyLcSMioAjlltCprzYKRtjCagruRa.dat", "HtrqxVoxSkXPEuTkNIxAnHnRvvZcOwCIOJMgPPVodm"}
     },
       {},
       {
-      {"GZByeQMwdijKlfmckjqjIyYRWA/lum.bin", "HkuBLeEcfklaLMmZbxSLIrJiJehKQToXEnxFlVaQWuiY"},
-      {"GhnOIOqwMAoNqkbqHTeWWoEhYnKhJZo.cfg", "nxvzsLJURtPmZvkVdRDwVnlqahPAMmudaeUTpmQSphqYTdVtNlRqRjUuinZ"}
+      {"At/LwyLcSMioAjlltCprzYKRtjCagruRa.dat", "HtrqxVoxSkXPEuTkNIxAnHnRvvZcOwCIOJMgPPVodm"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(158u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14691,24 +16883,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"HRbjebFTHhMOQDhhKx/iYYsMRdrzhYs.dat", "Edj"},
-      {"OERsuBojTstFvOYYcxJLu/WjzGhc.cfg", "QEBUzzPsSIymFzKdeLppjskpjPIhnyluliWiNyKyBgKGuwflKJVtMHGkgaFdbWWNSZFnHUUUNTclYPV"},
-      {"dQbPCIcLvOMAjyExDyrBoiRqKJZ.dat", "gTcmnbOXMUcWfaXESuTFvsaCaGwPYxbUdlWYanMwQUIGmcIExBSnvLdETgPYVYFoCxaQHlMjLo"},
-      {"fMrslGdvNdDUsrLQdkWsRjajDtrVCjijoEy/MyUivxSgTfZ.dat", "gDUofMxFuNlfB"},
-      {"mDTx.txt", "ZtruKFDwdSYbcEBkhm"}
+      {"BSNordqbMhVqHrUvLeMAiisfvX/JLXWKHfMoGFr/ensn.dat", "eIvgkurFBTwevZMgpLWrtpZrYRDePpxViuyqlPVnsFyNjicXbFlTOHCKKpFeioQqDQqn"}
     },
       {},
       {
-      {"HRbjebFTHhMOQDhhKx/iYYsMRdrzhYs.dat", "Edj"},
-      {"OERsuBojTstFvOYYcxJLu/WjzGhc.cfg", "QEBUzzPsSIymFzKdeLppjskpjPIhnyluliWiNyKyBgKGuwflKJVtMHGkgaFdbWWNSZFnHUUUNTclYPV"},
-      {"dQbPCIcLvOMAjyExDyrBoiRqKJZ.dat", "gTcmnbOXMUcWfaXESuTFvsaCaGwPYxbUdlWYanMwQUIGmcIExBSnvLdETgPYVYFoCxaQHlMjLo"},
-      {"fMrslGdvNdDUsrLQdkWsRjajDtrVCjijoEy/MyUivxSgTfZ.dat", "gDUofMxFuNlfB"},
-      {"mDTx.txt", "ZtruKFDwdSYbcEBkhm"}
+      {"BSNordqbMhVqHrUvLeMAiisfvX/JLXWKHfMoGFr/ensn.dat", "eIvgkurFBTwevZMgpLWrtpZrYRDePpxViuyqlPVnsFyNjicXbFlTOHCKKpFeioQqDQqn"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(518u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14720,24 +16905,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"DwfHqeabzsHLYHNiC/qXFTSCRsbiHQDwjcgI/RqEPFo.txt", "hWAPEvDUNIgYshYVIISdvuhLXJcbVHiVGpwoaqznrQva"},
-      {"GFzVfJNEUmmsVhvCkNNQmXrbipIGsDaGWA/bqpzpHhojQVMxbYNKdwYlnddnA.md", "yGooNcThiiYDPNqktoGJUPloVNYvlhGpzbYMDbKZitMvEHMYOduWfuNOEuDZRDzdlSncCRroRpGt"},
-      {"MSzhuTfS/m.md", "TrdHXZcGdXTigXQAaFctRTPSYaZTSWpKdNyDWFJjBUoAHRsjdwrKCEaMM"},
-      {"MqVukEATNUezJv/w/sJGvbPReupDSbkjNYTe.bin", "GEENzQURnvqQgeBEkISerosIORLelBYMbbQuVIpprUhkdaKpJiWwXNAXMRjuOSZVzuxwHaZQ"},
-      {"NqAyqyVEKReoqWxEw/RgWdquWeDaARTxUUdcCFxrD.txt", "iHodEPdcJivfUnYPcQpOrsJWdqnUdoNyvQZmqNozIBbZVDkTlkEQCx"}
+      {"ClFrttUpwtrMVuMcIHtIJxl/ODBoOwziZvqFkWq/JLXVf.dat", "vYVsgghEdEQaYPuzoAIjFpcPuSfubqJikLXishwPrSvCIwLcsXGQ"}
     },
       {},
       {
-      {"DwfHqeabzsHLYHNiC/qXFTSCRsbiHQDwjcgI/RqEPFo.txt", "hWAPEvDUNIgYshYVIISdvuhLXJcbVHiVGpwoaqznrQva"},
-      {"GFzVfJNEUmmsVhvCkNNQmXrbipIGsDaGWA/bqpzpHhojQVMxbYNKdwYlnddnA.md", "yGooNcThiiYDPNqktoGJUPloVNYvlhGpzbYMDbKZitMvEHMYOduWfuNOEuDZRDzdlSncCRroRpGt"},
-      {"MSzhuTfS/m.md", "TrdHXZcGdXTigXQAaFctRTPSYaZTSWpKdNyDWFJjBUoAHRsjdwrKCEaMM"},
-      {"MqVukEATNUezJv/w/sJGvbPReupDSbkjNYTe.bin", "GEENzQURnvqQgeBEkISerosIORLelBYMbbQuVIpprUhkdaKpJiWwXNAXMRjuOSZVzuxwHaZQ"},
-      {"NqAyqyVEKReoqWxEw/RgWdquWeDaARTxUUdcCFxrD.txt", "iHodEPdcJivfUnYPcQpOrsJWdqnUdoNyvQZmqNozIBbZVDkTlkEQCx"}
+      {"ClFrttUpwtrMVuMcIHtIJxl/ODBoOwziZvqFkWq/JLXVf.dat", "vYVsgghEdEQaYPuzoAIjFpcPuSfubqJikLXishwPrSvCIwLcsXGQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(645u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14749,22 +16927,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"eHuLEeoG.cfg", "YQKQfrULmktAgyDKZwbzsHHRQWLDIQIjeBMLAooyeMsizLOJ"},
-      {"gPjqihUDqruyqMepjkGr.bin", "CqmQZhmeNpNoLxkOmWpSGNMkoVZZpIFKIpKwgRJsfTDVsOHpjAIXc"},
-      {"ueWXshBLMBOdngZOqd.txt", "FRHIfBbgsdcwSKRVRUHLRWsRIRNbzQIrDMaLHdBkpaXkjYVLDlipIaKuPJvFd"},
-      {"xaTKuVFs/NGzZj.md", "TLhvIhBppZpPEStCYyCtjxoQnOkcvejlREUxWouEALatrxNtLeFJv"}
+      {"AWVtZ.dat", "vjnXhtOjumXapxQFCKClGdeghzvkcOXvDHISzzZr"},
+      {"IPBsNfmozUivQ.bin", "BiCojfrCzywbXQwihBDvlhjIdQwXfYXOvBaFsTzQMaMrANtaJzPpTNyjUWONHvFFYl"}
     },
       {},
       {
-      {"eHuLEeoG.cfg", "YQKQfrULmktAgyDKZwbzsHHRQWLDIQIjeBMLAooyeMsizLOJ"},
-      {"gPjqihUDqruyqMepjkGr.bin", "CqmQZhmeNpNoLxkOmWpSGNMkoVZZpIFKIpKwgRJsfTDVsOHpjAIXc"},
-      {"ueWXshBLMBOdngZOqd.txt", "FRHIfBbgsdcwSKRVRUHLRWsRIRNbzQIrDMaLHdBkpaXkjYVLDlipIaKuPJvFd"},
-      {"xaTKuVFs/NGzZj.md", "TLhvIhBppZpPEStCYyCtjxoQnOkcvejlREUxWouEALatrxNtLeFJv"}
+      {"AWVtZ.dat", "vjnXhtOjumXapxQFCKClGdeghzvkcOXvDHISzzZr"},
+      {"IPBsNfmozUivQ.bin", "BiCojfrCzywbXQwihBDvlhjIdQwXfYXOvBaFsTzQMaMrANtaJzPpTNyjUWONHvFFYl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(380u),
+      static_cast<std::size_t>(161u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14776,26 +16951,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"F/WgPSsbWsvgiSsUIMtojYyGuVTPvgrMDgKijU/GqMhJBDGjSVPlQyInOn.txt", "TjCGeIcSqMIEvq"},
-      {"HFfHTeYKezLitXHjLgSxGwlm.bin", "UyfvCAopx"},
-      {"OUjOqhOAlJJxpqOnnLOoZnwd/QPOikanLYSzdBAzonMxWwvrHpszRuCf/jstrMBRvKGk.bin", "IGAXRbDPtMgryQNjirlyDbFWHsbBjSjBYgTbiCqvBAhOLSApYUwSESLUHDwdeddRSGdTDxg"},
-      {"ZvTYCyZao/SxNrEARNPaj/wDLFJWhdwKrVEpXe.cfg", "xzGlrFeRdTpivBpITAZcUVENlbVtzzwGIte"},
-      {"fTjcXordfnKiYgjKMWcccKdDhX/ZJgTd.cfg", "GFmWMYZAGtHMoo"},
-      {"fuAdbzutSirtYEVOsF/LZNVHOVUvSxDHYLJzuxkzivSfYzdd/zDYxRSCcmH.cfg", "U"}
+      {"AyMZLKcVfhHvuUUUifj/MR.cfg", "eqIAXPaolmJrvZsOUMytgkcwEETBmTjmsFCbBOZlZDTrzJUbGUd"},
+      {"CEr/lVRXGddEuYLcFHDNlGoC/YCgxcszXCzBWcTSVTLqTvVzzPDB.bin", "AKkYdmonKPFbNmQRtSsWfcoYDPRLcDSUGjUEbUYYlImZsvkRlxiE"}
     },
       {},
       {
-      {"F/WgPSsbWsvgiSsUIMtojYyGuVTPvgrMDgKijU/GqMhJBDGjSVPlQyInOn.txt", "TjCGeIcSqMIEvq"},
-      {"HFfHTeYKezLitXHjLgSxGwlm.bin", "UyfvCAopx"},
-      {"OUjOqhOAlJJxpqOnnLOoZnwd/QPOikanLYSzdBAzonMxWwvrHpszRuCf/jstrMBRvKGk.bin", "IGAXRbDPtMgryQNjirlyDbFWHsbBjSjBYgTbiCqvBAhOLSApYUwSESLUHDwdeddRSGdTDxg"},
-      {"ZvTYCyZao/SxNrEARNPaj/wDLFJWhdwKrVEpXe.cfg", "xzGlrFeRdTpivBpITAZcUVENlbVtzzwGIte"},
-      {"fTjcXordfnKiYgjKMWcccKdDhX/ZJgTd.cfg", "GFmWMYZAGtHMoo"},
-      {"fuAdbzutSirtYEVOsF/LZNVHOVUvSxDHYLJzuxkzivSfYzdd/zDYxRSCcmH.cfg", "U"}
+      {"AyMZLKcVfhHvuUUUifj/MR.cfg", "eqIAXPaolmJrvZsOUMytgkcwEETBmTjmsFCbBOZlZDTrzJUbGUd"},
+      {"CEr/lVRXGddEuYLcFHDNlGoC/YCgxcszXCzBWcTSVTLqTvVzzPDB.bin", "AKkYdmonKPFbNmQRtSsWfcoYDPRLcDSUGjUEbUYYlImZsvkRlxiE"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(607u),
+      static_cast<std::size_t>(221u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14807,26 +16975,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"IPFaXoqhazPwHHznPfZwULzaBjbZpsnwP.md", "lohXtXBOaHPZOsrdlgsZQnVFWiajaNrvCQFSxpWgdJtrKJvctaoDrE"},
-      {"PBvinedsRCqDkihBLxlWNFOYvqYLdEurPckt/DeLxuKNWliuZsWkYHcPKNwXZGleQMdy/lcBTzaJ.bin", "YLIjrHvzZXAtVOGXZsTudBOeoKSxPDorTpgvIopevxwpIGbzP"},
-      {"PFlvkWFssdkYDKqbJc/nijwqgOO.md", "lZctUcmegKeUfwxLedcpnPrgrlXQkEI"},
-      {"cPmeviqJhAbjSxKvhiHdEWQgFfWnYROOGY/wYQacptRVtBWZdHlVuolTrnS/HHruiJKpaKe.cfg", "CiDYqvzt"},
-      {"kQRJn.cfg", "izrFtkUIMIWbVGOAVIyvdVdgCUpKksyiBgiq"},
-      {"kvROZZKC/lEmQRrKGfZkkFbQMoTOYxZdPGz.dat", "BLjHwIAtWiJWjOzuwYcmJFb"}
+      {"DgFblXndDEwmBfBB/iNDOcmVG/XJjZabDvWhVgMGlRgZ.md", "V"}
     },
       {},
       {
-      {"IPFaXoqhazPwHHznPfZwULzaBjbZpsnwP.md", "lohXtXBOaHPZOsrdlgsZQnVFWiajaNrvCQFSxpWgdJtrKJvctaoDrE"},
-      {"PBvinedsRCqDkihBLxlWNFOYvqYLdEurPckt/DeLxuKNWliuZsWkYHcPKNwXZGleQMdy/lcBTzaJ.bin", "YLIjrHvzZXAtVOGXZsTudBOeoKSxPDorTpgvIopevxwpIGbzP"},
-      {"PFlvkWFssdkYDKqbJc/nijwqgOO.md", "lZctUcmegKeUfwxLedcpnPrgrlXQkEI"},
-      {"cPmeviqJhAbjSxKvhiHdEWQgFfWnYROOGY/wYQacptRVtBWZdHlVuolTrnS/HHruiJKpaKe.cfg", "CiDYqvzt"},
-      {"kQRJn.cfg", "izrFtkUIMIWbVGOAVIyvdVdgCUpKksyiBgiq"},
-      {"kvROZZKC/lEmQRrKGfZkkFbQMoTOYxZdPGz.dat", "BLjHwIAtWiJWjOzuwYcmJFb"}
+      {"DgFblXndDEwmBfBB/iNDOcmVG/XJjZabDvWhVgMGlRgZ.md", "V"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(648u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14838,28 +16997,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"BQgCZZnPqvlhChqOxch/szjBvDqzpixrBEAmatEdwoahHdPJ.txt", "FQMFKbHDcOOATQ"},
-      {"ClKHrASFtlPhmvDpxivcyuwspHor/kNbgDOnpB.md", "wqtqeegqvfpXmFgqiRMYSspzszX"},
-      {"DEKDRvgJOMkfRCkivDRakBBpIOiHm.txt", "V"},
-      {"SWAuuooMVAvuCZaZrXAGtoleNiYrf.bin", "tuMAXih"},
-      {"UTrluqiUBLYiyCsSJmCvhc/qkLXjzCwokhgTHNKCX/ewCVTEZlfL.md", "OeMdNOwQlllehVGBALwXGoeUTldgkozOYbJhAGjlwaawHmXPkAckuOxVLhWMhILvdmAsKnmrRuw"},
-      {"YbFTpUEVSrFlQ.cfg", "oOuiSpoBHvgswMmZKOoFjcIKuMKyrqfTpAGFIxcqtmcQwjNQLWpWpXzZtFiOWEuYID"},
-      {"dqEyhvaLAhcC/k/xbDfFvZxKAJWZPWRGVtUqvxdXse.md", "YozSjgXglgGZjqgaqZrKuQbZnkObiBRacbNNHbIayQGMLp"}
+      {"GURHIZsNiERGSTAzrbSjJjvoNpv/VFUpLdJRMiQSjqtWdKqncw/MZzXgkQXRJZyIBJKT.txt", "IxVnkVPndytpIbSpPhNehGkiTuDyztIx"}
     },
       {},
       {
-      {"BQgCZZnPqvlhChqOxch/szjBvDqzpixrBEAmatEdwoahHdPJ.txt", "FQMFKbHDcOOATQ"},
-      {"ClKHrASFtlPhmvDpxivcyuwspHor/kNbgDOnpB.md", "wqtqeegqvfpXmFgqiRMYSspzszX"},
-      {"DEKDRvgJOMkfRCkivDRakBBpIOiHm.txt", "V"},
-      {"SWAuuooMVAvuCZaZrXAGtoleNiYrf.bin", "tuMAXih"},
-      {"UTrluqiUBLYiyCsSJmCvhc/qkLXjzCwokhgTHNKCX/ewCVTEZlfL.md", "OeMdNOwQlllehVGBALwXGoeUTldgkozOYbJhAGjlwaawHmXPkAckuOxVLhWMhILvdmAsKnmrRuw"},
-      {"YbFTpUEVSrFlQ.cfg", "oOuiSpoBHvgswMmZKOoFjcIKuMKyrqfTpAGFIxcqtmcQwjNQLWpWpXzZtFiOWEuYID"},
-      {"dqEyhvaLAhcC/k/xbDfFvZxKAJWZPWRGVtUqvxdXse.md", "YozSjgXglgGZjqgaqZrKuQbZnkObiBRacbNNHbIayQGMLp"}
+      {"GURHIZsNiERGSTAzrbSjJjvoNpv/VFUpLdJRMiQSjqtWdKqncw/MZzXgkQXRJZyIBJKT.txt", "IxVnkVPndytpIbSpPhNehGkiTuDyztIx"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(669u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14871,16 +17019,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"HRSyglbclOvAMVBePwOSMfU.cfg", "NrWXPJCTCCCKDhzZurJcVXJAnXkIaTjODPSNGqVLDvoKXlDlk"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"HRSyglbclOvAMVBePwOSMfU.cfg", "NrWXPJCTCCCKDhzZurJcVXJAnXkIaTjODPSNGqVLDvoKXlDlk"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14892,30 +17043,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"BeJnVbxfbfjAPQfbOqXyPgrQEjEelft.md", "FFnflrYxgAegDyYmGmCwqALvSCRgGyowKHujqLksfzhvlBzNWvccobUHYgBFwff"},
-      {"DotPmum/eXepCYYlJNiODymxefhWdolntrJxoiL.md", "g"},
-      {"FNL/IYqdcByQWsaadevZcGkOBEUOyhCl/e.md", "xPNJEMHYtnHlorTkEuJmRYZgVfXSwuHuoEFfXvYCClIwlRRAQnbUXjRgLlNBpIdbJNkQFDrhLZO"},
-      {"HpcEUUrJDFXw/cqIGOwMpqMqo/AUOkpbNeFBJEYKDiYAqOxYtjyHJhMdDs.cfg", "PfKxWUqHCZIlMavcsaofPArDvkrpPcxmdKPtLWViRoG"},
-      {"LQzYQTlIYuzbwNdXjkeSWUkAaQcx/vAbMKrmLcSzBFnOKQKtACxTRjIQ.cfg", "gSvrKVlzyhXSbdGqpEkHuiKMwzJUvUxlFBDpMchCq"},
-      {"LjGRbkttfdDptGInslXFPdZxn.bin", "sSsolRCeeEZJs"},
-      {"UJNxKUNvgBnmDwSneTgbrBj/LtgMnbyxkNhfZlQRRV/nugIFNJumIentQzKsnfmkc.bin", "pHo"},
-      {"UXAEfYsFFpHkcZzUWIQYtneJtzM/eOHcGFKVgCqhOOtLaspjbuJBQymSqGV/aKkGRIYFJtUlEIgioQNkMqqYueVQ.cfg", "iBRlwlOwNRtD"}
+      {"A.md", "BOGsVnalwbqAQFwcyYqOUWjQyJlPpYwMgCmLPBbYuVtwmFaYqVYxoVzYeHXni"}
     },
       {},
       {
-      {"BeJnVbxfbfjAPQfbOqXyPgrQEjEelft.md", "FFnflrYxgAegDyYmGmCwqALvSCRgGyowKHujqLksfzhvlBzNWvccobUHYgBFwff"},
-      {"DotPmum/eXepCYYlJNiODymxefhWdolntrJxoiL.md", "g"},
-      {"FNL/IYqdcByQWsaadevZcGkOBEUOyhCl/e.md", "xPNJEMHYtnHlorTkEuJmRYZgVfXSwuHuoEFfXvYCClIwlRRAQnbUXjRgLlNBpIdbJNkQFDrhLZO"},
-      {"HpcEUUrJDFXw/cqIGOwMpqMqo/AUOkpbNeFBJEYKDiYAqOxYtjyHJhMdDs.cfg", "PfKxWUqHCZIlMavcsaofPArDvkrpPcxmdKPtLWViRoG"},
-      {"LQzYQTlIYuzbwNdXjkeSWUkAaQcx/vAbMKrmLcSzBFnOKQKtACxTRjIQ.cfg", "gSvrKVlzyhXSbdGqpEkHuiKMwzJUvUxlFBDpMchCq"},
-      {"LjGRbkttfdDptGInslXFPdZxn.bin", "sSsolRCeeEZJs"},
-      {"UJNxKUNvgBnmDwSneTgbrBj/LtgMnbyxkNhfZlQRRV/nugIFNJumIentQzKsnfmkc.bin", "pHo"},
-      {"UXAEfYsFFpHkcZzUWIQYtneJtzM/eOHcGFKVgCqhOOtLaspjbuJBQymSqGV/aKkGRIYFJtUlEIgioQNkMqqYueVQ.cfg", "iBRlwlOwNRtD"}
+      {"A.md", "BOGsVnalwbqAQFwcyYqOUWjQyJlPpYwMgCmLPBbYuVtwmFaYqVYxoVzYeHXni"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(892u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14927,28 +17065,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"HJRfjVszKcizAbPFlVyYrSrQNyzVOIHFNFC/PJCfgBkBYBXCKzdPLdTC.dat", "hvteVSxmkScOzdLhxsnSRapYXrEHvYqemIHYxdm"},
-      {"KeTEn.cfg", "iRsOarLlEfDVmQfFkrjOStAnZAUaOeBOkKfpwiIbbxDniccqGKDPigUqDribaxeWSgU"},
-      {"PoaCP.txt", "DvLFmLLsThsjx"},
-      {"SvKqOqWwUTUhNSIpflx.cfg", "mLQcfxccmOqhEmkoJPfZSZmPEBS"},
-      {"ZokncOUauO/ymujtLtBWTkWqiVtiBTYuw.txt", "LFAOIrYAzUTwgfYOsJlB"},
-      {"axdroXHvaRjXMcCZ/f.bin", "eFtPwZXabbdATbqLEUxxactgbdMWKCGQoFCcgraypTRySUHdyFZZhiGGC"},
-      {"bLdKrvsFbiAcjhruWydPBUItLVBnHNqu.bin", "KNNXq"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"HJRfjVszKcizAbPFlVyYrSrQNyzVOIHFNFC/PJCfgBkBYBXCKzdPLdTC.dat", "hvteVSxmkScOzdLhxsnSRapYXrEHvYqemIHYxdm"},
-      {"KeTEn.cfg", "iRsOarLlEfDVmQfFkrjOStAnZAUaOeBOkKfpwiIbbxDniccqGKDPigUqDribaxeWSgU"},
-      {"PoaCP.txt", "DvLFmLLsThsjx"},
-      {"SvKqOqWwUTUhNSIpflx.cfg", "mLQcfxccmOqhEmkoJPfZSZmPEBS"},
-      {"ZokncOUauO/ymujtLtBWTkWqiVtiBTYuw.txt", "LFAOIrYAzUTwgfYOsJlB"},
-      {"axdroXHvaRjXMcCZ/f.bin", "eFtPwZXabbdATbqLEUxxactgbdMWKCGQoFCcgraypTRySUHdyFZZhiGGC"},
-      {"bLdKrvsFbiAcjhruWydPBUItLVBnHNqu.bin", "KNNXq"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(512u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14960,28 +17089,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"CPDMgBQQvEKdaurJDEqXHMctdt.dat", "oiyOLeMrsMEcGEPfEjTiMZzhIrEn"},
-      {"CRSEmpPGSSuMNNripCbmooyNtRPKNISBaurY/tv.md", "BxCfgQiUtuuZAXKm"},
-      {"GCvmza.cfg", "SJyVbUSfhDZfJYHwulEytycKNQKQdSZvGZgWCozdPmJownwjGghorNmzRRQqFBsCE"},
-      {"MQFLIGngRz.txt", "MKhYPGsmDIadhFtfCRMyPPUgmAXlmMTvcuJ"},
-      {"VKALyHEImHLyWvqjHJnVKU.txt", "IkzVfFjXbDaEHNAOTKDSIwNDDjfQmKMHhwymMybetJjXPniOwNDSwWSrxiORlYNZiYicDAWoBZg"},
-      {"WDZDjPhsczJovyCWcjUMaeAmdOBJP.md", "cIISBPBxkYkAtftGxAxyJieQsTia"},
-      {"gXG.md", "BiRDGqjHhNOmMJVLXNDZZXHnplbgeXcfHWkrnNJSreBDRntvxOvPo"}
+      {"HuLj.txt", "YoLcvUQvhpiCuPYi"},
+      {"nsskFlBKi/KiXvHaQRBJCWzxeebZdWorNhvmQdLvWS/ZluBvkgKIEzMurOkewMtigm.md", "njHlDpXfqDDEWoFXYPTKnBLqHvpfUGUIBmDTqBApohCIkZwIqNqjzUEzxYGYzvcjvHYtgnsImzbqK"},
+      {"yVZGxjwfOdip/MIOPtmDMmksJluGhknrIAywNKG.md", "RELBCmxcfYWCwvVsi"}
     },
       {},
       {
-      {"CPDMgBQQvEKdaurJDEqXHMctdt.dat", "oiyOLeMrsMEcGEPfEjTiMZzhIrEn"},
-      {"CRSEmpPGSSuMNNripCbmooyNtRPKNISBaurY/tv.md", "BxCfgQiUtuuZAXKm"},
-      {"GCvmza.cfg", "SJyVbUSfhDZfJYHwulEytycKNQKQdSZvGZgWCozdPmJownwjGghorNmzRRQqFBsCE"},
-      {"MQFLIGngRz.txt", "MKhYPGsmDIadhFtfCRMyPPUgmAXlmMTvcuJ"},
-      {"VKALyHEImHLyWvqjHJnVKU.txt", "IkzVfFjXbDaEHNAOTKDSIwNDDjfQmKMHhwymMybetJjXPniOwNDSwWSrxiORlYNZiYicDAWoBZg"},
-      {"WDZDjPhsczJovyCWcjUMaeAmdOBJP.md", "cIISBPBxkYkAtftGxAxyJieQsTia"},
-      {"gXG.md", "BiRDGqjHhNOmMJVLXNDZZXHnplbgeXcfHWkrnNJSreBDRntvxOvPo"}
+      {"HuLj.txt", "YoLcvUQvhpiCuPYi"},
+      {"nsskFlBKi/KiXvHaQRBJCWzxeebZdWorNhvmQdLvWS/ZluBvkgKIEzMurOkewMtigm.md", "njHlDpXfqDDEWoFXYPTKnBLqHvpfUGUIBmDTqBApohCIkZwIqNqjzUEzxYGYzvcjvHYtgnsImzbqK"},
+      {"yVZGxjwfOdip/MIOPtmDMmksJluGhknrIAywNKG.md", "RELBCmxcfYWCwvVsi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(649u),
+      static_cast<std::size_t>(104u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -14993,28 +17115,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"GwbzTRDycOHHNG.md", "RAYeBCXFRxWSo"},
-      {"NiSGJtsOXmVBGWM/YEUBeXkRfMWhAOUvvZYpSoI.cfg", "TuBasnEIXlBXLEtyjoexqWgirSiirLcSFOCJueUXybGKlHueVkmzCeNd"},
-      {"SScBHDwqCRK/IpiTvDHkUBDBWUxhJBcSSyLogqO/GqrfNQvWrkP.bin", "jXAbLfoLNS"},
-      {"aKDtJoqHWZrLaOfFTQKlyu/ncMvxURhBkJT/MiPlcXNLoggTjsccK.txt", "OwgMXNokjsIXjGWIYXkmsABAcvjajRmSpVUQZsLh"},
-      {"ajmxCDWpmxpBYvQiH/M.dat", "CJeXgiERUBwlqzvRHVRZRxvFeDrWkZDvp"},
-      {"iFThoJpEwISjSySua.dat", "kIsULCHtFKOrXWkdRjWainTHVxjrYTwUKopplCXceidcHHnANtbKcQcvt"},
-      {"icVELwJfcCkDt/SQGhdLkAplSCLKvsIDMS.bin", "FRzpUmTGNHmaGFlhtFbSnkCEKDk"}
+      {"eyrPgoYyYUFjkTqmwd.md", "QwhPVqZMuLw"},
+      {"rCWTeaNmBeKhcG/bnllMzgnQoBbt.txt", "OTEhzJacXJDgFsXyavf"},
+      {"rEPk/kk.dat", "LvImxYXlUMzTwGoQmqyEASVvZpQMrVuDP"},
+      {"wTnlyaV.cfg", "dSRTzoMApPhPUykVEDmwoxAyJNhbGAPpcvlETMFNQjnA"}
     },
       {},
       {
-      {"GwbzTRDycOHHNG.md", "RAYeBCXFRxWSo"},
-      {"NiSGJtsOXmVBGWM/YEUBeXkRfMWhAOUvvZYpSoI.cfg", "TuBasnEIXlBXLEtyjoexqWgirSiirLcSFOCJueUXybGKlHueVkmzCeNd"},
-      {"SScBHDwqCRK/IpiTvDHkUBDBWUxhJBcSSyLogqO/GqrfNQvWrkP.bin", "jXAbLfoLNS"},
-      {"aKDtJoqHWZrLaOfFTQKlyu/ncMvxURhBkJT/MiPlcXNLoggTjsccK.txt", "OwgMXNokjsIXjGWIYXkmsABAcvjajRmSpVUQZsLh"},
-      {"ajmxCDWpmxpBYvQiH/M.dat", "CJeXgiERUBwlqzvRHVRZRxvFeDrWkZDvp"},
-      {"iFThoJpEwISjSySua.dat", "kIsULCHtFKOrXWkdRjWainTHVxjrYTwUKopplCXceidcHHnANtbKcQcvt"},
-      {"icVELwJfcCkDt/SQGhdLkAplSCLKvsIDMS.bin", "FRzpUmTGNHmaGFlhtFbSnkCEKDk"}
+      {"eyrPgoYyYUFjkTqmwd.md", "QwhPVqZMuLw"},
+      {"rCWTeaNmBeKhcG/bnllMzgnQoBbt.txt", "OTEhzJacXJDgFsXyavf"},
+      {"rEPk/kk.dat", "LvImxYXlUMzTwGoQmqyEASVvZpQMrVuDP"},
+      {"wTnlyaV.cfg", "dSRTzoMApPhPUykVEDmwoxAyJNhbGAPpcvlETMFNQjnA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(673u),
+      static_cast<std::size_t>(335u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15026,22 +17143,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"C/CakKL/uCZcbVsuKTtpCTsaLjlvMcxbaOkHVu.dat", "pMOlpqxzuYdWicrZyNbwNBVkORoyCzCCbYexolnoInnMgjaCEhJiUnkpOilEJRqb"},
-      {"jpBziMOGnNiqgMQktfrWHIkFPSMDNYuk/MBfJevLfqlFRnpYDAmE.md", "areKxw"},
-      {"nJmkuVhkjra.txt", "QEapgiqvkonhtlXwwTskhFeZEYPhHaIUXHpxhifvZg"},
-      {"xyCpmDWBzbhUBtxFzpodXiRp/UnveDrhHkEQGeydXYuYrUDeLWAR.md", "dRoDqTKjfFxkRqWoGTlMzNqiFDtFyQetdPduZKZhDiffSCKpufhTRAyHga"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"C/CakKL/uCZcbVsuKTtpCTsaLjlvMcxbaOkHVu.dat", "pMOlpqxzuYdWicrZyNbwNBVkORoyCzCCbYexolnoInnMgjaCEhJiUnkpOilEJRqb"},
-      {"jpBziMOGnNiqgMQktfrWHIkFPSMDNYuk/MBfJevLfqlFRnpYDAmE.md", "areKxw"},
-      {"nJmkuVhkjra.txt", "QEapgiqvkonhtlXwwTskhFeZEYPhHaIUXHpxhifvZg"},
-      {"xyCpmDWBzbhUBtxFzpodXiRp/UnveDrhHkEQGeydXYuYrUDeLWAR.md", "dRoDqTKjfFxkRqWoGTlMzNqiFDtFyQetdPduZKZhDiffSCKpufhTRAyHga"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(384u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15053,18 +17167,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"LXvrBeqQgYwyZCJCGTc.txt", "gqaegbtmRClDYvjDJFuakD"},
-      {"NDYCOlvplPVjcLzIvHJcT/eKUJvTntfhjzMs.md", "JCJEncQgikQaEEDZPpqxvqcQFvKNBgvqWJve"}
+      {"TJcfFaurJDaJzmhSnPKRnexhUkE.txt", "ocfvgMgwhMC"}
     },
       {},
       {
-      {"LXvrBeqQgYwyZCJCGTc.txt", "gqaegbtmRClDYvjDJFuakD"},
-      {"NDYCOlvplPVjcLzIvHJcT/eKUJvTntfhjzMs.md", "JCJEncQgikQaEEDZPpqxvqcQFvKNBgvqWJve"}
+      {"TJcfFaurJDaJzmhSnPKRnexhUkE.txt", "ocfvgMgwhMC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(125u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15076,28 +17189,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"CF/QhIvBalmhnEdXzbixfuwssB/dyzyNxhRqTGgUPEVjT.dat", "breJWmYtYCeFplSFhBrLQjTZSxlNcdvXSuWlhQHnPpSeIlKHQ"},
-      {"EqISQrupAATJKBgViCs/wZuZlznIfAeJxeulWtmooGcs/rcyBpiyErGemdqUMOVjbfMnfixziqd.cfg", "bKYRwxjrLjTRzrphCASyTkvgTfJEHYpCvRc"},
-      {"FCmcXmRnb/FhnYjmWMXpiYfJIeHsLnyCqNrIxbAH/rpgNRhLhOOtEr.cfg", "hRSkdmPEkTaPXryiBH"},
-      {"Hw.dat", "yLjvbVKfBBEyFtjylhKzYgKcLNBBGLeevGv"},
-      {"OOnGOnVEYciOCbbkjoTsFOCxrE/ItRGJxSdijJocYslyKVtcKEGM.md", "UDAdrKivpchpcGqWTNnkgXRXenPFDiCsYNNyLCvtkcczjakLmxdZjO"},
-      {"SXuCiJXLGUPJma.cfg", "qqWucaCaZFZJygKYxJPnqqzsemkZQATyCyTnIAjGjDWrfxWQhvMnhgpwhtZTDvUmu"},
-      {"lCMJpgCtimekvAgT/NQlNAEdGZyhkFOSYZcZmeScDxo/CSguxHxz.cfg", "ptPLf"}
+      {"CSupuVfsCHAwuzIubIi/WAQHDZGUKP.md", "THpRVQyhrgqPYJBVRWQFVPbxDHGEDrcckxxCIEWSGsSGUMsdHziiyGiBLszvgUPjsaGsDlKpkOZBQ"},
+      {"K/faiXcjxsQRlamgGxWQsFNogbMRqwp.bin", "zzgzJdyOhSqpORbRKUsFnRqWxgUyLeRMSGhqufCiZ"}
     },
       {},
       {
-      {"CF/QhIvBalmhnEdXzbixfuwssB/dyzyNxhRqTGgUPEVjT.dat", "breJWmYtYCeFplSFhBrLQjTZSxlNcdvXSuWlhQHnPpSeIlKHQ"},
-      {"EqISQrupAATJKBgViCs/wZuZlznIfAeJxeulWtmooGcs/rcyBpiyErGemdqUMOVjbfMnfixziqd.cfg", "bKYRwxjrLjTRzrphCASyTkvgTfJEHYpCvRc"},
-      {"FCmcXmRnb/FhnYjmWMXpiYfJIeHsLnyCqNrIxbAH/rpgNRhLhOOtEr.cfg", "hRSkdmPEkTaPXryiBH"},
-      {"Hw.dat", "yLjvbVKfBBEyFtjylhKzYgKcLNBBGLeevGv"},
-      {"OOnGOnVEYciOCbbkjoTsFOCxrE/ItRGJxSdijJocYslyKVtcKEGM.md", "UDAdrKivpchpcGqWTNnkgXRXenPFDiCsYNNyLCvtkcczjakLmxdZjO"},
-      {"SXuCiJXLGUPJma.cfg", "qqWucaCaZFZJygKYxJPnqqzsemkZQATyCyTnIAjGjDWrfxWQhvMnhgpwhtZTDvUmu"},
-      {"lCMJpgCtimekvAgT/NQlNAEdGZyhkFOSYZcZmeScDxo/CSguxHxz.cfg", "ptPLf"}
+      {"CSupuVfsCHAwuzIubIi/WAQHDZGUKP.md", "THpRVQyhrgqPYJBVRWQFVPbxDHGEDrcckxxCIEWSGsSGUMsdHziiyGiBLszvgUPjsaGsDlKpkOZBQ"},
+      {"K/faiXcjxsQRlamgGxWQsFNogbMRqwp.bin", "zzgzJdyOhSqpORbRKUsFnRqWxgUyLeRMSGhqufCiZ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(801u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15109,26 +17213,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"FcmULNAFoBGVWgIXUgvZXKloIWkdCPbJCuM/cziePwDtRiE.txt", "vo"},
-      {"LImLMeczp/YkQcAIZsSuFuTcaUpU.md", "cbrbBRhlSxysslJelgXXbmWXCYKFMPrhcAvZsWzeXCfpfhu"},
-      {"UfxmHODJxJlQDU.md", "mnqnZqtLVLxkwsOhMa"},
-      {"ZgTWa/NxNoAYeVrTIphopNFpAKXOxvnNWRZbZ/mQjEpOVFmDZWMcokYqVKETK.cfg", "cXbcBHVPdQpU"},
-      {"cgesBnrpTNiIveVbWgqDhJPrF.dat", "IfQdCNyuIwlhXUrfbQhLraxhYbysZruhdlvICuvDheqwZHnUtUYEmQSdOBWTq"},
-      {"dVouZyDedPqciwZHsolDzKQnjuXzM/ZtOb/HHmUOFXce.cfg", "jgYcuwwPhBsvMHsoNkTwHYMQmpfHmLjRqQWhtkwDpzVDOyjxCirdFtMZNTwbfwPDwUmnpnxj"}
+      {"NCLgBIsQALGANxO/LiiEV.cfg", "xRszOjMhXNEEeiCIbPeGdNWGmgYfgkAaAXahVBgrzegqLipOKOtTSIGQklVLAuQaZVDNnoPoRtTESe"}
     },
       {},
       {
-      {"FcmULNAFoBGVWgIXUgvZXKloIWkdCPbJCuM/cziePwDtRiE.txt", "vo"},
-      {"LImLMeczp/YkQcAIZsSuFuTcaUpU.md", "cbrbBRhlSxysslJelgXXbmWXCYKFMPrhcAvZsWzeXCfpfhu"},
-      {"UfxmHODJxJlQDU.md", "mnqnZqtLVLxkwsOhMa"},
-      {"ZgTWa/NxNoAYeVrTIphopNFpAKXOxvnNWRZbZ/mQjEpOVFmDZWMcokYqVKETK.cfg", "cXbcBHVPdQpU"},
-      {"cgesBnrpTNiIveVbWgqDhJPrF.dat", "IfQdCNyuIwlhXUrfbQhLraxhYbysZruhdlvICuvDheqwZHnUtUYEmQSdOBWTq"},
-      {"dVouZyDedPqciwZHsolDzKQnjuXzM/ZtOb/HHmUOFXce.cfg", "jgYcuwwPhBsvMHsoNkTwHYMQmpfHmLjRqQWhtkwDpzVDOyjxCirdFtMZNTwbfwPDwUmnpnxj"}
+      {"NCLgBIsQALGANxO/LiiEV.cfg", "xRszOjMhXNEEeiCIbPeGdNWGmgYfgkAaAXahVBgrzegqLipOKOtTSIGQklVLAuQaZVDNnoPoRtTESe"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(541u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15140,26 +17235,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"AxUCasGsgMRhWnqYdktUxLdaxICPdcsMtyl/vWzZKsJhJi.cfg", "ZgUpmtzMKKFtLOlXOTAEkmnqFaKtPJFIhbxIlHMPVebtRE"},
-      {"EPByvAzWoFOsYUPiOdp.cfg", "XaxBnACCDKVDluJ"},
-      {"LxRtjS/AjMwdpvMsvEwwmpFNHxdfbJcCq.bin", "qGvQqILARCfWxaNmXbLrvWsgIqlgqN"},
-      {"McFlGADYqKPuvoUVyPXHkGYxQ.dat", "iSzbMpNcqvEXDThxCLhURXXyPZkSxKpzNmlIjKwVqwAHuMURSMSKMqVSJJDwJnCMk"},
-      {"PIlad.txt", "PYbVySywkyWlNsqSxaKUdZnmHyqWWCaQxTJMpneVrURCpHypGbfiZPFaArdLYZtvuQcXCMZ"},
-      {"jLhWQXljDtrPrcPQwgthLeUMmgioh/lwQfYi.dat", "tJIdHhiHmZdWlEYZYVUpeJWvHyBKhRnXLxqhjwnwYOGkWTwyOrCpxPKYF"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"AxUCasGsgMRhWnqYdktUxLdaxICPdcsMtyl/vWzZKsJhJi.cfg", "ZgUpmtzMKKFtLOlXOTAEkmnqFaKtPJFIhbxIlHMPVebtRE"},
-      {"EPByvAzWoFOsYUPiOdp.cfg", "XaxBnACCDKVDluJ"},
-      {"LxRtjS/AjMwdpvMsvEwwmpFNHxdfbJcCq.bin", "qGvQqILARCfWxaNmXbLrvWsgIqlgqN"},
-      {"McFlGADYqKPuvoUVyPXHkGYxQ.dat", "iSzbMpNcqvEXDThxCLhURXXyPZkSxKpzNmlIjKwVqwAHuMURSMSKMqVSJJDwJnCMk"},
-      {"PIlad.txt", "PYbVySywkyWlNsqSxaKUdZnmHyqWWCaQxTJMpneVrURCpHypGbfiZPFaArdLYZtvuQcXCMZ"},
-      {"jLhWQXljDtrPrcPQwgthLeUMmgioh/lwQfYi.dat", "tJIdHhiHmZdWlEYZYVUpeJWvHyBKhRnXLxqhjwnwYOGkWTwyOrCpxPKYF"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(599u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15171,28 +17259,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"BzfVwFRYXzXBsDqOgUbElMwVji/cowEnFOmzIXHinkydLYSKGr.cfg", "LoBNbxZarKjsUmHBQZLnEurcCOmVJfUnLJvwwgBaDWUTmWTpPNxVJooTrpYPeXi"},
-      {"CkjUZGseFyHmuCuAqtMEcXfmQeUSmG/CZbVMWnzEPdlu.bin", "VlQgRAoIXAbvAkLUyWWISocvtTdPLvBb"},
-      {"PmpIWTDBCBWGIwrWftwgeOtPljvUE/mR.md", "vIXrMWlnrMvjusmDTyljfPQwvytYqKirJIPCJzTktmWXJeUwmCUTNCBhl"},
-      {"SULQfjiiIz/mcumRnHGqQVznhQN.dat", "YkiYVIbqHrCydOvAsjYRAnNYLZDuCZkAsTsRPvxylymYSssMVAhzJiSCcABo"},
-      {"TIijnmDpZIryhzWaYdUYsA.bin", "tfQOkSUwhHuhtwSibloKwjYZrHqarq"},
-      {"XCBkujkywkOZYOWYYlwJzvOLfbAk/CFeqUxcRYJUPsiXkrlrkiETKMof/WcAZxiCmbblJeHOIdTwId.txt", "ZjxsyrGkRyPADZzZHhSweEHxXyjxNyzkUSMVDBkupTjFCyVqHfDGlEKVkWISTerJFJyvTGIxucutAN"},
-      {"c/egpYtIYbJntEGipBtGjkDVS.md", "KgpWzFDBOrAGkgXpXbymqIpQeuxJAEzTsbxOxRBTYCOE"}
+      {"LHmhZ/rexfSKxVCLnMUXOdHXbdtWtscUjPFRqqepo/gzmmIlXjRufkptoomNgOOzcEU.md", "GctIWNtFQyKjxdeUbfRApISNutrfkqUsowpLFXdvDxnVcQaWpCoLAiBt"}
     },
       {},
       {
-      {"BzfVwFRYXzXBsDqOgUbElMwVji/cowEnFOmzIXHinkydLYSKGr.cfg", "LoBNbxZarKjsUmHBQZLnEurcCOmVJfUnLJvwwgBaDWUTmWTpPNxVJooTrpYPeXi"},
-      {"CkjUZGseFyHmuCuAqtMEcXfmQeUSmG/CZbVMWnzEPdlu.bin", "VlQgRAoIXAbvAkLUyWWISocvtTdPLvBb"},
-      {"PmpIWTDBCBWGIwrWftwgeOtPljvUE/mR.md", "vIXrMWlnrMvjusmDTyljfPQwvytYqKirJIPCJzTktmWXJeUwmCUTNCBhl"},
-      {"SULQfjiiIz/mcumRnHGqQVznhQN.dat", "YkiYVIbqHrCydOvAsjYRAnNYLZDuCZkAsTsRPvxylymYSssMVAhzJiSCcABo"},
-      {"TIijnmDpZIryhzWaYdUYsA.bin", "tfQOkSUwhHuhtwSibloKwjYZrHqarq"},
-      {"XCBkujkywkOZYOWYYlwJzvOLfbAk/CFeqUxcRYJUPsiXkrlrkiETKMof/WcAZxiCmbblJeHOIdTwId.txt", "ZjxsyrGkRyPADZzZHhSweEHxXyjxNyzkUSMVDBkupTjFCyVqHfDGlEKVkWISTerJFJyvTGIxucutAN"},
-      {"c/egpYtIYbJntEGipBtGjkDVS.md", "KgpWzFDBOrAGkgXpXbymqIpQeuxJAEzTsbxOxRBTYCOE"}
+      {"LHmhZ/rexfSKxVCLnMUXOdHXbdtWtscUjPFRqqepo/gzmmIlXjRufkptoomNgOOzcEU.md", "GctIWNtFQyKjxdeUbfRApISNutrfkqUsowpLFXdvDxnVcQaWpCoLAiBt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(908u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15204,26 +17281,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"IwNBPZfzLAuLgTupzCzhalXvqb/ZaRxzTMaf/OgqFf.bin", "IdBVuBgNTJAWFAdymvaFSThkrgwZXlMfofnvWuyoXTXHJwGVppd"},
-      {"WpPiWOCBTcVbrzlJvskWt/HdrahkHPkJWAPQHk.dat", "HGGYYixlnSvrfKlpYCfRzOopEChyDAwYVtIIJyPcvcBPtdFnRtWMSZLGoqGOJGwcqPEq"},
-      {"XWbIpX.dat", "IMTLoubrFgEKnQipcxgrkJvRyyLbpV"},
-      {"lEKkuqPWDDQGX.bin", "OBcIjGIAdYnQTmdKDLjzHwDmIFNrK"},
-      {"nCjfUNjVGnTVXhoLYtvTjlXb/MPTfpDZxsUlMsjf/xTd.cfg", "wzIBLjrtgMLxlELSvMhbAhdVHoIYKKUpWuNDZFVMCITuGpvCoboA"},
-      {"oxloYMfhST/MSMxyqWaFQOosfgJvfQGkXEinghMyXpbb/IbWnpgpxR.md", "zbylJyBxGrFNWOwoe"}
+      {"WwYTgpGMPr.txt", "vXYwMvH"},
+      {"bLp/bJvTSeuQbYHPrWqmXlk/pZNYknLmYyYPwVbaFSKQ.bin", "sViVhDZBJJnhBoWwSDJbmlBstBjpEPTZgbKYIQGQVKfRkqNmKDRX"},
+      {"kzdFSvBNlptuoxKygcEOrPItk/wubNRFcSlHPkI.bin", "mqzFYXGvlWqBmrNeyzSQsUjlDdEZlTYwYRUvskueYUQosQU"},
+      {"nZCoVnsqHN.md", "FvY"}
     },
       {},
       {
-      {"IwNBPZfzLAuLgTupzCzhalXvqb/ZaRxzTMaf/OgqFf.bin", "IdBVuBgNTJAWFAdymvaFSThkrgwZXlMfofnvWuyoXTXHJwGVppd"},
-      {"WpPiWOCBTcVbrzlJvskWt/HdrahkHPkJWAPQHk.dat", "HGGYYixlnSvrfKlpYCfRzOopEChyDAwYVtIIJyPcvcBPtdFnRtWMSZLGoqGOJGwcqPEq"},
-      {"XWbIpX.dat", "IMTLoubrFgEKnQipcxgrkJvRyyLbpV"},
-      {"lEKkuqPWDDQGX.bin", "OBcIjGIAdYnQTmdKDLjzHwDmIFNrK"},
-      {"nCjfUNjVGnTVXhoLYtvTjlXb/MPTfpDZxsUlMsjf/xTd.cfg", "wzIBLjrtgMLxlELSvMhbAhdVHoIYKKUpWuNDZFVMCITuGpvCoboA"},
-      {"oxloYMfhST/MSMxyqWaFQOosfgJvfQGkXEinghMyXpbb/IbWnpgpxR.md", "zbylJyBxGrFNWOwoe"}
+      {"WwYTgpGMPr.txt", "vXYwMvH"},
+      {"bLp/bJvTSeuQbYHPrWqmXlk/pZNYknLmYyYPwVbaFSKQ.bin", "sViVhDZBJJnhBoWwSDJbmlBstBjpEPTZgbKYIQGQVKfRkqNmKDRX"},
+      {"kzdFSvBNlptuoxKygcEOrPItk/wubNRFcSlHPkI.bin", "mqzFYXGvlWqBmrNeyzSQsUjlDdEZlTYwYRUvskueYUQosQU"},
+      {"nZCoVnsqHN.md", "FvY"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(633u),
+      static_cast<std::size_t>(499u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15235,30 +17309,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"CRIhml/PSofkBepblqTqYWoUhFV/tkgTnKdZklzKopNMDnGHiaAlqscgwVR.md", "wCClsTLZReTPqsBhLbnWjdSJsDAfabHVbgcaGMJdPNxjjjJYGkCtFbTgTDJuoT"},
-      {"CtoBHiAvyqgAkKHdCuyAHE/BlSJprrMUKgAMpQdWSGIsngXxBcWIXD.cfg", "ziVaWeIE"},
-      {"HwdzHwd.cfg", "UyLUx"},
-      {"IHDMjAXDLezdbab/rnNQThFpEilfPkwOMAN/nSncBKxrnboqKiGZOPDUUcwhOHK.bin", "jdPbiyxWdomQoDLFTLdTgrRr"},
-      {"ModehCEkJtiktMSMOpLEKZjTXj/EJwVEWCEjsJmKYQfhl/HfYkDuKaLldUUnm.cfg", "JYcaaFVWwELNlDDOhJpgZRxTZQfGYYZauhhFG"},
-      {"OguHlhMfhbxLckmj/lAeZKPnKnPvpOCwidmFWemtXuSrGc.bin", "pDDFtBVVrIoTliCCHbijwpBUSXWyegHmn"},
-      {"QQNXhzWRAjXnrvkJezUgIeujfbIJYWySdnk/boUBTQnuBMbX.txt", "QSMUqHcWJwDHNBeiMCaHpuytAgGMPL"},
-      {"YbuCORrCvgFlHPhSTFYgvAXZAJjKq/EZHwQiSRKSShbhQvYdWqU.cfg", "UuBuEJdQwIkfzcazqpNpETZSag"}
+      {"FxpmImCkHluBekenSYFW.dat", "VoyLrOCjzlZREWnapqlEpuDLqiaKPfvkISvn"},
+      {"QCBgiJTbce.txt", "jxKlqrhQdSvvwJhaNdU"},
+      {"QxOygwYlasCgJyDoyueq/tIOxGTZwpiyIOQ.cfg", "McJIfPojPxHvCv"},
+      {"YqokkbofpSkmwO/wtAGfZYeZCTjFLihEbQEfp.dat", "oMCcRzDRsbcOMaPXXSsPjQKOxlQg"}
     },
       {},
       {
-      {"CRIhml/PSofkBepblqTqYWoUhFV/tkgTnKdZklzKopNMDnGHiaAlqscgwVR.md", "wCClsTLZReTPqsBhLbnWjdSJsDAfabHVbgcaGMJdPNxjjjJYGkCtFbTgTDJuoT"},
-      {"CtoBHiAvyqgAkKHdCuyAHE/BlSJprrMUKgAMpQdWSGIsngXxBcWIXD.cfg", "ziVaWeIE"},
-      {"HwdzHwd.cfg", "UyLUx"},
-      {"IHDMjAXDLezdbab/rnNQThFpEilfPkwOMAN/nSncBKxrnboqKiGZOPDUUcwhOHK.bin", "jdPbiyxWdomQoDLFTLdTgrRr"},
-      {"ModehCEkJtiktMSMOpLEKZjTXj/EJwVEWCEjsJmKYQfhl/HfYkDuKaLldUUnm.cfg", "JYcaaFVWwELNlDDOhJpgZRxTZQfGYYZauhhFG"},
-      {"OguHlhMfhbxLckmj/lAeZKPnKnPvpOCwidmFWemtXuSrGc.bin", "pDDFtBVVrIoTliCCHbijwpBUSXWyegHmn"},
-      {"QQNXhzWRAjXnrvkJezUgIeujfbIJYWySdnk/boUBTQnuBMbX.txt", "QSMUqHcWJwDHNBeiMCaHpuytAgGMPL"},
-      {"YbuCORrCvgFlHPhSTFYgvAXZAJjKq/EZHwQiSRKSShbhQvYdWqU.cfg", "UuBuEJdQwIkfzcazqpNpETZSag"}
+      {"FxpmImCkHluBekenSYFW.dat", "VoyLrOCjzlZREWnapqlEpuDLqiaKPfvkISvn"},
+      {"QCBgiJTbce.txt", "jxKlqrhQdSvvwJhaNdU"},
+      {"QxOygwYlasCgJyDoyueq/tIOxGTZwpiyIOQ.cfg", "McJIfPojPxHvCv"},
+      {"YqokkbofpSkmwO/wtAGfZYeZCTjFLihEbQEfp.dat", "oMCcRzDRsbcOMaPXXSsPjQKOxlQg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(868u),
+      static_cast<std::size_t>(386u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15270,16 +17337,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"gbUWQmXSdIbbiKlXmvhDbGS.bin", "gXxjqRRPIzCOJSbAMPunfgVYpDHiBNoygpmPdELPAJDzJLouVzlcEXL"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"gbUWQmXSdIbbiKlXmvhDbGS.bin", "gXxjqRRPIzCOJSbAMPunfgVYpDHiBNoygpmPdELPAJDzJLouVzlcEXL"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15291,22 +17361,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"MoCDpanNYtmuAkgX/OOBwrLr.dat", "zrbLYaxIViLqWbpmJGgqgGLehdNMlCkltPgpgIffjPYYL"},
-      {"PgEDFCOGpLgFvOR.dat", "dazKnyXCpsKrSgxxtqsILeFJAzVM"},
-      {"bMYoyQaIcIiEyBbgbMvc/nJMzEDacgrZuKrEHqk.dat", "qQQvKjYSdGrYXctMNxqnOiEEsyhMPxXvPGKIEUjHckJRSkdGAYXHtWZXOELVYk"},
-      {"eJSesIUchsRfJ/rzdD.bin", "hBkQjafJfIgdjKooIBiFEKZcxlyrzOBScoaSYfytkGrDnELvIfKsfnMCScLmV"}
+      {"DWaLnUiWyYIpqBjCGLxsUGlvwpU.bin", "SYywutxUTSWtIfKoxbRGhFuLbKuHWKzNKehylOXlzrbOiMhxkCaXhZZkShKHNOwnUqzW"}
     },
       {},
       {
-      {"MoCDpanNYtmuAkgX/OOBwrLr.dat", "zrbLYaxIViLqWbpmJGgqgGLehdNMlCkltPgpgIffjPYYL"},
-      {"PgEDFCOGpLgFvOR.dat", "dazKnyXCpsKrSgxxtqsILeFJAzVM"},
-      {"bMYoyQaIcIiEyBbgbMvc/nJMzEDacgrZuKrEHqk.dat", "qQQvKjYSdGrYXctMNxqnOiEEsyhMPxXvPGKIEUjHckJRSkdGAYXHtWZXOELVYk"},
-      {"eJSesIUchsRfJ/rzdD.bin", "hBkQjafJfIgdjKooIBiFEKZcxlyrzOBScoaSYfytkGrDnELvIfKsfnMCScLmV"}
+      {"DWaLnUiWyYIpqBjCGLxsUGlvwpU.bin", "SYywutxUTSWtIfKoxbRGhFuLbKuHWKzNKehylOXlzrbOiMhxkCaXhZZkShKHNOwnUqzW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(385u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15318,16 +17383,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"InJmZdmJWCPbywlc/tuskuBcmRKTKslOQlKER.bin", "WWMMImOjsBHrMrmhPNADkqcpvztHzjZALKXIIMPzjIY"}
+      {"M.txt", "TlKVYtYyyaPUqQyHeCOVuDcETcHhpNdWVCYwNdJVyUrOyGycQeHbxX"},
+      {"RCTAKypfYZjmqfZCRPrbcn.md", "zcfTZgKcAdjNtTIhmlLwgsNTHggZMDIVViuxSndWlv"},
+      {"dPtRmxlnKSjacYtEUczCBUXVSt/ExakaCPML.txt", "MpiuihhaOVDXKjKlNufdHLpFYNzCL"},
+      {"doXlJIXAqszqcUlLHPUxRBHm.md", "IWJ"}
     },
       {},
       {
-      {"InJmZdmJWCPbywlc/tuskuBcmRKTKslOQlKER.bin", "WWMMImOjsBHrMrmhPNADkqcpvztHzjZALKXIIMPzjIY"}
+      {"M.txt", "TlKVYtYyyaPUqQyHeCOVuDcETcHhpNdWVCYwNdJVyUrOyGycQeHbxX"},
+      {"RCTAKypfYZjmqfZCRPrbcn.md", "zcfTZgKcAdjNtTIhmlLwgsNTHggZMDIVViuxSndWlv"},
+      {"dPtRmxlnKSjacYtEUczCBUXVSt/ExakaCPML.txt", "MpiuihhaOVDXKjKlNufdHLpFYNzCL"},
+      {"doXlJIXAqszqcUlLHPUxRBHm.md", "IWJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(467u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15339,18 +17411,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"DKmACMF/DHoxDKrQjVIYjvwyUtAGKLfg.dat", "svPzZlHdJXyaLbxLvRYDwYqeQNDjHioCbySCzdWbTVhHCJoFuglwQCRvldauUPkudjheDjeyFUCQLg"},
-      {"EkxYPzCPodnKClwvyjWyXCpiXc.cfg", "ZVKuiFXJZsBgZafjdwGdjeVU"}
+      {"Ieg.md", "wLdvjGTAfYjdpY"},
+      {"OGvbfTCKXGhDKDQLZGNmhoj/MRCbBHGumDZCMKPCJKKnVjHaxgbItBDR.md", "RhymvXVvYbeXloQFSraRLPPogIsxttco"},
+      {"RgUoAkAyhHRWaMxTSTV/RSxufceFBRB.bin", "JFyFCzkNALhOSxmwKVkwQQEOuvFVbqSAgUYjMqiEfuPdPnfBwyDATpjdEiomsNfFWcLbw"}
     },
       {},
       {
-      {"DKmACMF/DHoxDKrQjVIYjvwyUtAGKLfg.dat", "svPzZlHdJXyaLbxLvRYDwYqeQNDjHioCbySCzdWbTVhHCJoFuglwQCRvldauUPkudjheDjeyFUCQLg"},
-      {"EkxYPzCPodnKClwvyjWyXCpiXc.cfg", "ZVKuiFXJZsBgZafjdwGdjeVU"}
+      {"Ieg.md", "wLdvjGTAfYjdpY"},
+      {"OGvbfTCKXGhDKDQLZGNmhoj/MRCbBHGumDZCMKPCJKKnVjHaxgbItBDR.md", "RhymvXVvYbeXloQFSraRLPPogIsxttco"},
+      {"RgUoAkAyhHRWaMxTSTV/RSxufceFBRB.bin", "JFyFCzkNALhOSxmwKVkwQQEOuvFVbqSAgUYjMqiEfuPdPnfBwyDATpjdEiomsNfFWcLbw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(210u),
+      static_cast<std::size_t>(295u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15362,32 +17437,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"EgktDQbNeLSpt/ZpqviTPhNyF.cfg", "gZpjtyKhyHRGVpgrljIhLQWmhllWAlgqYaZQgznVKOBHLECosAtDJpRZ"},
-      {"HMItHnIxxI/HnxkjOrEHDKqs/nGqkOuBlTUBMxlppFqyyVDflvTnrbQC.md", "vVHaoFQNUkwdQKVJaoGgZFFEcuumHsjGExPMtblQANqyjwKalpETODXJBcpWexiqUMRuAsJDQHOX"},
-      {"IxxvWYeCPdjdJfejAQkzntxwf.md", "rEWVTOWNBnsBtgyyJmJ"},
-      {"QQmgpXpnAbdOqHZwrYfEim/GTLlBNITMZHVxo/tEabXtKmellQPIfDLfKSgwlsLeAoRl.txt", "hEbAtkUmRSPWNZgmytlKtEzMBnAwK"},
-      {"cwxpcUlromMUIoqhXZLdXx.dat", "oudTAufrGfQNMiHdFXNgdCNYHyjuyBTgv"},
-      {"dCuy/GJPlehXUZYeTarJqxbrYpnzVTdguwhr.cfg", "H"},
-      {"fznSCQfnigFAP.bin", "qBOifUbKEvaHSPP"},
-      {"owoFASkiElFqbAhMQWKNEmhqiALNdJykJvma/BR.cfg", "sledBSzuBQOqxDPKvbiqVVfrpDQRJnXQPfZWYUJiBcaULhXIiQMIWXVGzspgUlizjvaGr"},
-      {"sZ/doBN/utbAgbUNFAVQXInoezQOMTtLg.cfg", "AjtHjTadYKQprrLWvHLEtIAVGXivjwqnxfzzGYKeJjhJk"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"EgktDQbNeLSpt/ZpqviTPhNyF.cfg", "gZpjtyKhyHRGVpgrljIhLQWmhllWAlgqYaZQgznVKOBHLECosAtDJpRZ"},
-      {"HMItHnIxxI/HnxkjOrEHDKqs/nGqkOuBlTUBMxlppFqyyVDflvTnrbQC.md", "vVHaoFQNUkwdQKVJaoGgZFFEcuumHsjGExPMtblQANqyjwKalpETODXJBcpWexiqUMRuAsJDQHOX"},
-      {"IxxvWYeCPdjdJfejAQkzntxwf.md", "rEWVTOWNBnsBtgyyJmJ"},
-      {"QQmgpXpnAbdOqHZwrYfEim/GTLlBNITMZHVxo/tEabXtKmellQPIfDLfKSgwlsLeAoRl.txt", "hEbAtkUmRSPWNZgmytlKtEzMBnAwK"},
-      {"cwxpcUlromMUIoqhXZLdXx.dat", "oudTAufrGfQNMiHdFXNgdCNYHyjuyBTgv"},
-      {"dCuy/GJPlehXUZYeTarJqxbrYpnzVTdguwhr.cfg", "H"},
-      {"fznSCQfnigFAP.bin", "qBOifUbKEvaHSPP"},
-      {"owoFASkiElFqbAhMQWKNEmhqiALNdJykJvma/BR.cfg", "sledBSzuBQOqxDPKvbiqVVfrpDQRJnXQPfZWYUJiBcaULhXIiQMIWXVGzspgUlizjvaGr"},
-      {"sZ/doBN/utbAgbUNFAVQXInoezQOMTtLg.cfg", "AjtHjTadYKQprrLWvHLEtIAVGXivjwqnxfzzGYKeJjhJk"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(956u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15399,22 +17461,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"M/QdkIKdx/PE.dat", "uEBfwCCkWkgjEwqbVxBuxzWJqToKdlDoWmXkzIlRnssdpbjgafBDObitiKOk"},
-      {"MzUJJdClowpUkkjQaZqdyUAh/CcaElCTPDtaWkUIBecTeQfIXZibHEaGYtL/ioUVeXTQP.md", "AN"},
-      {"ZGjmCxdGINyneyzGV/XOGGkWptFFdaDAmwJhqBezqfpgallXwmve/WngdzbQaDFkzJ.bin", "xMwLPfwZXYNmwlpWDNexdfCgSVgPhvXVxVLToILoKPOcWuWXssLBaYfEKpqxUIugoflwVBhTPAu"},
-      {"uAtkOBlHeiBcsKFHLaiMfdxMeNfjOzkFa/tfgevCOkLL.cfg", "UgCPjUEmsXrttywKOVZFuieTVDaThBiMezqsDVSLGopIJddvyvKgEVXzoXCPICH"}
+      {"MaNAngtoMqGNMnvOeaFErbqFGO.txt", "LbfmqLlGgiQEPpa"},
+      {"WC.txt", "neaxiLkVpSMXxHSTWuAgNRICHQceOvCAaqpkQsxsTaMTjyuXsEZbEQujMKFPfEkCTtoCuu"}
     },
       {},
       {
-      {"M/QdkIKdx/PE.dat", "uEBfwCCkWkgjEwqbVxBuxzWJqToKdlDoWmXkzIlRnssdpbjgafBDObitiKOk"},
-      {"MzUJJdClowpUkkjQaZqdyUAh/CcaElCTPDtaWkUIBecTeQfIXZibHEaGYtL/ioUVeXTQP.md", "AN"},
-      {"ZGjmCxdGINyneyzGV/XOGGkWptFFdaDAmwJhqBezqfpgallXwmve/WngdzbQaDFkzJ.bin", "xMwLPfwZXYNmwlpWDNexdfCgSVgPhvXVxVLToILoKPOcWuWXssLBaYfEKpqxUIugoflwVBhTPAu"},
-      {"uAtkOBlHeiBcsKFHLaiMfdxMeNfjOzkFa/tfgevCOkLL.cfg", "UgCPjUEmsXrttywKOVZFuieTVDaThBiMezqsDVSLGopIJddvyvKgEVXzoXCPICH"}
+      {"MaNAngtoMqGNMnvOeaFErbqFGO.txt", "LbfmqLlGgiQEPpa"},
+      {"WC.txt", "neaxiLkVpSMXxHSTWuAgNRICHQceOvCAaqpkQsxsTaMTjyuXsEZbEQujMKFPfEkCTtoCuu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(471u),
+      static_cast<std::size_t>(157u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15426,24 +17485,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"AlGGUKlnxR/CmhWkZmfw/PuClptAUhBFyLserfUYLWh.dat", "CBwQQgSSMPGFVtBKLyaZoPVgBhEbsaIOQCVKNvNTZXiGPMIpNeNsFUuAcCQmxPfNtBf"},
-      {"FoKZDijO.txt", "yDuIXZZwOtPzhhkKJZOdIECZFCHqsDRKVrolThGHx"},
-      {"HkAgHlYsqbhvsRAbanplcoLI.dat", "sMJetQvUbbioFRqapLDKbLqtxCSXBInDZhmPmkTNCVqqzXieOILNhrtGLIHWkxEmoPakVwkE"},
-      {"OHMlDFgzAFKKIujupeQAOl/YeJzDizBNzYHZmyCBtFmkEz/ATKjGFQnoyhgDFacTEfHAsnaSRxf.dat", "EjJzcszgcpPmdCEWFOWdYJiyGRmsPqMTZhbvLSQNrb"},
-      {"RrWtPvTeTutWSnzUlXNXAUdg/MPOEqDTaRBBJZCUtQNWYWK.txt", "WXFrcFpWwRsEbZhnhVEgFzXMckWQmjcAOSJTmjiQPoYWaEnpMEeApiBJYMflJLEtT"}
+      {"D/kfnGHmWCZWHFUHreRmJu/NVjjjyFTCbb.md", "SqRfuiLJkFDZdcMQtazQKDzrLWmlTxBpzdjNpFnXrHFJ"},
+      {"HFbTfIChs/aLqTipIvXqwORYGaGHJGGriVSbYmKy/lCwktuqZoQzC.bin", "koxTyFjnRLVmngTlUtQGPYNppfRFpglbdveDDTzUdmdqlHCiPYZqVDyU"}
     },
       {},
       {
-      {"AlGGUKlnxR/CmhWkZmfw/PuClptAUhBFyLserfUYLWh.dat", "CBwQQgSSMPGFVtBKLyaZoPVgBhEbsaIOQCVKNvNTZXiGPMIpNeNsFUuAcCQmxPfNtBf"},
-      {"FoKZDijO.txt", "yDuIXZZwOtPzhhkKJZOdIECZFCHqsDRKVrolThGHx"},
-      {"HkAgHlYsqbhvsRAbanplcoLI.dat", "sMJetQvUbbioFRqapLDKbLqtxCSXBInDZhmPmkTNCVqqzXieOILNhrtGLIHWkxEmoPakVwkE"},
-      {"OHMlDFgzAFKKIujupeQAOl/YeJzDizBNzYHZmyCBtFmkEz/ATKjGFQnoyhgDFacTEfHAsnaSRxf.dat", "EjJzcszgcpPmdCEWFOWdYJiyGRmsPqMTZhbvLSQNrb"},
-      {"RrWtPvTeTutWSnzUlXNXAUdg/MPOEqDTaRBBJZCUtQNWYWK.txt", "WXFrcFpWwRsEbZhnhVEgFzXMckWQmjcAOSJTmjiQPoYWaEnpMEeApiBJYMflJLEtT"}
+      {"D/kfnGHmWCZWHFUHreRmJu/NVjjjyFTCbb.md", "SqRfuiLJkFDZdcMQtazQKDzrLWmlTxBpzdjNpFnXrHFJ"},
+      {"HFbTfIChs/aLqTipIvXqwORYGaGHJGGriVSbYmKy/lCwktuqZoQzC.bin", "koxTyFjnRLVmngTlUtQGPYNppfRFpglbdveDDTzUdmdqlHCiPYZqVDyU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(604u),
+      static_cast<std::size_t>(225u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15455,20 +17509,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"BaLYaZgdfZgJubhkFKriPbbeWLXZAXRi/lwbj/HPaNrpwhYKEyTVkcnoCa.md", "wlGtZGOvwemzQuFEmDldTZFDiwFuobtYSJCjaYRaKUHMToxMumcVPOy"},
-      {"EyhkPdOeUVpJWTvAVxvufeObqDzJsVXmPL/evym.md", "ZTpsFJozEyPNBlcEzKJSBtLMjNRGILRuyRxSuQMoFlFzTEESRNowF"},
-      {"Fc/IwBSlNDqdrbMfELOQuYlZLUIj/LUhdFXBUbFLCjShSVWTzIiITCndd.dat", "GMSAbSBBWmxwsEuUgcVyKJoyszxtYJtDCyXii"}
+      {"CTDJdfuwkXXYnnlMgnJCLiyYp.bin", "vOshFlntmEdcqxFBFffuKeYNOXgNfJZkiWkKAiSmSdtCtYvDXaQrIqKVVpiPyuhlKIWKtRTVLCqIGxh"},
+      {"ClzOqiAzQ/qRzLJtirEzzX.dat", "Usru"},
+      {"GEHuAsBPUoADkjGOHYanQMAVYkWGX.bin", "DBBBkKUMaxwSxRmsBfwcMBweLBKhhLVJMFULtATuhFGJpLwDmXEbkbVuwDSo"}
     },
       {},
       {
-      {"BaLYaZgdfZgJubhkFKriPbbeWLXZAXRi/lwbj/HPaNrpwhYKEyTVkcnoCa.md", "wlGtZGOvwemzQuFEmDldTZFDiwFuobtYSJCjaYRaKUHMToxMumcVPOy"},
-      {"EyhkPdOeUVpJWTvAVxvufeObqDzJsVXmPL/evym.md", "ZTpsFJozEyPNBlcEzKJSBtLMjNRGILRuyRxSuQMoFlFzTEESRNowF"},
-      {"Fc/IwBSlNDqdrbMfELOQuYlZLUIj/LUhdFXBUbFLCjShSVWTzIiITCndd.dat", "GMSAbSBBWmxwsEuUgcVyKJoyszxtYJtDCyXii"}
+      {"CTDJdfuwkXXYnnlMgnJCLiyYp.bin", "vOshFlntmEdcqxFBFffuKeYNOXgNfJZkiWkKAiSmSdtCtYvDXaQrIqKVVpiPyuhlKIWKtRTVLCqIGxh"},
+      {"ClzOqiAzQ/qRzLJtirEzzX.dat", "Usru"},
+      {"GEHuAsBPUoADkjGOHYanQMAVYkWGX.bin", "DBBBkKUMaxwSxRmsBfwcMBweLBKhhLVJMFULtATuhFGJpLwDmXEbkbVuwDSo"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(347u),
+      static_cast<std::size_t>(354u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15480,20 +17535,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"ETTxvORaxehFORSzcv/wPRZZvPzMfenmVFICakjHZXFFSSxICEEuUwN/xqOM.dat", "RINExckJql"},
-      {"IkKvEwUDMiywRaNvdkudncdYUnNOkJm/IyMTHAlRqbebWwWnxgaokFtKObUo.txt", "VcmCVWKcujHLOJVgJIITxEXabNIcSsNFNWVAxbDhMT"},
-      {"MbbkKIbbaIRzZ.bin", "SJhZUXPLdvemiagevdajjcMQEQNuzLQNOFrHAUzYStyzFRExIUdufQlMVxEvlgWaG"}
+      {"Lpc.md", "OnfMfHFXwYVxcinOSpjhlLLDYkwqyYEiGpqXEeuYbUOaGyFSNbGadAXL"},
+      {"PLxcLjxwcJlahkJAPpRsgivdIuWUXoizH/eyiygjgfiGVa.bin", "Tvj"}
     },
       {},
       {
-      {"ETTxvORaxehFORSzcv/wPRZZvPzMfenmVFICakjHZXFFSSxICEEuUwN/xqOM.dat", "RINExckJql"},
-      {"IkKvEwUDMiywRaNvdkudncdYUnNOkJm/IyMTHAlRqbebWwWnxgaokFtKObUo.txt", "VcmCVWKcujHLOJVgJIITxEXabNIcSsNFNWVAxbDhMT"},
-      {"MbbkKIbbaIRzZ.bin", "SJhZUXPLdvemiagevdajjcMQEQNuzLQNOFrHAUzYStyzFRExIUdufQlMVxEvlgWaG"}
+      {"Lpc.md", "OnfMfHFXwYVxcinOSpjhlLLDYkwqyYEiGpqXEeuYbUOaGyFSNbGadAXL"},
+      {"PLxcLjxwcJlahkJAPpRsgivdIuWUXoizH/eyiygjgfiGVa.bin", "Tvj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(316u),
+      static_cast<std::size_t>(190u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15505,24 +17559,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"CnycOvyD/KitRjs/FbBhpKjdfXmqA.bin", "qLWLTkDahfuFXbvmHwVhinopryarQlBXbyIXfpWYfZOL"},
-      {"HAbOtCJDAQFEVerKGSfwYYFMZQE/ppGsPpgkYwk/vHHqJhBOacURzGdTOkSFjSZowPcPXIq.dat", "lPiTvnHPrWVZM"},
-      {"MxlmeUJ.dat", "brjSYNi"},
-      {"OrlfwcadDyjkQtdRl/OYgZQTNON.cfg", "zsPbjlENpjCTRwrCHtpShoqEzmwtQugKdQUjrD"},
-      {"ZDxlHivy/cIbzJKaPNWUKHnPJFVEC/LZLCPuaXkMKHFwF.bin", "VBdgBW"}
+      {"Bw/deEPwAJJjSAWpbbBNJRDIdY/h.txt", "FzChHaTwHSxrnKNBCbsWOSEfhRfyj"},
+      {"DAQfq/f.txt", "oPxrkAAZjQqUcTkTDwEJlrahbaOkFDUpdCuNGeSxvyomNNPTWjiGjL"},
+      {"DmbyLGyOReLBKtlRXhCMNNhvOvPFrq.bin", "sGPsPtmEFaNmIiMeRwCWEKlyYmnpgygUAjwiktggPAWGjhvN"}
     },
       {},
       {
-      {"CnycOvyD/KitRjs/FbBhpKjdfXmqA.bin", "qLWLTkDahfuFXbvmHwVhinopryarQlBXbyIXfpWYfZOL"},
-      {"HAbOtCJDAQFEVerKGSfwYYFMZQE/ppGsPpgkYwk/vHHqJhBOacURzGdTOkSFjSZowPcPXIq.dat", "lPiTvnHPrWVZM"},
-      {"MxlmeUJ.dat", "brjSYNi"},
-      {"OrlfwcadDyjkQtdRl/OYgZQTNON.cfg", "zsPbjlENpjCTRwrCHtpShoqEzmwtQugKdQUjrD"},
-      {"ZDxlHivy/cIbzJKaPNWUKHnPJFVEC/LZLCPuaXkMKHFwF.bin", "VBdgBW"}
+      {"Bw/deEPwAJJjSAWpbbBNJRDIdY/h.txt", "FzChHaTwHSxrnKNBCbsWOSEfhRfyj"},
+      {"DAQfq/f.txt", "oPxrkAAZjQqUcTkTDwEJlrahbaOkFDUpdCuNGeSxvyomNNPTWjiGjL"},
+      {"DmbyLGyOReLBKtlRXhCMNNhvOvPFrq.bin", "sGPsPtmEFaNmIiMeRwCWEKlyYmnpgygUAjwiktggPAWGjhvN"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(420u),
+      static_cast<std::size_t>(326u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15534,22 +17585,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"LtIIxajvgZLFxVcNZ/fZVbCVryePZDqYWxJZaWgHGBEgHur.dat", "VyOhgKGdGNyOrBSwdHvsZRFVyAYlWOxkQjzUclYcRvALavdNWIQYRbOVgkKwlTq"},
-      {"PPmRLHjsqidp/PxjzAttKQasAgMzKf/bHgMvWaEdwWcVXsJIJUV.txt", "zjoWyBSKMwKRzdCpOvfUsmfdBHZhAKTyAUCPUUktPgtExTdf"},
-      {"dSNfWRsVknDRvhWdAeZCPXgVewmr.txt", "NRzdbMSotuOLEMRPXFTu"},
-      {"z.bin", "GSSNxIHnrzMoxCDCeyrtLlQwPBzGFVDAoTZstlCKxODmXbd"}
+      {"CIOvjVqIgiugNJjLLroTe.bin", "ZXfPuxLGxrLMHsiFpSkFQiHQTGBvRpuNLnEawPiMkTVuMyjMYHIhhZFOGgocqQkcgqFnUkNxyf"},
+      {"KTRHfMhmgPvH.md", "Q"},
+      {"LBSAnFUBWCneBKc/HcEeidciUHvhLeiBAoXqqJ.txt", "bVnQdf"}
     },
       {},
       {
-      {"LtIIxajvgZLFxVcNZ/fZVbCVryePZDqYWxJZaWgHGBEgHur.dat", "VyOhgKGdGNyOrBSwdHvsZRFVyAYlWOxkQjzUclYcRvALavdNWIQYRbOVgkKwlTq"},
-      {"PPmRLHjsqidp/PxjzAttKQasAgMzKf/bHgMvWaEdwWcVXsJIJUV.txt", "zjoWyBSKMwKRzdCpOvfUsmfdBHZhAKTyAUCPUUktPgtExTdf"},
-      {"dSNfWRsVknDRvhWdAeZCPXgVewmr.txt", "NRzdbMSotuOLEMRPXFTu"},
-      {"z.bin", "GSSNxIHnrzMoxCDCeyrtLlQwPBzGFVDAoTZstlCKxODmXbd"}
+      {"CIOvjVqIgiugNJjLLroTe.bin", "ZXfPuxLGxrLMHsiFpSkFQiHQTGBvRpuNLnEawPiMkTVuMyjMYHIhhZFOGgocqQkcgqFnUkNxyf"},
+      {"KTRHfMhmgPvH.md", "Q"},
+      {"LBSAnFUBWCneBKc/HcEeidciUHvhLeiBAoXqqJ.txt", "bVnQdf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(445u),
+      static_cast<std::size_t>(299u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15561,32 +17611,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"AgauVyB/ABAqzppJkqlho/JhpJeWzFCnkaudVljvtrXYz.dat", "TEkYUWfYsRigxLFoyglquHfDqEKHtvqIfT"},
-      {"CtlQiLfTvyLzJfDADtsArQaChTtGdtG.md", "awPNDCbNcwfPLbKvKsSqbMXEgsCqiUjgfTHBzZioCrgVDlUTVLLRNFCAZWG"},
-      {"GwxvBrVBGdkfQ.txt", "UAalspW"},
-      {"HfdLkwGUtnZNvBlWkaETFixP/QwsEeDRfQSRJegObXSlkt/VeGjQkkgyGJwnKWeufHmw.bin", "arTBkAUSUwsjWSPDVfuKlahgWMalocmWKvp"},
-      {"IifAxYPlLlOFZSxDbcHMQ/fX.txt", "GGFImnZhdpBfcBjkhYqnit"},
-      {"SJzwaSBauIWP/aMDxxaCASyXhfV.bin", "WAmFzpodVoGnNLGsNENABxHylysOXTjlpbQbLhRYMpPHpxDl"},
-      {"SscCaWxOPQMlPBejMRTEajhHuWFGpi.dat", "ukYSqUHbmqGRMQMxvSNXTRSrzJRucDUNjezGhAHHySrarUodQeWBWtlSoCaCRNleuLRrHOvpDHtjutVV"},
-      {"aNPkKfkpVuCQcVOpdob.txt", "dLTOeyp"},
-      {"hBoycvYi/KsvchknPVYJRWRhuLQh.md", "yeBVULPp"}
+      {"FiihkYKRHsY.bin", "NDylGATtgcUbzfyaMzTFwYKHqBvAuwOSNVXNjhbmaSf"}
     },
       {},
       {
-      {"AgauVyB/ABAqzppJkqlho/JhpJeWzFCnkaudVljvtrXYz.dat", "TEkYUWfYsRigxLFoyglquHfDqEKHtvqIfT"},
-      {"CtlQiLfTvyLzJfDADtsArQaChTtGdtG.md", "awPNDCbNcwfPLbKvKsSqbMXEgsCqiUjgfTHBzZioCrgVDlUTVLLRNFCAZWG"},
-      {"GwxvBrVBGdkfQ.txt", "UAalspW"},
-      {"HfdLkwGUtnZNvBlWkaETFixP/QwsEeDRfQSRJegObXSlkt/VeGjQkkgyGJwnKWeufHmw.bin", "arTBkAUSUwsjWSPDVfuKlahgWMalocmWKvp"},
-      {"IifAxYPlLlOFZSxDbcHMQ/fX.txt", "GGFImnZhdpBfcBjkhYqnit"},
-      {"SJzwaSBauIWP/aMDxxaCASyXhfV.bin", "WAmFzpodVoGnNLGsNENABxHylysOXTjlpbQbLhRYMpPHpxDl"},
-      {"SscCaWxOPQMlPBejMRTEajhHuWFGpi.dat", "ukYSqUHbmqGRMQMxvSNXTRSrzJRucDUNjezGhAHHySrarUodQeWBWtlSoCaCRNleuLRrHOvpDHtjutVV"},
-      {"aNPkKfkpVuCQcVOpdob.txt", "dLTOeyp"},
-      {"hBoycvYi/KsvchknPVYJRWRhuLQh.md", "yeBVULPp"}
+      {"FiihkYKRHsY.bin", "NDylGATtgcUbzfyaMzTFwYKHqBvAuwOSNVXNjhbmaSf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(908u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15598,20 +17633,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"CZEU/XkTftLzgMLGsUJqObwYFyjiaGzLUuH.bin", "LCxQAZayDsBxUEvJUNzBktEZDOEMzsZhtiJiioyctsDIbaMZv"},
-      {"lVHtiY.dat", "pLtmnMLPWZSedTtelhFbxGLhvLgTVHdVjzKYDPfDTV"},
-      {"uXrBMnKnbbZKQdcmznHRTrnFZWgumAtoICAo/DezhqkalpXphde/BZPZvBtJnnGjIjrKQNCeKoGHKgTuG.bin", "WyprfbTrPyioFlgxfLpvXI"}
+      {"qFDnJPKtudhnp/pGfSWEbQDJyKgAyQWtZCEzPToUenf.txt", "OgWRkpVEwSHbsdfsxtiHqwAFgNwbCARWwwUMhmaIpLIqXIoICws"}
     },
       {},
       {
-      {"CZEU/XkTftLzgMLGsUJqObwYFyjiaGzLUuH.bin", "LCxQAZayDsBxUEvJUNzBktEZDOEMzsZhtiJiioyctsDIbaMZv"},
-      {"lVHtiY.dat", "pLtmnMLPWZSedTtelhFbxGLhvLgTVHdVjzKYDPfDTV"},
-      {"uXrBMnKnbbZKQdcmznHRTrnFZWgumAtoICAo/DezhqkalpXphde/BZPZvBtJnnGjIjrKQNCeKoGHKgTuG.bin", "WyprfbTrPyioFlgxfLpvXI"}
+      {"qFDnJPKtudhnp/pGfSWEbQDJyKgAyQWtZCEzPToUenf.txt", "OgWRkpVEwSHbsdfsxtiHqwAFgNwbCARWwwUMhmaIpLIqXIoICws"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(260u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15623,30 +17655,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"AmtncwNqIx/hRLg.cfg", "lINtpQiZ"},
-      {"EHUedczGZuAVtqIIBBJaxYJIP/akSpxcJvbYMVanPcOTJxCNfZ.dat", "ytzikOuffGPxctqXDzTveOAH"},
-      {"FNNdhCWTMVpweVerHfW/MntCgOZByImeYvNvYGSMAxhLYyHuypgyHgKk/lQMWMMlQGZXIEokznqq.md", "DSLRGPceDAQYlg"},
-      {"GcuhjEwQGNJVp/hiGIdDpqcyOMvnpDnwsbSfBo/xhuAZBHTYrEDhlsQmJ.cfg", "eSQpLLbIhLOQszDkcmwowjekVswgtQOALPjKKBUZygFG"},
-      {"IlUqGaUqClFzujoTWmbdsKUU/WZprnBTuZ/IEVbMGqjxzp.md", "CaUqhayYcAIhxdYZKMuoqvHkyNNnorWPbrrTkKkzErRHsredbofmKDlAUlak"},
-      {"SUNZOySfUFlOlwXSEolXg/lIvflbMkYKIXyFPEE.dat", "EMFsGPWzINmPESNXckuAjukfqZXDdEvvJlUposjDlmlqohfPkqzcOsxkfHTLQbZfozEhseLTxo"},
-      {"Zwkrav.cfg", "kXiiVKjrDcqdLapROapmKTJgdWOPXkoEKqko"},
-      {"eslTARdkfmSchLGOgLW/BBMkVkHteWBHOdPtSnsraABqqLIMWn.bin", "zXGANOJlvKOCwEcldtzIyzOBYnYETYbcQlBdBbtfvpvQlqUIek"}
+      {"LzQSUzvNbRZjJHAMLTcROzTMlOH/BaSjY.dat", "ewPCSDDivkwiPfaWxqibZIkEwhDMuxhUloMyxyn"},
+      {"PJLKysaulGAKwznUxxhBuLMWUTSOzGHEmO/BZDGCTDlFlsoIpQ/LxEGULcDnR.md", "FkSCaGpIecKcCnqgwqQXhgOwzGZwAgHWHxcdZZoEYcowesWMHXLHJzK"}
     },
       {},
       {
-      {"AmtncwNqIx/hRLg.cfg", "lINtpQiZ"},
-      {"EHUedczGZuAVtqIIBBJaxYJIP/akSpxcJvbYMVanPcOTJxCNfZ.dat", "ytzikOuffGPxctqXDzTveOAH"},
-      {"FNNdhCWTMVpweVerHfW/MntCgOZByImeYvNvYGSMAxhLYyHuypgyHgKk/lQMWMMlQGZXIEokznqq.md", "DSLRGPceDAQYlg"},
-      {"GcuhjEwQGNJVp/hiGIdDpqcyOMvnpDnwsbSfBo/xhuAZBHTYrEDhlsQmJ.cfg", "eSQpLLbIhLOQszDkcmwowjekVswgtQOALPjKKBUZygFG"},
-      {"IlUqGaUqClFzujoTWmbdsKUU/WZprnBTuZ/IEVbMGqjxzp.md", "CaUqhayYcAIhxdYZKMuoqvHkyNNnorWPbrrTkKkzErRHsredbofmKDlAUlak"},
-      {"SUNZOySfUFlOlwXSEolXg/lIvflbMkYKIXyFPEE.dat", "EMFsGPWzINmPESNXckuAjukfqZXDdEvvJlUposjDlmlqohfPkqzcOsxkfHTLQbZfozEhseLTxo"},
-      {"Zwkrav.cfg", "kXiiVKjrDcqdLapROapmKTJgdWOPXkoEKqko"},
-      {"eslTARdkfmSchLGOgLW/BBMkVkHteWBHOdPtSnsraABqqLIMWn.bin", "zXGANOJlvKOCwEcldtzIyzOBYnYETYbcQlBdBbtfvpvQlqUIek"}
+      {"LzQSUzvNbRZjJHAMLTcROzTMlOH/BaSjY.dat", "ewPCSDDivkwiPfaWxqibZIkEwhDMuxhUloMyxyn"},
+      {"PJLKysaulGAKwznUxxhBuLMWUTSOzGHEmO/BZDGCTDlFlsoIpQ/LxEGULcDnR.md", "FkSCaGpIecKcCnqgwqQXhgOwzGZwAgHWHxcdZZoEYcowesWMHXLHJzK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(895u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15658,24 +17679,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"KV/Bu/ZmCa.cfg", "ZtBxdEkMlkPgDertbTMfXaxsOoGJNK"},
-      {"YImpaDKUEBTPlNPrKVnXin/phrQyiVcmYuQQRWwonP.txt", "JMqCXPJFyypHSyABiOkJlalkOfhivkeyXHCZvmjkMRWUCq"},
-      {"bvvMEiBAASoGbihIdSepopU/VvHycoFwXiUGqzb.cfg", "cUVdEQUvWAqZpRfIukpJfnsLoxQsqGBVaLFaVgRyIYxzXdl"},
-      {"shOAWBarthOUpCGXB.md", "IunpZFlmRpuXPiUROnosnEvDDJkwXyQXZhLzZnMYnCMqNbKSWMjotKullDbNC"},
-      {"ygsMEYuChqxuoPZrJ/SrrqJDqSZUdTBnJlAc/PAUrbxeWLMySSqyYLANqLR.txt", "rxCUSgFQIMvhQTSADLkMGopKblGjyMHYvoUMrUoLxpGGY"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"KV/Bu/ZmCa.cfg", "ZtBxdEkMlkPgDertbTMfXaxsOoGJNK"},
-      {"YImpaDKUEBTPlNPrKVnXin/phrQyiVcmYuQQRWwonP.txt", "JMqCXPJFyypHSyABiOkJlalkOfhivkeyXHCZvmjkMRWUCq"},
-      {"bvvMEiBAASoGbihIdSepopU/VvHycoFwXiUGqzb.cfg", "cUVdEQUvWAqZpRfIukpJfnsLoxQsqGBVaLFaVgRyIYxzXdl"},
-      {"shOAWBarthOUpCGXB.md", "IunpZFlmRpuXPiUROnosnEvDDJkwXyQXZhLzZnMYnCMqNbKSWMjotKullDbNC"},
-      {"ygsMEYuChqxuoPZrJ/SrrqJDqSZUdTBnJlAc/PAUrbxeWLMySSqyYLANqLR.txt", "rxCUSgFQIMvhQTSADLkMGopKblGjyMHYvoUMrUoLxpGGY"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(507u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15687,18 +17703,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"ALLEOzMUgDCvEdVFEXqdBybPHJJprJs/dsASNEWmwETvveLrVXjJk.bin", "GHOXj"},
-      {"CuyHEbGlhzOWYTB/PSxPwVJGANC/K.md", "IhzRUnvXAlowGKyWZxIHDfMITrifkToZDuzTuXOAcsh"}
+      {"DuvooIheFVSzXwPEDZ/xewtHCQMWDBR/XaaHrCNhinftdTVplBbMrWDIsFKdy.txt", "xRbTQbjMyETutBNMusZdSFzlvRfaghObSxMTdyW"},
+      {"ZOYHHfOVcyiiYNFshCTSMCJx/LyOVatqyBjA.dat", "ZxUSwShpJnASqBVhEvEhSVcAniPDLYIrzKQfTzHVZIqckZZnZievcjjSNLHHY"}
     },
       {},
       {
-      {"ALLEOzMUgDCvEdVFEXqdBybPHJJprJs/dsASNEWmwETvveLrVXjJk.bin", "GHOXj"},
-      {"CuyHEbGlhzOWYTB/PSxPwVJGANC/K.md", "IhzRUnvXAlowGKyWZxIHDfMITrifkToZDuzTuXOAcsh"}
+      {"DuvooIheFVSzXwPEDZ/xewtHCQMWDBR/XaaHrCNhinftdTVplBbMrWDIsFKdy.txt", "xRbTQbjMyETutBNMusZdSFzlvRfaghObSxMTdyW"},
+      {"ZOYHHfOVcyiiYNFshCTSMCJx/LyOVatqyBjA.dat", "ZxUSwShpJnASqBVhEvEhSVcAniPDLYIrzKQfTzHVZIqckZZnZievcjjSNLHHY"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(142u),
+      static_cast<std::size_t>(264u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15710,22 +17727,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"LHHiWuuBMlStRCcYFkfdrrNu/bHcEcnMmUXrJEHzRPQBzDl.bin", "FmIAxCIPuCKtPeIzMaiFQtZhvPauPVVcmNdsyJusXiWIQxIRTCUvvAeCpXqvinAgwlBoqKfB"},
-      {"PToDLyQEMhBFWjOxa.cfg", "AWTFHsuCfEYNvtUApLbwbBYjeGvUkrhIuXxKAerVtUFDSwahpINkNv"},
-      {"UWd/daxhVGdnXIsVXqzGdQrWLF.bin", "XgzOcLhclWMrjfpmhtmruPqeJhoJNLpWuCkLQUySUBgGBURhrsTeqSXbuwfRCFTmNiqTX"},
-      {"bxi.dat", "iENPhjHPQMUrWgwvRpgHAHnfZcmLodBBiLdJ"}
+      {"chHHijcomlKhKsbUfAAvfFYgLSw/dBo.dat", "MicFcVUmftbIDWOlNYtBdzQzbAIFFoLAGQoLzzFTjUXutWgnHnlgeHrZBeWWVowPhyRyb"},
+      {"dWpWSsOkTVyHZdXc.dat", "SZnLBzIRlKsyMgXUfQOYvmuuchNPAjEJBnSbBiVD"}
     },
       {},
       {
-      {"LHHiWuuBMlStRCcYFkfdrrNu/bHcEcnMmUXrJEHzRPQBzDl.bin", "FmIAxCIPuCKtPeIzMaiFQtZhvPauPVVcmNdsyJusXiWIQxIRTCUvvAeCpXqvinAgwlBoqKfB"},
-      {"PToDLyQEMhBFWjOxa.cfg", "AWTFHsuCfEYNvtUApLbwbBYjeGvUkrhIuXxKAerVtUFDSwahpINkNv"},
-      {"UWd/daxhVGdnXIsVXqzGdQrWLF.bin", "XgzOcLhclWMrjfpmhtmruPqeJhoJNLpWuCkLQUySUBgGBURhrsTeqSXbuwfRCFTmNiqTX"},
-      {"bxi.dat", "iENPhjHPQMUrWgwvRpgHAHnfZcmLodBBiLdJ"}
+      {"chHHijcomlKhKsbUfAAvfFYgLSw/dBo.dat", "MicFcVUmftbIDWOlNYtBdzQzbAIFFoLAGQoLzzFTjUXutWgnHnlgeHrZBeWWVowPhyRyb"},
+      {"dWpWSsOkTVyHZdXc.dat", "SZnLBzIRlKsyMgXUfQOYvmuuchNPAjEJBnSbBiVD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(473u),
+      static_cast<std::size_t>(264u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15737,24 +17751,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"ACijKjfrsfRafYUE/HwJOEMOTdRl/EwqtLipOoGeo.bin", "yqJyGn"},
-      {"CMhyRTQDxAipe.txt", "LjcJcrz"},
-      {"DenMTgeRmDQUjO.dat", "hqRgetglpgwEC"},
-      {"EEsIweRYwhosUVV/HeO.bin", "yfIghpdleUClbQazibINxqTnMuMoCsLGAucFyOZcrqSEx"},
-      {"GMEdxfKCgnoQJLFHHJifBcAnq.md", "UbWFLTysBeuIOVFVjYZuLpiplqnpRAdOTYxCeSAJdPCvajlBcEEeFUsxyNxKxXayjlfznCSFAiF"}
+      {"GjQFF/hNLK.bin", "mVuHaiahQnbEoGebuqVIrnesNLziWFjmlZIqYKJmXqJIVoaQf"},
+      {"JvyRwCwuxCXQUtxzSBBoGQjuiCL.md", "mFjZmsnuGlTSjR"}
     },
       {},
       {
-      {"ACijKjfrsfRafYUE/HwJOEMOTdRl/EwqtLipOoGeo.bin", "yqJyGn"},
-      {"CMhyRTQDxAipe.txt", "LjcJcrz"},
-      {"DenMTgeRmDQUjO.dat", "hqRgetglpgwEC"},
-      {"EEsIweRYwhosUVV/HeO.bin", "yfIghpdleUClbQazibINxqTnMuMoCsLGAucFyOZcrqSEx"},
-      {"GMEdxfKCgnoQJLFHHJifBcAnq.md", "UbWFLTysBeuIOVFVjYZuLpiplqnpRAdOTYxCeSAJdPCvajlBcEEeFUsxyNxKxXayjlfznCSFAiF"}
+      {"GjQFF/hNLK.bin", "mVuHaiahQnbEoGebuqVIrnesNLziWFjmlZIqYKJmXqJIVoaQf"},
+      {"JvyRwCwuxCXQUtxzSBBoGQjuiCL.md", "mFjZmsnuGlTSjR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(326u),
+      static_cast<std::size_t>(191u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15766,13 +17775,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"BrMIXAWSSrSu/qArHHSQBzBLpwJERykzx.md", "rcmkiZdXxlJqRnYJjnDJGyspiTdTlxlILhOkTOaiznRrjRVkGXlxSQUxVD"}
+      {"DznTGTMMbSNbDOFWHkRN.md", "BglbQnwFdMnk"}
     },
       {},
       {
-      {"BrMIXAWSSrSu/qArHHSQBzBLpwJERykzx.md", "rcmkiZdXxlJqRnYJjnDJGyspiTdTlxlILhOkTOaiznRrjRVkGXlxSQUxVD"}
+      {"DznTGTMMbSNbDOFWHkRN.md", "BglbQnwFdMnk"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -15787,16 +17797,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"Lzxgmm/XHAEDcKEOXLaXDQmBnfsvLVTb.cfg", "zHyZQgITDtFKARy"}
+      {"BIyMVkYteaJbEbw/ePuVeOmvAGTGkmCFzfuAZGUOob.dat", "npSulNiuaWVJUAimPwViarCPmagGsV"},
+      {"ELFUJeSXNJeLhbIzRAcBLNeCVne/VWclVBWAeWuqNuq.dat", "FnyHBWAhzcqUnxjUuFJvfrQmNGGvrxIKQDLRioz"},
+      {"IIJGJrOWhpkrVgN.cfg", "efEwJbhwKbWaWuysMgctLqDydUgA"}
     },
       {},
       {
-      {"Lzxgmm/XHAEDcKEOXLaXDQmBnfsvLVTb.cfg", "zHyZQgITDtFKARy"}
+      {"BIyMVkYteaJbEbw/ePuVeOmvAGTGkmCFzfuAZGUOob.dat", "npSulNiuaWVJUAimPwViarCPmagGsV"},
+      {"ELFUJeSXNJeLhbIzRAcBLNeCVne/VWclVBWAeWuqNuq.dat", "FnyHBWAhzcqUnxjUuFJvfrQmNGGvrxIKQDLRioz"},
+      {"IIJGJrOWhpkrVgN.cfg", "efEwJbhwKbWaWuysMgctLqDydUgA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(394u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15808,22 +17823,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"AGReTpIo/YJCDdENiubSTaODhJEJCpI/tYhZWRQzmxd.cfg", "hOUAVLQutkZLPScCCCGRIiHEInNpjgpruAQefEYsxAKGHzFnkntjJDHndasnYQuFPTlC"},
-      {"UYyazZaItTYlDSpMTGYmEoUMha/z.md", "gPilBKoHtQtzlqwgRJASFWrKAcDZdpupkGzOpzyUtfLayaOPnx"},
-      {"VPMv.md", "IPtzVLSCwCLCJtGRGtsKGJUfvJg"},
-      {"dEc/pfoAempFBABCIFeMi/AutRZvpU.md", "BuXOHurLxEYFsOuTxMkiFQbWxgjDv"}
+      {"HwVhvxYIgjNFRZPIvDSBjVbMdzl/BQ.bin", "RmxFvVmPwZfWvksHmFSvXKUyuTtNjjtABs"},
+      {"IzEblk/CDgNTkqRJcYHubl.bin", "WFhYaAl"}
     },
       {},
       {
-      {"AGReTpIo/YJCDdENiubSTaODhJEJCpI/tYhZWRQzmxd.cfg", "hOUAVLQutkZLPScCCCGRIiHEInNpjgpruAQefEYsxAKGHzFnkntjJDHndasnYQuFPTlC"},
-      {"UYyazZaItTYlDSpMTGYmEoUMha/z.md", "gPilBKoHtQtzlqwgRJASFWrKAcDZdpupkGzOpzyUtfLayaOPnx"},
-      {"VPMv.md", "IPtzVLSCwCLCJtGRGtsKGJUfvJg"},
-      {"dEc/pfoAempFBABCIFeMi/AutRZvpU.md", "BuXOHurLxEYFsOuTxMkiFQbWxgjDv"}
+      {"HwVhvxYIgjNFRZPIvDSBjVbMdzl/BQ.bin", "RmxFvVmPwZfWvksHmFSvXKUyuTtNjjtABs"},
+      {"IzEblk/CDgNTkqRJcYHubl.bin", "WFhYaAl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(390u),
+      static_cast<std::size_t>(196u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15835,30 +17847,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"ADfapIQbBapiLYKagxpMsLwZ/TXNmkCIqwiR.dat", "jvlAEuyasuRNhXUQjzGfihct"},
-      {"DBluWfyfmNATMUbSOkYtmkqwnXIVlsK.dat", "QwMeqRUTpZTjsSNBEsEjLnjNhRRlYQonMof"},
-      {"GUajypPcezkDPfkemXGptHNBLoEzkSWseFV/FvJTFIXMGLDTsAk/eP.dat", "lKQPJOnvhRSCHvuZWBmhCjREHUvbGogIALkkIBiUwvgLUnKjHYJmFSRYzHHGcQWWsR"},
-      {"HMkbSjupXECPWvGDnOuAYVklrH/vkccIcZZYQ/txHeStEMhnHgFhYFw.dat", "bMIGUGDoidWyuijaYnAxxpdmeeLfzNbjLxGtGdyJQTGhrcogG"},
-      {"HwabgBdUrERpz.txt", "CWtUHQJmaZWjBSGHWEAdBgI"},
-      {"MqXpOkNmuUOHRbeGdBtm/IinvtYFliOngaprTxcyKRnJcaPOUTd.md", "eBoiABjcIAYpzjgkkcsuNKaTZLaGCSMxjhArQBgcYQnD"},
-      {"NXFnqeOnkcgIcoLFnhKDGQrSPRgnVJMOyh/FCEoANTsMwIivEnKXGIftuaxnL/Ryex.dat", "rEnSIJKmvdAXaJpAYxYytYqWBcxUIMFbJ"},
-      {"OcUUHPXsYNdAPtMIqKITWG.txt", "CcZEHTIOPrwwxKijVBgvnLplFPKtJXcxxgsopDZ"}
+      {"KxJvpmAItzZAxoLtjqdyFnfzIRgfTMuTHee/GsuSjrcLPnYMjNjUklqZDuurh/e.dat", "VOXmueZQTMscodalnyxoyCAYDtgUZqyJfCLQKJIUeRAwvqOwyJYZRYVgdibzTHsFusyvNkACqLtUAChw"}
     },
       {},
       {
-      {"ADfapIQbBapiLYKagxpMsLwZ/TXNmkCIqwiR.dat", "jvlAEuyasuRNhXUQjzGfihct"},
-      {"DBluWfyfmNATMUbSOkYtmkqwnXIVlsK.dat", "QwMeqRUTpZTjsSNBEsEjLnjNhRRlYQonMof"},
-      {"GUajypPcezkDPfkemXGptHNBLoEzkSWseFV/FvJTFIXMGLDTsAk/eP.dat", "lKQPJOnvhRSCHvuZWBmhCjREHUvbGogIALkkIBiUwvgLUnKjHYJmFSRYzHHGcQWWsR"},
-      {"HMkbSjupXECPWvGDnOuAYVklrH/vkccIcZZYQ/txHeStEMhnHgFhYFw.dat", "bMIGUGDoidWyuijaYnAxxpdmeeLfzNbjLxGtGdyJQTGhrcogG"},
-      {"HwabgBdUrERpz.txt", "CWtUHQJmaZWjBSGHWEAdBgI"},
-      {"MqXpOkNmuUOHRbeGdBtm/IinvtYFliOngaprTxcyKRnJcaPOUTd.md", "eBoiABjcIAYpzjgkkcsuNKaTZLaGCSMxjhArQBgcYQnD"},
-      {"NXFnqeOnkcgIcoLFnhKDGQrSPRgnVJMOyh/FCEoANTsMwIivEnKXGIftuaxnL/Ryex.dat", "rEnSIJKmvdAXaJpAYxYytYqWBcxUIMFbJ"},
-      {"OcUUHPXsYNdAPtMIqKITWG.txt", "CcZEHTIOPrwwxKijVBgvnLplFPKtJXcxxgsopDZ"}
+      {"KxJvpmAItzZAxoLtjqdyFnfzIRgfTMuTHee/GsuSjrcLPnYMjNjUklqZDuurh/e.dat", "VOXmueZQTMscodalnyxoyCAYDtgUZqyJfCLQKJIUeRAwvqOwyJYZRYVgdibzTHsFusyvNkACqLtUAChw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(927u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15870,22 +17869,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"NrN/ZMeiwebkhnfkAQCbLH.cfg", "IMCoccXTKFBElPGlsTWIQcFaKUicJrlzIAuY"},
-      {"iLZalUjHUQeqqNntBd/NWROLvngbEIgaJrQGNMOwVJslsBwFI.cfg", "iPoubPkXMuWifBoIMvftuRiID"},
-      {"mDUhklkSmMlrxwdLRk.bin", "ArgokGKVmngUHOitG"},
-      {"udXL.bin", "TJzpgiftWCnkv"}
+      {"BANgdkBDjyBPwucSHEXkxuORz/UOwJdJqhJMfOiplcewsU/tEuEsaFeAtiAbQOFLKkTniVQfKk.md", "aaKEImmMwiaMlLXQmUqOLxjjCO"}
     },
       {},
       {
-      {"NrN/ZMeiwebkhnfkAQCbLH.cfg", "IMCoccXTKFBElPGlsTWIQcFaKUicJrlzIAuY"},
-      {"iLZalUjHUQeqqNntBd/NWROLvngbEIgaJrQGNMOwVJslsBwFI.cfg", "iPoubPkXMuWifBoIMvftuRiID"},
-      {"mDUhklkSmMlrxwdLRk.bin", "ArgokGKVmngUHOitG"},
-      {"udXL.bin", "TJzpgiftWCnkv"}
+      {"BANgdkBDjyBPwucSHEXkxuORz/UOwJdJqhJMfOiplcewsU/tEuEsaFeAtiAbQOFLKkTniVQfKk.md", "aaKEImmMwiaMlLXQmUqOLxjjCO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(323u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15897,16 +17891,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"dPpLAROTpfBBCCejpipoAAXmBnFsyvFr.txt", "voXBltNyzVPirUchRtKWdQdOyUxYtxFJcEJjpkDGaHcfzmpCLEVZoUPUzBRtf"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"dPpLAROTpfBBCCejpipoAAXmBnFsyvFr.txt", "voXBltNyzVPirUchRtKWdQdOyUxYtxFJcEJjpkDGaHcfzmpCLEVZoUPUzBRtf"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15918,26 +17915,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"BsfsgIyXIu/lNPaPoih.txt", "rNEEJCAYOYAkDkMtNfUhjnpnrcbhtLqcURWatpzILqAxcArFlqopTEtmHtSrb"},
-      {"FSNYhhSsTbmEi/lyogbISiRaXJARZ.bin", "pMWNsHhptMDPkSREuKNrpWacJwhSrXoSUItPlNqglsowvL"},
-      {"IfmJoIWKrLgKFIAvqffR/AyPGvbvMLemPPNQqKWwKImgFnNIT.bin", "rFauxqFYlIKCUzeuPzvCAbloyOzGtDrfhykkwEKXUMRKeUvyjnbSBtmkwydAOiwGiYXqBtvBPTM"},
-      {"VWKzfrOekBoXqDDhJdRnGSHGcooZXOy/gzJbAjLuNIapDRjaECUIdkOJDDlqOzgx.cfg", "yIvnwuhKJJoaNNRvcDrxKuQaYNuFhitD"},
-      {"nagXqVpaBTOY/VV/gMCowSOJPeaKdjmwCm.md", "VdzmvUKYNPtUaWANQBeXjBnKIFQRvIcGuwzl"},
-      {"oZHKeVkbd.bin", "DJOgvoqsGrAsbirTpvrqxUZFvPhnjezeWzujOLLSby"}
+      {"CKsbhhzXGoxjsyosy.md", "cTP"},
+      {"PVZAoYEhDcsOnTVRY/LOoUqgktqmSfHlalUrC.dat", "kGJmOBROtLYxTHARyWmvRmyHoNChPK"}
     },
       {},
       {
-      {"BsfsgIyXIu/lNPaPoih.txt", "rNEEJCAYOYAkDkMtNfUhjnpnrcbhtLqcURWatpzILqAxcArFlqopTEtmHtSrb"},
-      {"FSNYhhSsTbmEi/lyogbISiRaXJARZ.bin", "pMWNsHhptMDPkSREuKNrpWacJwhSrXoSUItPlNqglsowvL"},
-      {"IfmJoIWKrLgKFIAvqffR/AyPGvbvMLemPPNQqKWwKImgFnNIT.bin", "rFauxqFYlIKCUzeuPzvCAbloyOzGtDrfhykkwEKXUMRKeUvyjnbSBtmkwydAOiwGiYXqBtvBPTM"},
-      {"VWKzfrOekBoXqDDhJdRnGSHGcooZXOy/gzJbAjLuNIapDRjaECUIdkOJDDlqOzgx.cfg", "yIvnwuhKJJoaNNRvcDrxKuQaYNuFhitD"},
-      {"nagXqVpaBTOY/VV/gMCowSOJPeaKdjmwCm.md", "VdzmvUKYNPtUaWANQBeXjBnKIFQRvIcGuwzl"},
-      {"oZHKeVkbd.bin", "DJOgvoqsGrAsbirTpvrqxUZFvPhnjezeWzujOLLSby"}
+      {"CKsbhhzXGoxjsyosy.md", "cTP"},
+      {"PVZAoYEhDcsOnTVRY/LOoUqgktqmSfHlalUrC.dat", "kGJmOBROtLYxTHARyWmvRmyHoNChPK"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(720u),
+      static_cast<std::size_t>(103u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15949,16 +17939,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"DXhYtuuNwuWBYVcFczBDwEXFhcnNQisWe/pce.dat", "oHtoezaBEpCGGzLzlPsQYxArZfqEXDVAMDqRbkxqUpgMNcENoiBAwQbrNjJsxqVNXuHbVzXhsfgEucO"}
+      {"FfNMSXlzpjoJS/XPfikwtqNTVusTXgfEfLMElehe.dat", "IgjRXJtyLVXaNRwYOTxRKBfLMXzisZdNaTMvVFHtKCFJEqvuVe"},
+      {"FlRtsngXuyGlhG/BiJVSIiDEtnHc.txt", "WCwMDlkKtFXNOzCMuNfcaWHkMfkJfViUsmvZnXyqSlNzKnSWXvcGQUBmvXR"}
     },
       {},
       {
-      {"DXhYtuuNwuWBYVcFczBDwEXFhcnNQisWe/pce.dat", "oHtoezaBEpCGGzLzlPsQYxArZfqEXDVAMDqRbkxqUpgMNcENoiBAwQbrNjJsxqVNXuHbVzXhsfgEucO"}
+      {"FfNMSXlzpjoJS/XPfikwtqNTVusTXgfEfLMElehe.dat", "IgjRXJtyLVXaNRwYOTxRKBfLMXzisZdNaTMvVFHtKCFJEqvuVe"},
+      {"FlRtsngXuyGlhG/BiJVSIiDEtnHc.txt", "WCwMDlkKtFXNOzCMuNfcaWHkMfkJfViUsmvZnXyqSlNzKnSWXvcGQUBmvXR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(254u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15970,16 +17963,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"csshmYHtQf/yzjpn/HUghPa.cfg", "kYLCs"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"csshmYHtQf/yzjpn/HUghPa.cfg", "kYLCs"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -15991,20 +17987,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"KVUYzWKvUVnAUfkRXDOVckgmHQTT/IlhIEm.md", "gJCcHKiHXZiWVKCkhW"},
-      {"YZPTFkEJYsCsCOncccPdmEjyGHNFG/GPMLevhwfvebkxlBly.md", "o"},
-      {"ZjQgjlVHwpCWWdNjcq.md", "SpFmLzvamHLHnmKkuCabok"}
+      {"AaniqUwTy.md", "Glr"},
+      {"BEFaV/JhpQJXMOCEFEtQNzmObxmUWIWiWESK/zEbn.cfg", "MfJUPVInQGGsVjhwChWCFSFDqaTcgQWCliSyAZVFakNEoSGOoXtNiDkSrgDFwcFNTRswTVFUljsVqXu"}
     },
       {},
       {
-      {"KVUYzWKvUVnAUfkRXDOVckgmHQTT/IlhIEm.md", "gJCcHKiHXZiWVKCkhW"},
-      {"YZPTFkEJYsCsCOncccPdmEjyGHNFG/GPMLevhwfvebkxlBly.md", "o"},
-      {"ZjQgjlVHwpCWWdNjcq.md", "SpFmLzvamHLHnmKkuCabok"}
+      {"AaniqUwTy.md", "Glr"},
+      {"BEFaV/JhpQJXMOCEFEtQNzmObxmUWIWiWESK/zEbn.cfg", "MfJUPVInQGGsVjhwChWCFSFDqaTcgQWCliSyAZVFakNEoSGOoXtNiDkSrgDFwcFNTRswTVFUljsVqXu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(212u),
+      static_cast<std::size_t>(95u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16016,22 +18011,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"Es.dat", "SXqeCPamdRtCtdjFPtlXXckCQRcopclcoZHKnDkbyXmHtQztgEvJioKjStERx"},
-      {"Ixu/Ao.dat", "ZUjqpvOnIZCoAchRJBAATxQFmKcIUyWHnmsFuunsalWSQbNyiGSeujTPh"},
-      {"JMXQhCbyNjkedWkFqDGZmyeAvWUXC/czQAYveCAoaCgTMd/BuZOANPfUHSOPdMNqKEdYEOP.txt", "GxTddpfIIaEtzJccAiOLTshyEPLMqZnmAotgpvmGX"},
-      {"VjkAjGOWyxlwxbpPFWZKQuZ/nWd/IsjWVTwZIEnlwVVGLTRu.cfg", "kqtDBUbqrdiJLAsZCDZtmHffMChwHVFhPbnTdqydP"}
+      {"LaVTxawMazEvEdqJ.cfg", "PItZLTqWUwTaLHhLeyNGxUj"}
     },
       {},
       {
-      {"Es.dat", "SXqeCPamdRtCtdjFPtlXXckCQRcopclcoZHKnDkbyXmHtQztgEvJioKjStERx"},
-      {"Ixu/Ao.dat", "ZUjqpvOnIZCoAchRJBAATxQFmKcIUyWHnmsFuunsalWSQbNyiGSeujTPh"},
-      {"JMXQhCbyNjkedWkFqDGZmyeAvWUXC/czQAYveCAoaCgTMd/BuZOANPfUHSOPdMNqKEdYEOP.txt", "GxTddpfIIaEtzJccAiOLTshyEPLMqZnmAotgpvmGX"},
-      {"VjkAjGOWyxlwxbpPFWZKQuZ/nWd/IsjWVTwZIEnlwVVGLTRu.cfg", "kqtDBUbqrdiJLAsZCDZtmHffMChwHVFhPbnTdqydP"}
+      {"LaVTxawMazEvEdqJ.cfg", "PItZLTqWUwTaLHhLeyNGxUj"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(410u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16043,22 +18033,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"C/kCoAVJRZwZYYOCCYWpUGtdEnYwoVsi/brV.cfg", "dBvOEXMUSohupkWIWmMXgBYcNSClMxGjUetbhHblOsroUhFZSvFpxTPWzTMWrlzwDDOF"},
-      {"CXNmYDYUFdecTggSAwDFYeWkMxiavBiT.md", "aSxcxaNFelKyLqeZYcjhOtfizEbzgTiLmYEviqDoBbMuPhejbRgFZiSZjQFzKbzidlCMCwHRQstC"},
-      {"IuZuaCJOGORZYlpbUbxJhJBTNeKyVeQk/sOKgoKCEtcwJswz/SSaMSpYJAxLszKAJGMxuG.txt", "VVUYIsxoyamAJdnXpPTDqyYxjzRFAiFSiNOSLWUOrucYCr"},
-      {"fXyxvnYspBfbb/arNzAKQdytBVBrfFsAwvhOIhkvNhz.txt", "oBClGeVkjxsBasUVZswQslxJKWbNIRwRaGvojYhfbCOEHGi"}
+      {"UAfsfmSxlxOYTyxdOqNzbhU/eVzPpswVGPkpPoNJvmMLnIZzfwaflo/SwWaymVubrfyNTJKiCvSFCRxygfSD.txt", "yFyLbDlWCLTkNWhrlcimpkzwBcMfqxkPeuzVWJOKqsUpfExzgTkFqMkPuUIqafacaSsYW"}
     },
       {},
       {
-      {"C/kCoAVJRZwZYYOCCYWpUGtdEnYwoVsi/brV.cfg", "dBvOEXMUSohupkWIWmMXgBYcNSClMxGjUetbhHblOsroUhFZSvFpxTPWzTMWrlzwDDOF"},
-      {"CXNmYDYUFdecTggSAwDFYeWkMxiavBiT.md", "aSxcxaNFelKyLqeZYcjhOtfizEbzgTiLmYEviqDoBbMuPhejbRgFZiSZjQFzKbzidlCMCwHRQstC"},
-      {"IuZuaCJOGORZYlpbUbxJhJBTNeKyVeQk/sOKgoKCEtcwJswz/SSaMSpYJAxLszKAJGMxuG.txt", "VVUYIsxoyamAJdnXpPTDqyYxjzRFAiFSiNOSLWUOrucYCr"},
-      {"fXyxvnYspBfbb/arNzAKQdytBVBrfFsAwvhOIhkvNhz.txt", "oBClGeVkjxsBasUVZswQslxJKWbNIRwRaGvojYhfbCOEHGi"}
+      {"UAfsfmSxlxOYTyxdOqNzbhU/eVzPpswVGPkpPoNJvmMLnIZzfwaflo/SwWaymVubrfyNTJKiCvSFCRxygfSD.txt", "yFyLbDlWCLTkNWhrlcimpkzwBcMfqxkPeuzVWJOKqsUpfExzgTkFqMkPuUIqafacaSsYW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(531u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16070,28 +18055,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"BMcHbBRtutzArKZJgATVwH.txt", "UuclnnYNTkxkZBAVwXiivSChfSHCgdirfhdBoAYdZoGuWfMvkAfdSlfY"},
-      {"EcQBPIavrutkGLINEK/PAcryVQO/OVShGSKGiTOPnlrVXd.cfg", "OHLooqsNTpymZH"},
-      {"FczFVqPsgYOFtphWdiwKftJm.cfg", "BMtqyaioghZhQsxCbsCbpuSZsFNrwAZLUwUHh"},
-      {"LpCedNorZIEiBakXNJUAMOfoww/RwjempMUEwKHTHWdyqkBSCb/eMrVGPRNbhWRYCBo.txt", "jPZcSPePguzNblPyNBqHHLEyl"},
-      {"OEAgKj.bin", "hhfQRu"},
-      {"WLzElvbtXumIqPej/jFrADGZJXOanaU.bin", "ZuBxrXlvqWAcxvVoqJLQISxAHibpOkBhlefOAvIDlywQVAjoLQoulKG"},
-      {"bn.dat", "qDWKckhCmXUUMTqunrKTyoGnSyDgnrbimEQVRQZopoNtZGEWJKhbwsFfSUBSbBkKq"}
+      {"AMXqgWCYxGtmOmLYesFZbxLvJSkqO/HgbocirMBcVMlVmUxziBQeT.md", "SnLqLXWfDKDqJzhdYihdIuofPVxDCrOBYIwmGphdHYg"}
     },
       {},
       {
-      {"BMcHbBRtutzArKZJgATVwH.txt", "UuclnnYNTkxkZBAVwXiivSChfSHCgdirfhdBoAYdZoGuWfMvkAfdSlfY"},
-      {"EcQBPIavrutkGLINEK/PAcryVQO/OVShGSKGiTOPnlrVXd.cfg", "OHLooqsNTpymZH"},
-      {"FczFVqPsgYOFtphWdiwKftJm.cfg", "BMtqyaioghZhQsxCbsCbpuSZsFNrwAZLUwUHh"},
-      {"LpCedNorZIEiBakXNJUAMOfoww/RwjempMUEwKHTHWdyqkBSCb/eMrVGPRNbhWRYCBo.txt", "jPZcSPePguzNblPyNBqHHLEyl"},
-      {"OEAgKj.bin", "hhfQRu"},
-      {"WLzElvbtXumIqPej/jFrADGZJXOanaU.bin", "ZuBxrXlvqWAcxvVoqJLQISxAHibpOkBhlefOAvIDlywQVAjoLQoulKG"},
-      {"bn.dat", "qDWKckhCmXUUMTqunrKTyoGnSyDgnrbimEQVRQZopoNtZGEWJKhbwsFfSUBSbBkKq"}
+      {"AMXqgWCYxGtmOmLYesFZbxLvJSkqO/HgbocirMBcVMlVmUxziBQeT.md", "SnLqLXWfDKDqJzhdYihdIuofPVxDCrOBYIwmGphdHYg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(661u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16103,16 +18077,23 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"VMaEbBJFEupUYzPVRihGktZMYHuDjpmtxpN/dwrPYhZmMDfWwjabb.txt", "vpNhKYIlgsyKLPMaICInqwXrSpAyateSBkQRfmpXrQeZiBLIsESjunwifJ"}
+      {"DDdFsTGYlxoAATggLAXndZMevkvGCQDr.md", "gxKSGJFbk"},
+      {"Fsjb.bin", "cXmJEeoZUCkIhmqfgHuUPQaenZGPTgqqSoSayWplybwQugxpVlXGTVKna"},
+      {"JtLLM.dat", "KXmoxoFikaCYyDGkTqnIdsfZwTbGnSMgQgPcMU"},
+      {"QVSSVMPTHrNbRgroHsr/mtREtJaSumMoygnELLkaFBhyOEbtNDFRHEAa/SgLRC.cfg", "pddlBfTKmRwH"}
     },
       {},
       {
-      {"VMaEbBJFEupUYzPVRihGktZMYHuDjpmtxpN/dwrPYhZmMDfWwjabb.txt", "vpNhKYIlgsyKLPMaICInqwXrSpAyateSBkQRfmpXrQeZiBLIsESjunwifJ"}
+      {"DDdFsTGYlxoAATggLAXndZMevkvGCQDr.md", "gxKSGJFbk"},
+      {"Fsjb.bin", "cXmJEeoZUCkIhmqfgHuUPQaenZGPTgqqSoSayWplybwQugxpVlXGTVKna"},
+      {"JtLLM.dat", "KXmoxoFikaCYyDGkTqnIdsfZwTbGnSMgQgPcMU"},
+      {"QVSSVMPTHrNbRgroHsr/mtREtJaSumMoygnELLkaFBhyOEbtNDFRHEAa/SgLRC.cfg", "pddlBfTKmRwH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(396u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16124,26 +18105,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"G/EZDkaidBOHwqYejJvCmKFK/rWIfYEDnPHFhsZYLqXjpgJkhwOWQwP.txt", "JIKwhWPTiFsAOXiIndNvElVuoEeoYlZLiJNAxCCZMjksMXsMMjYg"},
-      {"GNNDkbszrJSlNJBShsVSoft.bin", "meXveBmKMrmGiSZ"},
-      {"IMTqZYQX.bin", "ttAIJkUhkmmERFPnyplmWQDKCtPjcXQgjmlfOBanBYZfNhdSDnUaKRccCCDpebyQdEHe"},
-      {"SMDJirwGDfRBMpJe/DVdlXrIKyHKYEdMzZSQjCMVkxqgiH.bin", "DYFWtMnXPJClnhdLhZLrFMojKBaAI"},
-      {"UYaDjrgyqtsFOCigpQuvHUO/yMvdOlxGeS/fbOkjRAnxAydajiEX.cfg", "xTpmMSKzlWBWYrPYDObrbHejARdnQDnsUs"},
-      {"Ws/BPCRPFRdQFZtkEQAwdTT.bin", "jwQzysSEKDmazAPBUGuHiRElbhaVhIInbvDGSsqDbHWFkcZvkguTiesJAjhbIZNqwNtCFRHaE"}
+      {"IZMHwUkZyNsDfGBlqAIQbWFK.cfg", "ifzjkae"},
+      {"NcNYpbvoRkswFJUiAaujMHZpLUeBpgIgu/zKJhwFhVHdD/hrJJOLUISdJvCwcyQGFXW.txt", "kicIYNwKNXsMPhNUFhLytiPaBBAtfHglpuZFAVqzervJsa"},
+      {"Rw/vCrqDi/qPsgACnZyso.bin", "LfkYVniExXJelnDUFTDpqDWdTIpNrJlNaiuhNFFyekqyABrCNYWWMqpBIHLAHflr"}
     },
       {},
       {
-      {"G/EZDkaidBOHwqYejJvCmKFK/rWIfYEDnPHFhsZYLqXjpgJkhwOWQwP.txt", "JIKwhWPTiFsAOXiIndNvElVuoEeoYlZLiJNAxCCZMjksMXsMMjYg"},
-      {"GNNDkbszrJSlNJBShsVSoft.bin", "meXveBmKMrmGiSZ"},
-      {"IMTqZYQX.bin", "ttAIJkUhkmmERFPnyplmWQDKCtPjcXQgjmlfOBanBYZfNhdSDnUaKRccCCDpebyQdEHe"},
-      {"SMDJirwGDfRBMpJe/DVdlXrIKyHKYEdMzZSQjCMVkxqgiH.bin", "DYFWtMnXPJClnhdLhZLrFMojKBaAI"},
-      {"UYaDjrgyqtsFOCigpQuvHUO/yMvdOlxGeS/fbOkjRAnxAydajiEX.cfg", "xTpmMSKzlWBWYrPYDObrbHejARdnQDnsUs"},
-      {"Ws/BPCRPFRdQFZtkEQAwdTT.bin", "jwQzysSEKDmazAPBUGuHiRElbhaVhIInbvDGSsqDbHWFkcZvkguTiesJAjhbIZNqwNtCFRHaE"}
+      {"IZMHwUkZyNsDfGBlqAIQbWFK.cfg", "ifzjkae"},
+      {"NcNYpbvoRkswFJUiAaujMHZpLUeBpgIgu/zKJhwFhVHdD/hrJJOLUISdJvCwcyQGFXW.txt", "kicIYNwKNXsMPhNUFhLytiPaBBAtfHglpuZFAVqzervJsa"},
+      {"Rw/vCrqDi/qPsgACnZyso.bin", "LfkYVniExXJelnDUFTDpqDWdTIpNrJlNaiuhNFFyekqyABrCNYWWMqpBIHLAHflr"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(642u),
+      static_cast<std::size_t>(368u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16155,24 +18131,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"BBZrquUoSEDyvNoevzDVX.cfg", "ppfyBeluhESDOwvTXRLliHhDHSQIiIcYqTsTlZXThMIAJeZou"},
-      {"J/irRf.cfg", "YmdTkKeGdbpHRjXOZEyxxgBwOaYBnjMoFpXhPULEJrxlEyfKbRoFxxags"},
-      {"KkNjBeAQIRbzTsYBsBQ.bin", "wvAJsveAyUEydzSoHIHqqsFSBEwxUvrViqzSptTHmTGtGBdVokdZDOeiCkOrCmudYUHiKMAjjcNdxcBa"},
-      {"MfpFUBMgYaXlnbeFbYz/qFfJmPfuAUZvL.cfg", "FFYOO"},
-      {"egYxIMltNfNnYmUO/DCVKRzFniXYSNXGtnRKOAbLjQEJe.txt", "kCvGLIHAnbNYQbeNApGhkZPNKOljTWRdFxvTvULqLhgUAXxuSofPypTgkbwciooIoSsgcYFhOsKC"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"BBZrquUoSEDyvNoevzDVX.cfg", "ppfyBeluhESDOwvTXRLliHhDHSQIiIcYqTsTlZXThMIAJeZou"},
-      {"J/irRf.cfg", "YmdTkKeGdbpHRjXOZEyxxgBwOaYBnjMoFpXhPULEJrxlEyfKbRoFxxags"},
-      {"KkNjBeAQIRbzTsYBsBQ.bin", "wvAJsveAyUEydzSoHIHqqsFSBEwxUvrViqzSptTHmTGtGBdVokdZDOeiCkOrCmudYUHiKMAjjcNdxcBa"},
-      {"MfpFUBMgYaXlnbeFbYz/qFfJmPfuAUZvL.cfg", "FFYOO"},
-      {"egYxIMltNfNnYmUO/DCVKRzFniXYSNXGtnRKOAbLjQEJe.txt", "kCvGLIHAnbNYQbeNApGhkZPNKOljTWRdFxvTvULqLhgUAXxuSofPypTgkbwciooIoSsgcYFhOsKC"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(470u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16184,13 +18155,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"GiLxmDXrkVfLHj.md", "bwxzBzvBUnGlAbxNdhDnGSkruhjlwkPMlJdqnZFBmotThojbQUIuLAjFbcIvJjdFBqP"}
+      {"LMtsbqmOUkzJCzVoanQNuaerNokxt/asPmuOI.md", "topbXWMLQrzkdGQzJaqDUjkLyFLzdXSibWdrreWHbLNTkMsKcQZGsvEGebGYWcHtdTJQcNU"}
     },
       {},
       {
-      {"GiLxmDXrkVfLHj.md", "bwxzBzvBUnGlAbxNdhDnGSkruhjlwkPMlJdqnZFBmotThojbQUIuLAjFbcIvJjdFBqP"}
+      {"LMtsbqmOUkzJCzVoanQNuaerNokxt/asPmuOI.md", "topbXWMLQrzkdGQzJaqDUjkLyFLzdXSibWdrreWHbLNTkMsKcQZGsvEGebGYWcHtdTJQcNU"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -16205,13 +18177,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"Ao/MRFJjfGBcnc.txt", "jehLGeOtLKjQeXnmInsjOqbQqkieGPRLPlKLyiFv"}
+      {"DkXujASFffaFlC.cfg", "pnueUeJwcVnOnheybdiXUzhdiyaIYwC"}
     },
       {},
       {
-      {"Ao/MRFJjfGBcnc.txt", "jehLGeOtLKjQeXnmInsjOqbQqkieGPRLPlKLyiFv"}
+      {"DkXujASFffaFlC.cfg", "pnueUeJwcVnOnheybdiXUzhdiyaIYwC"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -16226,16 +18199,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"ZVQfqlXjoQXGlAIZTuInKYLLNeqwNlkhR/vxghIxZStuvKxHXCWOxPHc/NzsiXIzNuTlxptFAGUwkmrIjR.txt", "vIsmAuCVdn"}
+      {"b.cfg", "ESjYdSnCvREyVJYbXpQxPkpJniwaPkSJTkxidQcgHLzYMIilIx"},
+      {"grQzwThUp.bin", "OpAtFkcCJZCWwoI"},
+      {"hPDanoQlzIuOGwrBHECCXlRUAiMOZ.md", "GPVDRmLe"}
     },
       {},
       {
-      {"ZVQfqlXjoQXGlAIZTuInKYLLNeqwNlkhR/vxghIxZStuvKxHXCWOxPHc/NzsiXIzNuTlxptFAGUwkmrIjR.txt", "vIsmAuCVdn"}
+      {"b.cfg", "ESjYdSnCvREyVJYbXpQxPkpJniwaPkSJTkxidQcgHLzYMIilIx"},
+      {"grQzwThUp.bin", "OpAtFkcCJZCWwoI"},
+      {"hPDanoQlzIuOGwrBHECCXlRUAiMOZ.md", "GPVDRmLe"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(235u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16247,20 +18225,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"BAszyLhClPveVaxgtPRlMksAj/nIArzOcAl/kZTQylrzNVuykvPQIfYTon.dat", "oXobovbzPbUEzwlZJupzZSbEylTsqffMLvjockyVIFYTbVrhjhWH"},
-      {"DwEZOMekZFPdgqVUemQINFwXYzzg/xnVNKkDYvqKEmogcJveDxI/NwgTYIqWAEgRcVnlLP.md", "EnpOxPWNzZdSOJVUNEHrYuftWyzhyJdfHeAEiHPPYUlgOguvZHJAWOjoiKqdJEFwZKTB"},
-      {"PeIiLUsJ/bYQvLQiZDskDHw.md", "wtVsbfKHrgwqaskfwUxkgvtLyfHaBqPEzJBJbfzxIewDVCnfUbXMUnEnHZqyrTGngyUWRdkhFTb"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"BAszyLhClPveVaxgtPRlMksAj/nIArzOcAl/kZTQylrzNVuykvPQIfYTon.dat", "oXobovbzPbUEzwlZJupzZSbEylTsqffMLvjockyVIFYTbVrhjhWH"},
-      {"DwEZOMekZFPdgqVUemQINFwXYzzg/xnVNKkDYvqKEmogcJveDxI/NwgTYIqWAEgRcVnlLP.md", "EnpOxPWNzZdSOJVUNEHrYuftWyzhyJdfHeAEiHPPYUlgOguvZHJAWOjoiKqdJEFwZKTB"},
-      {"PeIiLUsJ/bYQvLQiZDskDHw.md", "wtVsbfKHrgwqaskfwUxkgvtLyfHaBqPEzJBJbfzxIewDVCnfUbXMUnEnHZqyrTGngyUWRdkhFTb"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(407u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16272,28 +18249,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"CKgKgpLSmdxFUBytlBrLe/JFTxIAlZSlYWEyuMalotEd.txt", "yxQbGzBBTwHySiSQJnDWwtEIiZSmwEmnMtAOAYa"},
-      {"IAfYGxDVq/cTnsOrTZWFfBRamX/OTnpHJZASTmfJlflIAHuhKmsSbe.cfg", "OgcmogbEmkWUQAMCqzxiarYSgCHiKCiaTdCiwx"},
-      {"UApwYYTyjCaZJHtvzQsY.dat", "VzIwKnDcEflAvgFWinDSXiTqDFyEqJxmVUM"},
-      {"WePgbLstLPXzUgjbv/AtLdrlk/rCxjPeTmZMXbaVFBdZbdeLuTbpJhP.bin", "AnbCisOgXSKUoozxMAAbOHYsaBQIcVTINVFYstrhpJ"},
-      {"gmuIfTYzX/yRZFaEddqRMkscDlSWNnnNsHMJQ.md", "sPJLbdTsomMlvXcukMKtMfiavwEmbjsETpCmpdXnBhjgHv"},
-      {"lyN.txt", "RvozZfUBasWEYoLyCNJkrDoGXStHFqFkqYhW"},
-      {"mWvcSlTEs/DTrTThuR.dat", "YyqJZfaPOxUH"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"CKgKgpLSmdxFUBytlBrLe/JFTxIAlZSlYWEyuMalotEd.txt", "yxQbGzBBTwHySiSQJnDWwtEIiZSmwEmnMtAOAYa"},
-      {"IAfYGxDVq/cTnsOrTZWFfBRamX/OTnpHJZASTmfJlflIAHuhKmsSbe.cfg", "OgcmogbEmkWUQAMCqzxiarYSgCHiKCiaTdCiwx"},
-      {"UApwYYTyjCaZJHtvzQsY.dat", "VzIwKnDcEflAvgFWinDSXiTqDFyEqJxmVUM"},
-      {"WePgbLstLPXzUgjbv/AtLdrlk/rCxjPeTmZMXbaVFBdZbdeLuTbpJhP.bin", "AnbCisOgXSKUoozxMAAbOHYsaBQIcVTINVFYstrhpJ"},
-      {"gmuIfTYzX/yRZFaEddqRMkscDlSWNnnNsHMJQ.md", "sPJLbdTsomMlvXcukMKtMfiavwEmbjsETpCmpdXnBhjgHv"},
-      {"lyN.txt", "RvozZfUBasWEYoLyCNJkrDoGXStHFqFkqYhW"},
-      {"mWvcSlTEs/DTrTThuR.dat", "YyqJZfaPOxUH"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(736u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16305,32 +18273,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"EDiLDOSQuzmFGGTEILPSxCJVouuypW/dCzqeKJLciNhf/dIIeFXJUgBPFFIdkaIBnWWXkODdYx.md", "gpZYJNFYbJGSCRoadIdTBisUiksWKy"},
-      {"HxszuIMTwOaCZCO/rAgHqUltpJAZHRrlqoAHUUIeXAOop.cfg", "GLUjzYPWVDoJgxPsmWWSkKQ"},
-      {"OPS.cfg", "DseutKUoedTKjaxkavPixbAThhBJsQlTyKZKEeMcpJEPTCkOoLYP"},
-      {"P/pxddmXDUXoxIhcdQpWSsPXzt/CdbzxTYah.md", "DODYielddiPFyJCyZVkwSxZOYJHjpBdrx"},
-      {"WMZyegsIckdzvZIbQS/BxgKIYFH.dat", "ywFgwmNAtwZzHDwqyRfmZszZeJaKCtVzDmykNgdezjoHiUrnhonpxrDJcLKmZviW"},
-      {"dUGJLdpYFiEYpnNpEmZyiV/VKPbVLWplmIiYRWv/QTozYKdkw.bin", "POnkolpiVJtBqSEDUUkoJJXvmiypLbNyl"},
-      {"iIMPQtXtFBvVPqrQ.md", "phqGgOQWAOdPcZrGNHmnRzyInTdoSibJDuwnIWSavGZCSvsjCoryxTKjcGdBsBmZSaQzwo"},
-      {"lc.md", "nUuAfUvUUjyDDdGSvMrfugqOOqINjNjRokG"},
-      {"nzyeQYfVwpam/A.cfg", "FhmrlViHatyLLsI"}
+      {"zNarE.txt", "RZeYNYZKiaOIQOBqjwdaWTfmZUzPoOlYkVaacpynQyiCdMcDMxGFfKWIANFNS"}
     },
       {},
       {
-      {"EDiLDOSQuzmFGGTEILPSxCJVouuypW/dCzqeKJLciNhf/dIIeFXJUgBPFFIdkaIBnWWXkODdYx.md", "gpZYJNFYbJGSCRoadIdTBisUiksWKy"},
-      {"HxszuIMTwOaCZCO/rAgHqUltpJAZHRrlqoAHUUIeXAOop.cfg", "GLUjzYPWVDoJgxPsmWWSkKQ"},
-      {"OPS.cfg", "DseutKUoedTKjaxkavPixbAThhBJsQlTyKZKEeMcpJEPTCkOoLYP"},
-      {"P/pxddmXDUXoxIhcdQpWSsPXzt/CdbzxTYah.md", "DODYielddiPFyJCyZVkwSxZOYJHjpBdrx"},
-      {"WMZyegsIckdzvZIbQS/BxgKIYFH.dat", "ywFgwmNAtwZzHDwqyRfmZszZeJaKCtVzDmykNgdezjoHiUrnhonpxrDJcLKmZviW"},
-      {"dUGJLdpYFiEYpnNpEmZyiV/VKPbVLWplmIiYRWv/QTozYKdkw.bin", "POnkolpiVJtBqSEDUUkoJJXvmiypLbNyl"},
-      {"iIMPQtXtFBvVPqrQ.md", "phqGgOQWAOdPcZrGNHmnRzyInTdoSibJDuwnIWSavGZCSvsjCoryxTKjcGdBsBmZSaQzwo"},
-      {"lc.md", "nUuAfUvUUjyDDdGSvMrfugqOOqINjNjRokG"},
-      {"nzyeQYfVwpam/A.cfg", "FhmrlViHatyLLsI"}
+      {"zNarE.txt", "RZeYNYZKiaOIQOBqjwdaWTfmZUzPoOlYkVaacpynQyiCdMcDMxGFfKWIANFNS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(964u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16342,16 +18295,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"J/LCKjbmBNDPhrmZVJajehQXThsyZxJyihrQjE/fdSLGAggRfLCgOLVNVUg.cfg", "JxNarzEFEUSMRHmQmclZBtPEdvdfawToCSsIWiKBU"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"J/LCKjbmBNDPhrmZVJajehQXThsyZxJyihrQjE/fdSLGAggRfLCgOLVNVUg.cfg", "JxNarzEFEUSMRHmQmclZBtPEdvdfawToCSsIWiKBU"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16363,18 +18319,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"NSeSjXAybL/DldR.md", "ORVFkEVuVHRTBxneQgvu"},
-      {"dXJkURIhynZWhBRWSdS.md", "wjUploPnfVFuLldPZrVFRgrfmPbEUBjMTnCQIgTz"}
+      {"NAyNqKvJAryRIVYgBAUUQSPK/nLhqbCLwrZOT/UMzvGVYmrEVXknWjfwbCWciFzKJ.txt", "opXQQwNrRjthHFNYXpLtdFXsHyUNfEHultMsVGsCiTKphIPAchELCqaPLuN"},
+      {"cpSqTCdrnFZm/j.md", "yzFgCrNDF"}
     },
       {},
       {
-      {"NSeSjXAybL/DldR.md", "ORVFkEVuVHRTBxneQgvu"},
-      {"dXJkURIhynZWhBRWSdS.md", "wjUploPnfVFuLldPZrVFRgrfmPbEUBjMTnCQIgTz"}
+      {"NAyNqKvJAryRIVYgBAUUQSPK/nLhqbCLwrZOT/UMzvGVYmrEVXknWjfwbCWciFzKJ.txt", "opXQQwNrRjthHFNYXpLtdFXsHyUNfEHultMsVGsCiTKphIPAchELCqaPLuN"},
+      {"cpSqTCdrnFZm/j.md", "yzFgCrNDF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(102u),
+      static_cast<std::size_t>(320u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16386,20 +18343,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"DSBdxCuqcFIfljHSuypzVKLDaPG/i.bin", "EloXrC"},
-      {"IhiDbLvmljPPiuwbcTiWE/RkxYjYDEDGvXuROIycMbVT.dat", "xOpyqraw"},
-      {"yETmChUFR.cfg", "KWgibdOczuuRbcuQRUWCMJrjcYDFkrEnKlTxXeDXJqwLFyBFMLbEbKU"}
+      {"HPriiZCJemEeLEHvCkCbEHbRLvHOuQBCRjl/yhbgfMZmMhLBycxUZG.dat", "hYIjQAhJniztZDwRMIjw"},
+      {"PusSHTgj.cfg", "wNnoxmIIQtOhxQPDuJVWHtuOLgtBNjnkMFQtiYuMEOrGIhsvRhyAzmqJKkuFRwecEVYcwAEVRF"}
     },
       {},
       {
-      {"DSBdxCuqcFIfljHSuypzVKLDaPG/i.bin", "EloXrC"},
-      {"IhiDbLvmljPPiuwbcTiWE/RkxYjYDEDGvXuROIycMbVT.dat", "xOpyqraw"},
-      {"yETmChUFR.cfg", "KWgibdOczuuRbcuQRUWCMJrjcYDFkrEnKlTxXeDXJqwLFyBFMLbEbKU"}
+      {"HPriiZCJemEeLEHvCkCbEHbRLvHOuQBCRjl/yhbgfMZmMhLBycxUZG.dat", "hYIjQAhJniztZDwRMIjw"},
+      {"PusSHTgj.cfg", "wNnoxmIIQtOhxQPDuJVWHtuOLgtBNjnkMFQtiYuMEOrGIhsvRhyAzmqJKkuFRwecEVYcwAEVRF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(199u),
+      static_cast<std::size_t>(222u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16411,18 +18367,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"AmiMGJWhVbMlmNHnubbwXQo/HgKnNIIHPkgguFIxTVxnedVOhWzqvm.dat", "lVopmsGYriMzxrYGNDkzlbxSmaaWpVSgDgayFokr"},
-      {"D/LtAfUNZkzFrHRNvUv.txt", "ydpUcFUeHcynYSYxViNKQ"}
+      {"BH/EeYtNBZTfnLRKE/LkfPQ.txt", "ONHwFGgQFkxirIGXkoGonwqFHNfNLn"},
+      {"GjuzeJSjmGuhhhQ.cfg", "lPFYcOqUUsXxutpYasJXVhhgjxiUJ"}
     },
       {},
       {
-      {"AmiMGJWhVbMlmNHnubbwXQo/HgKnNIIHPkgguFIxTVxnedVOhWzqvm.dat", "lVopmsGYriMzxrYGNDkzlbxSmaaWpVSgDgayFokr"},
-      {"D/LtAfUNZkzFrHRNvUv.txt", "ydpUcFUeHcynYSYxViNKQ"}
+      {"BH/EeYtNBZTfnLRKE/LkfPQ.txt", "ONHwFGgQFkxirIGXkoGonwqFHNfNLn"},
+      {"GjuzeJSjmGuhhhQ.cfg", "lPFYcOqUUsXxutpYasJXVhhgjxiUJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(194u),
+      static_cast<std::size_t>(169u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16434,20 +18391,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"VYwysXVzofg.txt", "TzmVnEkRfQmdZAKXcLfAJSkShKXEjtkraQcUETG"},
-      {"jez.txt", "JEATzjYgTGPgzwXYXJGvBvqYrnDbsUsJBxxgBCVkrcLDYorYZPWdlzOZVL"},
-      {"nQHtBPPtxsyLVAkDyigBgscRxjPJkY/xTalhVSAeemfhdmWCjJlzikmQIlOj.cfg", "nDDpzxTIiJNTNRXQOwIcocGJZysnmkRyiOjeDxKhdreDbIdGPYgTjbUHzYZKjCAXWJNeDqs"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"VYwysXVzofg.txt", "TzmVnEkRfQmdZAKXcLfAJSkShKXEjtkraQcUETG"},
-      {"jez.txt", "JEATzjYgTGPgzwXYXJGvBvqYrnDbsUsJBxxgBCVkrcLDYorYZPWdlzOZVL"},
-      {"nQHtBPPtxsyLVAkDyigBgscRxjPJkY/xTalhVSAeemfhdmWCjJlzikmQIlOj.cfg", "nDDpzxTIiJNTNRXQOwIcocGJZysnmkRyiOjeDxKhdreDbIdGPYgTjbUHzYZKjCAXWJNeDqs"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(223u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16459,13 +18415,16 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"PHZCIEKFZkSo.txt", "ihmLjsHYaTIPxNICqKvVopakFhAtYEYgMthBYuXIlWnaWKoeiSjqnsABwOwkvvML"}
+      {"EwvDTuBScHvQgNjaTUlWAfwgin/YdsFSPiYo.cfg", "OHwboEndhyYJyXbwZnRypBVxFnMvoFPveWYfQIIZtAcaPzSCAsdta"},
+      {"IafGQ/LtACCldqXKIsCUmEWoeCJJlIPKmXfz.dat", "yPQBkmbHRodYPFskIJzrUfylOTXmQJlkISqSYuQwvHlhfbuBXPeaYmrQdtPUjlcdWzeLxE"}
     },
       {},
       {
-      {"PHZCIEKFZkSo.txt", "ihmLjsHYaTIPxNICqKvVopakFhAtYEYgMthBYuXIlWnaWKoeiSjqnsABwOwkvvML"}
+      {"EwvDTuBScHvQgNjaTUlWAfwgin/YdsFSPiYo.cfg", "OHwboEndhyYJyXbwZnRypBVxFnMvoFPveWYfQIIZtAcaPzSCAsdta"},
+      {"IafGQ/LtACCldqXKIsCUmEWoeCJJlIPKmXfz.dat", "yPQBkmbHRodYPFskIJzrUfylOTXmQJlkISqSYuQwvHlhfbuBXPeaYmrQdtPUjlcdWzeLxE"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -16480,22 +18439,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"HmPuezpfrLxab/JKhkflmMWbLjkYV.txt", "pBYzmYctAsussbKyluwMYLolfgcCIAslSitNlcitKofcKraPXROKcvtjqFZtTENvhCZptfBdVLzrebT"},
-      {"MDpTEz/PvPCJhtVqhh/zPAOVf.cfg", "wqVVfbGNB"},
-      {"PAspktkNvuYKKVYyOPraSOoGffX.txt", "dCrjyQQVKlQBDgKgSzUIgUpvlffOpzIxUzXsCdXIuFhnpVG"},
-      {"Qm/w.cfg", "vbtTtdfZyQeXQCURSDOLGeEwzInHRHYTMtfzszadZNwvPAvIAQpPdtEZCAbSGjEmUpCXoeCJcpIWNvv"}
+      {"LvKIpSui/mHBJXaEziqktsQcI.md", "plOkoUyAvYiZrWERLWnuwJBEdMQoF"}
     },
       {},
       {
-      {"HmPuezpfrLxab/JKhkflmMWbLjkYV.txt", "pBYzmYctAsussbKyluwMYLolfgcCIAslSitNlcitKofcKraPXROKcvtjqFZtTENvhCZptfBdVLzrebT"},
-      {"MDpTEz/PvPCJhtVqhh/zPAOVf.cfg", "wqVVfbGNB"},
-      {"PAspktkNvuYKKVYyOPraSOoGffX.txt", "dCrjyQQVKlQBDgKgSzUIgUpvlffOpzIxUzXsCdXIuFhnpVG"},
-      {"Qm/w.cfg", "vbtTtdfZyQeXQCURSDOLGeEwzInHRHYTMtfzszadZNwvPAvIAQpPdtEZCAbSGjEmUpCXoeCJcpIWNvv"}
+      {"LvKIpSui/mHBJXaEziqktsQcI.md", "plOkoUyAvYiZrWERLWnuwJBEdMQoF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(388u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16507,20 +18461,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"OTXNeKsoJECRXZBXSiRWIVmLDcRQUTnvH/RhSyCkk/sUJczptNkX.txt", "EnvwOMgBsMymeCKmxRJzDBXRupDGeermTbuoJXeGE"},
-      {"QSxJeCbntYezoMRHjusBKTbP.bin", "jnntkOqxQkImVVKmkiuyUZClWXOpKCEqpgQKBEH"},
-      {"gAvKDHwfcEXfRQFUovZvmALy.md", "ppiRWx"}
+      {"jQACKGPiepljFDkrVZy/OUTNvhePSSbiVjmwDylUgCslABwaZCEL.dat", "jORfinsZymKreivwoSLVQmnTmQBkuwyaAMhaBgNijeCckelVeAENMicEiCATnxjrKRZsZWZrkQMIv"}
     },
       {},
       {
-      {"OTXNeKsoJECRXZBXSiRWIVmLDcRQUTnvH/RhSyCkk/sUJczptNkX.txt", "EnvwOMgBsMymeCKmxRJzDBXRupDGeermTbuoJXeGE"},
-      {"QSxJeCbntYezoMRHjusBKTbP.bin", "jnntkOqxQkImVVKmkiuyUZClWXOpKCEqpgQKBEH"},
-      {"gAvKDHwfcEXfRQFUovZvmALy.md", "ppiRWx"}
+      {"jQACKGPiepljFDkrVZy/OUTNvhePSSbiVjmwDylUgCslABwaZCEL.dat", "jORfinsZymKreivwoSLVQmnTmQBkuwyaAMhaBgNijeCckelVeAENMicEiCATnxjrKRZsZWZrkQMIv"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(284u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16532,20 +18483,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"COSzf/LdLaRuEoThpwGlJYJHNotVGQwqwltyfD/XtyxzUObuaFdrAwOVkLhlCgRjeZV.bin", "DYACNTNdSOdQqmvgvWaTFRaeVB"},
-      {"DOXGPyUkSdtRJEcyEdk.md", "REceipjVrkJyUOOWigpQtKkQcokqAtOB"},
-      {"HZ.dat", "Ym"}
+      {"BFoql.cfg", "uAOerCvkoBlgQPxluokXDPRVuBltLgXkYrhviVFecfRuQuKfG"},
+      {"GbcmyWeXRCrWSiZZOTJDpc.dat", "tnEAByQhXRhPdoTPovhLCgjfOQbCYlsCcybFrtrybqOCppSzwiKHANcRNw"}
     },
       {},
       {
-      {"COSzf/LdLaRuEoThpwGlJYJHNotVGQwqwltyfD/XtyxzUObuaFdrAwOVkLhlCgRjeZV.bin", "DYACNTNdSOdQqmvgvWaTFRaeVB"},
-      {"DOXGPyUkSdtRJEcyEdk.md", "REceipjVrkJyUOOWigpQtKkQcokqAtOB"},
-      {"HZ.dat", "Ym"}
+      {"BFoql.cfg", "uAOerCvkoBlgQPxluokXDPRVuBltLgXkYrhviVFecfRuQuKfG"},
+      {"GbcmyWeXRCrWSiZZOTJDpc.dat", "tnEAByQhXRhPdoTPovhLCgjfOQbCYlsCcybFrtrybqOCppSzwiKHANcRNw"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(271u),
+      static_cast<std::size_t>(170u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16557,20 +18507,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"EGhTaGDmZtXrSRCiQvaGRxLNVDHMSfR/LXMjXJSGSOpqVHHtGDNZ/ZdOSjUjfTedSezspidTbetxHSzXO.txt", "zRnzWboFdRHwDZTULBeIRoIZovvtsYxNtIrnqXayyYfFEvxXEOGgZfQNIxsSy"},
-      {"PuGvkC.cfg", "yCkevhRCVYvRfLDnreiXepMxGvZrsglMFJwfpMpbVURUtzUIUlWGtNtXAAGqHttxluvsFsFOAdDPvWYQ"},
-      {"YmTdtyvoMvuVCwWZDlFrFNmsrwmDEF/JgSVGehpacaNKoqfecgbwYWxkgW.bin", "JYbjqemycKcmpawJptPrIXVrLGekMeQkzSaOebadrAYCBGYXtvuJwxt"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"EGhTaGDmZtXrSRCiQvaGRxLNVDHMSfR/LXMjXJSGSOpqVHHtGDNZ/ZdOSjUjfTedSezspidTbetxHSzXO.txt", "zRnzWboFdRHwDZTULBeIRoIZovvtsYxNtIrnqXayyYfFEvxXEOGgZfQNIxsSy"},
-      {"PuGvkC.cfg", "yCkevhRCVYvRfLDnreiXepMxGvZrsglMFJwfpMpbVURUtzUIUlWGtNtXAAGqHttxluvsFsFOAdDPvWYQ"},
-      {"YmTdtyvoMvuVCwWZDlFrFNmsrwmDEF/JgSVGehpacaNKoqfecgbwYWxkgW.bin", "JYbjqemycKcmpawJptPrIXVrLGekMeQkzSaOebadrAYCBGYXtvuJwxt"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(388u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16582,13 +18531,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"TzZKEzfXNnNqWCltaFfXWvwoaABdrRmQy.md", "zkfuaATVmbsWCWHwdhbWLEOUvLfyyudaFASVCxVZmdnmeiiOl"}
+      {"ladDoihl/vPVyVlrIoQfVAvsiOTKJdkPHooG/jnIGFRetuSEBIvTA.bin", "gfoOxzvmExTXa"}
     },
       {},
       {
-      {"TzZKEzfXNnNqWCltaFfXWvwoaABdrRmQy.md", "zkfuaATVmbsWCWHwdhbWLEOUvLfyyudaFASVCxVZmdnmeiiOl"}
+      {"ladDoihl/vPVyVlrIoQfVAvsiOTKJdkPHooG/jnIGFRetuSEBIvTA.bin", "gfoOxzvmExTXa"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -16603,24 +18553,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"DYFSD.cfg", "tCKMQDJCpYXJpEVBmIOSPzRSZkXYFzfinXDv"},
-      {"MbZisxNPoEQPmkYgJzMFVIgFLDfu/zsWOiTRqpCgjXfsBMMkSjFto.cfg", "atFstMFaDmxwFijQpxzqU"},
-      {"TgwZtccZvfteVjUui.dat", "VpcOshuZEGKByQhRpArQ"},
-      {"XSFjiy.txt", "ZhXnCzSFjlgIIUsgOZsdGKUuntNQOFihucimzSEKnZqgWyTFEdsYgaPbYfDPaRoExGMxsolyVGHG"},
-      {"YeZNJEVgwKZSfudJrRsubqHliClxZ/G/oAnxmoMxnltLStyVQkPxeGML.cfg", "fTMyxaUZpyfktZhvlxfwQVwHgwJyC"}
+      {"JfDWYjzkDCEdXARuKsuEmWuEdHUygGmIJ/jQViksstGDt/CMRayEpbbCWpUAXNbHWyXCgYGEyBX.md", "HEiTNVhqEPdIAnEXceFEJifuTXVSyfWcOGRlVazEGMObHYboGsO"},
+      {"qk/qgebAdWqpzw/mMyK.bin", "iONmYbELZhmaf"}
     },
       {},
       {
-      {"DYFSD.cfg", "tCKMQDJCpYXJpEVBmIOSPzRSZkXYFzfinXDv"},
-      {"MbZisxNPoEQPmkYgJzMFVIgFLDfu/zsWOiTRqpCgjXfsBMMkSjFto.cfg", "atFstMFaDmxwFijQpxzqU"},
-      {"TgwZtccZvfteVjUui.dat", "VpcOshuZEGKByQhRpArQ"},
-      {"XSFjiy.txt", "ZhXnCzSFjlgIIUsgOZsdGKUuntNQOFihucimzSEKnZqgWyTFEdsYgaPbYfDPaRoExGMxsolyVGHG"},
-      {"YeZNJEVgwKZSfudJrRsubqHliClxZ/G/oAnxmoMxnltLStyVQkPxeGML.cfg", "fTMyxaUZpyfktZhvlxfwQVwHgwJyC"}
+      {"JfDWYjzkDCEdXARuKsuEmWuEdHUygGmIJ/jQViksstGDt/CMRayEpbbCWpUAXNbHWyXCgYGEyBX.md", "HEiTNVhqEPdIAnEXceFEJifuTXVSyfWcOGRlVazEGMObHYboGsO"},
+      {"qk/qgebAdWqpzw/mMyK.bin", "iONmYbELZhmaf"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(418u),
+      static_cast<std::size_t>(321u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16632,28 +18577,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"JDJJsm.txt", "JkXhThJTvSFrIkrujXPMxwIjICcHCyzQbraTyijlqUIMMHSPAcOeh"},
-      {"OGfxTACjXqLodENGHGOM/ryGlMkqmGcdrLUSLeEMNz/GIjyGcwUDePErdJwV.txt", "IyNTnncsPkabFcDqqwBYDw"},
-      {"Pmi.bin", "kSyZMnzUuDfUERELEDdgILHHqEnKDBjdxmowFVSgMRjQBHY"},
-      {"VeHrJidQamEieeTQQWUff.dat", "uS"},
-      {"VlSaSgcAGCBjXLukgiE/xzigHSbSsEdpKEzNLvNmjAklYHszsxjid.md", "YDyfqKypPPlrIZnwLU"},
-      {"ZKDiUBaNPlzYQG.txt", "TJvJgJwuYeSk"},
-      {"gmWefnytmTJeiMhGdcJXOAAgLRu/xEYlgqQnUHV.cfg", "FDxriaxpkcHjTjmVScgUYIbAmcPjuLOeDceFBeLBGwebTQulUHUoncBuXwPKfqgq"}
+      {"DAc/qIxMAsYSrLQhFBf.dat", "ioZLuFzrsdJyBsNSkgSsjEblpHEthxrXUVejAXNXs"}
     },
       {},
       {
-      {"JDJJsm.txt", "JkXhThJTvSFrIkrujXPMxwIjICcHCyzQbraTyijlqUIMMHSPAcOeh"},
-      {"OGfxTACjXqLodENGHGOM/ryGlMkqmGcdrLUSLeEMNz/GIjyGcwUDePErdJwV.txt", "IyNTnncsPkabFcDqqwBYDw"},
-      {"Pmi.bin", "kSyZMnzUuDfUERELEDdgILHHqEnKDBjdxmowFVSgMRjQBHY"},
-      {"VeHrJidQamEieeTQQWUff.dat", "uS"},
-      {"VlSaSgcAGCBjXLukgiE/xzigHSbSsEdpKEzNLvNmjAklYHszsxjid.md", "YDyfqKypPPlrIZnwLU"},
-      {"ZKDiUBaNPlzYQG.txt", "TJvJgJwuYeSk"},
-      {"gmWefnytmTJeiMhGdcJXOAAgLRu/xEYlgqQnUHV.cfg", "FDxriaxpkcHjTjmVScgUYIbAmcPjuLOeDceFBeLBGwebTQulUHUoncBuXwPKfqgq"}
+      {"DAc/qIxMAsYSrLQhFBf.dat", "ioZLuFzrsdJyBsNSkgSsjEblpHEthxrXUVejAXNXs"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(550u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16665,20 +18599,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"LCbnVmfPStMXiwGqBmasWAqm/LptmodEABAeoRDirJNOxqVd/BypmEuSMdNkQ.md", "xCWyTrHcZ"},
-      {"LlMIBsglikFyIDPDERPNiKntnMRRRYvxkvn/WZGwEiTAd.cfg", "DTQsygoIqNzNtFTnxCHtPlcVicCulkctqczXDLWdliHbkgKLdwv"},
-      {"OYoWIrElLAidsTrFWJQdRU.txt", "qIxPImtewJjbznIumFZuMbfAmdZXqumXXlliZXKfPTetbCQpzsXeOOF"}
+      {"AiYHAchIfGPxkjRRmvuYveXPfowlPK/SVdhCxzhfFLVFrPRTdZFsKdkbPk/TuVBEKhsfWafvarEqLQpzxBCvwdWHcQX.txt", "UHEMplrOsJCuFdhDEIYmwDzebimCxFqOExRGCpzMKTMnussQpcpCVbpTYipMPjLXHDzXkDKpN"}
     },
       {},
       {
-      {"LCbnVmfPStMXiwGqBmasWAqm/LptmodEABAeoRDirJNOxqVd/BypmEuSMdNkQ.md", "xCWyTrHcZ"},
-      {"LlMIBsglikFyIDPDERPNiKntnMRRRYvxkvn/WZGwEiTAd.cfg", "DTQsygoIqNzNtFTnxCHtPlcVicCulkctqczXDLWdliHbkgKLdwv"},
-      {"OYoWIrElLAidsTrFWJQdRU.txt", "qIxPImtewJjbznIumFZuMbfAmdZXqumXXlliZXKfPTetbCQpzsXeOOF"}
+      {"AiYHAchIfGPxkjRRmvuYveXPfowlPK/SVdhCxzhfFLVFrPRTdZFsKdkbPk/TuVBEKhsfWafvarEqLQpzxBCvwdWHcQX.txt", "UHEMplrOsJCuFdhDEIYmwDzebimCxFqOExRGCpzMKTMnussQpcpCVbpTYipMPjLXHDzXkDKpN"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(293u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16690,26 +18621,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"AQCZQaHtlOlCNJHafDuLyxVFANVaKy/TiIQdDyuepMkUUAWvaxIWSRgOZYnaZAN/XqVXvhiAePvVJBDaNsNXCDfK.bin", "lxv"},
-      {"IqKlYIXymzNDLiYK.dat", "GKcjRvplVLosMeRSSoxuNlzJtJGcKzWIWcjWwnyZJMiIazAwYNyDUjrLJblrf"},
-      {"SkXtMXeBExLxh/QwXYiyYatrLzSkUEopGbXIntiuc/VIGcZREEvgFOTGHCi.dat", "fWtbQalXNnZqatdvqcLlgGrEKnrBeYKveslzonKLRunzWNZLtGAaTIcnYIJPcVBmhRU"},
-      {"WBhgwCZxbtSSOpicIgwVxVlsn.dat", "rXOUdAQUYzHANV"},
-      {"cKJYgotKWCpvQXGoOSbsffcXfstwnpprWW/qRwFknPNouEYk.cfg", "VeGNSxxcQOpYR"},
-      {"itiwzJgCrQUTikMcybxkVGSDIrLWtSaaBkKD/cwiSwuY/dRcbQuKHaleZJoZsZd.md", "qAyzDKOPoLQXkiH"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"AQCZQaHtlOlCNJHafDuLyxVFANVaKy/TiIQdDyuepMkUUAWvaxIWSRgOZYnaZAN/XqVXvhiAePvVJBDaNsNXCDfK.bin", "lxv"},
-      {"IqKlYIXymzNDLiYK.dat", "GKcjRvplVLosMeRSSoxuNlzJtJGcKzWIWcjWwnyZJMiIazAwYNyDUjrLJblrf"},
-      {"SkXtMXeBExLxh/QwXYiyYatrLzSkUEopGbXIntiuc/VIGcZREEvgFOTGHCi.dat", "fWtbQalXNnZqatdvqcLlgGrEKnrBeYKveslzonKLRunzWNZLtGAaTIcnYIJPcVBmhRU"},
-      {"WBhgwCZxbtSSOpicIgwVxVlsn.dat", "rXOUdAQUYzHANV"},
-      {"cKJYgotKWCpvQXGoOSbsffcXfstwnpprWW/qRwFknPNouEYk.cfg", "VeGNSxxcQOpYR"},
-      {"itiwzJgCrQUTikMcybxkVGSDIrLWtSaaBkKD/cwiSwuY/dRcbQuKHaleZJoZsZd.md", "qAyzDKOPoLQXkiH"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(654u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16721,22 +18645,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"AJcwmghiyXXHKFppZqrCuyV/eWdzMSdiMQJYxjemtOTK.bin", "IGbScHeBXbcpgxRq"},
-      {"AqTYiGjwRv/WEzjROCPpGyrigM/BsTAtOLZolzqroH.dat", "uTmfNvAgSxxYlsQQQAWooVmVLS"},
-      {"EVoAvCwhbqAOquwEAijBHo/yvPruR.md", "hThtoUjaYwJqmugCpHAvRlKcTbNQugKXmPlvNlNnOVkhdiIRyTyy"},
-      {"KLfSae/iRpQgtIzDUDJmyOG/qUnMbhAObIUIAcNHgYFIv.cfg", "ovZVNePguEcHyADLsuY"}
+      {"AKgbdPHsXxkxhBozrpgYKWZZk.cfg", "LrUJMHInBWBovsLDBVScmkFPJQCAMofMpHiwEshYTCFTVHOuxiTnc"},
+      {"GSnP/BXJoWRKLHRcp.md", "QJwqthOdXOFFgOtIIuCHaSjBMoPosqCYDSpKYpPnBFWhlVH"}
     },
       {},
       {
-      {"AJcwmghiyXXHKFppZqrCuyV/eWdzMSdiMQJYxjemtOTK.bin", "IGbScHeBXbcpgxRq"},
-      {"AqTYiGjwRv/WEzjROCPpGyrigM/BsTAtOLZolzqroH.dat", "uTmfNvAgSxxYlsQQQAWooVmVLS"},
-      {"EVoAvCwhbqAOquwEAijBHo/yvPruR.md", "hThtoUjaYwJqmugCpHAvRlKcTbNQugKXmPlvNlNnOVkhdiIRyTyy"},
-      {"KLfSae/iRpQgtIzDUDJmyOG/qUnMbhAObIUIAcNHgYFIv.cfg", "ovZVNePguEcHyADLsuY"}
+      {"AKgbdPHsXxkxhBozrpgYKWZZk.cfg", "LrUJMHInBWBovsLDBVScmkFPJQCAMofMpHiwEshYTCFTVHOuxiTnc"},
+      {"GSnP/BXJoWRKLHRcp.md", "QJwqthOdXOFFgOtIIuCHaSjBMoPosqCYDSpKYpPnBFWhlVH"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(380u),
+      static_cast<std::size_t>(226u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16748,22 +18669,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"GnvYjenhAwISCdUXNKCpEDvgygFbY.md", "NXHQjwpIkcLFjziGtKZFUPUSDIpFzluizHhhAHDIOraNPUikOPLoWQjfCUWi"},
-      {"IrLoxITfbL/kkUtJMj.dat", "bRpaZmMcKleBYgGIAWlfCpcfrPuoEbuaQOXvMnV"},
-      {"SeE/hXKNwvdUK.dat", "ANoVrETPsGbCBZnOFFfToUDcfvpqXjDmHNHuNROq"},
-      {"TnlbGMOODg/KsCfKhpYUEBUCUthKjJnVk.txt", "WIbfcRnFDJTkbWlbPqufHDhPhEvzwdJXXQgptbNeXiAEvEOk"}
+      {"OFZgkhpPJTZKufKNWoiAUCVEeWE/CEtMKXvsigqhWCma/InemoVxUNrf.bin", "zC"}
     },
       {},
       {
-      {"GnvYjenhAwISCdUXNKCpEDvgygFbY.md", "NXHQjwpIkcLFjziGtKZFUPUSDIpFzluizHhhAHDIOraNPUikOPLoWQjfCUWi"},
-      {"IrLoxITfbL/kkUtJMj.dat", "bRpaZmMcKleBYgGIAWlfCpcfrPuoEbuaQOXvMnV"},
-      {"SeE/hXKNwvdUK.dat", "ANoVrETPsGbCBZnOFFfToUDcfvpqXjDmHNHuNROq"},
-      {"TnlbGMOODg/KsCfKhpYUEBUCUthKjJnVk.txt", "WIbfcRnFDJTkbWlbPqufHDhPhEvzwdJXXQgptbNeXiAEvEOk"}
+      {"OFZgkhpPJTZKufKNWoiAUCVEeWE/CEtMKXvsigqhWCma/InemoVxUNrf.bin", "zC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(354u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16775,28 +18691,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"AOPhYZyoZmnIpZRXaWwQxXoPqGVtDqwf/RJUchOGGAUghNqxigWUVFhKiJoTyvJSFCiI/iTyyDtJRIXj.txt", "NnujxLqWCjOPnPBHPPdUaqPNtuIDNlgBXOlRbqpcFeELRuttTGvNTGWjaYsVSkC"},
-      {"GtLmxaQydWkUIMMPwyPvpwZT.txt", "gtnBZzuMbazVpIbidwBrArWJOQjvldoSREFbwOYkhCfOQFxWlzOnJKZwutiFSNS"},
-      {"LAkPGQEXIlnrWKuzgRfIqyoEQsloinccKZp/decvBAdBxrRpt/JyYtLCk.bin", "EszuPZBjlwJgcIFzUygwYGwx"},
-      {"PTamOHopBoCHvypMvdPxnaYOPLLwFESRQeHm/HckGbZtQaOFIVporLRoXzWbQzslaSFBnksia/fafwvTIvfSdedgZcujzVGzBV.md", "nOBacYshjjbctKTKwzkMPQnecCb"},
-      {"RNrkJauLGtgZEehaBtRKwPLOMk.dat", "BdyubUpcbQtiiPqJfYvlNZsAtJmfFGjLkAtffpjxLspDBYzUdpwdNZPZBrPXiFrZEvvlQn"},
-      {"XWBAEtrzmTijoYd/sZon.bin", "gwpycZvVijxlSZxzZQXiRJMitMGcsbxEjFfqwSczFjxqRdsJdhlhvQxEspfwj"},
-      {"XcabAGfzKzm/h.txt", "XQDVDiHZcrTjtdeCcYRpVNVRJl"}
+      {"BVRXhCQbVRnvpjkUoOnVndGGEIjTYTrx/oAkXsxkdvzvCXgQhGjDrxeBPFDfIz.txt", "mbFGVBQmivmoBnyhzKJXgxiEXqkYeeGhLvONfaWElxdtnTuiSEfEZUbnpceIfRPhnHXC"}
     },
       {},
       {
-      {"AOPhYZyoZmnIpZRXaWwQxXoPqGVtDqwf/RJUchOGGAUghNqxigWUVFhKiJoTyvJSFCiI/iTyyDtJRIXj.txt", "NnujxLqWCjOPnPBHPPdUaqPNtuIDNlgBXOlRbqpcFeELRuttTGvNTGWjaYsVSkC"},
-      {"GtLmxaQydWkUIMMPwyPvpwZT.txt", "gtnBZzuMbazVpIbidwBrArWJOQjvldoSREFbwOYkhCfOQFxWlzOnJKZwutiFSNS"},
-      {"LAkPGQEXIlnrWKuzgRfIqyoEQsloinccKZp/decvBAdBxrRpt/JyYtLCk.bin", "EszuPZBjlwJgcIFzUygwYGwx"},
-      {"PTamOHopBoCHvypMvdPxnaYOPLLwFESRQeHm/HckGbZtQaOFIVporLRoXzWbQzslaSFBnksia/fafwvTIvfSdedgZcujzVGzBV.md", "nOBacYshjjbctKTKwzkMPQnecCb"},
-      {"RNrkJauLGtgZEehaBtRKwPLOMk.dat", "BdyubUpcbQtiiPqJfYvlNZsAtJmfFGjLkAtffpjxLspDBYzUdpwdNZPZBrPXiFrZEvvlQn"},
-      {"XWBAEtrzmTijoYd/sZon.bin", "gwpycZvVijxlSZxzZQXiRJMitMGcsbxEjFfqwSczFjxqRdsJdhlhvQxEspfwj"},
-      {"XcabAGfzKzm/h.txt", "XQDVDiHZcrTjtdeCcYRpVNVRJl"}
+      {"BVRXhCQbVRnvpjkUoOnVndGGEIjTYTrx/oAkXsxkdvzvCXgQhGjDrxeBPFDfIz.txt", "mbFGVBQmivmoBnyhzKJXgxiEXqkYeeGhLvONfaWElxdtnTuiSEfEZUbnpceIfRPhnHXC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(964u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16808,13 +18713,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"JGbqZuVlCijukAEh/EjeEsSloUqTHiwPIXyTdvGWFue.md", "dZyzVgQIvcCSjpvhbnfDKvgRzdsdmWGxbENlIqynnSpTWmnU"}
+      {"AkM.dat", "ZBtKhbHRJf"}
     },
       {},
       {
-      {"JGbqZuVlCijukAEh/EjeEsSloUqTHiwPIXyTdvGWFue.md", "dZyzVgQIvcCSjpvhbnfDKvgRzdsdmWGxbENlIqynnSpTWmnU"}
+      {"AkM.dat", "ZBtKhbHRJf"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -16829,22 +18735,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"UMRIJQUwTxoSgBsAmzkMoEpcJ.cfg", "gEqiUnIPEukVfsHWfIyniIezaiVTHJBWVIVb"},
-      {"cbOusqLZbQWtDgjQqNdBnuHUMoJq/DJIPjlQyzLLcNFZuFLRNOYtW/bvrFOwlFXpQOSvsIhlAFCveZ.txt", "PDMQrFUZhSjvqEnHiocaqoFVIwyPbwVWW"},
-      {"oRvduIdTQIXZWBcSldBDSaGtJMCe/GfGP/ehQAkBEpnfrVPSSnYtFYNNYnPOBUm.txt", "cMZNAGzRLuHmQNqtVAvUOMuSgJSYrwOBPdcXNJGbAW"},
-      {"wvNIa.cfg", "rCsKfQtgtGPFlYXrkWqfFreUEFIUqCYSErwLfxSFmGMDTsxRJtlLZPZbNObNXKMYihvTBOKVoH"}
+      {"DjqyvySMvUxnlSarNh/AEoOpalbpDhHJQmjpwtyrD/aoF.bin", "McAUeVMVofstpHysLtiFCCAKTZbuB"}
     },
       {},
       {
-      {"UMRIJQUwTxoSgBsAmzkMoEpcJ.cfg", "gEqiUnIPEukVfsHWfIyniIezaiVTHJBWVIVb"},
-      {"cbOusqLZbQWtDgjQqNdBnuHUMoJq/DJIPjlQyzLLcNFZuFLRNOYtW/bvrFOwlFXpQOSvsIhlAFCveZ.txt", "PDMQrFUZhSjvqEnHiocaqoFVIwyPbwVWW"},
-      {"oRvduIdTQIXZWBcSldBDSaGtJMCe/GfGP/ehQAkBEpnfrVPSSnYtFYNNYnPOBUm.txt", "cMZNAGzRLuHmQNqtVAvUOMuSgJSYrwOBPdcXNJGbAW"},
-      {"wvNIa.cfg", "rCsKfQtgtGPFlYXrkWqfFreUEFIUqCYSErwLfxSFmGMDTsxRJtlLZPZbNObNXKMYihvTBOKVoH"}
+      {"DjqyvySMvUxnlSarNh/AEoOpalbpDhHJQmjpwtyrD/aoF.bin", "McAUeVMVofstpHysLtiFCCAKTZbuB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(465u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16856,16 +18757,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"CWqw/fbmLrTFLwaCxHM/IhdYmhTsZOqyZt.txt", "aHFVKqCoSfYzqCYZPpCbilawRXOncXJnBJWJECsjmkxZecdlwwozRL"}
+      {"AyDxWhxQRMPD/TuSVrAPplpdmqCzlnFXqLSKA.cfg", "sSZYSWyBelCRDaWHEeSXxCzcKwCb"},
+      {"K/ATXdEoHIe.txt", "CJXgAkaOUwAGCTnNjEbrABpWYmWQakGRSFvPZFHDqJoGVGRnOTAhtYGQCcCUHJjqVbvJzupNIGkMg"}
     },
       {},
       {
-      {"CWqw/fbmLrTFLwaCxHM/IhdYmhTsZOqyZt.txt", "aHFVKqCoSfYzqCYZPpCbilawRXOncXJnBJWJECsjmkxZecdlwwozRL"}
+      {"AyDxWhxQRMPD/TuSVrAPplpdmqCzlnFXqLSKA.cfg", "sSZYSWyBelCRDaWHEeSXxCzcKwCb"},
+      {"K/ATXdEoHIe.txt", "CJXgAkaOUwAGCTnNjEbrABpWYmWQakGRSFvPZFHDqJoGVGRnOTAhtYGQCcCUHJjqVbvJzupNIGkMg"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(197u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16877,30 +18781,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"Dekl.bin", "dgiRvySADXlQlUAQDn"},
-      {"ISPSxBBVsdHMudMxffSdYZtqsnQElRkG.cfg", "HGOnYPSmhYgYfoOSUdYVWxXacFdetFpSejscGnErXfOPAjQobcQbTQiguSJWDALLibKgWZK"},
-      {"KbIWnPIXtoptPUnhEuqvwqQrAJAolLP/ToPO/aEgkZqUdNGVWRfakOD.md", "vtKEjcQIdSThkZtizCSMyOPZEiHQHNjtNCjQkTIendhYVjcWskJIdwCpLXjCbrXgInKf"},
-      {"RtrYzXOTaMx/rPCyJlBR.cfg", "ruEvuTqUNOfIyBObbXTPrp"},
-      {"dkvkQsXUjeHhajp/agtT/BFjzYktiaUTlIRRKzcIsS.bin", "dZbLqyzSXctHIvAsQzecnACDXWJfjthqmsNiVJqIDhVCxhXCxnkVnQkvmMWZDTfl"},
-      {"lClAcCfHRusNBrgMTbjC.md", "KzIUeVoJeETaHSPNrKg"},
-      {"mQFnQleFlCKTtE/GheKqvUosRhwttoBOpn/WdWCzhhiDiPLOjAtt.dat", "wqNulpepYRaLUmeemMiUFxzukjoIeFZpuC"},
-      {"yRZcNNreZWauuVtkOirapQLv/hxDuBTvKU.cfg", "VxJzqN"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"Dekl.bin", "dgiRvySADXlQlUAQDn"},
-      {"ISPSxBBVsdHMudMxffSdYZtqsnQElRkG.cfg", "HGOnYPSmhYgYfoOSUdYVWxXacFdetFpSejscGnErXfOPAjQobcQbTQiguSJWDALLibKgWZK"},
-      {"KbIWnPIXtoptPUnhEuqvwqQrAJAolLP/ToPO/aEgkZqUdNGVWRfakOD.md", "vtKEjcQIdSThkZtizCSMyOPZEiHQHNjtNCjQkTIendhYVjcWskJIdwCpLXjCbrXgInKf"},
-      {"RtrYzXOTaMx/rPCyJlBR.cfg", "ruEvuTqUNOfIyBObbXTPrp"},
-      {"dkvkQsXUjeHhajp/agtT/BFjzYktiaUTlIRRKzcIsS.bin", "dZbLqyzSXctHIvAsQzecnACDXWJfjthqmsNiVJqIDhVCxhXCxnkVnQkvmMWZDTfl"},
-      {"lClAcCfHRusNBrgMTbjC.md", "KzIUeVoJeETaHSPNrKg"},
-      {"mQFnQleFlCKTtE/GheKqvUosRhwttoBOpn/WdWCzhhiDiPLOjAtt.dat", "wqNulpepYRaLUmeemMiUFxzukjoIeFZpuC"},
-      {"yRZcNNreZWauuVtkOirapQLv/hxDuBTvKU.cfg", "VxJzqN"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(851u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16912,16 +18805,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"ntGlDXaqx/yohZnatpOfnsTKrjR.bin", "meraHtOnlkER"}
+      {"YWYUmZBvLtDkzSoHzIcbPg/hijougRUrglHVIm.md", "hpzlc"},
+      {"tVkeUNRyk/yiaiccYKcFYDcFce.cfg", "RtYy"}
     },
       {},
       {
-      {"ntGlDXaqx/yohZnatpOfnsTKrjR.bin", "meraHtOnlkER"}
+      {"YWYUmZBvLtDkzSoHzIcbPg/hijougRUrglHVIm.md", "hpzlc"},
+      {"tVkeUNRyk/yiaiccYKcFYDcFce.cfg", "RtYy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(158u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16933,28 +18829,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"DfhGyoSuf.bin", "FbxkdlnGGbOzwIodxIgQ"},
-      {"FUDDRPWggmxjqoVReIenhLlSDGh/jHgrPDFNukLczpbBZoERXFCUfS/kIZRfc.txt", "wzbZeLVAyXzUMpDGHQi"},
-      {"LwnTMfDNzApra/gCFOBGLtexCdSJXitVwb.txt", "cQyHJbTphnZRjORZPtKRBTBOvrRqSSBafhJpKbptaaQvAovMrRBErZOZuxqu"},
-      {"PkAISeXVBqVLfxHDBitREPf.cfg", "lHGFUdidleiYJglRPDd"},
-      {"dLKmCKcUWNORwKM/KoinS/ezfNcRzpMgWSabBnLMXTVzyOmdyEuTd.txt", "UBY"},
-      {"hLpu.cfg", "NeqonuUoxdStDQrlZNBwJGHwVmCaDrikYrXlxLjUQKCwpcvCQp"},
-      {"jeMqvreMmbXzMvRleRIN/dihlRHrkiyUstkoHfdoAxjjXot/pcFwQKOguegixPOVad.dat", "WXMHBerZfqfWrmpGQeKy"}
+      {"CIZdtJDJF/XipEYVBqgrhpsmw/XhyFTYOmwBFwWvhgX.md", "COwGFRgQMLOEoMGSJtnrkDxOCDZrXyTDGYiXUG"},
+      {"SDdkHOjaoUYvudkCsHFnwhmM.md", "sj"},
+      {"TJDmGzbJlqacllRiqZQldVr/SrWqpL.dat", "BuCmyJZVzFLHZPWc"}
     },
       {},
       {
-      {"DfhGyoSuf.bin", "FbxkdlnGGbOzwIodxIgQ"},
-      {"FUDDRPWggmxjqoVReIenhLlSDGh/jHgrPDFNukLczpbBZoERXFCUfS/kIZRfc.txt", "wzbZeLVAyXzUMpDGHQi"},
-      {"LwnTMfDNzApra/gCFOBGLtexCdSJXitVwb.txt", "cQyHJbTphnZRjORZPtKRBTBOvrRqSSBafhJpKbptaaQvAovMrRBErZOZuxqu"},
-      {"PkAISeXVBqVLfxHDBitREPf.cfg", "lHGFUdidleiYJglRPDd"},
-      {"dLKmCKcUWNORwKM/KoinS/ezfNcRzpMgWSabBnLMXTVzyOmdyEuTd.txt", "UBY"},
-      {"hLpu.cfg", "NeqonuUoxdStDQrlZNBwJGHwVmCaDrikYrXlxLjUQKCwpcvCQp"},
-      {"jeMqvreMmbXzMvRleRIN/dihlRHrkiyUstkoHfdoAxjjXot/pcFwQKOguegixPOVad.dat", "WXMHBerZfqfWrmpGQeKy"}
+      {"CIZdtJDJF/XipEYVBqgrhpsmw/XhyFTYOmwBFwWvhgX.md", "COwGFRgQMLOEoMGSJtnrkDxOCDZrXyTDGYiXUG"},
+      {"SDdkHOjaoUYvudkCsHFnwhmM.md", "sj"},
+      {"TJDmGzbJlqacllRiqZQldVr/SrWqpL.dat", "BuCmyJZVzFLHZPWc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(611u),
+      static_cast<std::size_t>(297u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16966,24 +18855,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"CVbJptktYfCTQWgJUTUc/dEEJWVQrnjtCrlTVIzrZCs.bin", "hqI"},
-      {"KRUgp/JtIPhpeySleZYFAjPIPJCftMwmjqgO/CgbFkxcH.dat", "mwXlVZvMebpLuumIItykScwfpihPZyDGhxGRuqKw"},
-      {"QZMRBwoH.txt", "GkuEzYLokqYfTKekEvumHLbPhRUSSojLwLByYGLjNFULtOHLkVPmGSOJjHifuNIsSgLuNdJx"},
-      {"QeDtIuMWXPmmNZPJ/MrBufhFAdhqamAaC.md", "oqVFMDNfVEYOIpJIFErcGeugRmSwOETbzwYTTFkMmy"},
-      {"UrrWfuyvRiXyPZeXbUEYqNd/UCWErjnCzfWQYCwLohcXYHBxmmuHOuvyf/yYxM.dat", "sNxnWmmdAP"}
+      {"DEhEUpdWVHhrWj.dat", "kmVOlvCaSGLzvDmeNbdrOfqVrvjrHJaLZSPikWlDxsVYrXRJyLvGasQhdPadTHoeT"},
+      {"IaEVdBwQgjzoaHfaHyfuiEdNnnroJnJGma/LoFtCqnUqOarwhbSKBR.md", "MiuraYsxfQJNeEfCqsLqpGtEsCFXKIbxRyYQeIudwJIjfXNhFaTsFDqSoRuEcHl"}
     },
       {},
       {
-      {"CVbJptktYfCTQWgJUTUc/dEEJWVQrnjtCrlTVIzrZCs.bin", "hqI"},
-      {"KRUgp/JtIPhpeySleZYFAjPIPJCftMwmjqgO/CgbFkxcH.dat", "mwXlVZvMebpLuumIItykScwfpihPZyDGhxGRuqKw"},
-      {"QZMRBwoH.txt", "GkuEzYLokqYfTKekEvumHLbPhRUSSojLwLByYGLjNFULtOHLkVPmGSOJjHifuNIsSgLuNdJx"},
-      {"QeDtIuMWXPmmNZPJ/MrBufhFAdhqamAaC.md", "oqVFMDNfVEYOIpJIFErcGeugRmSwOETbzwYTTFkMmy"},
-      {"UrrWfuyvRiXyPZeXbUEYqNd/UCWErjnCzfWQYCwLohcXYHBxmmuHOuvyf/yYxM.dat", "sNxnWmmdAP"}
+      {"DEhEUpdWVHhrWj.dat", "kmVOlvCaSGLzvDmeNbdrOfqVrvjrHJaLZSPikWlDxsVYrXRJyLvGasQhdPadTHoeT"},
+      {"IaEVdBwQgjzoaHfaHyfuiEdNnnroJnJGma/LoFtCqnUqOarwhbSKBR.md", "MiuraYsxfQJNeEfCqsLqpGtEsCFXKIbxRyYQeIudwJIjfXNhFaTsFDqSoRuEcHl"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(485u),
+      static_cast<std::size_t>(227u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -16995,22 +18879,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"Ifx.bin", "UQjWWhtNBfkwioWZSNTZncuCUErnQIzYhqxSsiBYqYgHqpjPXidECECyjwgihxs"},
-      {"MLRzgbsXSgLhOAgAjVisUtBzWWrGFGu/NWFUgTOwxNKyonfl.txt", "awPWJIthmoGEnQNlgUGEbJjKogOcbWlOTlfeYAjroZ"},
-      {"erhRIkxcQKmEOhAdoIIehTRgDNE/dsKlsTcjqfT/p.dat", "CdNPYthw"},
-      {"xWfizoYRtbZKqbYvjCtKHRNcXC/XApMwOCDsMhBE.cfg", "RdnrezVzFhkwaLQntZrBUfgZfmuVjoklPXuVRgslbktGVNFHyhYTKrpVGnYufjqbY"}
+      {"B.bin", "WzeHkunUSbYBDLTkTYjRzShphMxMhsOBVXTNEA"},
+      {"RqW.cfg", "XemxsLwulBvJhCdWNy"},
+      {"UxQlCwCUVLKuBRLOFWMYhdzRAKM/DrABjvmykuwrLwVoeQaSabSy.cfg", "FRwRKdKrdvFdxIuUVsVXNJwsgiUSRdies"}
     },
       {},
       {
-      {"Ifx.bin", "UQjWWhtNBfkwioWZSNTZncuCUErnQIzYhqxSsiBYqYgHqpjPXidECECyjwgihxs"},
-      {"MLRzgbsXSgLhOAgAjVisUtBzWWrGFGu/NWFUgTOwxNKyonfl.txt", "awPWJIthmoGEnQNlgUGEbJjKogOcbWlOTlfeYAjroZ"},
-      {"erhRIkxcQKmEOhAdoIIehTRgDNE/dsKlsTcjqfT/p.dat", "CdNPYthw"},
-      {"xWfizoYRtbZKqbYvjCtKHRNcXC/XApMwOCDsMhBE.cfg", "RdnrezVzFhkwaLQntZrBUfgZfmuVjoklPXuVRgslbktGVNFHyhYTKrpVGnYufjqbY"}
+      {"B.bin", "WzeHkunUSbYBDLTkTYjRzShphMxMhsOBVXTNEA"},
+      {"RqW.cfg", "XemxsLwulBvJhCdWNy"},
+      {"UxQlCwCUVLKuBRLOFWMYhdzRAKM/DrABjvmykuwrLwVoeQaSabSy.cfg", "FRwRKdKrdvFdxIuUVsVXNJwsgiUSRdies"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(377u),
+      static_cast<std::size_t>(155u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17022,16 +18905,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"USZXtyfJuSdQtegBKqZMnnNsOU/qAZWxYcDkaPWPbbpmLxlqQgUHzhRykg/gWVJGhInwZDgwLeaOZOKC.txt", "qEAoyqBjzfaUf"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"USZXtyfJuSdQtegBKqZMnnNsOU/qAZWxYcDkaPWPbbpmLxlqQgUHzhRykg/gWVJGhInwZDgwLeaOZOKC.txt", "qEAoyqBjzfaUf"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17043,18 +18929,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"DrnfeygwNzxhS/D/QyzusApOLRiOW.dat", "ydebULPbixuvRagtHXkRJiNOhzxAqEEhqiLKOeiaRRBAuUUeOVNDKXIbcpAprL"},
-      {"FnAGJgtXTrSJDbgclngRKJeNlGDKW.bin", "OnMso"}
+      {"IdbXeGwNXXXTpnwdfw/YDxH.dat", "QHVaEVzCxZbBDkwGnFsuQLwJkVWnysFhJKjFoDkKdjYaeDfztpUby"}
     },
       {},
       {
-      {"DrnfeygwNzxhS/D/QyzusApOLRiOW.dat", "ydebULPbixuvRagtHXkRJiNOhzxAqEEhqiLKOeiaRRBAuUUeOVNDKXIbcpAprL"},
-      {"FnAGJgtXTrSJDbgclngRKJeNlGDKW.bin", "OnMso"}
+      {"IdbXeGwNXXXTpnwdfw/YDxH.dat", "QHVaEVzCxZbBDkwGnFsuQLwJkVWnysFhJKjFoDkKdjYaeDfztpUby"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(191u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17066,18 +18951,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"jbcr/JQJJZIpXCQymnhtsTmOsoELeL/lALkgRANpJWOv.cfg", "VeONFQvNFGoVspuVJjniLDXsIuWxXYdaaZuHoZFVcpXvuKesREkdpkCNpTUPGhHAgYbjrhHaWrIXKXy"},
-      {"rLakhvnweaIFkwKeSyUDNceZoPu.md", "romGJt"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"jbcr/JQJJZIpXCQymnhtsTmOsoELeL/lALkgRANpJWOv.cfg", "VeONFQvNFGoVspuVJjniLDXsIuWxXYdaaZuHoZFVcpXvuKesREkdpkCNpTUPGhHAgYbjrhHaWrIXKXy"},
-      {"rLakhvnweaIFkwKeSyUDNceZoPu.md", "romGJt"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(223u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17089,22 +18975,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"HlZBdYfYvMQiTEY/svyjGdckAFavFpMoZYzazZdYABhPHIwOs/NYFiQpArxyIUUUlBYbyiuDl.cfg", "VoqoTxvfPIATgdUlAfFpIfiTpHhTIffoTVwbRYoUZowRCjvVmvSvVizdqdTCOyGzNTLLCptAEp"},
-      {"IbjgJDlcFVMF.md", "fmzOKouwXZGHTQ"},
-      {"QI.dat", "QGXTugIKHhTRyqjtnNTSIImdcDM"},
-      {"SuDRwsXeAmGqthbXgFNK/AnJlAWivAUNxE/QSpujKdDPzf.bin", "LEsCUTuaNjhrtIANTJiAZkXVrsErUHOxemUNgEmgye"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"HlZBdYfYvMQiTEY/svyjGdckAFavFpMoZYzazZdYABhPHIwOs/NYFiQpArxyIUUUlBYbyiuDl.cfg", "VoqoTxvfPIATgdUlAfFpIfiTpHhTIffoTVwbRYoUZowRCjvVmvSvVizdqdTCOyGzNTLLCptAEp"},
-      {"IbjgJDlcFVMF.md", "fmzOKouwXZGHTQ"},
-      {"QI.dat", "QGXTugIKHhTRyqjtnNTSIImdcDM"},
-      {"SuDRwsXeAmGqthbXgFNK/AnJlAWivAUNxE/QSpujKdDPzf.bin", "LEsCUTuaNjhrtIANTJiAZkXVrsErUHOxemUNgEmgye"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(357u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17116,26 +18999,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"BvQdMgXATicgQhXqgGrzJvWZkyQVuQ.bin", "pQXuethQR"},
-      {"GtQlMudJtwPZKsTYOrEFoZUeZIC.dat", "ATgjiVFdSQaMPOQliULGZpnUrAFbtSOMqmCooHqCONRhMEhyEyLez"},
-      {"NewvuqIzcNQImrUtdKXxIjfnywDay/ujJEZdiUUtMwxuFZOebbn/rUHTbJzqkhqdfjqjcPrSSfkKbgLA.dat", "SLwNoorsiqIUGzbIanLTtWEbszKgMenrhVzyNRSHf"},
-      {"SeIsuKYYuUQsCaJAs/yJeOwnluNUw/LdtbaM.txt", "DuIHTpOtGhAfUkpTkPJHDXBohhkZALfPxJgcEMUODrtIpFYJfsdpMgraUYj"},
-      {"YUT.txt", "rIZANuxabpDYZofVjzzXLWAMpPDQuJYIXOZCfNsCXjbIW"},
-      {"ZgnDtEYfmuhOlaCTiwwYknRCPAZqbsA.bin", "jAFbBqzJahMRxftdFqbKfldbkXCXyB"}
+      {"IlRVumZJ/P.md", "gHZVGqCIpoCHLhAXgR"},
+      {"JQeYIRHZJqDZrWzOoBHw.txt", "dLNjmXqYVqCgVKFEKWeDpR"}
     },
       {},
       {
-      {"BvQdMgXATicgQhXqgGrzJvWZkyQVuQ.bin", "pQXuethQR"},
-      {"GtQlMudJtwPZKsTYOrEFoZUeZIC.dat", "ATgjiVFdSQaMPOQliULGZpnUrAFbtSOMqmCooHqCONRhMEhyEyLez"},
-      {"NewvuqIzcNQImrUtdKXxIjfnywDay/ujJEZdiUUtMwxuFZOebbn/rUHTbJzqkhqdfjqjcPrSSfkKbgLA.dat", "SLwNoorsiqIUGzbIanLTtWEbszKgMenrhVzyNRSHf"},
-      {"SeIsuKYYuUQsCaJAs/yJeOwnluNUw/LdtbaM.txt", "DuIHTpOtGhAfUkpTkPJHDXBohhkZALfPxJgcEMUODrtIpFYJfsdpMgraUYj"},
-      {"YUT.txt", "rIZANuxabpDYZofVjzzXLWAMpPDQuJYIXOZCfNsCXjbIW"},
-      {"ZgnDtEYfmuhOlaCTiwwYknRCPAZqbsA.bin", "jAFbBqzJahMRxftdFqbKfldbkXCXyB"}
+      {"IlRVumZJ/P.md", "gHZVGqCIpoCHLhAXgR"},
+      {"JQeYIRHZJqDZrWzOoBHw.txt", "dLNjmXqYVqCgVKFEKWeDpR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(643u),
+      static_cast<std::size_t>(127u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17147,13 +19023,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"NbMJKsmYDxYV/rWmgZPYgwjmpoJ/ktCwSTLvTyxkvdUWEqbezlJQry.bin", "BNMzggnvldlpXmX"}
+      {"DknpsYoYmgIfevJAGAtjKmGhbb.dat", "EPzoWXNPwbbKws"}
     },
       {},
       {
-      {"NbMJKsmYDxYV/rWmgZPYgwjmpoJ/ktCwSTLvTyxkvdUWEqbezlJQry.bin", "BNMzggnvldlpXmX"}
+      {"DknpsYoYmgIfevJAGAtjKmGhbb.dat", "EPzoWXNPwbbKws"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -17168,13 +19045,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"GgjytjGSyDmQRoAoeRIlAnDAG/lTvZIoTlVhdykEgDWYSZqlsL/SQvuanS.cfg", "jmbtWVwmUDZmfQwoYPEzvsUotAtNAupCRIzNpdooIvMceLqcV"}
+      {"MWVOGUvTmTxtm/gjXBA.txt", "IUGRFRiZdmqxttMVBmfyDKsf"}
     },
       {},
       {
-      {"GgjytjGSyDmQRoAoeRIlAnDAG/lTvZIoTlVhdykEgDWYSZqlsL/SQvuanS.cfg", "jmbtWVwmUDZmfQwoYPEzvsUotAtNAupCRIzNpdooIvMceLqcV"}
+      {"MWVOGUvTmTxtm/gjXBA.txt", "IUGRFRiZdmqxttMVBmfyDKsf"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -17189,18 +19067,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"DKszVBabQgnqwtVBXfZWKU/LeIyovFCUeTQNBKrElCgQK/PoPnoYvMRLwVpApbiWjyTKh.cfg", "bzwMPhtdHNhXBIRMlqvIOWLUoidYzstnYAfvBlaNYAegBZMbzKeltpvLjnbRHEmVjClbQdkzlkwqj"},
-      {"c/BdtlbSPMbBSppyCKtwxP/qSyYfozulxOjrwBBGKgAYzCPyz.md", "eBDxFgBUGMCVjgcmwTqzJnurcQGYwUUPXeJmPPnuhneyqVQnhKPkWLkN"}
+      {"CEkspxqYJfevKdOEzHBsCrAJpRWdmgv/fTLeAHRugvRhPYSyU/rGJ.bin", "zTlqpobaasKVEllwriNxnMcdNxvwmRNMFVlKwMCe"},
+      {"DeIFywybOB/bdqYbzUyaJwgLhVYEIrfwkIlBecMb.txt", "kIuJWcKnqvbRmlzUJOxFkshbXbhuEcvkVobKqLrT"},
+      {"FDUPaYtKFizVaUAoR.cfg", "RpQWXaXhDBuMVVgGMduEYAkeUpbIVSjOtbWugfPLmet"}
     },
       {},
       {
-      {"DKszVBabQgnqwtVBXfZWKU/LeIyovFCUeTQNBKrElCgQK/PoPnoYvMRLwVpApbiWjyTKh.cfg", "bzwMPhtdHNhXBIRMlqvIOWLUoidYzstnYAfvBlaNYAegBZMbzKeltpvLjnbRHEmVjClbQdkzlkwqj"},
-      {"c/BdtlbSPMbBSppyCKtwxP/qSyYfozulxOjrwBBGKgAYzCPyz.md", "eBDxFgBUGMCVjgcmwTqzJnurcQGYwUUPXeJmPPnuhneyqVQnhKPkWLkN"}
+      {"CEkspxqYJfevKdOEzHBsCrAJpRWdmgv/fTLeAHRugvRhPYSyU/rGJ.bin", "zTlqpobaasKVEllwriNxnMcdNxvwmRNMFVlKwMCe"},
+      {"DeIFywybOB/bdqYbzUyaJwgLhVYEIrfwkIlBecMb.txt", "kIuJWcKnqvbRmlzUJOxFkshbXbhuEcvkVobKqLrT"},
+      {"FDUPaYtKFizVaUAoR.cfg", "RpQWXaXhDBuMVVgGMduEYAkeUpbIVSjOtbWugfPLmet"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(262u),
+      static_cast<std::size_t>(429u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17212,16 +19093,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"KWOFEmrKUpjiLn.txt", "iOOqJwnCLndLSFmRHboaNyTmMDhLVDukmfTHCHboDkOJbnTaWbmKtyoEbwTBSc"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"KWOFEmrKUpjiLn.txt", "iOOqJwnCLndLSFmRHboaNyTmMDhLVDukmfTHCHboDkOJbnTaWbmKtyoEbwTBSc"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17233,32 +19117,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"CsJRbnWlBIhMdaKTmmd/BxNYakbnzcUZNXZrphZjkKqOyT.dat", "VZhgDmRCDjpqcogrRsSYQgTHjwDhdNnVWkvZKkSngCRklqLXpjOWjCCnxIOmcmQI"},
-      {"DNlebHpQaebOJBEYFyFMLyKWDoEUPijmD/HQJrlpKSilMTkQDCcYRbiSCJPoeaU.cfg", "latNK"},
-      {"FPrOtu.dat", "ulQQmFCJOP"},
-      {"KpcllsODGGlgect.cfg", "UBdKvyOvvUaoxki"},
-      {"NcUiclfPbYajCAwSDwRbJyd/ojPrxerNclOhBlqGyuTYVClwPbjKsKBBL/cBAXJ.bin", "ArzXzhZbBDEzzAhaJiMLMPYSUuzcwBZAJgXbJdXHlZTdbXEugqNWxxptGxLsTOBpEJoO"},
-      {"NumWZzKkmSYVCGqrOWnASlEXjf.bin", "qhXokhYfdBenKFDRYImWlWOIgdtTcZOYgkArUDFdBnxTxZLViSnnkpaFTbrN"},
-      {"PLPpEPpdtccSnljLimhEbyB/CfutxPhBuMRNIg.txt", "LmwmkZnGONStjNlbGECXWAMZxVNeGhUwqvSpvRbXQvZUsRBudnPImOD"},
-      {"QCixksojgmxOd/SckKjWsnGGWJvhVPFnsGFsW.md", "FKmyqXCoWVgZKKuuVnjfsmpKEDWRVycgXHQyqMKqNpFzTJjECN"},
-      {"RvdFUz/Rsb/iUwec.dat", "BOTDjwUhNp"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"CsJRbnWlBIhMdaKTmmd/BxNYakbnzcUZNXZrphZjkKqOyT.dat", "VZhgDmRCDjpqcogrRsSYQgTHjwDhdNnVWkvZKkSngCRklqLXpjOWjCCnxIOmcmQI"},
-      {"DNlebHpQaebOJBEYFyFMLyKWDoEUPijmD/HQJrlpKSilMTkQDCcYRbiSCJPoeaU.cfg", "latNK"},
-      {"FPrOtu.dat", "ulQQmFCJOP"},
-      {"KpcllsODGGlgect.cfg", "UBdKvyOvvUaoxki"},
-      {"NcUiclfPbYajCAwSDwRbJyd/ojPrxerNclOhBlqGyuTYVClwPbjKsKBBL/cBAXJ.bin", "ArzXzhZbBDEzzAhaJiMLMPYSUuzcwBZAJgXbJdXHlZTdbXEugqNWxxptGxLsTOBpEJoO"},
-      {"NumWZzKkmSYVCGqrOWnASlEXjf.bin", "qhXokhYfdBenKFDRYImWlWOIgdtTcZOYgkArUDFdBnxTxZLViSnnkpaFTbrN"},
-      {"PLPpEPpdtccSnljLimhEbyB/CfutxPhBuMRNIg.txt", "LmwmkZnGONStjNlbGECXWAMZxVNeGhUwqvSpvRbXQvZUsRBudnPImOD"},
-      {"QCixksojgmxOd/SckKjWsnGGWJvhVPFnsGFsW.md", "FKmyqXCoWVgZKKuuVnjfsmpKEDWRVycgXHQyqMKqNpFzTJjECN"},
-      {"RvdFUz/Rsb/iUwec.dat", "BOTDjwUhNp"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(996u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17270,22 +19141,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"FHwDwmcJjUAmyavRtJHZvooJDWRLF/PfsJaSsJPSrTJYJPwyPzyUJoAUDd/kMyxMuIQqYLnchyssGKWGYpkZV.txt", "FccTaSgxYFIaxalPbIwkpwlweGrTYzPliygnOiovAeFojBjhWbjAEVqxEjdQWscTzdlvOnsTKJ"},
-      {"GA.cfg", "MQXUpMaKznzwrMsXeXhwJZvxMfXzmINOLMrmiSRyX"},
-      {"cmwnkoev.dat", "DYQSMvUZBZiCDuLlOpgComcWAlQFMgSDZ"},
-      {"tiixuuuWotfl.dat", "JWYVEdAUnHsmLdNXALbrPHDVEQayQHYyWpDXpFIBHlrN"}
+      {"PR.cfg", "tkndZCbdkeVuViNGrTtEmtZLhBjBMthBfrRNAiZCdcckNJoXkJjVgNj"},
+      {"RTXKrzLqKIhpnHtpFBRiFpSLtwdBLZjVXgX/bTPrbzlbLKhhiHNAJLJ.txt", "ly"},
+      {"YLPHRnaMnrcClqUvptfsuabsLkXJA/RNom/lXfveZkeyysQMuMNLzHsi.md", "SsZoFyEenFfjBTdlGB"}
     },
       {},
       {
-      {"FHwDwmcJjUAmyavRtJHZvooJDWRLF/PfsJaSsJPSrTJYJPwyPzyUJoAUDd/kMyxMuIQqYLnchyssGKWGYpkZV.txt", "FccTaSgxYFIaxalPbIwkpwlweGrTYzPliygnOiovAeFojBjhWbjAEVqxEjdQWscTzdlvOnsTKJ"},
-      {"GA.cfg", "MQXUpMaKznzwrMsXeXhwJZvxMfXzmINOLMrmiSRyX"},
-      {"cmwnkoev.dat", "DYQSMvUZBZiCDuLlOpgComcWAlQFMgSDZ"},
-      {"tiixuuuWotfl.dat", "JWYVEdAUnHsmLdNXALbrPHDVEQayQHYyWpDXpFIBHlrN"}
+      {"PR.cfg", "tkndZCbdkeVuViNGrTtEmtZLhBjBMthBfrRNAiZCdcckNJoXkJjVgNj"},
+      {"RTXKrzLqKIhpnHtpFBRiFpSLtwdBLZjVXgX/bTPrbzlbLKhhiHNAJLJ.txt", "ly"},
+      {"YLPHRnaMnrcClqUvptfsuabsLkXJA/RNom/lXfveZkeyysQMuMNLzHsi.md", "SsZoFyEenFfjBTdlGB"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(415u),
+      static_cast<std::size_t>(322u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17297,24 +19167,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"DcImz.md", "eFWkIVvrFvANhbahWUoxZaGrHKWTppJUwmxvNm"},
-      {"FbZqtQggCmcphTpQ.txt", "QvRQpTTaxE"},
-      {"FjfBYdnx.cfg", "vUzvQfDouTCaloSuNZdRYrLSGEUuQdXFDHmzkNSZD"},
-      {"Lu/MLDYuCfXxskKTvbxWYkouAurdqK.dat", "IifaqDQREWkNnEzfBYrCzLbBwgzgB"},
-      {"LzPggBn/XhIziMqhBtODAI.md", "XtuixXCWbiuvsdOxcfnxFQNUJOQPbTAzVfQbUxmNVVhjGDJUqOMrQwhoxTmARGLGDaxDXwVIgFFw"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"DcImz.md", "eFWkIVvrFvANhbahWUoxZaGrHKWTppJUwmxvNm"},
-      {"FbZqtQggCmcphTpQ.txt", "QvRQpTTaxE"},
-      {"FjfBYdnx.cfg", "vUzvQfDouTCaloSuNZdRYrLSGEUuQdXFDHmzkNSZD"},
-      {"Lu/MLDYuCfXxskKTvbxWYkouAurdqK.dat", "IifaqDQREWkNnEzfBYrCzLbBwgzgB"},
-      {"LzPggBn/XhIziMqhBtODAI.md", "XtuixXCWbiuvsdOxcfnxFQNUJOQPbTAzVfQbUxmNVVhjGDJUqOMrQwhoxTmARGLGDaxDXwVIgFFw"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(344u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17326,24 +19191,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      1u,
       {
-      {"IbyLGSAHjXkGBINddFvxpHJoIEB.bin", "wUpreKhKVoVLRlloyIrvNtkTHoKIvYHCiHipvDvAwoNYyQjKPRfzQRGbSevBwApAJzoBIviuSGni"},
-      {"Jm/TFfFYCVXn.md", "aiwzBimoWeXbxKYEgqTrVCSXyfMIqeoXJHJtrpCn"},
-      {"TwRdJjhSJOcAJnLhmMkfKzlLcdvN.dat", "cuUfCzs"},
-      {"UeWkjubkDrGeWyvOhhzsVXwzGFMWKFbi.txt", "QCPtUSuTbDNdedqjrpLdHHINT"},
-      {"lckThI/AfaHmIcfjCQkqqFohZsfZB.dat", "GAOkSTBXrorXzTZkbqdbwy"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"IbyLGSAHjXkGBINddFvxpHJoIEB.bin", "wUpreKhKVoVLRlloyIrvNtkTHoKIvYHCiHipvDvAwoNYyQjKPRfzQRGbSevBwApAJzoBIviuSGni"},
-      {"Jm/TFfFYCVXn.md", "aiwzBimoWeXbxKYEgqTrVCSXyfMIqeoXJHJtrpCn"},
-      {"TwRdJjhSJOcAJnLhmMkfKzlLcdvN.dat", "cuUfCzs"},
-      {"UeWkjubkDrGeWyvOhhzsVXwzGFMWKFbi.txt", "QCPtUSuTbDNdedqjrpLdHHINT"},
-      {"lckThI/AfaHmIcfjCQkqqFohZsfZB.dat", "GAOkSTBXrorXzTZkbqdbwy"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(446u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17355,18 +19215,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"Qob.cfg", "uHLtgryxfWpkWhgqeQXPZIKeXNslQujhlrveqRpfQYUfKeusQZnytVddkjXOxBmYWg"},
-      {"eCjwfzkB/qqDgLwryfldt/JMtMKPOWgfChHkEqcrpDxpiNWiQ.bin", "KfpVVsmEYYciADpTlcTeOapGKPyspJPsRkRuxTDGibyAWhiwazTimQLnUiTVXadk"}
+      {"CpUkaWlgCg/LybLhzJWPMJQZBJfgaoTqjw/RIWHoeQo.txt", "pgJDelmLHcFFpZsnRxabdap"},
+      {"EMagB/FbiAJkcyLoBxDSd.dat", "zUmDRJPigjhTbMCbsOnVzRzpXawWGDqFTzqMzbL"},
+      {"JDjSirLrWaijSuqxiLQJugLYmAqEgi/AjQqIc.cfg", "UTHYpAVtjwegvjrpITjfNAYiWKkGgKpNulfrvbjXD"}
     },
       {},
       {
-      {"Qob.cfg", "uHLtgryxfWpkWhgqeQXPZIKeXNslQujhlrveqRpfQYUfKeusQZnytVddkjXOxBmYWg"},
-      {"eCjwfzkB/qqDgLwryfldt/JMtMKPOWgfChHkEqcrpDxpiNWiQ.bin", "KfpVVsmEYYciADpTlcTeOapGKPyspJPsRkRuxTDGibyAWhiwazTimQLnUiTVXadk"}
+      {"CpUkaWlgCg/LybLhzJWPMJQZBJfgaoTqjw/RIWHoeQo.txt", "pgJDelmLHcFFpZsnRxabdap"},
+      {"EMagB/FbiAJkcyLoBxDSd.dat", "zUmDRJPigjhTbMCbsOnVzRzpXawWGDqFTzqMzbL"},
+      {"JDjSirLrWaijSuqxiLQJugLYmAqEgi/AjQqIc.cfg", "UTHYpAVtjwegvjrpITjfNAYiWKkGgKpNulfrvbjXD"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(153u),
+      static_cast<std::size_t>(334u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17378,22 +19241,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"FNYDUuCFmqPYThCRoQm.bin", "gnbIHYSIUWqGqaYTxLbEomKJdIcYSRbMzaJXUohgK"},
-      {"HeRbXoRBXMLxclApmnKDeCNxnHCDmhzwjX/RdFGmWEkVpQOMHkwNkOehrCpz.cfg", "deLnpzOTfizJQZLRlKGWKTxDvYBhDyBSATlV"},
-      {"Nr/cZSa.dat", "ZRkhWcjwAYxKFOfARPtDgHJMImrmpmhdOMNajdFSyEoGJSzA"},
-      {"ODxtppVkoAbSxlegoNHGuLp.md", "GDlUMfKRTvtnwvmjnSLHQDRcqwRTaomRcNBlvOATjtFoPXScVFQQNeoxRicy"}
+      {"AxLsFYvIZmNk/caEgSpdHhP.cfg", "fo"},
+      {"Mq.txt", "VK"},
+      {"MyZWayxzAglQxMiIEDcoAA/kwLqo.txt", "qGuucHfupnYnopqIsQjSBCoLgleOUmnQRmNATyTguZtGGoEGOeKtgLmDirCWkDPZmkdLmwVIdt"}
     },
       {},
       {
-      {"FNYDUuCFmqPYThCRoQm.bin", "gnbIHYSIUWqGqaYTxLbEomKJdIcYSRbMzaJXUohgK"},
-      {"HeRbXoRBXMLxclApmnKDeCNxnHCDmhzwjX/RdFGmWEkVpQOMHkwNkOehrCpz.cfg", "deLnpzOTfizJQZLRlKGWKTxDvYBhDyBSATlV"},
-      {"Nr/cZSa.dat", "ZRkhWcjwAYxKFOfARPtDgHJMImrmpmhdOMNajdFSyEoGJSzA"},
-      {"ODxtppVkoAbSxlegoNHGuLp.md", "GDlUMfKRTvtnwvmjnSLHQDRcqwRTaomRcNBlvOATjtFoPXScVFQQNeoxRicy"}
+      {"AxLsFYvIZmNk/caEgSpdHhP.cfg", "fo"},
+      {"Mq.txt", "VK"},
+      {"MyZWayxzAglQxMiIEDcoAA/kwLqo.txt", "qGuucHfupnYnopqIsQjSBCoLgleOUmnQRmNATyTguZtGGoEGOeKtgLmDirCWkDPZmkdLmwVIdt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(383u),
+      static_cast<std::size_t>(157u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17405,18 +19267,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"KjsvKHZeaSOkCxJYDF/AyBKmKuNrPuTjpAUSuLhVKacEpEHWzs/sAZqWwJmofgqCYrwd.md", "kQyRBtDHVCPSvQLhWtmJtiZulHQsmqFGeeMPAlvC"},
-      {"LyOLh.cfg", "WGpUkqecReeLaUCtBeISycYxTHnBjMnUhUcaTFzIEcbMykZyBHCOwgeHmaUCIRiwFZWkk"}
+      {"IbMxTwZslAHVPWzMiYcKONl.cfg", "NqlsBdwsyoeAGfWVZNcnRoLUlYzqRHEvkXHcvrQNGdidKHwkQB"},
+      {"VTdjRVaQRtXgSFrLLbuISYWvhFeH/rPAKV/fAfblILDNHGzruX.bin", "HvWKElmarcHxboEURhpFzbzJitOBxnYOPzzNifQ"}
     },
       {},
       {
-      {"KjsvKHZeaSOkCxJYDF/AyBKmKuNrPuTjpAUSuLhVKacEpEHWzs/sAZqWwJmofgqCYrwd.md", "kQyRBtDHVCPSvQLhWtmJtiZulHQsmqFGeeMPAlvC"},
-      {"LyOLh.cfg", "WGpUkqecReeLaUCtBeISycYxTHnBjMnUhUcaTFzIEcbMykZyBHCOwgeHmaUCIRiwFZWkk"}
+      {"IbMxTwZslAHVPWzMiYcKONl.cfg", "NqlsBdwsyoeAGfWVZNcnRoLUlYzqRHEvkXHcvrQNGdidKHwkQB"},
+      {"VTdjRVaQRtXgSFrLLbuISYWvhFeH/rPAKV/fAfblILDNHGzruX.bin", "HvWKElmarcHxboEURhpFzbzJitOBxnYOPzzNifQ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(207u),
+      static_cast<std::size_t>(221u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17428,20 +19291,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"NfnICmlDnVnLcwLviFskEYnXDxmgRLSsTK/ga.md", "SuaAYhEDoNbtJPIvMEkxUrRnokjCUZwhllIfjDOXhOyGXLNdeOylemGbmBtAiDIxAQyzotEf"},
-      {"buCoPzYGAnvjhYcybMFLHdgZxAJkHtlVWnDK/YYvTJpwmHqzmAYSsbjOghTiBWZrQtRH.cfg", "bXanEjPkcGQATMflzCQiXGdYoZkPSNueaRwJKguquiXnw"},
-      {"svYtuqcoSWCIPNpWcsEVcUWX/fyENEMIpdvovNPhXGlNdGraHurZHkKx.dat", "pWmygLpdwxismfRWoirbpwhvzXFPhSRWPzyaoXCkNROrlaKxWGzCcjAv"}
+      {"XlRpfdoBsLfLYHa.cfg", "VxtafMZBhjShqgSmsCnqUEVDkOxCuDrcOpRMDbvJiTiHUxsNbpFfDtImDrdnUnCgiu"}
     },
       {},
       {
-      {"NfnICmlDnVnLcwLviFskEYnXDxmgRLSsTK/ga.md", "SuaAYhEDoNbtJPIvMEkxUrRnokjCUZwhllIfjDOXhOyGXLNdeOylemGbmBtAiDIxAQyzotEf"},
-      {"buCoPzYGAnvjhYcybMFLHdgZxAJkHtlVWnDK/YYvTJpwmHqzmAYSsbjOghTiBWZrQtRH.cfg", "bXanEjPkcGQATMflzCQiXGdYoZkPSNueaRwJKguquiXnw"},
-      {"svYtuqcoSWCIPNpWcsEVcUWX/fyENEMIpdvovNPhXGlNdGraHurZHkKx.dat", "pWmygLpdwxismfRWoirbpwhvzXFPhSRWPzyaoXCkNROrlaKxWGzCcjAv"}
+      {"XlRpfdoBsLfLYHa.cfg", "VxtafMZBhjShqgSmsCnqUEVDkOxCuDrcOpRMDbvJiTiHUxsNbpFfDtImDrdnUnCgiu"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(381u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17453,18 +19313,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      2u,
       {
-      {"RvDptdHdK/QgefDdsTbpvW/RqzpZMiqvurVBuHahX.bin", "NHihSWQgugYCBUPxUoNPDsIVwupJbLusYiYmumjfXFcqAlVzMIaYhviOkZsXWhWUkzpP"},
-      {"XakbeUZPNzgJmGZwfqP/NYdKQhDHcORVfxgbKxzZKYWbuH/LIrhqkcBGnluEyTqITqMHAYVISPmlF.bin", "atIIimlHqdLy"}
+      {"AaVQYAKil/SRHufdVZsJxXdzgdBpowuZF.txt", "dWoiWjOFRuQYxbErnxgMArvPyjoRRihLfeOcjUPwbyWsJaRjCguSO"}
     },
       {},
       {
-      {"RvDptdHdK/QgefDdsTbpvW/RqzpZMiqvurVBuHahX.bin", "NHihSWQgugYCBUPxUoNPDsIVwupJbLusYiYmumjfXFcqAlVzMIaYhviOkZsXWhWUkzpP"},
-      {"XakbeUZPNzgJmGZwfqP/NYdKQhDHcORVfxgbKxzZKYWbuH/LIrhqkcBGnluEyTqITqMHAYVISPmlF.bin", "atIIimlHqdLy"}
+      {"AaVQYAKil/SRHufdVZsJxXdzgdBpowuZF.txt", "dWoiWjOFRuQYxbErnxgMArvPyjoRRihLfeOcjUPwbyWsJaRjCguSO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(209u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17476,13 +19335,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"BuMoKnQSHwvooDTj/CtfccHqafRhHwbFSuBBmqlFORj/dBBMJNjrODRPtprveAa.bin", "SedeyiyDoXBBTcTfzWpndyHiJHgefwIdNqZ"}
+      {"LsyGpgcLYqOvo.cfg", "ndAnoIziTNjmMfdsHzplvuyQmruFJVOCCImxHNiXiImyUcqkgtcwEVSaWodtbVEGBpxvlHMWnvZtwCgH"}
     },
       {},
       {
-      {"BuMoKnQSHwvooDTj/CtfccHqafRhHwbFSuBBmqlFORj/dBBMJNjrODRPtprveAa.bin", "SedeyiyDoXBBTcTfzWpndyHiJHgefwIdNqZ"}
+      {"LsyGpgcLYqOvo.cfg", "ndAnoIziTNjmMfdsHzplvuyQmruFJVOCCImxHNiXiImyUcqkgtcwEVSaWodtbVEGBpxvlHMWnvZtwCgH"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -17497,22 +19357,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"ASvWQMZuJjSTLtkzQePPXBCbEVKmuuRohIk/NJdpHGSPNuNWFJDObxwXSctpB.txt", "RwakRwMpBxrunRHfJGSajNfPbZflHHXYAp"},
-      {"BpQusEIzpXBzUnGeThlufkzml.md", "hggKFIOLEmnQRlxFdBoyujh"},
-      {"IodBDwnjCLOYrwQqtmJKsKtSBX.bin", "mGyJT"},
-      {"JGVOk/HlCvjHPZTnGzAHTqBtKAHNUmjQz.dat", "HeoZklpryEhyOjsfwTdpOrnEsagXLlBFvYfAVDqAlTAeNTtwzkoAb"}
+      {"lyaCGfjAlCfURWMluHAay/QZXufVHPEFGgPZLkcqBXDLwIJx/lkdOcHNHFXijiupKgfBpURsWihd.dat", "vtecpQmYFsqkdFwApwUPvHRVcjYfzHfcOi"}
     },
       {},
       {
-      {"ASvWQMZuJjSTLtkzQePPXBCbEVKmuuRohIk/NJdpHGSPNuNWFJDObxwXSctpB.txt", "RwakRwMpBxrunRHfJGSajNfPbZflHHXYAp"},
-      {"BpQusEIzpXBzUnGeThlufkzml.md", "hggKFIOLEmnQRlxFdBoyujh"},
-      {"IodBDwnjCLOYrwQqtmJKsKtSBX.bin", "mGyJT"},
-      {"JGVOk/HlCvjHPZTnGzAHTqBtKAHNUmjQz.dat", "HeoZklpryEhyOjsfwTdpOrnEsagXLlBFvYfAVDqAlTAeNTtwzkoAb"}
+      {"lyaCGfjAlCfURWMluHAay/QZXufVHPEFGgPZLkcqBXDLwIJx/lkdOcHNHFXijiupKgfBpURsWihd.dat", "vtecpQmYFsqkdFwApwUPvHRVcjYfzHfcOi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(329u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17524,30 +19379,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"AHNTKiON/PwtjVPVmoMenzrxzk.cfg", "xgfMIGiCpeUVQJbGkoKAnlDjJnPxbyBaDQQZMtBEQiqJrUDjZhXNByLmoJDWMVWOlQjHLcllvfJRQe"},
-      {"ELJJEiFgUsQ/hhxXKlUHFxMQsElgBUYlSBTgxpVoeEOG.bin", "hfvSrgDXHTcAXxKtXQDrywrpqCRnabylnRUKZAkfJCtxgWkDHltnNNJiOlkTGHXWpcR"},
-      {"IAaamNwbhbjxXBbxapWYSiRTm/mtzNCvuSFcrpdZJVNPa.md", "VUMwGNWskqliSpOnHLN"},
-      {"KrhPHtFUafmIQdAXVFTjWupPnDBDgWKGPuQ/S.cfg", "vUyCnmoClM"},
-      {"RJZokZAmvzdZZtHJeNlLFnDvOUXiR/OXekikGusWzAnslniGlRgNcozyWYjOBaiGSj/veXAtDwsQzEdZvdu.dat", "YmTRdplvyuli"},
-      {"UqxLVxWfxrHrrxVzHTEHXzCMgRKDUcE.dat", "UCIDHhrvsjUehbEYoGZWVBywlftvSQQdxGfjmhSmkqBOnkqnqZNp"},
-      {"YYTbjiRiZVEzeWHtbbucHxsOJ.txt", "sppqoZUDRDOroEWrtIKhSNxHxJlfXxjaztnPrAGzHkDHNFdRaiADNAaRAztrFCT"},
-      {"eMkPMGhiYzbwwWtlVbGeHPGnkDIYQS.bin", "yrzZTKMneNfGHNVoZksDSKJctzpVJw"}
+      {"CMg.dat", "YBdadhPInXekXXQHiCftKYnHYtersXQybHCrixQo"}
     },
       {},
       {
-      {"AHNTKiON/PwtjVPVmoMenzrxzk.cfg", "xgfMIGiCpeUVQJbGkoKAnlDjJnPxbyBaDQQZMtBEQiqJrUDjZhXNByLmoJDWMVWOlQjHLcllvfJRQe"},
-      {"ELJJEiFgUsQ/hhxXKlUHFxMQsElgBUYlSBTgxpVoeEOG.bin", "hfvSrgDXHTcAXxKtXQDrywrpqCRnabylnRUKZAkfJCtxgWkDHltnNNJiOlkTGHXWpcR"},
-      {"IAaamNwbhbjxXBbxapWYSiRTm/mtzNCvuSFcrpdZJVNPa.md", "VUMwGNWskqliSpOnHLN"},
-      {"KrhPHtFUafmIQdAXVFTjWupPnDBDgWKGPuQ/S.cfg", "vUyCnmoClM"},
-      {"RJZokZAmvzdZZtHJeNlLFnDvOUXiR/OXekikGusWzAnslniGlRgNcozyWYjOBaiGSj/veXAtDwsQzEdZvdu.dat", "YmTRdplvyuli"},
-      {"UqxLVxWfxrHrrxVzHTEHXzCMgRKDUcE.dat", "UCIDHhrvsjUehbEYoGZWVBywlftvSQQdxGfjmhSmkqBOnkqnqZNp"},
-      {"YYTbjiRiZVEzeWHtbbucHxsOJ.txt", "sppqoZUDRDOroEWrtIKhSNxHxJlfXxjaztnPrAGzHkDHNFdRaiADNAaRAztrFCT"},
-      {"eMkPMGhiYzbwwWtlVbGeHPGnkDIYQS.bin", "yrzZTKMneNfGHNVoZksDSKJctzpVJw"}
+      {"CMg.dat", "YBdadhPInXekXXQHiCftKYnHYtersXQybHCrixQo"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(955u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17559,26 +19401,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"BPFddWEbYdKJcxHFyjgNsmxGf/GZqMpLeLApNQTQhxVDFMaaYUXJOXcJZ.txt", "uGpPiuwDuoElOtvsZHxwdnRMwekkWpcTGbFHoOFMoZBJJTkdhoAotMPWArxOJGZfpmTMVr"},
-      {"ECm/bruYLu.cfg", "OiDZuBDYMReEAMslAVYwpxbKhilFSmEipXuQKIYTrnOVWdknIhYPqbXZBLaJ"},
-      {"EUleuHvycYdBL.bin", "fhuvGIRjkrvXsYCdQtXMbQOQDStXjWnWXCsVRlbGBMNLhCbpYLTKOtuTHdCZSddcPyktFiPe"},
-      {"LrFGTy.dat", "OOYrRqnxFBMjNZmREmsULoJUQHXikXFYg"},
-      {"SEYcAqwqswRkdgBKsJDPClUEhm.bin", "SvfksIPvfsxqnxbvWobOSGgUZroYUyPnbcTJmjncducjVpu"},
-      {"YfhEpnECatOtEdfpQUARwiJXPCejtR/KIJSWtgJ.md", "yEkmKQqlWlRIORzQKZLolOxVPhafestQjsxjbtWznOhIScrIbqRYkGBEwkMBPZrDH"}
+      {"AESkyHXhbyvipSJXwXmfIioFzc/MvblKSRojYtiAXciMViP/tCcriqNoAVlCZwcYWwDHZXwE.dat", "xIVWormxzmmnDtUBqqAJdwIls"},
+      {"OU.md", "ovRlhQ"},
+      {"UiJOGztnhTV/UebEiyzKwjE.md", "oxJIYOyrGdTasWkcF"}
     },
       {},
       {
-      {"BPFddWEbYdKJcxHFyjgNsmxGf/GZqMpLeLApNQTQhxVDFMaaYUXJOXcJZ.txt", "uGpPiuwDuoElOtvsZHxwdnRMwekkWpcTGbFHoOFMoZBJJTkdhoAotMPWArxOJGZfpmTMVr"},
-      {"ECm/bruYLu.cfg", "OiDZuBDYMReEAMslAVYwpxbKhilFSmEipXuQKIYTrnOVWdknIhYPqbXZBLaJ"},
-      {"EUleuHvycYdBL.bin", "fhuvGIRjkrvXsYCdQtXMbQOQDStXjWnWXCsVRlbGBMNLhCbpYLTKOtuTHdCZSddcPyktFiPe"},
-      {"LrFGTy.dat", "OOYrRqnxFBMjNZmREmsULoJUQHXikXFYg"},
-      {"SEYcAqwqswRkdgBKsJDPClUEhm.bin", "SvfksIPvfsxqnxbvWobOSGgUZroYUyPnbcTJmjncducjVpu"},
-      {"YfhEpnECatOtEdfpQUARwiJXPCejtR/KIJSWtgJ.md", "yEkmKQqlWlRIORzQKZLolOxVPhafestQjsxjbtWznOhIScrIbqRYkGBEwkMBPZrDH"}
+      {"AESkyHXhbyvipSJXwXmfIioFzc/MvblKSRojYtiAXciMViP/tCcriqNoAVlCZwcYWwDHZXwE.dat", "xIVWormxzmmnDtUBqqAJdwIls"},
+      {"OU.md", "ovRlhQ"},
+      {"UiJOGztnhTV/UebEiyzKwjE.md", "oxJIYOyrGdTasWkcF"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(654u),
+      static_cast<std::size_t>(296u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17590,30 +19427,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"CEXlTtYMyetnOKzJrrtWFhsfNDppEA.md", "wfFpFEYwuHVzSLoPxtPEiBsxglgdhADrVnfBgxIKsaPGAvcCBHyxHxWJ"},
-      {"GvkieNqjeJmuPVqbhaaHY/zeqrIl/pnYMmRZaFggmCYGOA.md", "NGzBVQmtRKsltFyVowTsSTqzZAFuDxEGkjhCTPlZXrmUksdPuDdULcb"},
-      {"HoZnZGfJUUGgu/avofRNqedaUdVSEVWeZjRJOnO/aObWVXrsgEqjifs.md", "zNzzwCCyTNfLjpusHASRkwgFDfWNNOAKF"},
-      {"JtHdmZQNpNsF.cfg", "YbnOSRqQP"},
-      {"QbzmpKzdHAsJKbvgo/CIgzHsaOFNZYneaKtczemZiFaLk.bin", "YRhZOVzPboYUfuYClCOPDCgJlAb"},
-      {"eNJtJHkagCHgfTorAWsvdDshCYzmq/cquuCnIYwxgPAekrsLIkBZTIKp/dHhMiNlsH.txt", "DUmSoUaFihXSodCXKihCrBDuhi"},
-      {"poiLlNwQQfVylsaUHXhbCJhf/WPovdasHaHJzGSUxgCsKgiR.cfg", "LTIjYOhGH"},
-      {"pzwshFlvYglegszVjoBeO/rvFordPWqAVEbA/maiVqCyx.cfg", "XiIXGvFEpENsdfCDhQiTjXPHyuMgxNnTrcSTKovJrpiEiFAkmKuGSXeLLSYdkLQHx"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"CEXlTtYMyetnOKzJrrtWFhsfNDppEA.md", "wfFpFEYwuHVzSLoPxtPEiBsxglgdhADrVnfBgxIKsaPGAvcCBHyxHxWJ"},
-      {"GvkieNqjeJmuPVqbhaaHY/zeqrIl/pnYMmRZaFggmCYGOA.md", "NGzBVQmtRKsltFyVowTsSTqzZAFuDxEGkjhCTPlZXrmUksdPuDdULcb"},
-      {"HoZnZGfJUUGgu/avofRNqedaUdVSEVWeZjRJOnO/aObWVXrsgEqjifs.md", "zNzzwCCyTNfLjpusHASRkwgFDfWNNOAKF"},
-      {"JtHdmZQNpNsF.cfg", "YbnOSRqQP"},
-      {"QbzmpKzdHAsJKbvgo/CIgzHsaOFNZYneaKtczemZiFaLk.bin", "YRhZOVzPboYUfuYClCOPDCgJlAb"},
-      {"eNJtJHkagCHgfTorAWsvdDshCYzmq/cquuCnIYwxgPAekrsLIkBZTIKp/dHhMiNlsH.txt", "DUmSoUaFihXSodCXKihCrBDuhi"},
-      {"poiLlNwQQfVylsaUHXhbCJhf/WPovdasHaHJzGSUxgCsKgiR.cfg", "LTIjYOhGH"},
-      {"pzwshFlvYglegszVjoBeO/rvFordPWqAVEbA/maiVqCyx.cfg", "XiIXGvFEpENsdfCDhQiTjXPHyuMgxNnTrcSTKovJrpiEiFAkmKuGSXeLLSYdkLQHx"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(846u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17625,20 +19451,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"ASImoDEgMkOwZT.txt", "EXeNuZDnJkzlWJrPRAVGOGVCYBIWqwMMKkFrZPBkHWaHRvJVI"},
-      {"GKWictpeFInXiXUmTsTQiRxeHTLimaXWdilV/CDjDDvOgoPPlUCWf.dat", "HxXhhterqDBihhhpBwtTRFJdgrwQRvCTubBiyizLwU"},
-      {"JdfEJzcOjZjVoNXkWIfreNUemmQR/Lfiw.dat", "jmuPuDxwzHRPbXSNxADHSpeJHrwtghhuTmNliWtyvkrrbpQcogB"}
+      {"GNV/pxlBwCfyAdPPBZHiDmXX.txt", "VmoKlcftghIJIIvYgbaGRwfZNggJFlpwfCFzpYxRPuCYdSqmLbhUHxEbfnVBNPgV"},
+      {"IRmzdHK/wcIOQbDOcbyB.bin", "luLoLmNAauAgYShVszarQR"}
     },
       {},
       {
-      {"ASImoDEgMkOwZT.txt", "EXeNuZDnJkzlWJrPRAVGOGVCYBIWqwMMKkFrZPBkHWaHRvJVI"},
-      {"GKWictpeFInXiXUmTsTQiRxeHTLimaXWdilV/CDjDDvOgoPPlUCWf.dat", "HxXhhterqDBihhhpBwtTRFJdgrwQRvCTubBiyizLwU"},
-      {"JdfEJzcOjZjVoNXkWIfreNUemmQR/Lfiw.dat", "jmuPuDxwzHRPbXSNxADHSpeJHrwtghhuTmNliWtyvkrrbpQcogB"}
+      {"GNV/pxlBwCfyAdPPBZHiDmXX.txt", "VmoKlcftghIJIIvYgbaGRwfZNggJFlpwfCFzpYxRPuCYdSqmLbhUHxEbfnVBNPgV"},
+      {"IRmzdHK/wcIOQbDOcbyB.bin", "luLoLmNAauAgYShVszarQR"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(286u),
+      static_cast<std::size_t>(236u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17650,28 +19475,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      3u,
       {
-      {"ByoVyQghSdELDwdgiEyxqRhWs/wCucHpmfyAzrEvxP/nElnJWhbKhgHjQPHhsGWfoAARSBH.txt", "gmgrymftpwPayVteetOdjRMzuWlABCQnvyvaoUYcevVvMEMOFJyqndIKZbzfWtmOKQcM"},
-      {"EvFHOKsyufnFArQfczx/lNGXXGxLZyNwKcllNzSRNjq.md", "bdtkyeCDgCFRdXFXfQrVCMamM"},
-      {"MDnSwyu.txt", "eYPqXiDfwyxzZToWfdmOFdReYyXipbZScBWgJVdmbVkoKpqVwGbydpDIzXqvTYMGUGyCbjvjuyUmL"},
-      {"NZYhFETdQZqWDJGtJUsJzSikxIRWItFV/zsJaTmTfXGmkqzFfpbwZfyNJSTYZGUB/ehUMTKtq.md", "LhmBPzXOzFXYIfsDiGlKVXAhFz"},
-      {"ORaeSqaPJmJJzRNiWRqdtZKtlVyDK/vCmRrOkzJ/wYqrUepBebDJuXNOWfPpAgv.txt", "rqKTJUYGLcFw"},
-      {"PwvxTTRRIthEHIudLGkrBBqqLGgu/KKBUFDFXqQhAr/eeMZNqyhvl.txt", "QooFHNCQSxxfpkBhVVkqCxLJTIMoIjdbhwqHcyoGtynJWTCFibnfNXunYhidErqzfbxuKiz"},
-      {"RZtlnUbGjlUmXYuhKzRvjXYKp.txt", "QCtucrKsMXuKEYjvpMsyzuOgYPqbVSHqTHXUveNq"}
+      {"BFwujBWnHx.bin", "yXCjhxyCFYFTDaSqSbzFqkQvBIBIWRAysqqtrfhIjBqYmWD"},
+      {"MssWfQ.cfg", "zoetccSCbeEU"}
     },
       {},
       {
-      {"ByoVyQghSdELDwdgiEyxqRhWs/wCucHpmfyAzrEvxP/nElnJWhbKhgHjQPHhsGWfoAARSBH.txt", "gmgrymftpwPayVteetOdjRMzuWlABCQnvyvaoUYcevVvMEMOFJyqndIKZbzfWtmOKQcM"},
-      {"EvFHOKsyufnFArQfczx/lNGXXGxLZyNwKcllNzSRNjq.md", "bdtkyeCDgCFRdXFXfQrVCMamM"},
-      {"MDnSwyu.txt", "eYPqXiDfwyxzZToWfdmOFdReYyXipbZScBWgJVdmbVkoKpqVwGbydpDIzXqvTYMGUGyCbjvjuyUmL"},
-      {"NZYhFETdQZqWDJGtJUsJzSikxIRWItFV/zsJaTmTfXGmkqzFfpbwZfyNJSTYZGUB/ehUMTKtq.md", "LhmBPzXOzFXYIfsDiGlKVXAhFz"},
-      {"ORaeSqaPJmJJzRNiWRqdtZKtlVyDK/vCmRrOkzJ/wYqrUepBebDJuXNOWfPpAgv.txt", "rqKTJUYGLcFw"},
-      {"PwvxTTRRIthEHIudLGkrBBqqLGgu/KKBUFDFXqQhAr/eeMZNqyhvl.txt", "QooFHNCQSxxfpkBhVVkqCxLJTIMoIjdbhwqHcyoGtynJWTCFibnfNXunYhidErqzfbxuKiz"},
-      {"RZtlnUbGjlUmXYuhKzRvjXYKp.txt", "QCtucrKsMXuKEYjvpMsyzuOgYPqbVSHqTHXUveNq"}
+      {"BFwujBWnHx.bin", "yXCjhxyCFYFTDaSqSbzFqkQvBIBIWRAysqqtrfhIjBqYmWD"},
+      {"MssWfQ.cfg", "zoetccSCbeEU"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(923u),
+      static_cast<std::size_t>(189u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17683,22 +19499,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"IEQdLaNCIxKHYyWEcDqEvnceds.md", "fRzJxMIzCCCpEsROHSGnHwslhXVsNJMQzlODTGxXdDYJUdJSHZ"},
-      {"KdAuFwPePtmSZ.bin", "OskYhEyxdNhUCkcNqoPcwerAkhrRUkjzlOv"},
-      {"SNFVgYKohINTUzrAdnnXFlMo/OqQgmMTDtePpLqJYVQTWqZAqFf.bin", "bRykwa"},
-      {"uFsGDMIaxq.cfg", "WvvkkfWG"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"IEQdLaNCIxKHYyWEcDqEvnceds.md", "fRzJxMIzCCCpEsROHSGnHwslhXVsNJMQzlODTGxXdDYJUdJSHZ"},
-      {"KdAuFwPePtmSZ.bin", "OskYhEyxdNhUCkcNqoPcwerAkhrRUkjzlOv"},
-      {"SNFVgYKohINTUzrAdnnXFlMo/OqQgmMTDtePpLqJYVQTWqZAqFf.bin", "bRykwa"},
-      {"uFsGDMIaxq.cfg", "WvvkkfWG"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(336u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17710,18 +19523,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"OXjNSUePJBwBpzUpzGxkTnTaKbj.dat", "DfYhRbkwOXpXUBPPuqtGKLBlGhKQCqd"},
-      {"urRjCBVBNy/zOeTMGVmtAalbPlKYiVlZYOFlHPuISGyC/JOYjB.md", "padPUXZNJppvRnMpihQDSWsIikQJfSAyzViNWcxtPUoVZVHTpdkjxxHTIojZsoflysPndSYYsaj"}
+      {"ALTjOEscyCqTOfORJeP.dat", "hndyTVLMdhnKRlPVUZeFdrFEPipwYVhtFZgGyIKgRf"},
+      {"DIwGCNzDhzqqzmgHdWfcJY.dat", "LnAhsyoYeFhNYcapMvAtfkPhtPRluLLoQGxUXgyIGa"},
+      {"Ft.txt", "wEeSRtcYFYpxNEBTJtnVifYHZAamZhDwcjeMBVvmWCaNtngMmYhXbUWLthDwt"}
     },
       {},
       {
-      {"OXjNSUePJBwBpzUpzGxkTnTaKbj.dat", "DfYhRbkwOXpXUBPPuqtGKLBlGhKQCqd"},
-      {"urRjCBVBNy/zOeTMGVmtAalbPlKYiVlZYOFlHPuISGyC/JOYjB.md", "padPUXZNJppvRnMpihQDSWsIikQJfSAyzViNWcxtPUoVZVHTpdkjxxHTIojZsoflysPndSYYsaj"}
+      {"ALTjOEscyCqTOfORJeP.dat", "hndyTVLMdhnKRlPVUZeFdrFEPipwYVhtFZgGyIKgRf"},
+      {"DIwGCNzDhzqqzmgHdWfcJY.dat", "LnAhsyoYeFhNYcapMvAtfkPhtPRluLLoQGxUXgyIGa"},
+      {"Ft.txt", "wEeSRtcYFYpxNEBTJtnVifYHZAamZhDwcjeMBVvmWCaNtngMmYhXbUWLthDwt"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(142u),
+      static_cast<std::size_t>(333u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17733,26 +19549,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"FUWuOPzDflStXysPTVYhZEw/iGBKWwqYyliJtRhPxOn.bin", "QtHHRYxODb"},
-      {"LfKKYzYKVdZqLmOzxK/azSA.dat", "xshRkBDXXTlbgOWbxgtieRZzwbsWfzYcmHipZWKSHBniZh"},
-      {"RPRSlzNQoYq.cfg", "wnbMYJGHoTDJbaYNworeYjMgvLfpYfykjhgTzWteOi"},
-      {"SDFkQYaypTGIQUShjhZX/xxziBhdqnZKEsDNzUVNFvGbJsTnhSQu/UnGVPtJXwlkCfoFEvJgKhYq.bin", "U"},
-      {"WJSUyBXtqLkOd/fok/xzVin.bin", "pCmUDGXmLVePwXtWRBBYfkotNFTwTsSRHJzRoEITqEXqOoYRpjdqIHBS"},
-      {"aRCGxknsYHRcmrUezWJIizEItwqBKFvoX/vkTpVhQoCuWWDwOVHSBFkRTzA.cfg", "lsuTgjjuKKOtpCtNfrtBQkrsCPQOCjYOegcCaGxJdhfjUgZVKNEZyNGiryLJVkTfQv"}
+      {"COXsQeByACOcadKARxPUQLvYzTePSlQfRWf/NrHgwbTBUGXabnDbrRDIKMsbqA/OpyZCiKuJYmAnIgkwBoyc.bin", "qGFfUvppSVMimpPSQSkIIwEaRgBeocjuinHQBEBjusTLmAWWdhiPNKrvWAZOpHWhLOEhaCkqW"}
     },
       {},
       {
-      {"FUWuOPzDflStXysPTVYhZEw/iGBKWwqYyliJtRhPxOn.bin", "QtHHRYxODb"},
-      {"LfKKYzYKVdZqLmOzxK/azSA.dat", "xshRkBDXXTlbgOWbxgtieRZzwbsWfzYcmHipZWKSHBniZh"},
-      {"RPRSlzNQoYq.cfg", "wnbMYJGHoTDJbaYNworeYjMgvLfpYfykjhgTzWteOi"},
-      {"SDFkQYaypTGIQUShjhZX/xxziBhdqnZKEsDNzUVNFvGbJsTnhSQu/UnGVPtJXwlkCfoFEvJgKhYq.bin", "U"},
-      {"WJSUyBXtqLkOd/fok/xzVin.bin", "pCmUDGXmLVePwXtWRBBYfkotNFTwTsSRHJzRoEITqEXqOoYRpjdqIHBS"},
-      {"aRCGxknsYHRcmrUezWJIizEItwqBKFvoX/vkTpVhQoCuWWDwOVHSBFkRTzA.cfg", "lsuTgjjuKKOtpCtNfrtBQkrsCPQOCjYOegcCaGxJdhfjUgZVKNEZyNGiryLJVkTfQv"}
+      {"COXsQeByACOcadKARxPUQLvYzTePSlQfRWf/NrHgwbTBUGXabnDbrRDIKMsbqA/OpyZCiKuJYmAnIgkwBoyc.bin", "qGFfUvppSVMimpPSQSkIIwEaRgBeocjuinHQBEBjusTLmAWWdhiPNKrvWAZOpHWhLOEhaCkqW"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(575u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17764,16 +19571,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       4u,
       {
-      {"fExgEIOYkmiLxNxhdtjiNwODRYeiS.dat", "bdqJMdunjgLCgvvRgNSVhebGKzCccloKstOWvqORlEmqKMdgEzevoBmFJlSGnuyMIXrKST"}
+      {"HVfSJpWxI.md", "TySWpCiwluauDacvZg"},
+      {"OCgCbFslqg/sqqZTxLTjmNeBNo.dat", "qLmDjhBBFDViGbZNpWTakBLjgpleSRhwMcIFLYOaWbuWsPQsCvokCoGFaMAjPhPjTTbxrNmcJAb"}
     },
       {},
       {
-      {"fExgEIOYkmiLxNxhdtjiNwODRYeiS.dat", "bdqJMdunjgLCgvvRgNSVhebGKzCccloKstOWvqORlEmqKMdgEzevoBmFJlSGnuyMIXrKST"}
+      {"HVfSJpWxI.md", "TySWpCiwluauDacvZg"},
+      {"OCgCbFslqg/sqqZTxLTjmNeBNo.dat", "qLmDjhBBFDViGbZNpWTakBLjgpleSRhwMcIFLYOaWbuWsPQsCvokCoGFaMAjPhPjTTbxrNmcJAb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(126u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17785,26 +19595,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"GS/CnMdpkycIAjZfsZbIUqIbDFmBJNw.md", "EFgyfR"},
-      {"IkgrOUxUzgdFIXAPIjxHFXUfOsR/qKUoEQacmVouSZfMTSVEdxvZbCN/mjDdwMnwLNbSnoJdlSswinJ.txt", "uEUigBDmyxZLEmcowOhtZrzesqTKKXBFXtaafTMvohpbk"},
-      {"Ld/JUAeJfhswhSLkBiYuzKwhhhyQJGd.cfg", "TYsFagkwsXnZFiKrXjILTjxUjkAVpLMIkbEkQYzssJAQBYITjiEJnKSAjBVVUjwCyxWQLBRxXDtixuh"},
-      {"NWphEORhAiwkQUnRwYXpS.txt", "HjFPQq"},
-      {"NvzFJLiKAcjIqPdtGbeRIjiUr.dat", "bYAgRGgqdMqBHAcXqPOHgYlJGqMCAkZQmFKHYkIlCKQezWCPdKgYoYImbjBiyNvJhbhfuKCasomd"},
-      {"ZAVwDJguFijeixchSopExcWVvb.dat", "vugsuuMKaUlcIwdvKQyVSrkDNowXZbYLfkFWxXghUwZMrxWXXQGWlXsJgoryLFk"}
+      {"BBOgqtNUuFDfRYwvZKoYoZsdljD.md", "LiurgqRhqcVdrZfciFRUxnhxwspnfPHDEsIuNWopJMdmMNMjtcDCnricRxeAnWgGNheOzIJoSJHJvV"},
+      {"BSzHOiq.md", "iGCuLrdonJsXrmvgkaytKiqAIpOHQLwjWausr"}
     },
       {},
       {
-      {"GS/CnMdpkycIAjZfsZbIUqIbDFmBJNw.md", "EFgyfR"},
-      {"IkgrOUxUzgdFIXAPIjxHFXUfOsR/qKUoEQacmVouSZfMTSVEdxvZbCN/mjDdwMnwLNbSnoJdlSswinJ.txt", "uEUigBDmyxZLEmcowOhtZrzesqTKKXBFXtaafTMvohpbk"},
-      {"Ld/JUAeJfhswhSLkBiYuzKwhhhyQJGd.cfg", "TYsFagkwsXnZFiKrXjILTjxUjkAVpLMIkbEkQYzssJAQBYITjiEJnKSAjBVVUjwCyxWQLBRxXDtixuh"},
-      {"NWphEORhAiwkQUnRwYXpS.txt", "HjFPQq"},
-      {"NvzFJLiKAcjIqPdtGbeRIjiUr.dat", "bYAgRGgqdMqBHAcXqPOHgYlJGqMCAkZQmFKHYkIlCKQezWCPdKgYoYImbjBiyNvJhbhfuKCasomd"},
-      {"ZAVwDJguFijeixchSopExcWVvb.dat", "vugsuuMKaUlcIwdvKQyVSrkDNowXZbYLfkFWxXghUwZMrxWXXQGWlXsJgoryLFk"}
+      {"BBOgqtNUuFDfRYwvZKoYoZsdljD.md", "LiurgqRhqcVdrZfciFRUxnhxwspnfPHDEsIuNWopJMdmMNMjtcDCnricRxeAnWgGNheOzIJoSJHJvV"},
+      {"BSzHOiq.md", "iGCuLrdonJsXrmvgkaytKiqAIpOHQLwjWausr"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(658u),
+      static_cast<std::size_t>(268u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17816,16 +19619,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"AxaIhAMaSZTiUiAIFyLaLSoMRci.txt", "xhhjvcucNLdcVlKkKuMTVCEvbrtEKGuQAOdbrN"}
+      {"BTHLpvbooqNUnaHZw.dat", "FgStnGXoMpOZZNNrfEsFCqZsRdl"},
+      {"CZPhgxcpkgfNdctvDvcZZ.md", "BPSTRYskbAKXpQvtvpIqfiCVbErqaKTdampLBKRtROlsnPUyisiyzAqLHZaXflzsrfzbww"},
+      {"FRXqxiSAsiRFSqskuWlUAB.bin", "OEbsajvRidmhWZvkiEymtmAGqebyngdMqRYAQUPUDsmizLnOaWmIAIwufNnxoaEuqmjyKp"}
     },
       {},
       {
-      {"AxaIhAMaSZTiUiAIFyLaLSoMRci.txt", "xhhjvcucNLdcVlKkKuMTVCEvbrtEKGuQAOdbrN"}
+      {"BTHLpvbooqNUnaHZw.dat", "FgStnGXoMpOZZNNrfEsFCqZsRdl"},
+      {"CZPhgxcpkgfNdctvDvcZZ.md", "BPSTRYskbAKXpQvtvpIqfiCVbErqaKTdampLBKRtROlsnPUyisiyzAqLHZaXflzsrfzbww"},
+      {"FRXqxiSAsiRFSqskuWlUAB.bin", "OEbsajvRidmhWZvkiEymtmAGqebyngdMqRYAQUPUDsmizLnOaWmIAIwufNnxoaEuqmjyKp"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
+      static_cast<std::size_t>(358u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17837,18 +19645,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      4u,
       {
-      {"GToulZvAmdqpcIHzPyx/rGtirMT/qnnaHKjRexsREygZQgToXoqLuPx.dat", "uXtLyQqcXkiCoZZzXxiRaeXAamFFulsdAfEioaFgcimrYmpAyYBH"},
-      {"ILJCaAtBRr.cfg", "UhseotdaGHUIOyYZmVbBcWCnZrLEgPNvUCZzBlBWTrraoY"}
+      {"IhhLhQoSZVcneQUoyYlW/qZgmfu.md", "bHkxIeyQuzfAbIjsXdsEPqsXzZbdaJRcpztSNwHmcqSVAZvKkYaahArCflkAuFahoNGzPaVoAZuu"},
+      {"MJA/R.md", "SvIuLcBInygKFPmwljCjnVlBdGihAuvbfAFEsELHYIioxkfJnBgdnESEssZOyUDOpYitDsGVudb"}
     },
       {},
       {
-      {"GToulZvAmdqpcIHzPyx/rGtirMT/qnnaHKjRexsREygZQgToXoqLuPx.dat", "uXtLyQqcXkiCoZZzXxiRaeXAamFFulsdAfEioaFgcimrYmpAyYBH"},
-      {"ILJCaAtBRr.cfg", "UhseotdaGHUIOyYZmVbBcWCnZrLEgPNvUCZzBlBWTrraoY"}
+      {"IhhLhQoSZVcneQUoyYlW/qZgmfu.md", "bHkxIeyQuzfAbIjsXdsEPqsXzZbdaJRcpztSNwHmcqSVAZvKkYaahArCflkAuFahoNGzPaVoAZuu"},
+      {"MJA/R.md", "SvIuLcBInygKFPmwljCjnVlBdGihAuvbfAFEsELHYIioxkfJnBgdnESEssZOyUDOpYitDsGVudb"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(207u),
+      static_cast<std::size_t>(266u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17860,22 +19669,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"EubOfViryE/IdzExdbwYxwHehL/tjMGhppqAh.cfg", "mh"},
-      {"OjctivDrVXn/PwtpW.bin", "RDzrarTjeKRUgmNDecFCxtnrmypZvqivaWYoCUrJDyNuAOSgSspfNrMUeLafYqNrzQB"},
-      {"PYichGhhVMWVp.dat", "LgCjUQfXZxIeVajOTVauliPgysjHKOdnOizKSXiKWvYkrL"},
-      {"SMFLbMrjAw/EAoMUGdbKERtsPXBnbgURmZZmkGTyDQbaZz/GmaQAxYgLjBzBrymelRwqkgLVa.cfg", "oJEEpdDDwqHW"}
+      {"HMqkJHaNPyuVwwY/cpVAlRZDimmQgHVsmXW.md", "XOU"},
+      {"amBpCRMloSANqOTHVK/IPQexwDgPGTItzhfyYA.dat", "cQHOpIJElMFMbQjyMhpRgBozpzZdQBYzqoGeAHictZWyAzVnlWbQZbkjibIslLxvHBVJqXc"},
+      {"dg.dat", "qzKYC"}
     },
       {},
       {
-      {"EubOfViryE/IdzExdbwYxwHehL/tjMGhppqAh.cfg", "mh"},
-      {"OjctivDrVXn/PwtpW.bin", "RDzrarTjeKRUgmNDecFCxtnrmypZvqivaWYoCUrJDyNuAOSgSspfNrMUeLafYqNrzQB"},
-      {"PYichGhhVMWVp.dat", "LgCjUQfXZxIeVajOTVauliPgysjHKOdnOizKSXiKWvYkrL"},
-      {"SMFLbMrjAw/EAoMUGdbKERtsPXBnbgURmZZmkGTyDQbaZz/GmaQAxYgLjBzBrymelRwqkgLVa.cfg", "oJEEpdDDwqHW"}
+      {"HMqkJHaNPyuVwwY/cpVAlRZDimmQgHVsmXW.md", "XOU"},
+      {"amBpCRMloSANqOTHVK/IPQexwDgPGTItzhfyYA.dat", "cQHOpIJElMFMbQjyMhpRgBozpzZdQBYzqoGeAHictZWyAzVnlWbQZbkjibIslLxvHBVJqXc"},
+      {"dg.dat", "qzKYC"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(338u),
+      static_cast<std::size_t>(386u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17887,18 +19695,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"BjpTDVaGKwcCO/ePNXUoiYUoYyqvKzXBBWnttkkTjwAkN.txt", "qDQnHYXHebZFYFKlMqXqoREaZoBiaqQGXyOsjICVn"},
-      {"IkHNYVyJhuPb/WOffbmm/HJlynwtenAqGn.dat", "dPIjMEzhqJPzBcqETHBvHFcVjptrf"}
+      {"NSwxfutLcpzzvmpvytdDJcSzkegtqHVV/CSMNaQLMir.md", "gSWqCRIZArCiqglmAbgOWvJaNvwTRbeOpJsqHTvPzAhBXTIFGTXVoIUJeRMtXjBOYkiDLGLjWTEA"}
     },
       {},
       {
-      {"BjpTDVaGKwcCO/ePNXUoiYUoYyqvKzXBBWnttkkTjwAkN.txt", "qDQnHYXHebZFYFKlMqXqoREaZoBiaqQGXyOsjICVn"},
-      {"IkHNYVyJhuPb/WOffbmm/HJlynwtenAqGn.dat", "dPIjMEzhqJPzBcqETHBvHFcVjptrf"}
+      {"NSwxfutLcpzzvmpvytdDJcSzkegtqHVV/CSMNaQLMir.md", "gSWqCRIZArCiqglmAbgOWvJaNvwTRbeOpJsqHTvPzAhBXTIFGTXVoIUJeRMtXjBOYkiDLGLjWTEA"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(186u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17910,13 +19717,16 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      3u,
       {
-      {"JLBXzdkniqsQNg/RhTAphrQLODIVvRrtYzEoYjRy.cfg", "ktMZdRcPCXyhcxXsjwRpRIkdhkvFyVfuMJzOAtsFmahiWovxlWkqisS"}
+      {"BZslUWW/glO/FXoHmlLAIIjtQKmJzQzJS.cfg", "QaXlRCEZbMhIkOOPVpspKnMjnReUmsgbEBvWFvB"},
+      {"GQxdkEDluHCCzIAZiqvLcNRty/MHTWAZEktbPuDzZIsnWYTqfAEmgrRcr.cfg", "DzqjjJMnMFucOrMgZniMaGjI"}
     },
       {},
       {
-      {"JLBXzdkniqsQNg/RhTAphrQLODIVvRrtYzEoYjRy.cfg", "ktMZdRcPCXyhcxXsjwRpRIkdhkvFyVfuMJzOAtsFmahiWovxlWkqisS"}
+      {"BZslUWW/glO/FXoHmlLAIIjtQKmJzQzJS.cfg", "QaXlRCEZbMhIkOOPVpspKnMjnReUmsgbEBvWFvB"},
+      {"GQxdkEDluHCCzIAZiqvLcNRty/MHTWAZEktbPuDzZIsnWYTqfAEmgrRcr.cfg", "DzqjjJMnMFucOrMgZniMaGjI"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -17931,22 +19741,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"AWDNuZjc/XmswXdIDMpdZFYiOOfscMPieWrHfFdZzoDZH/RkeeWnsuDsZFbOFuEwOWCFZQrVd.dat", "mMKjAICJNqRJdEijSjlyit"},
-      {"FMH/HsljHRiCczjzInNpWFXtttmXEaSOphsWH.md", "FXqDShBvABBioMvFYUbFrPfidvoVJQzFJVKokwVDOqUbdPlEQIszMImhAgcxYZyjlyrVTpcuFnARev"},
-      {"OngUZJRZBweNmbytDweLPoHPqXwTOLNj/KqmzhqqqzqxrUUBYdZYRMsvKsnNvgDr.bin", "QPDfZxYJVFoWGsInyarLRfqOcXakSOXpfpExUB"},
-      {"xKC/KeNLtUJKZptmWT.bin", "E"}
+      {"ADbUHXoczjMYb/WzezjOTguxxrEeruHbkoHZpFOBEXAUzsjV/lUmyNVJrPRSgxKPVyyo.cfg", "scVVRSmvAixFdxBsHTSTlONyRSrdnxWVBlOgunRLjzBKvtIPZZXhfjMDtIQzc"}
     },
       {},
       {
-      {"AWDNuZjc/XmswXdIDMpdZFYiOOfscMPieWrHfFdZzoDZH/RkeeWnsuDsZFbOFuEwOWCFZQrVd.dat", "mMKjAICJNqRJdEijSjlyit"},
-      {"FMH/HsljHRiCczjzInNpWFXtttmXEaSOphsWH.md", "FXqDShBvABBioMvFYUbFrPfidvoVJQzFJVKokwVDOqUbdPlEQIszMImhAgcxYZyjlyrVTpcuFnARev"},
-      {"OngUZJRZBweNmbytDweLPoHPqXwTOLNj/KqmzhqqqzqxrUUBYdZYRMsvKsnNvgDr.bin", "QPDfZxYJVFoWGsInyarLRfqOcXakSOXpfpExUB"},
-      {"xKC/KeNLtUJKZptmWT.bin", "E"}
+      {"ADbUHXoczjMYb/WzezjOTguxxrEeruHbkoHZpFOBEXAUzsjV/lUmyNVJrPRSgxKPVyyo.cfg", "scVVRSmvAixFdxBsHTSTlONyRSrdnxWVBlOgunRLjzBKvtIPZZXhfjMDtIQzc"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(515u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17958,18 +19763,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"EMibszoafdzIftnGRlCNWfr.txt", "MFyPjWHQE"},
-      {"IvhWFpGfmEBedV/zZdhHrrpmlCySZcSaNulBjqvJrDfqEy.md", "KYgrDsMPZltIuhntsVhABymGCvgPzcXipE"}
+      {"DsdIesoKhMrgfkvEWKYdhwQEyLG.md", "CEmwgwQPiGeRGLjYXA"},
+      {"JRDvBcNHOplSyUVDKVSUNXUDfVxB.cfg", "ksAqeROJzjCWZSlIFTBBREamJlSHJlJLges"}
     },
       {},
       {
-      {"EMibszoafdzIftnGRlCNWfr.txt", "MFyPjWHQE"},
-      {"IvhWFpGfmEBedV/zZdhHrrpmlCySZcSaNulBjqvJrDfqEy.md", "KYgrDsMPZltIuhntsVhABymGCvgPzcXipE"}
+      {"DsdIesoKhMrgfkvEWKYdhwQEyLG.md", "CEmwgwQPiGeRGLjYXA"},
+      {"JRDvBcNHOplSyUVDKVSUNXUDfVxB.cfg", "ksAqeROJzjCWZSlIFTBBREamJlSHJlJLges"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(100u),
+      static_cast<std::size_t>(160u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -17981,18 +19787,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"mkhn/nDaXjAuWOcEQuzvmN/tqj.dat", "qCUTrzmHRbedUFulvQbMzmyumVvJMmYLKWiTPI"},
-      {"zcTDdiQGsEotCLeukQb.dat", "VSlSKJggGmioDAYbztzregpXHEegrt"}
+      {"ASpdpq/IawldYmrhMMoehJKQvio.md", "tFAVCptNhnuXxBUmSsVNGYWgYEZaJ"}
     },
       {},
       {
-      {"mkhn/nDaXjAuWOcEQuzvmN/tqj.dat", "qCUTrzmHRbedUFulvQbMzmyumVvJMmYLKWiTPI"},
-      {"zcTDdiQGsEotCLeukQb.dat", "VSlSKJggGmioDAYbztzregpXHEegrt"}
+      {"ASpdpq/IawldYmrhMMoehJKQvio.md", "tFAVCptNhnuXxBUmSsVNGYWgYEZaJ"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(148u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18004,22 +19809,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"AFHGdWiGUHevtBHoBsKkEuqpOJ/ktNVlh/oeWcNMEfeYTJieZHAsrGdRzbkSMNDSzY.txt", "EGfpOnXocFvzIPXbJGNYrNuQDqmSHtiyHMHncsjj"},
-      {"H.txt", "VLtxpEnCfxcPlBfnVhgmfYoOMcRxBqyJFNgfzhgvZOlozpnjYt"},
-      {"JQhBWCInwZjrkbufrvwOpjYBCoVTrPhCSs/UJzXBQWvEdQxN/re.dat", "atEVpkmdLujuebEnpqkISHptZavcNPyngrOUKNNKdbLRNMkCABdaFGv"},
-      {"LsAwvVoSufJTKyJS/uSM.bin", "OuOipnNvrFDvUARaJXHrUYRaellFBsNoDXoha"}
+      {"BmrwtZRhjnfyqKldOiSEsnlrcZtiCumopK/VeMk.bin", "AfDrhSnZASkOtUmHCgVHCrkjqAi"}
     },
       {},
       {
-      {"AFHGdWiGUHevtBHoBsKkEuqpOJ/ktNVlh/oeWcNMEfeYTJieZHAsrGdRzbkSMNDSzY.txt", "EGfpOnXocFvzIPXbJGNYrNuQDqmSHtiyHMHncsjj"},
-      {"H.txt", "VLtxpEnCfxcPlBfnVhgmfYoOMcRxBqyJFNgfzhgvZOlozpnjYt"},
-      {"JQhBWCInwZjrkbufrvwOpjYBCoVTrPhCSs/UJzXBQWvEdQxN/re.dat", "atEVpkmdLujuebEnpqkISHptZavcNPyngrOUKNNKdbLRNMkCABdaFGv"},
-      {"LsAwvVoSufJTKyJS/uSM.bin", "OuOipnNvrFDvUARaJXHrUYRaellFBsNoDXoha"}
+      {"BmrwtZRhjnfyqKldOiSEsnlrcZtiCumopK/VeMk.bin", "AfDrhSnZASkOtUmHCgVHCrkjqAi"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(451u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18031,22 +19831,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"BZDXeGLdKjamK/yghezpCUS.bin", "TYgzWaFCoAIMLTmAAHRyBwYrAsglzcklvpcEDuVJQVsbjvYc"},
-      {"CiDkVZQKMlznnLurAVRT/sSnzNxCQeCKQbpGkuFMiStSKCrPNFt/PZhAChnEevtJTbLWPAiKl.txt", "GHxlqlKcRzjyBllbUAOKPNqQNm"},
-      {"HhrpBtyUPpkCRvVTG/vsPrkhVgFmLMPRhjEYhdrVrLZdFwKwos.txt", "HVid"},
-      {"RoRYxGqmO/wTUsovvcFwEViEfTiRKsllulQ.txt", "YpybugrcnjZoTPJvbkSlunZoNXpmQfSCIJAd"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"BZDXeGLdKjamK/yghezpCUS.bin", "TYgzWaFCoAIMLTmAAHRyBwYrAsglzcklvpcEDuVJQVsbjvYc"},
-      {"CiDkVZQKMlznnLurAVRT/sSnzNxCQeCKQbpGkuFMiStSKCrPNFt/PZhAChnEevtJTbLWPAiKl.txt", "GHxlqlKcRzjyBllbUAOKPNqQNm"},
-      {"HhrpBtyUPpkCRvVTG/vsPrkhVgFmLMPRhjEYhdrVrLZdFwKwos.txt", "HVid"},
-      {"RoRYxGqmO/wTUsovvcFwEViEfTiRKsllulQ.txt", "YpybugrcnjZoTPJvbkSlunZoNXpmQfSCIJAd"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(396u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18058,20 +19855,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      3u,
       {
-      {"KFoyKwgfNG/dugorrVrhDQhVHaPadPmYNSGnfiFUdFE.md", "sMWBFeprdBnXVjHdrjSqgOkwbwaOUvN"},
-      {"XLZl.bin", "KIOwAGspblzVCZHKNTmCpCuUnLqKGmPfAkpsgPsbwgrJutiDuajDemQGTzaXrtKadNPfZMUQ"},
-      {"jAkkMLyY/pnyqdaCrDb.cfg", "vGsAqXKf"}
+      {"EKxSCVTNzYipBTySlgGHHIRjrmpYvdQVfs/zlkbSWdCRVWgKBqMqpH/jbWypdilIY.cfg", "PfIsVOngDhznXutsEMrXClhfsrnlZDoLaPTmLWeLWWWKmSoqQgUmNzlufZKnknHfzTKjSawhruUBkTsO"}
     },
       {},
       {
-      {"KFoyKwgfNG/dugorrVrhDQhVHaPadPmYNSGnfiFUdFE.md", "sMWBFeprdBnXVjHdrjSqgOkwbwaOUvN"},
-      {"XLZl.bin", "KIOwAGspblzVCZHKNTmCpCuUnLqKGmPfAkpsgPsbwgrJutiDuajDemQGTzaXrtKadNPfZMUQ"},
-      {"jAkkMLyY/pnyqdaCrDb.cfg", "vGsAqXKf"}
+      {"EKxSCVTNzYipBTySlgGHHIRjrmpYvdQVfs/zlkbSWdCRVWgKBqMqpH/jbWypdilIY.cfg", "PfIsVOngDhznXutsEMrXClhfsrnlZDoLaPTmLWeLWWWKmSoqQgUmNzlufZKnknHfzTKjSawhruUBkTsO"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(277u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18083,13 +19877,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       2u,
       {
-      {"AqDCGpvGMOjILrARmBIltBifloEpJKsV.txt", "FOKFkXcTgHRklUzswNAUAFSlGCBGxVeRAIrUpaqYlwrqjbShazUAZsVPngzSgdbmsRTtISPrBhDpHS"}
+      {"CEkenV/QHrQufXDkEredglfGo.cfg", "ZgpzkfoBowwwAIMfOiaxbrbtPAeHlUpyFhLcXpKJiVqwGWFaRVSOHQjIOagabaNAfd"}
     },
       {},
       {
-      {"AqDCGpvGMOjILrARmBIltBifloEpJKsV.txt", "FOKFkXcTgHRklUzswNAUAFSlGCBGxVeRAIrUpaqYlwrqjbShazUAZsVPngzSgdbmsRTtISPrBhDpHS"}
+      {"CEkenV/QHrQufXDkEredglfGo.cfg", "ZgpzkfoBowwwAIMfOiaxbrbtPAeHlUpyFhLcXpKJiVqwGWFaRVSOHQjIOagabaNAfd"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -18104,24 +19899,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"JwWJfQVrg/sXFhozrclUCYJDaSbu.bin", "EIjisuUYDN"},
-      {"MavCLenFZBBKYRTvFzsheW.dat", "QQzNvZoNNBEVMFSZSfVFjPlEpOCBhmo"},
-      {"VuEjopgXVpBsJHybVfuVuVYVfwybJ/VQDEMZUhHRA.dat", "swxLgvRlFdCYFFozTDYexnpddzYJzgqrAylhHIlBCmHisoDh"},
-      {"cLUUBEy/IfDgNZsuckHYLEFhExxaD/zpHLMlsoAEox.txt", "aCBoHtNwjOzCLzc"},
-      {"sRjWhjEiXRzYmDSvsljNKqmThoAq/dTO.txt", "EVHsazCPSqRZmopOSHsCShWKumSEjjQegyuhFCOJJDaDvsxlmifRTDyntLIoNQkO"}
+      {"AasSmxrKJTPEKoLLITjh/TZd.md", "HxhzHDjAGNYRSXdzFtPFWlZPTBiGkklIzVXuCligbtbPPjDzL"}
     },
       {},
       {
-      {"JwWJfQVrg/sXFhozrclUCYJDaSbu.bin", "EIjisuUYDN"},
-      {"MavCLenFZBBKYRTvFzsheW.dat", "QQzNvZoNNBEVMFSZSfVFjPlEpOCBhmo"},
-      {"VuEjopgXVpBsJHybVfuVuVYVfwybJ/VQDEMZUhHRA.dat", "swxLgvRlFdCYFFozTDYexnpddzYJzgqrAylhHIlBCmHisoDh"},
-      {"cLUUBEy/IfDgNZsuckHYLEFhExxaD/zpHLMlsoAEox.txt", "aCBoHtNwjOzCLzc"},
-      {"sRjWhjEiXRzYmDSvsljNKqmThoAq/dTO.txt", "EVHsazCPSqRZmopOSHsCShWKumSEjjQegyuhFCOJJDaDvsxlmifRTDyntLIoNQkO"}
+      {"AasSmxrKJTPEKoLLITjh/TZd.md", "HxhzHDjAGNYRSXdzFtPFWlZPTBiGkklIzVXuCligbtbPPjDzL"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(421u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18133,24 +19921,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      1u,
       {
-      {"DuzN/HCssywBFFKt.md", "iNKylaRV"},
-      {"EWrUb.md", "hivUPMSPdVjSGxhfdYTINDX"},
-      {"FlkaIOimJCEnzXNdvvKsMVsIFtdgNHRRH/VLrGEGnGzsnqwvMlZKFcYwR/g.cfg", "LanbtSxPSNsXtKjjdOmiDhRLLvXOXQssqIcXIitUbUIDBYWlDWMDutajGyVzyEX"},
-      {"HmaEEGvtGVOAYhgBjy/NYuwhoN.cfg", "PRRqIxPloi"},
-      {"RxCuvYfdiJEqQ/gPdDCX/GyQxOSRlpiWEfjAZDSSHflBaGCYFfcs.dat", "nqSfBTnQillSggoaCSrgszFJvVszepvdO"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"DuzN/HCssywBFFKt.md", "iNKylaRV"},
-      {"EWrUb.md", "hivUPMSPdVjSGxhfdYTINDX"},
-      {"FlkaIOimJCEnzXNdvvKsMVsIFtdgNHRRH/VLrGEGnGzsnqwvMlZKFcYwR/g.cfg", "LanbtSxPSNsXtKjjdOmiDhRLLvXOXQssqIcXIitUbUIDBYWlDWMDutajGyVzyEX"},
-      {"HmaEEGvtGVOAYhgBjy/NYuwhoN.cfg", "PRRqIxPloi"},
-      {"RxCuvYfdiJEqQ/gPdDCX/GyQxOSRlpiWEfjAZDSSHflBaGCYFfcs.dat", "nqSfBTnQillSggoaCSrgszFJvVszepvdO"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(392u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18162,18 +19945,21 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      2u,
+      {},
+      4u,
       {
-      {"UTQ.dat", "ifjSoiyBINMZqVmEGBJIhzmeYsNIxvNyMqhsHsrJuzfuZOt"},
-      {"lKfQvpQkZHpJQBfJlecRqE/TjKVSDARzBfEyBCumSLT/bQGbRSUudzelXxexkTbZllEZvd.txt", "rsgmIkyYonRYVbnVCYDuMDsWSDlXjUBYLkjsaqRcTNIRqp"}
+      {"GBVbxpHcbPgZDimcpuM/tgRrgvbitNHEstaNWlIGELdGlmw.txt", "utldDLbutEhW"},
+      {"ZZTLEXlXsKx.cfg", "YdKlzAFgWqpftasZCvp"},
+      {"mBWKU/urVRIaea/odbsFQXniOTAjPagpNLgDeuyNJInFPNyS.md", "fdJwBwcJodVAtCQOqy"}
     },
       {},
       {
-      {"UTQ.dat", "ifjSoiyBINMZqVmEGBJIhzmeYsNIxvNyMqhsHsrJuzfuZOt"},
-      {"lKfQvpQkZHpJQBfJlecRqE/TjKVSDARzBfEyBCumSLT/bQGbRSUudzelXxexkTbZllEZvd.txt", "rsgmIkyYonRYVbnVCYDuMDsWSDlXjUBYLkjsaqRcTNIRqp"}
+      {"GBVbxpHcbPgZDimcpuM/tgRrgvbitNHEstaNWlIGELdGlmw.txt", "utldDLbutEhW"},
+      {"ZZTLEXlXsKx.cfg", "YdKlzAFgWqpftasZCvp"},
+      {"mBWKU/urVRIaea/odbsFQXniOTAjPagpNLgDeuyNJInFPNyS.md", "fdJwBwcJodVAtCQOqy"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(134u),
+      static_cast<std::size_t>(265u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18185,32 +19971,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      1u,
       {
-      {"DWyVDiiudKpvmGLNwdUjkSLOrn/vYmFMv.txt", "eBzFppfkRtCWeaGHqvNLgi"},
-      {"EIrfHYcZAKxYykwIKeRmhcBRuAPOAZ/Tfs.md", "ljmEiITEGJnUwYKmo"},
-      {"FuXAxkQJFXiEAWhdaSU/NDMmOqKnwHaLSPhoySxaDgJBxDvRdtL.txt", "jHpnmCjUSjABRHVofLOcZvalwQSkkjtxKtuBcNFwrgLWxxyeIvQodDjpycaGaOXzHaJLz"},
-      {"GkcBJfFxenWWjlJhEJPUjt/PObGN.txt", "NRvjQM"},
-      {"KDJOEwdeZepXTAgUGNfBR/gO/ewyCEEeFvTqW.cfg", "XIOVOBzGBIxfcwDygPPBMGTSkGwjLZoEEmwDNfNiOlNmK"},
-      {"OCbdfmvipkINK.txt", "MO"},
-      {"Qxv/tSRUhiiWLPqjdySEPMCAKBVhNYmXJU/CYhjFpahi.txt", "jolkjlSYsmbWdhnbRVYxdJxAbBKRKKvRfqwCrn"},
-      {"SjzaiT/LZmVEDLjwxdrKTUxFKixRqtQWJMmx/y.txt", "EiQYlhAFSoXvHogAmZRpAMSyMbYiBPazrCUQCNFfeZDmXjGokQiIhsccHkcWblHdhItIvFsF"},
-      {"XVKArwUSHHEaMtOQz.bin", "sfvgUaFQoYDHabbSodPdRAWJvxVRFlebuqTsFhJHNzqKVAbkuIRBrkAtVFnkrYgHrBeETSAuwIbmmB"}
+      {"AYlpVevinLQkYpBZg/JGPHVR/vHMFvO.txt", "tYIxCpXFemS"}
     },
       {},
       {
-      {"DWyVDiiudKpvmGLNwdUjkSLOrn/vYmFMv.txt", "eBzFppfkRtCWeaGHqvNLgi"},
-      {"EIrfHYcZAKxYykwIKeRmhcBRuAPOAZ/Tfs.md", "ljmEiITEGJnUwYKmo"},
-      {"FuXAxkQJFXiEAWhdaSU/NDMmOqKnwHaLSPhoySxaDgJBxDvRdtL.txt", "jHpnmCjUSjABRHVofLOcZvalwQSkkjtxKtuBcNFwrgLWxxyeIvQodDjpycaGaOXzHaJLz"},
-      {"GkcBJfFxenWWjlJhEJPUjt/PObGN.txt", "NRvjQM"},
-      {"KDJOEwdeZepXTAgUGNfBR/gO/ewyCEEeFvTqW.cfg", "XIOVOBzGBIxfcwDygPPBMGTSkGwjLZoEEmwDNfNiOlNmK"},
-      {"OCbdfmvipkINK.txt", "MO"},
-      {"Qxv/tSRUhiiWLPqjdySEPMCAKBVhNYmXJU/CYhjFpahi.txt", "jolkjlSYsmbWdhnbRVYxdJxAbBKRKKvRfqwCrn"},
-      {"SjzaiT/LZmVEDLjwxdrKTUxFKixRqtQWJMmx/y.txt", "EiQYlhAFSoXvHogAmZRpAMSyMbYiBPazrCUQCNFfeZDmXjGokQiIhsccHkcWblHdhItIvFsF"},
-      {"XVKArwUSHHEaMtOQz.bin", "sfvgUaFQoYDHabbSodPdRAWJvxVRFlebuqTsFhJHNzqKVAbkuIRBrkAtVFnkrYgHrBeETSAuwIbmmB"}
+      {"AYlpVevinLQkYpBZg/JGPHVR/vHMFvO.txt", "tYIxCpXFemS"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(908u),
+      static_cast<std::size_t>(56u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18222,18 +19993,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"OCps.bin", "GtljBvtDgRUIpcdRNVVaib"},
-      {"kOrPoDlfWqeQ/TnTDIBMdHqpBvGGtb.cfg", "UAgHlZjxYOsYYHQgrfThxIpOJcwASXochDGNImuuvRJUksAFGYnQCroHwxokpmIefWpfEAroh"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"OCps.bin", "GtljBvtDgRUIpcdRNVVaib"},
-      {"kOrPoDlfWqeQ/TnTDIBMdHqpBvGGtb.cfg", "UAgHlZjxYOsYYHQgrfThxIpOJcwASXochDGNImuuvRJUksAFGYnQCroHwxokpmIefWpfEAroh"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(94u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18245,30 +20017,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      4u,
+      {},
+      2u,
       {
-      {"AitudVblvqDpBAnnuwbwzpbpsVz.dat", "bMlktcNgbfGowOhjrOxDoXLitBWDBhzLpYwewqyqrlRPNrNjDgveKuMxBd"},
-      {"CpvSJrYovmbzEyEVhYlLBWzfoaJz.txt", "qGHqppSK"},
-      {"FBJWBDtAWhkTMQQXSKahcePqjuonPpNEc/DdPtlXUNMJceqQ.md", "NBuygbHjPsxFEfszABulcEGDDSiCLUxLYvTt"},
-      {"GMraxBtzENeyGjg.txt", "WYQlmYQuA"},
-      {"NVLwqkNvxedl.dat", "cXJhQMtvOgCpOalAXWPyPUhzNDorBYBRsoSapOHgxkmZlszEfkh"},
-      {"NcCvkQwguPDsiChNVlEqjbvCfSy/gdmIROhJyqpzVcZctkSQyKemadVYqwCi/yWFqffWhvzPVaCGZrWAK.bin", "TGhetCZMUBdjJsQkYMDBAagidQrsSKBZSnOfoZXvLKpTATtDAfMJAmmXFyBIf"},
-      {"SaYFKlbCOPEhdTALbjEUuoo/wifyNySbaWrZkCseKwJfAoyoFWVGFEcwLX/pmJpjzddyr.dat", "NbwCwyCzGFbUHwBzOtXphYkqYMSNyQcuDXbsDhZnSpaIZEF"},
-      {"SidDXyKAmngObVzMxippzNkA.cfg", "dwVJkOKXizAc"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"AitudVblvqDpBAnnuwbwzpbpsVz.dat", "bMlktcNgbfGowOhjrOxDoXLitBWDBhzLpYwewqyqrlRPNrNjDgveKuMxBd"},
-      {"CpvSJrYovmbzEyEVhYlLBWzfoaJz.txt", "qGHqppSK"},
-      {"FBJWBDtAWhkTMQQXSKahcePqjuonPpNEc/DdPtlXUNMJceqQ.md", "NBuygbHjPsxFEfszABulcEGDDSiCLUxLYvTt"},
-      {"GMraxBtzENeyGjg.txt", "WYQlmYQuA"},
-      {"NVLwqkNvxedl.dat", "cXJhQMtvOgCpOalAXWPyPUhzNDorBYBRsoSapOHgxkmZlszEfkh"},
-      {"NcCvkQwguPDsiChNVlEqjbvCfSy/gdmIROhJyqpzVcZctkSQyKemadVYqwCi/yWFqffWhvzPVaCGZrWAK.bin", "TGhetCZMUBdjJsQkYMDBAagidQrsSKBZSnOfoZXvLKpTATtDAfMJAmmXFyBIf"},
-      {"SaYFKlbCOPEhdTALbjEUuoo/wifyNySbaWrZkCseKwJfAoyoFWVGFEcwLX/pmJpjzddyr.dat", "NbwCwyCzGFbUHwBzOtXphYkqYMSNyQcuDXbsDhZnSpaIZEF"},
-      {"SidDXyKAmngObVzMxippzNkA.cfg", "dwVJkOKXizAc"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(897u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18280,18 +20041,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       1u,
       {
-      {"EzZoxYraFj.cfg", "tpAmyRGZglmmGzuriozjfLwLjFefXLbuxdLkOkkCEpVQAi"},
-      {"MlKDGzLAYknPPmLzkdXS.txt", "MxHtaxrMXgKbCfq"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       {},
       {
-      {"EzZoxYraFj.cfg", "tpAmyRGZglmmGzuriozjfLwLjFefXLbuxdLkOkkCEpVQAi"},
-      {"MlKDGzLAYknPPmLzkdXS.txt", "MxHtaxrMXgKbCfq"}
+      {"a.txt", "a"},
+      {"b.txt", "b"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(140u),
+      static_cast<std::size_t>(70u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18303,26 +20065,19 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      3u,
+      {},
+      4u,
       {
-      {"AVqqzWCjustTeEOOsaWLPYwHTCQ/nBuUrNKxZvcXpUoD/RGMLMbNrPmwrWvpSDdSagdWKz.bin", "NlIvFMyYVISZCYJKKpJyRZWIGLYUPlXewFIBoKCqB"},
-      {"FffUhBWgLShr/rihILBYpqqRlwokwzLiufBL.dat", "IpZPfdFuWjHEXVo"},
-      {"KGtZsKnjUiEAblcD.txt", "FJDaHagicK"},
-      {"LrgwXZMzIibTVcgZMtR/NaInuhFyJdrGMnf.txt", "LzxhDqvMwRzepbrynvsacqJzMmxXBrAZhcfhMvGvJjoCRatUU"},
-      {"MJOGpArMTgMaFvlsOJobE.dat", "MKiopPnRJOViOKwwanDPaMAVBANstyHfrLIJtFOKCsQhBKHHqGGGuzHClHOf"},
-      {"OnQKouZBdayGPdnfkBAIpiEksdxC/cheaXBdzhoeUyejRrvwuqIcaFTRVwua/BY.dat", "TeDBxodYTCWPykdsvkBettm"}
+      {"ACmb/WimcIvNXwhTqYECaRfre/sMYAixJnPBTZRKNFdc.bin", "rKMhZFucKlHkzWOhjVYtIEcHGPzzthiajWigLSckSBoxSNRpcRclEzRJcrLKnYtXLS"},
+      {"IozfB.dat", "AKcYHcEqgpcpAFXkbycIyQDQpCCeBVPQXcacsLjXhsCmzBccmIODPybOmVefCFszXKwo"}
     },
       {},
       {
-      {"AVqqzWCjustTeEOOsaWLPYwHTCQ/nBuUrNKxZvcXpUoD/RGMLMbNrPmwrWvpSDdSagdWKz.bin", "NlIvFMyYVISZCYJKKpJyRZWIGLYUPlXewFIBoKCqB"},
-      {"FffUhBWgLShr/rihILBYpqqRlwokwzLiufBL.dat", "IpZPfdFuWjHEXVo"},
-      {"KGtZsKnjUiEAblcD.txt", "FJDaHagicK"},
-      {"LrgwXZMzIibTVcgZMtR/NaInuhFyJdrGMnf.txt", "LzxhDqvMwRzepbrynvsacqJzMmxXBrAZhcfhMvGvJjoCRatUU"},
-      {"MJOGpArMTgMaFvlsOJobE.dat", "MKiopPnRJOViOKwwanDPaMAVBANstyHfrLIJtFOKCsQhBKHHqGGGuzHClHOf"},
-      {"OnQKouZBdayGPdnfkBAIpiEksdxC/cheaXBdzhoeUyejRrvwuqIcaFTRVwua/BY.dat", "TeDBxodYTCWPykdsvkBettm"}
+      {"ACmb/WimcIvNXwhTqYECaRfre/sMYAixJnPBTZRKNFdc.bin", "rKMhZFucKlHkzWOhjVYtIEcHGPzzthiajWigLSckSBoxSNRpcRclEzRJcrLKnYtXLS"},
+      {"IozfB.dat", "AKcYHcEqgpcpAFXkbycIyQDQpCCeBVPQXcacsLjXhsCmzBccmIODPybOmVefCFszXKwo"}
     },
       static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(597u),
+      static_cast<std::size_t>(290u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -18334,13 +20089,14 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
-      1u,
+      {},
+      2u,
       {
-      {"LozWXEUJSEimVwyELKaxXcgWtysILAY/oSMOKEHCZZWAUTXrR/XoIVGHUXolQUZfcfkM.bin", "aCnlmkGWQTNMLeGtyNxEAWwyS"}
+      {"BzTzvoJaOuWhsxuAKv/YTCsBtbiCKxyaNKhoFFnRzDKHo/JNXXypiCT.md", "uacqA"}
     },
       {},
       {
-      {"LozWXEUJSEimVwyELKaxXcgWtysILAY/oSMOKEHCZZWAUTXrR/XoIVGHUXolQUZfcfkM.bin", "aCnlmkGWQTNMLeGtyNxEAWwyS"}
+      {"BzTzvoJaOuWhsxuAKv/YTCsBtbiCKxyaNKhoFFnRzDKHo/JNXXypiCT.md", "uacqA"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
@@ -18355,1598 +20111,17 @@ const std::vector<GeneratedFenceCase> kCases = {
       "eof_oob",
       "UNP_EOF_001",
       "",
+      {},
       3u,
       {
-      {"HbDZrwHyWXMo/BrQrujsR/IptcVJGGpRhy.bin", "FPjbTDOhFOJQUbSuftPcUuNTLeatmCjh"},
-      {"StLRDLXJOokjOqALmDNVJn.dat", "SkgMoQnAViqEVNOvlmJbeyq"},
-      {"jtuQ/hrScypJgG/aIgAIGwkDbNHCqtWAnSKzUFchvsj.bin", "bioBxRfvwuG"}
+      {"HHhZyJGyZUequVojlqIZwfyLpE/xljtzNiymQrvKiUxwKdDIUfLCT/wg.md", "ClvVOmqsrEOVRpKCrB"}
     },
       {},
       {
-      {"HbDZrwHyWXMo/BrQrujsR/IptcVJGGpRhy.bin", "FPjbTDOhFOJQUbSuftPcUuNTLeatmCjh"},
-      {"StLRDLXJOokjOqALmDNVJn.dat", "SkgMoQnAViqEVNOvlmJbeyq"},
-      {"jtuQ/hrScypJgG/aIgAIGwkDbNHCqtWAnSKzUFchvsj.bin", "bioBxRfvwuG"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(223u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_200",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"ES.dat", "pRpqPeHPvlYNJPfyuXbdfrMzzwsNCnTPnRvLBzFCbQbQuerEfjYdPdYezEXGeTfNGRTCsgFQLOeW"},
-      {"VgULEfXEZoDCqF/eXUBBVllXEyDsthzsH/kAgcsotbM.md", "XsdHVNOflhJkGrKLUwKyNsANeWmbNTOBx"},
-      {"ZmsGpDRLybbLYkoMUeKztTvN/LpYpnywTiVwWdFwEyt/jcxfCOzGQIPWXycEGOhGxpwF.dat", "hsRUfoRTcudSjHlsbxOyabVQumEjQjEbjnnwmyYGHBwjGkKJgUf"},
-      {"bFCAZSjyfJBwhYJWjzqprqo/tPGpomjUQUPbBoSbDmtT/TrLEkhsxRNbyHSuGzHoUgTMIhyf.txt", "POlPPLzVfjpEUeKuzCFoLcaNwUJgCMAPFlAwuSZGedrbRUMWLxYFdDeHKnpoclOXCVtbeGPxAiu"},
-      {"fBYWDFEzIHAJAuslDfBuWLnkyKwozIf/XBidXFwxmVFqHMYRoedFFEx/HdKHhxxGwlVlExnvPXcFsIkcRKaHcQW.md", "qgmPHtFtHZccZvMerhUCsBWfdoQaQwrmoRlVAOSqHENPPaAiFFFLZjoKoRIWGvhOqXgWEScKWVvNgP"},
-      {"gJrqcxMbnJUsyRKcTCqrYeJZGj/DLrgSabegPZTIapqcKHKfJwUyooqhOc/lTsKLEHonRjwnd.dat", "nIlxoddtJSJYpELArZktxHoEVZSkA"}
-    },
-      {},
-      {
-      {"ES.dat", "pRpqPeHPvlYNJPfyuXbdfrMzzwsNCnTPnRvLBzFCbQbQuerEfjYdPdYezEXGeTfNGRTCsgFQLOeW"},
-      {"VgULEfXEZoDCqF/eXUBBVllXEyDsthzsH/kAgcsotbM.md", "XsdHVNOflhJkGrKLUwKyNsANeWmbNTOBx"},
-      {"ZmsGpDRLybbLYkoMUeKztTvN/LpYpnywTiVwWdFwEyt/jcxfCOzGQIPWXycEGOhGxpwF.dat", "hsRUfoRTcudSjHlsbxOyabVQumEjQjEbjnnwmyYGHBwjGkKJgUf"},
-      {"bFCAZSjyfJBwhYJWjzqprqo/tPGpomjUQUPbBoSbDmtT/TrLEkhsxRNbyHSuGzHoUgTMIhyf.txt", "POlPPLzVfjpEUeKuzCFoLcaNwUJgCMAPFlAwuSZGedrbRUMWLxYFdDeHKnpoclOXCVtbeGPxAiu"},
-      {"fBYWDFEzIHAJAuslDfBuWLnkyKwozIf/XBidXFwxmVFqHMYRoedFFEx/HdKHhxxGwlVlExnvPXcFsIkcRKaHcQW.md", "qgmPHtFtHZccZvMerhUCsBWfdoQaQwrmoRlVAOSqHENPPaAiFFFLZjoKoRIWGvhOqXgWEScKWVvNgP"},
-      {"gJrqcxMbnJUsyRKcTCqrYeJZGj/DLrgSabegPZTIapqcKHKfJwUyooqhOc/lTsKLEHonRjwnd.dat", "nIlxoddtJSJYpELArZktxHoEVZSkA"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(907u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_201",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"BTlMrhui/WcTlxhmsEWJavUHLNBdQBMxIsPOEuGG/HYmwNTRodhearGKjGVMSo.txt", "qzyqJEmcpqbEudYfRXTgDSDBoEeXsdqtwyGESuxWNiYvVRewGnIpDo"},
-      {"JGkdxcCzNVKq.txt", "QEzZUAIvdpldRWRXtuteDfNSfrmvWzouFFDct"},
-      {"SiafDEJA/RlhNQmUOMdGYJLwo.bin", "ELWBCmQKgCxsaeybSZdecFafzhwMJEFlkogsBQaeVYSlABKDtxdMfyZyZjupxUZuVmaszvzc"}
-    },
-      {},
-      {
-      {"BTlMrhui/WcTlxhmsEWJavUHLNBdQBMxIsPOEuGG/HYmwNTRodhearGKjGVMSo.txt", "qzyqJEmcpqbEudYfRXTgDSDBoEeXsdqtwyGESuxWNiYvVRewGnIpDo"},
-      {"JGkdxcCzNVKq.txt", "QEzZUAIvdpldRWRXtuteDfNSfrmvWzouFFDct"},
-      {"SiafDEJA/RlhNQmUOMdGYJLwo.bin", "ELWBCmQKgCxsaeybSZdecFafzhwMJEFlkogsBQaeVYSlABKDtxdMfyZyZjupxUZuVmaszvzc"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(293u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_202",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"BsiSuDRqoHCcTfXfJKEYbuR.md", "GfxUIRSLnufwOKCcLAziezfYgMRcHQHQWdCApfQwtrarZ"},
-      {"EYzcmsLHiCgncWoTGSEqSXFAWDvgPp/Mk/SveYgFyPE.bin", "vYpmUnaYCHSONGHplxgByignrvutsptGrtmOqKADe"},
-      {"I/pQBHmWNJQDQAlgvYvDqmxmhp.txt", "vmCpmNEpiTxfoYCdLIEZrXGFstkTWPnmlDbGupMySTbgBPiqnogLohFKv"}
-    },
-      {},
-      {
-      {"BsiSuDRqoHCcTfXfJKEYbuR.md", "GfxUIRSLnufwOKCcLAziezfYgMRcHQHQWdCApfQwtrarZ"},
-      {"EYzcmsLHiCgncWoTGSEqSXFAWDvgPp/Mk/SveYgFyPE.bin", "vYpmUnaYCHSONGHplxgByignrvutsptGrtmOqKADe"},
-      {"I/pQBHmWNJQDQAlgvYvDqmxmhp.txt", "vmCpmNEpiTxfoYCdLIEZrXGFstkTWPnmlDbGupMySTbgBPiqnogLohFKv"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(279u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_203",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"BOAZxDogtKVCqDXWpdzJySSFG.cfg", "Y"},
-      {"COuiUCVZIdPLzhTqtNURPh/xAXxoSJelRDLeEQjPDhymrTHfNTWbbIH/Q.bin", "GmnAYfHcaVEbHzntCehHNFuhLmgjjvCKTtUQhOZWMelnIsaTdRnKRbTamkpZzmoDCSKu"},
-      {"EnQuZjZqYgLZMG.dat", "pFkcwhuLuDXVGLXMuzYHjrzsWunIQRyfoApqrcrNIpGKcKeyIo"},
-      {"HA/ciMHsZyymhXtkx.txt", "YGbIlBfwdElXdKSGboHcNIKyQwobQH"},
-      {"LSMyTdQTBoZQfwgkARzrK.bin", "CrpiwLnFTRkBFqSBZOWQpOzFZcEnJKMMytrkLWlhVqedfelvepNesSHEftWtSciMjjUyivbl"},
-      {"LqNEZXwEdtHksdRbqsJyJRWdMRiE/QImE.bin", "xXHvLsNSmyvuMLCqg"},
-      {"MUsssfcpFtkgKDTOxanRgnpvNGLxzaya/DYWqlX/EPiVEVOSmNBDLEiu.cfg", "bdbzTGjupoPxDSjEcsjTbpygRgvpShPFZkIbuPzLHHiVjFGUbxduJxUVdeCUCsMSVMxprVJnVSReA"},
-      {"OvtMHlvEVhPbhXVxuZCcPEhqKYaHEuB.txt", "dDXgcNfCxjKrZmVzw"}
-    },
-      {},
-      {
-      {"BOAZxDogtKVCqDXWpdzJySSFG.cfg", "Y"},
-      {"COuiUCVZIdPLzhTqtNURPh/xAXxoSJelRDLeEQjPDhymrTHfNTWbbIH/Q.bin", "GmnAYfHcaVEbHzntCehHNFuhLmgjjvCKTtUQhOZWMelnIsaTdRnKRbTamkpZzmoDCSKu"},
-      {"EnQuZjZqYgLZMG.dat", "pFkcwhuLuDXVGLXMuzYHjrzsWunIQRyfoApqrcrNIpGKcKeyIo"},
-      {"HA/ciMHsZyymhXtkx.txt", "YGbIlBfwdElXdKSGboHcNIKyQwobQH"},
-      {"LSMyTdQTBoZQfwgkARzrK.bin", "CrpiwLnFTRkBFqSBZOWQpOzFZcEnJKMMytrkLWlhVqedfelvepNesSHEftWtSciMjjUyivbl"},
-      {"LqNEZXwEdtHksdRbqsJyJRWdMRiE/QImE.bin", "xXHvLsNSmyvuMLCqg"},
-      {"MUsssfcpFtkgKDTOxanRgnpvNGLxzaya/DYWqlX/EPiVEVOSmNBDLEiu.cfg", "bdbzTGjupoPxDSjEcsjTbpygRgvpShPFZkIbuPzLHHiVjFGUbxduJxUVdeCUCsMSVMxprVJnVSReA"},
-      {"OvtMHlvEVhPbhXVxuZCcPEhqKYaHEuB.txt", "dDXgcNfCxjKrZmVzw"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(870u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_204",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"FpUkXd/gjvDfFWOrssLQ/pTPUYenGAf.txt", "pNHKzpZVQfDgLFyqFEfWf"}
-    },
-      {},
-      {
-      {"FpUkXd/gjvDfFWOrssLQ/pTPUYenGAf.txt", "pNHKzpZVQfDgLFyqFEfWf"}
+      {"HHhZyJGyZUequVojlqIZwfyLpE/xljtzNiymQrvKiUxwKdDIUfLCT/wg.md", "ClvVOmqsrEOVRpKCrB"}
     },
       static_cast<std::uint32_t>(0u),
       static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_205",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"GiKYiycfbkmURUbHyxyj.txt", "MxkdMDjKKJvqGGsvt"},
-      {"IpFnIjzzXRAJViLUEtywg.cfg", "biVkOhzfbCYhgYNWsBHsdYbKPuueOpRjkXJhJfUMTIYvJwj"},
-      {"KlfJxdN/NukYcKuPNryRlAlWQ.txt", "OSC"},
-      {"MXiwMrswivUPZkgPJbFzOhEZp/SHMjulrxlUFBMnlNNRXRtICp/sYgwOPTcUtTHiAGXEajwEDbbpKDLvDq.txt", "jyzRMjpZDcyIOBUyGUbZkJZNEXMnlKzjblavBdEKFihAvqniaYGGSWmZHzwvVkMZIFIXtkFd"},
-      {"RwlVGRpbyyJeDNLtqKUUmuMMMmJgxPxCd/nAgOavUrAnV/ILKCEKBpvcDSOoPNRcstO.md", "WhmRKKdPaOHIlJOrZynhGPTxSlrMAwyhjExWPZBlkkpkUIanZMLYRrbpVigoGWDVgLIUaTMN"},
-      {"WWUOIBEFvbnsSDPenOvsmAWHijLzKGhhS/EAFpfvHETfunxxHNxgM.cfg", "KgguT"},
-      {"ZKECbQabbYoiFeMzTuw/AfspBv.dat", "GKHE"},
-      {"ckCpFHLNRcoUtRqT.dat", "wkLjcWtLLHbWmJYcKAGEDOOztZOhYSEaYmdjHnR"},
-      {"dLooCgAxoau.cfg", "URKZJxQupoLmzAqAhfYmaOmwtHxqybP"}
-    },
-      {},
-      {
-      {"GiKYiycfbkmURUbHyxyj.txt", "MxkdMDjKKJvqGGsvt"},
-      {"IpFnIjzzXRAJViLUEtywg.cfg", "biVkOhzfbCYhgYNWsBHsdYbKPuueOpRjkXJhJfUMTIYvJwj"},
-      {"KlfJxdN/NukYcKuPNryRlAlWQ.txt", "OSC"},
-      {"MXiwMrswivUPZkgPJbFzOhEZp/SHMjulrxlUFBMnlNNRXRtICp/sYgwOPTcUtTHiAGXEajwEDbbpKDLvDq.txt", "jyzRMjpZDcyIOBUyGUbZkJZNEXMnlKzjblavBdEKFihAvqniaYGGSWmZHzwvVkMZIFIXtkFd"},
-      {"RwlVGRpbyyJeDNLtqKUUmuMMMmJgxPxCd/nAgOavUrAnV/ILKCEKBpvcDSOoPNRcstO.md", "WhmRKKdPaOHIlJOrZynhGPTxSlrMAwyhjExWPZBlkkpkUIanZMLYRrbpVigoGWDVgLIUaTMN"},
-      {"WWUOIBEFvbnsSDPenOvsmAWHijLzKGhhS/EAFpfvHETfunxxHNxgM.cfg", "KgguT"},
-      {"ZKECbQabbYoiFeMzTuw/AfspBv.dat", "GKHE"},
-      {"ckCpFHLNRcoUtRqT.dat", "wkLjcWtLLHbWmJYcKAGEDOOztZOhYSEaYmdjHnR"},
-      {"dLooCgAxoau.cfg", "URKZJxQupoLmzAqAhfYmaOmwtHxqybP"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(928u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_206",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"FBYjkSHGo.bin", "OEkuxopNviMuKmkvUGs"},
-      {"GQa/WdkvgCpoiV.md", "ezYchfZxJwKytpIIUelHxryCyOLtNupUVeUOJCUEHzxecVmVbRlYNsOmTpnQMC"},
-      {"HEy.txt", "KQFPwtoiYZtuTgYYowDRBRxYUIscDDpJcToStzqHWStgBZvJxuUaXVzGUpfZKVeRyPbOSaYaquMaBSrd"},
-      {"HbdLQmtTv/QzPDthvbdKfpUpAyjNyuZM.dat", "PqlAZIAeYiLTuYHoisHUKZjmnDXCcHOymXzmfQbUHglhUiDCbFTOEiHTKmgrRpYKOez"},
-      {"JoiDWe.md", "bSbgkDP"}
-    },
-      {},
-      {
-      {"FBYjkSHGo.bin", "OEkuxopNviMuKmkvUGs"},
-      {"GQa/WdkvgCpoiV.md", "ezYchfZxJwKytpIIUelHxryCyOLtNupUVeUOJCUEHzxecVmVbRlYNsOmTpnQMC"},
-      {"HEy.txt", "KQFPwtoiYZtuTgYYowDRBRxYUIscDDpJcToStzqHWStgBZvJxuUaXVzGUpfZKVeRyPbOSaYaquMaBSrd"},
-      {"HbdLQmtTv/QzPDthvbdKfpUpAyjNyuZM.dat", "PqlAZIAeYiLTuYHoisHUKZjmnDXCcHOymXzmfQbUHglhUiDCbFTOEiHTKmgrRpYKOez"},
-      {"JoiDWe.md", "bSbgkDP"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(485u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_207",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"MyeyuBpQbQuBxyLOjnhFoLj/GdpitCJCF.dat", "wPWaZwLSEDFvGIaDxwSMlIFfnwvCpnZ"},
-      {"NrwzeXrijbmPgWizQe/nUeUnOxsYfYEYanmvgBCob.md", "NnDGLIywpR"},
-      {"QwwaYsIV/hdXAulM.cfg", "qodVJmyhfKYqXHsGHGNTjFITiInSxCQAYrweDRlksooQrzIhdraFq"},
-      {"VGPCMRYkYmyjQTzWhsNYXBlP/pKjKnlsFtLXlmRvmqbKtBg/PbevuzpzNftwqd.txt", "FNXiigNyBstUPZGbpMnMvjZJdFBmTCsALChDdDPiDDuhnNOkmcrcavFbRYR"},
-      {"WruvTQVnVCMxhhqOMYvzJbKGgkrjB.md", "xQvTljknmPNAUkaZrVypLMMFJimYPNEFq"},
-      {"YIkMkCpZXlzlvWI/rsknoaUTDFDdlHyDmogcmHlT/YVcGFgvenjlQgsUXgqxALnfeNK.cfg", "bFWIauAOacWqMtDxbm"},
-      {"cgdtFyUWf.dat", "eDJiQvMxgBKoRMVpvCYANWqzdXmWA"}
-    },
-      {},
-      {
-      {"MyeyuBpQbQuBxyLOjnhFoLj/GdpitCJCF.dat", "wPWaZwLSEDFvGIaDxwSMlIFfnwvCpnZ"},
-      {"NrwzeXrijbmPgWizQe/nUeUnOxsYfYEYanmvgBCob.md", "NnDGLIywpR"},
-      {"QwwaYsIV/hdXAulM.cfg", "qodVJmyhfKYqXHsGHGNTjFITiInSxCQAYrweDRlksooQrzIhdraFq"},
-      {"VGPCMRYkYmyjQTzWhsNYXBlP/pKjKnlsFtLXlmRvmqbKtBg/PbevuzpzNftwqd.txt", "FNXiigNyBstUPZGbpMnMvjZJdFBmTCsALChDdDPiDDuhnNOkmcrcavFbRYR"},
-      {"WruvTQVnVCMxhhqOMYvzJbKGgkrjB.md", "xQvTljknmPNAUkaZrVypLMMFJimYPNEFq"},
-      {"YIkMkCpZXlzlvWI/rsknoaUTDFDdlHyDmogcmHlT/YVcGFgvenjlQgsUXgqxALnfeNK.cfg", "bFWIauAOacWqMtDxbm"},
-      {"cgdtFyUWf.dat", "eDJiQvMxgBKoRMVpvCYANWqzdXmWA"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(738u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_208",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"ADdeh.bin", "wGDKtWsPCvShXkXdjyzJtKsOsJWvcLibrMuucQamIhYTCYWoxcTXGpZZP"},
-      {"FrhpvorYRTcqyfRxnhHGKqzIfyo.md", "TkxPgukFrcqaAPyxnshghLoIOvJywLCTVj"},
-      {"JHrBpmfCnevqRksmohXVHo/v.md", "hCJpqfMqmpLyFYCzu"},
-      {"QoBu/VnPWoynZhQmHy.md", "Y"},
-      {"TjVQNYlkxcqAbRYbVa/WAVrlHcRAYCPQ.bin", "uVJqXxiFvAIpfwPPohVUHgytebgY"},
-      {"TlKobKqjljgUWQGiyOspxUoXr/moeOGSURNnytnBD/ar.md", "yOQaJavSlDjtdTOKIsYWk"}
-    },
-      {},
-      {
-      {"ADdeh.bin", "wGDKtWsPCvShXkXdjyzJtKsOsJWvcLibrMuucQamIhYTCYWoxcTXGpZZP"},
-      {"FrhpvorYRTcqyfRxnhHGKqzIfyo.md", "TkxPgukFrcqaAPyxnshghLoIOvJywLCTVj"},
-      {"JHrBpmfCnevqRksmohXVHo/v.md", "hCJpqfMqmpLyFYCzu"},
-      {"QoBu/VnPWoynZhQmHy.md", "Y"},
-      {"TjVQNYlkxcqAbRYbVa/WAVrlHcRAYCPQ.bin", "uVJqXxiFvAIpfwPPohVUHgytebgY"},
-      {"TlKobKqjljgUWQGiyOspxUoXr/moeOGSURNnytnBD/ar.md", "yOQaJavSlDjtdTOKIsYWk"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(452u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_209",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"AlokCns/vFGYqjHsoia.cfg", "bFXzkaHMkaVlZWwNWYgBwqGItXHrRVHRGbXbkZ"},
-      {"BbSGGpFPrKfPEnUSXJFafcNVaOFovF/ChxbPHOwUOBwczYjqsPZcc/HhyTzrRbkSGQZpQDDFToK.txt", "mXpTNMMYaGgCkeLHjpBmgI"},
-      {"FQZnCkdmZqXfFEQHq/oHb.dat", "fxAvCyChtoGGDiLXSBnEwzpqNBiVwzEnrKAqDalKEQlkFkcXFbrOebzFSVTbsO"},
-      {"HJtQsSygOHDLoA.dat", "bgMXfEeiTOyhuygjBLHJIMnMzlXwxLzKNqzvPWAAhWyNadVwiNddqtypUHoWIffdhlUSAkC"}
-    },
-      {},
-      {
-      {"AlokCns/vFGYqjHsoia.cfg", "bFXzkaHMkaVlZWwNWYgBwqGItXHrRVHRGbXbkZ"},
-      {"BbSGGpFPrKfPEnUSXJFafcNVaOFovF/ChxbPHOwUOBwczYjqsPZcc/HhyTzrRbkSGQZpQDDFToK.txt", "mXpTNMMYaGgCkeLHjpBmgI"},
-      {"FQZnCkdmZqXfFEQHq/oHb.dat", "fxAvCyChtoGGDiLXSBnEwzpqNBiVwzEnrKAqDalKEQlkFkcXFbrOebzFSVTbsO"},
-      {"HJtQsSygOHDLoA.dat", "bgMXfEeiTOyhuygjBLHJIMnMzlXwxLzKNqzvPWAAhWyNadVwiNddqtypUHoWIffdhlUSAkC"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(409u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_210",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"BghpsvafVstiAWVOmkLjzVvb.md", "ZDrsnDipjBhgitapTEBNnrMydFzxvmSVyXlrxriaAGqszHEimRvuFUGHRFqPtqZSYlb"},
-      {"ERitiqlJiRnjbwsqnKdGKacqpwCIGeA/DFhekSPYhpHHsUCwaCAoIIKMB/HfkGYsYjTUGLalZpYjZmTxrBjbuubcWx.cfg", "TQyAkbCCOKKvwhhwGHGbJxMZxJOsTCRbdqUmRfbhlPwdfoAEdTjugvpaxaacNxSOmYroo"},
-      {"HVNJgMIGrnlTAjaxkgeZmwhf/NXuzfLehNluhQmofLiLISdbLsVoFhWt/kAQWDlAyIjKXilD.cfg", "WfmxhTTOZXMHVonrJWQA"},
-      {"LyVe/ENiIhSOTBvOMNQl.cfg", "POQsRFFKTZRbmYiKitTJonUYBuzZlMSbnngrfTiMpUcoulrrUnxdNPbnhkrNmmFqVSSDdqn"},
-      {"MLDMJcKFoiUlIqxRPwMcyK/AELJSCkfHAgqPjkBfbXHvS/fGvKkAIQgxFKKqCk.bin", "aULNvkXxIduDYiiMsqwtnWgcfAmzjaZ"},
-      {"ddSLKoTHVpOAtFYOxgrYXsoTJxPkdD.md", "qPsIAXEevcgYslSoeClRhZLgcvjiobFPMbfuKwKYtvwkIDOyiLbSBewxQtfOQB"}
-    },
-      {},
-      {
-      {"BghpsvafVstiAWVOmkLjzVvb.md", "ZDrsnDipjBhgitapTEBNnrMydFzxvmSVyXlrxriaAGqszHEimRvuFUGHRFqPtqZSYlb"},
-      {"ERitiqlJiRnjbwsqnKdGKacqpwCIGeA/DFhekSPYhpHHsUCwaCAoIIKMB/HfkGYsYjTUGLalZpYjZmTxrBjbuubcWx.cfg", "TQyAkbCCOKKvwhhwGHGbJxMZxJOsTCRbdqUmRfbhlPwdfoAEdTjugvpaxaacNxSOmYroo"},
-      {"HVNJgMIGrnlTAjaxkgeZmwhf/NXuzfLehNluhQmofLiLISdbLsVoFhWt/kAQWDlAyIjKXilD.cfg", "WfmxhTTOZXMHVonrJWQA"},
-      {"LyVe/ENiIhSOTBvOMNQl.cfg", "POQsRFFKTZRbmYiKitTJonUYBuzZlMSbnngrfTiMpUcoulrrUnxdNPbnhkrNmmFqVSSDdqn"},
-      {"MLDMJcKFoiUlIqxRPwMcyK/AELJSCkfHAgqPjkBfbXHvS/fGvKkAIQgxFKKqCk.bin", "aULNvkXxIduDYiiMsqwtnWgcfAmzjaZ"},
-      {"ddSLKoTHVpOAtFYOxgrYXsoTJxPkdD.md", "qPsIAXEevcgYslSoeClRhZLgcvjiobFPMbfuKwKYtvwkIDOyiLbSBewxQtfOQB"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(833u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_211",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"CGjdDVwYStINlGhnWsEPPRNkCOvIPFtq/mot.dat", "mBotwYDsPVgdQbEocGUohGnGjqBTPfHJUtxNhIETCAaY"},
-      {"EqNYUgOlqeY.cfg", "NbWsoIkhpJeFBPYXJKgCHIYinfjwm"},
-      {"RUKP/IiygMHVBpwMaq.md", "AzlIrf"},
-      {"SRxRXKXBJVHbicTV/xeChC.txt", "xxYnxyOGcJnDmVPZGgEsYcNeDTyqHNEHJRTmHWQogtsZdpDWUHRCljavhHdohofVthO"},
-      {"SdfupJQ/NFxkdRYvaUACvxOMbhoURlqxNhonASnZ/JgbDtWNXpEnuzcKXxKlhSXBYk.cfg", "vAvHProOgMnUwXGpOnDPUtFAZNsnuNrkrDXp"},
-      {"ZaSjhk/KQxCbMAzVxqSHLzINnUrrHFiiZC/bcZuaxQmdOTYkiKvfERVUrIyZtPe.txt", "oavRZj"},
-      {"hfTDVTmIbjGrbEtMAsIqshMMSowIIGek/tjoFOLUDDyEBcNeqFyM.cfg", "pkWefHujvAyLxQPWiIvDLDRbMSRz"}
-    },
-      {},
-      {
-      {"CGjdDVwYStINlGhnWsEPPRNkCOvIPFtq/mot.dat", "mBotwYDsPVgdQbEocGUohGnGjqBTPfHJUtxNhIETCAaY"},
-      {"EqNYUgOlqeY.cfg", "NbWsoIkhpJeFBPYXJKgCHIYinfjwm"},
-      {"RUKP/IiygMHVBpwMaq.md", "AzlIrf"},
-      {"SRxRXKXBJVHbicTV/xeChC.txt", "xxYnxyOGcJnDmVPZGgEsYcNeDTyqHNEHJRTmHWQogtsZdpDWUHRCljavhHdohofVthO"},
-      {"SdfupJQ/NFxkdRYvaUACvxOMbhoURlqxNhonASnZ/JgbDtWNXpEnuzcKXxKlhSXBYk.cfg", "vAvHProOgMnUwXGpOnDPUtFAZNsnuNrkrDXp"},
-      {"ZaSjhk/KQxCbMAzVxqSHLzINnUrrHFiiZC/bcZuaxQmdOTYkiKvfERVUrIyZtPe.txt", "oavRZj"},
-      {"hfTDVTmIbjGrbEtMAsIqshMMSowIIGek/tjoFOLUDDyEBcNeqFyM.cfg", "pkWefHujvAyLxQPWiIvDLDRbMSRz"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(675u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_212",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"EsyyqplDoDvmqOZanQltwFvUlY/LuWpyhDiLN.md", "wtWTPLjVAuwK"},
-      {"IFJkiYDcOi.md", "pkmnOFxCCfwADnDFluqFEkRNNLAqHPaSvy"},
-      {"PTlJZCyquMAwLQgZC.cfg", "KNlgtoP"},
-      {"RcHOsIkImowyYEBdOgKLQeqquuxsiRMyHH/EMxeVTzZVRepsCtWw/gdtw.dat", "uebcUmTZanVfHPsMVFNVruEMVkgVZpbMTeFoBIyvcUsTYjTaXFxlKertlOplWtOibtShPzAQdne"},
-      {"RqBRlpsvypRBmmPFMYB.txt", "pzQQVDSUqUMvGTmIopuRoelgPPbrOYHezPcQWgqcWEXWR"},
-      {"UFdVqNtbBiylijKTaSNpNyKSBllRvl.md", "FBUNRiztYduqXeKYkNxcAxbXXLtgpdFjHfXB"},
-      {"YvmSlDPUaDyeKbasSPsUnhiJEZrebx.txt", "hVlrVZcYjkyuvvsfuAKBeCTOEmMAoFxgFkXZdVGyzplLbz"}
-    },
-      {},
-      {
-      {"EsyyqplDoDvmqOZanQltwFvUlY/LuWpyhDiLN.md", "wtWTPLjVAuwK"},
-      {"IFJkiYDcOi.md", "pkmnOFxCCfwADnDFluqFEkRNNLAqHPaSvy"},
-      {"PTlJZCyquMAwLQgZC.cfg", "KNlgtoP"},
-      {"RcHOsIkImowyYEBdOgKLQeqquuxsiRMyHH/EMxeVTzZVRepsCtWw/gdtw.dat", "uebcUmTZanVfHPsMVFNVruEMVkgVZpbMTeFoBIyvcUsTYjTaXFxlKertlOplWtOibtShPzAQdne"},
-      {"RqBRlpsvypRBmmPFMYB.txt", "pzQQVDSUqUMvGTmIopuRoelgPPbrOYHezPcQWgqcWEXWR"},
-      {"UFdVqNtbBiylijKTaSNpNyKSBllRvl.md", "FBUNRiztYduqXeKYkNxcAxbXXLtgpdFjHfXB"},
-      {"YvmSlDPUaDyeKbasSPsUnhiJEZrebx.txt", "hVlrVZcYjkyuvvsfuAKBeCTOEmMAoFxgFkXZdVGyzplLbz"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(648u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_213",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"AxjQwybQPKJruGVYHNVFImVGYqTF/TsSTnWkAFFINWbjcRbBEUG/hsFjNlTQMtaJtiKxXQqvTafo.cfg", "UFnqxQQpRREfEbSmBBFnLIKuMTmYlhwAjKyMBiw"},
-      {"DohWHESbmJzYYIqy.cfg", "YYOFLUYssVOdAKGNcykTZvIBQZCMDqZeZaXtIRIlrJuowF"},
-      {"JNSMnEpy.txt", "npFbbfzIHBSdaolckLiHTXkOoFZLAhxwLuJztaTOYxxnsnLonyuQ"},
-      {"RTpNwxRwCEMEwHCdnpT.md", "G"},
-      {"SNsxqBfMfcVemF.cfg", "pzzCskgnFLNJuMDOcNgE"}
-    },
-      {},
-      {
-      {"AxjQwybQPKJruGVYHNVFImVGYqTF/TsSTnWkAFFINWbjcRbBEUG/hsFjNlTQMtaJtiKxXQqvTafo.cfg", "UFnqxQQpRREfEbSmBBFnLIKuMTmYlhwAjKyMBiw"},
-      {"DohWHESbmJzYYIqy.cfg", "YYOFLUYssVOdAKGNcykTZvIBQZCMDqZeZaXtIRIlrJuowF"},
-      {"JNSMnEpy.txt", "npFbbfzIHBSdaolckLiHTXkOoFZLAhxwLuJztaTOYxxnsnLonyuQ"},
-      {"RTpNwxRwCEMEwHCdnpT.md", "G"},
-      {"SNsxqBfMfcVemF.cfg", "pzzCskgnFLNJuMDOcNgE"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(456u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_214",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      1u,
-      {
-      {"gWsjIOKtVDyWSvStROPjgDGATQJDPMKB.md", "uriLMTPTPKKKhEbGEkkABrblmAUGFbfLqDWnvkwQJ"}
-    },
-      {},
-      {
-      {"gWsjIOKtVDyWSvStROPjgDGATQJDPMKB.md", "uriLMTPTPKKKhEbGEkkABrblmAUGFbfLqDWnvkwQJ"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_215",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"LhUanTfZcXzjjOKj/uDihSKPCDwZMtk.cfg", "eqyIvWpTNwKedPafo"},
-      {"PFbgSlrkKd/jn/kOEVnSwPeuNx.bin", "fJYXmuVvlAHzEXXZOKhbyPvxwKtUCZHYValGbMiOutys"},
-      {"RXOfqjRLuxHbAoSCtVUuy/dgequfczKHciWVRiyOtUrHzOcjlYfmLuC/fngJrDl.dat", "oamJltohcVPbGPHwACGSfPGQgW"},
-      {"bEfXrredgN/oVTehSTIrOcRdtsKpk.md", "OwqPnLbFBxgJVLBWEqMGFbvVvFmysTcgIANhUGrVhbxBuyBymEpGTpzzB"}
-    },
-      {},
-      {
-      {"LhUanTfZcXzjjOKj/uDihSKPCDwZMtk.cfg", "eqyIvWpTNwKedPafo"},
-      {"PFbgSlrkKd/jn/kOEVnSwPeuNx.bin", "fJYXmuVvlAHzEXXZOKhbyPvxwKtUCZHYValGbMiOutys"},
-      {"RXOfqjRLuxHbAoSCtVUuy/dgequfczKHciWVRiyOtUrHzOcjlYfmLuC/fngJrDl.dat", "oamJltohcVPbGPHwACGSfPGQgW"},
-      {"bEfXrredgN/oVTehSTIrOcRdtsKpk.md", "OwqPnLbFBxgJVLBWEqMGFbvVvFmysTcgIANhUGrVhbxBuyBymEpGTpzzB"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(379u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_216",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"JGkQUmYcxiXgrqLsUHJsAhxZtled.cfg", "giMeNqAcrILKAhUiydHqwbDToHMVmHnTGvdKFVPngsHQAThdcVeSo"},
-      {"KqFguiUnTQeBHTDEBhrUOJqefohJSMrYcQX/pSDmCiykfWlblFIGnZHch/XDFFprIbspbKkiErnefNkSxtpM.dat", "LJOpoZEPQbJsCqhryJv"},
-      {"YUbUaaDdsrWWhFGiQcBbAkSTeGDWymHwp/hEvmkSFrtHHgip.md", "gJrktkRJnitQ"},
-      {"ePdRvEWRzDIEwvgIboHBLUGqeiSORJRk.dat", "QnHjPSfOubmgYVPrPrdQkEkvJrvwqeMROqzxWKiACJdnrflABAWSupJclQOOREFr"},
-      {"lER/iMyqqiNSIrlhKxKNyh.txt", "iEOUBCnrDiuMCsNWApqVSfCBJLCqYWNJMSjwJKFsDuvbvpSgjJGNyyoIGsWsjthJPmqHdr"},
-      {"nkiqmXMRJiSn.bin", "bbL"}
-    },
-      {},
-      {
-      {"JGkQUmYcxiXgrqLsUHJsAhxZtled.cfg", "giMeNqAcrILKAhUiydHqwbDToHMVmHnTGvdKFVPngsHQAThdcVeSo"},
-      {"KqFguiUnTQeBHTDEBhrUOJqefohJSMrYcQX/pSDmCiykfWlblFIGnZHch/XDFFprIbspbKkiErnefNkSxtpM.dat", "LJOpoZEPQbJsCqhryJv"},
-      {"YUbUaaDdsrWWhFGiQcBbAkSTeGDWymHwp/hEvmkSFrtHHgip.md", "gJrktkRJnitQ"},
-      {"ePdRvEWRzDIEwvgIboHBLUGqeiSORJRk.dat", "QnHjPSfOubmgYVPrPrdQkEkvJrvwqeMROqzxWKiACJdnrflABAWSupJclQOOREFr"},
-      {"lER/iMyqqiNSIrlhKxKNyh.txt", "iEOUBCnrDiuMCsNWApqVSfCBJLCqYWNJMSjwJKFsDuvbvpSgjJGNyyoIGsWsjthJPmqHdr"},
-      {"nkiqmXMRJiSn.bin", "bbL"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(707u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_217",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"XZXTrsFcIRhuSDHsxnkjaqBTXTOIClJ.bin", "zzDtodGJLTWNefrQkEdMFaz"},
-      {"bwRzXGaTHbOOsCjbVimFbhgroM/PBe.txt", "RkwHLmiquBldcUvlRcBhFbKpnMtqmEQXHneShgcuyywDCJQRNFLrvN"},
-      {"zARzkhBziabnukINdmLsPRBymTJKdTEYCV/MWsiECJrSanj/BNBJPKapZgZXp.cfg", "VCHBiULSHsFIDowu"}
-    },
-      {},
-      {
-      {"XZXTrsFcIRhuSDHsxnkjaqBTXTOIClJ.bin", "zzDtodGJLTWNefrQkEdMFaz"},
-      {"bwRzXGaTHbOOsCjbVimFbhgroM/PBe.txt", "RkwHLmiquBldcUvlRcBhFbKpnMtqmEQXHneShgcuyywDCJQRNFLrvN"},
-      {"zARzkhBziabnukINdmLsPRBymTJKdTEYCV/MWsiECJrSanj/BNBJPKapZgZXp.cfg", "VCHBiULSHsFIDowu"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(266u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_218",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"ASmshNyticBqMddBCySqNwDjak/NqsVKKgZlSFjxIaHGrw/bAR.dat", "saoSwCcH"}
-    },
-      {},
-      {
-      {"ASmshNyticBqMddBCySqNwDjak/NqsVKKgZlSFjxIaHGrw/bAR.dat", "saoSwCcH"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_219",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"ELUelyKmhhrZoStKQxAEKFLUaNBH/axAUUfGVDvmSwUMOYfliXDmGBIUTrVxf.dat", "CErVJraibm"},
-      {"FuIhqJhITSJtCLvriNIElEobMFW.dat", "PbaGNleqZwJIKmuqEGWgxIkQLXnMMzMnZqHyiguSxDejbLzXxJUgvkOBNcOEXoWLgQunutdpUwgi"},
-      {"HEaAmHEjHFCrDOVIctlIYxGVsltgkff/SLRPwMsdthkqgxLMVQkbC/Detx.dat", "mMFSqprdsvjuWfZcPmpypjBNSOBNrNafcWDMOiDsG"},
-      {"JqekdRBuv/tSmgpLELarUsqkV.bin", "SZWzVV"},
-      {"KLMjAvSetYhHreovXgYyQUSfbSEffX.txt", "aCBwEjwDSFBlVTRYZNen"},
-      {"LyDjEtPuGlhJnKLWuOegkHaNqxQHizcSCbkf/ihslyoPJVOoTyexGx/WGVQCaHTRH.dat", "PYgIPkTRzFgTCtzdUe"}
-    },
-      {},
-      {
-      {"ELUelyKmhhrZoStKQxAEKFLUaNBH/axAUUfGVDvmSwUMOYfliXDmGBIUTrVxf.dat", "CErVJraibm"},
-      {"FuIhqJhITSJtCLvriNIElEobMFW.dat", "PbaGNleqZwJIKmuqEGWgxIkQLXnMMzMnZqHyiguSxDejbLzXxJUgvkOBNcOEXoWLgQunutdpUwgi"},
-      {"HEaAmHEjHFCrDOVIctlIYxGVsltgkff/SLRPwMsdthkqgxLMVQkbC/Detx.dat", "mMFSqprdsvjuWfZcPmpypjBNSOBNrNafcWDMOiDsG"},
-      {"JqekdRBuv/tSmgpLELarUsqkV.bin", "SZWzVV"},
-      {"KLMjAvSetYhHreovXgYyQUSfbSEffX.txt", "aCBwEjwDSFBlVTRYZNen"},
-      {"LyDjEtPuGlhJnKLWuOegkHaNqxQHizcSCbkf/ihslyoPJVOoTyexGx/WGVQCaHTRH.dat", "PYgIPkTRzFgTCtzdUe"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(598u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_220",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"HsKgClpwijbcV/nTFKzYZWuEpOcQYJvlNVxLBMuPBE/mWmjkwQVzaUJuZlUIwf.md", "lCOvKlNfCjWPurqixScjVYQOchJivYOcllChFfGcj"},
-      {"RQiZjWYNuwm.bin", "SFekDikJXngFqPNd"},
-      {"ZmqsPoQPxut/gKeUrWiUbePbFCMVERuSHjyHnO/QCnHqBqJpSabjDWGedkx.bin", "RpwGNWyarZijkniejYgzDbCNVlkEhixMTTgPcwLOFIhwVjvTtgWKujBDdIjyMOgbZYbIWSDitc"},
-      {"aWJGVDYJQWTCkX.md", "TrFOlKTHxzELkCuUllIfxXexAFbgsBHJIXQrJSOpFmKuHZnRtQRprTQeAfMBZpSavcCCgcX"},
-      {"rV.dat", "GMOmuydeDdBUXBUKNaaAebCgWozZZ"}
-    },
-      {},
-      {
-      {"HsKgClpwijbcV/nTFKzYZWuEpOcQYJvlNVxLBMuPBE/mWmjkwQVzaUJuZlUIwf.md", "lCOvKlNfCjWPurqixScjVYQOchJivYOcllChFfGcj"},
-      {"RQiZjWYNuwm.bin", "SFekDikJXngFqPNd"},
-      {"ZmqsPoQPxut/gKeUrWiUbePbFCMVERuSHjyHnO/QCnHqBqJpSabjDWGedkx.bin", "RpwGNWyarZijkniejYgzDbCNVlkEhixMTTgPcwLOFIhwVjvTtgWKujBDdIjyMOgbZYbIWSDitc"},
-      {"aWJGVDYJQWTCkX.md", "TrFOlKTHxzELkCuUllIfxXexAFbgsBHJIXQrJSOpFmKuHZnRtQRprTQeAfMBZpSavcCCgcX"},
-      {"rV.dat", "GMOmuydeDdBUXBUKNaaAebCgWozZZ"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(578u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_221",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"AHvJRXayizJsw.txt", "kqhYrYMndeAzvtIqrHHeh"},
-      {"DnJlZYYPjtx/zZSIswwhHaLcfMQtmutHWsGSyEIIa.txt", "VBPLOjolmmwdwQiQNJxlcjWsEToAmOjkTdOcRvqLfTW"},
-      {"MfUXkzOIiy/adpasAwN.md", "EEoUhLoxQlteCEksNMWXgMIObGZvrgpNIYrEQxMzZRnlstfiTsVEhvEiuUhdtKk"},
-      {"TFWLFtmhQzygDGUgAwsmVpuFL/iqRVrwR/pAuJbclijZXQRIUwXB.md", "ZgvQxvmznTXKdzjJaSOshoFObLjCKhbrVecJsZAqvFNRYcRLPrmJsTM"}
-    },
-      {},
-      {
-      {"AHvJRXayizJsw.txt", "kqhYrYMndeAzvtIqrHHeh"},
-      {"DnJlZYYPjtx/zZSIswwhHaLcfMQtmutHWsGSyEIIa.txt", "VBPLOjolmmwdwQiQNJxlcjWsEToAmOjkTdOcRvqLfTW"},
-      {"MfUXkzOIiy/adpasAwN.md", "EEoUhLoxQlteCEksNMWXgMIObGZvrgpNIYrEQxMzZRnlstfiTsVEhvEiuUhdtKk"},
-      {"TFWLFtmhQzygDGUgAwsmVpuFL/iqRVrwR/pAuJbclijZXQRIUwXB.md", "ZgvQxvmznTXKdzjJaSOshoFObLjCKhbrVecJsZAqvFNRYcRLPrmJsTM"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(355u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_222",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      1u,
-      {
-      {"CCjoFdYIYx/qwwsVQoCeqiilqTqcWvZkSmTfQaBfyzTV/SBkiMZVvKqFLPXfXaF.dat", "iMYOAFlC"},
-      {"EBMLvxKcj.txt", "VyCSZuhijwUqNwtPljIXVhyQGTUyNBKxfoRIz"}
-    },
-      {},
-      {
-      {"CCjoFdYIYx/qwwsVQoCeqiilqTqcWvZkSmTfQaBfyzTV/SBkiMZVvKqFLPXfXaF.dat", "iMYOAFlC"},
-      {"EBMLvxKcj.txt", "VyCSZuhijwUqNwtPljIXVhyQGTUyNBKxfoRIz"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(155u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_223",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      1u,
-      {
-      {"DIdP.dat", "xIqSFuJZXJQLzUHfOj"}
-    },
-      {},
-      {
-      {"DIdP.dat", "xIqSFuJZXJQLzUHfOj"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_224",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      1u,
-      {
-      {"ATqGcfLVdogyFy/nywGWTXWfbzZyEL/Pl.bin", "RMLAeanJafueKFYNeYKDRaygh"},
-      {"OPgXzZMXMmCBtsNzhnSIuGTbjUAssXbh.txt", "uV"}
-    },
-      {},
-      {
-      {"ATqGcfLVdogyFy/nywGWTXWfbzZyEL/Pl.bin", "RMLAeanJafueKFYNeYKDRaygh"},
-      {"OPgXzZMXMmCBtsNzhnSIuGTbjUAssXbh.txt", "uV"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(142u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_225",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"EJKHqwafnYOjPOHG/mxNNLLJOXnDSUpyuhakDovLAPCzXyHg.txt", "qqcWcMvDPgEFWFoLWmzcNzWHUQRNOSckGbXtGvydUTbqaKyIHmyEdDgKQOlSRYfoQVnq"},
-      {"VrWeeDjZPEjlrRgUE.txt", "EaFniHsAkpUbOGiRIAlCCUhzVkXUoWobsODyRhXhqHoXnGjCDfCxQNZcoDetrkLbrJibsvZdOLubp"}
-    },
-      {},
-      {
-      {"EJKHqwafnYOjPOHG/mxNNLLJOXnDSUpyuhakDovLAPCzXyHg.txt", "qqcWcMvDPgEFWFoLWmzcNzWHUQRNOSckGbXtGvydUTbqaKyIHmyEdDgKQOlSRYfoQVnq"},
-      {"VrWeeDjZPEjlrRgUE.txt", "EaFniHsAkpUbOGiRIAlCCUhzVkXUoWobsODyRhXhqHoXnGjCDfCxQNZcoDetrkLbrJibsvZdOLubp"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(216u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_226",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"PjoeWEEbCsTlOkqwuDopsZMtxBzUrK/nZExJXUxEo.txt", "zgySZzQKZlQGLZfXlIccnQmJTlretodFEtZCFu"},
-      {"tIepEvH/YqRlCDZYtnlpQFrUzoXwybXVV.bin", "WPSFy"}
-    },
-      {},
-      {
-      {"PjoeWEEbCsTlOkqwuDopsZMtxBzUrK/nZExJXUxEo.txt", "zgySZzQKZlQGLZfXlIccnQmJTlretodFEtZCFu"},
-      {"tIepEvH/YqRlCDZYtnlpQFrUzoXwybXVV.bin", "WPSFy"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(163u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_227",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"DcANUAEulBWuiJfor/lUcyGmZNjIGdHrailZaSxpiuBhlXn/ZwaxGyRQayQrQ.dat", "NZzzgfqDPxOlrzEEgZejrhIWkbSCYV"},
-      {"MAPTxsvkLCETqEpt/BXrfAvMYUNyLCWBHdSQBVDZF/NEn.bin", "ShRNnNIybBBBKdZRpzlvJjjpttjYlKopFNvQifgTxRglgSDtfGSdCiEakRQMLvMp"},
-      {"TsusPjY.bin", "Rt"}
-    },
-      {},
-      {
-      {"DcANUAEulBWuiJfor/lUcyGmZNjIGdHrailZaSxpiuBhlXn/ZwaxGyRQayQrQ.dat", "NZzzgfqDPxOlrzEEgZejrhIWkbSCYV"},
-      {"MAPTxsvkLCETqEpt/BXrfAvMYUNyLCWBHdSQBVDZF/NEn.bin", "ShRNnNIybBBBKdZRpzlvJjjpttjYlKopFNvQifgTxRglgSDtfGSdCiEakRQMLvMp"},
-      {"TsusPjY.bin", "Rt"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(344u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_228",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"ATPbwCfuVQENDQUFYTAQbZY.txt", "mlwHEmsnkGElzqLzcdCUkYgvCLPfmQLOntIUzUENatZTElpWNjohTF"},
-      {"LwaCuFVSScwAJSSaPXosHUhZmQtICTkeUvSb/RIfEnhwRtFHSiGmvIq.bin", "qHPJVwwcVmmXjnGZuyjbALJ"},
-      {"OxgfH.dat", "YHdiRgRswwr"},
-      {"UJYIvKCtcmTTdqlJ/nY.md", "wYipIVXVqfwVSXhJAeNVdONmK"},
-      {"VMxCJgQEDjTKLoCBTjIORnXnfRde.cfg", "KRPnwgeibejLfseVbfRGJolfVmxXlAHsipdiRneJxSrSAxqanoiR"}
-    },
-      {},
-      {
-      {"ATPbwCfuVQENDQUFYTAQbZY.txt", "mlwHEmsnkGElzqLzcdCUkYgvCLPfmQLOntIUzUENatZTElpWNjohTF"},
-      {"LwaCuFVSScwAJSSaPXosHUhZmQtICTkeUvSb/RIfEnhwRtFHSiGmvIq.bin", "qHPJVwwcVmmXjnGZuyjbALJ"},
-      {"OxgfH.dat", "YHdiRgRswwr"},
-      {"UJYIvKCtcmTTdqlJ/nY.md", "wYipIVXVqfwVSXhJAeNVdONmK"},
-      {"VMxCJgQEDjTKLoCBTjIORnXnfRde.cfg", "KRPnwgeibejLfseVbfRGJolfVmxXlAHsipdiRneJxSrSAxqanoiR"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(398u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_229",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"FEKikoUoP.md", "JuisTBuRqVLIfRdNQJQywKLsrsopXO"},
-      {"OhnFKmwISKaQnRZso/MhwpuDeNeQZRMKTddYOkTRhjWMu.cfg", "RYZOUaNQkDyEEvAExdUWKBIcnDHloFcMvlqAsq"},
-      {"PelPWQZsKiuqmEFCoBkQnLnoCaIeYnrQXRb/hfvYykVtdzFpqWrJVsMqXZSdf.txt", "eucZtVWGJAQSneMCXKAEkJiHicULkTsJxqYMWazKgGwilHGbGwM"},
-      {"VnckqCphFNQQdAjcG.md", "RTzuQ"},
-      {"WKytMc/gwNPpmiCnersMsNXQjzhLcxOvtjuRtBl/VhnWlQiuRMaXkUJJmvQOA.md", "gMKhmqsSkqoRSBMuWccouwodncPeFjctpNtCGHjrKdksyXXCcbWaG"},
-      {"byfiYLVuopdGKaiknSWTYLkoQG/pPukdv.cfg", "vClDPnCXYCiXkJXBSIVwTUgIVEslVkehFtUPWnVhZrKfFKhjKHtwzrS"},
-      {"lbIATrEHLDZDNUAfQRIAh/suAqBTgNvNIiTjSCB.bin", "vaLxsMbGIZsUBuVIEYpkJozJwRpZYdKpRfQbRQqYBHIdUTxKnbzIPSeGVswuJ"},
-      {"rABDldIdgyVEKPSBcBejWyxvA/CMMpKwMZCcZZKfGdtAsHLCGtZWNX.txt", "WHZQyDHENzXxErnhrgg"}
-    },
-      {},
-      {
-      {"FEKikoUoP.md", "JuisTBuRqVLIfRdNQJQywKLsrsopXO"},
-      {"OhnFKmwISKaQnRZso/MhwpuDeNeQZRMKTddYOkTRhjWMu.cfg", "RYZOUaNQkDyEEvAExdUWKBIcnDHloFcMvlqAsq"},
-      {"PelPWQZsKiuqmEFCoBkQnLnoCaIeYnrQXRb/hfvYykVtdzFpqWrJVsMqXZSdf.txt", "eucZtVWGJAQSneMCXKAEkJiHicULkTsJxqYMWazKgGwilHGbGwM"},
-      {"VnckqCphFNQQdAjcG.md", "RTzuQ"},
-      {"WKytMc/gwNPpmiCnersMsNXQjzhLcxOvtjuRtBl/VhnWlQiuRMaXkUJJmvQOA.md", "gMKhmqsSkqoRSBMuWccouwodncPeFjctpNtCGHjrKdksyXXCcbWaG"},
-      {"byfiYLVuopdGKaiknSWTYLkoQG/pPukdv.cfg", "vClDPnCXYCiXkJXBSIVwTUgIVEslVkehFtUPWnVhZrKfFKhjKHtwzrS"},
-      {"lbIATrEHLDZDNUAfQRIAh/suAqBTgNvNIiTjSCB.bin", "vaLxsMbGIZsUBuVIEYpkJozJwRpZYdKpRfQbRQqYBHIdUTxKnbzIPSeGVswuJ"},
-      {"rABDldIdgyVEKPSBcBejWyxvA/CMMpKwMZCcZZKfGdtAsHLCGtZWNX.txt", "WHZQyDHENzXxErnhrgg"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(903u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_230",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"JXOeMN.cfg", "xQM"},
-      {"wgeFi/JcCN.bin", "sODiQujTpiVYRyduLBid"}
-    },
-      {},
-      {
-      {"JXOeMN.cfg", "xQM"},
-      {"wgeFi/JcCN.bin", "sODiQujTpiVYRyduLBid"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(77u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_231",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"uNWbObQKgpje/paPdKgLggaR/bbrKaKRBQLKVJpXMgyoMhxNHpl.md", "efTtQJksyBelgaiO"}
-    },
-      {},
-      {
-      {"uNWbObQKgpje/paPdKgLggaR/bbrKaKRBQLKVJpXMgyoMhxNHpl.md", "efTtQJksyBelgaiO"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_232",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"IBZsFZPUB/QlErQP.bin", "sowVjebyzNKfghDQVvrwTFBJqwjOcWFPzsIPHWEPCfJxOZWnd"},
-      {"OneHcYGLeJTWmCpHKIPtLyu/BRbabKOjhnfzUvsCuXZSkpL/AwIReovohdUvqnWmKQkxvc.bin", "LXBWLpxRcuCZpwHcTaAJdhwJYqUeUabdfzDSEAou"},
-      {"aEoWnSxKvtkKstSSbIWrezwHukndggRu/HacaAFOFQsRltie.txt", "kibtOKmOqFAQqXpbnHNHMTcemFgFvJrVHJdiVkRETLTSuIggjQIiHsWLrHyqqq"},
-      {"dxhxWTtGyfstftXbtVrCsMUzURiIuk/uuiYOyM.md", "GRgIFvqReXfbXeXWLDiJpaIGnkIIHLjwbXvGJTfwiIUBdzRRi"},
-      {"fpmzcNklcVndcd/bivFbfcYyPH/BQ.txt", "zfFdChDzJPDEuzurfODupLzzlIuWKdaEuWbFuYGdNQrhxdypJhogLb"},
-      {"hGntNUBWPWJmNyKhI/cfI.bin", "tiqfyqJ"}
-    },
-      {},
-      {
-      {"IBZsFZPUB/QlErQP.bin", "sowVjebyzNKfghDQVvrwTFBJqwjOcWFPzsIPHWEPCfJxOZWnd"},
-      {"OneHcYGLeJTWmCpHKIPtLyu/BRbabKOjhnfzUvsCuXZSkpL/AwIReovohdUvqnWmKQkxvc.bin", "LXBWLpxRcuCZpwHcTaAJdhwJYqUeUabdfzDSEAou"},
-      {"aEoWnSxKvtkKstSSbIWrezwHukndggRu/HacaAFOFQsRltie.txt", "kibtOKmOqFAQqXpbnHNHMTcemFgFvJrVHJdiVkRETLTSuIggjQIiHsWLrHyqqq"},
-      {"dxhxWTtGyfstftXbtVrCsMUzURiIuk/uuiYOyM.md", "GRgIFvqReXfbXeXWLDiJpaIGnkIIHLjwbXvGJTfwiIUBdzRRi"},
-      {"fpmzcNklcVndcd/bivFbfcYyPH/BQ.txt", "zfFdChDzJPDEuzurfODupLzzlIuWKdaEuWbFuYGdNQrhxdypJhogLb"},
-      {"hGntNUBWPWJmNyKhI/cfI.bin", "tiqfyqJ"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(730u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_233",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"UhtqqSVrx/yADZWCPbhHyeui/YXUfFPMy.txt", "XmHpmMxlSfOqqbCMF"}
-    },
-      {},
-      {
-      {"UhtqqSVrx/yADZWCPbhHyeui/YXUfFPMy.txt", "XmHpmMxlSfOqqbCMF"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_234",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"DRsCAkClWVCxElcQvQ/mIOUjRbhJkfDMSgvpXChUocXbjtJU/fMikvubNzSj.bin", "dtlbZIbTKpCOdNZIqpIAuJNCVyluTddLoJHoXBKtBdWsYjvNYKbRv"},
-      {"JKWUDj.md", "vngnEm"},
-      {"LlQe/EMtQgM.dat", "bTMdJPxKHEXzBVRzuGXALWtQXCqhfgXCQJEFpqsRzkuXKbdBdizQaZCoitJXmM"},
-      {"MVngoNnrLWteiTxDCsCmCJROoAIlgUqLWMv/MBMIoQooEdqYwpqlOpNTSUsfeJpSRC.bin", "ZLkZXLLwoPoUFPCMNXdsZZNFE"},
-      {"QXykcjzxAAFwjPXXKdwkr/efSOMpPQBmGkNPQDbCLAFoLeHj/NnPkmsEECYcLxnOKnSGtg.cfg", "NgCBhmqvwrqOZlpgREUoxHEgpNeQRJvvuqkzLG"},
-      {"VbseXsnl/pPQeCmjl.txt", "evLLdtpKZenxlaiPaNsiQiylAHMIeWcXvyBBneHQBVgIOGvJLFauFNZEPWBIDdKYFNGyjewIUNFi"}
-    },
-      {},
-      {
-      {"DRsCAkClWVCxElcQvQ/mIOUjRbhJkfDMSgvpXChUocXbjtJU/fMikvubNzSj.bin", "dtlbZIbTKpCOdNZIqpIAuJNCVyluTddLoJHoXBKtBdWsYjvNYKbRv"},
-      {"JKWUDj.md", "vngnEm"},
-      {"LlQe/EMtQgM.dat", "bTMdJPxKHEXzBVRzuGXALWtQXCqhfgXCQJEFpqsRzkuXKbdBdizQaZCoitJXmM"},
-      {"MVngoNnrLWteiTxDCsCmCJROoAIlgUqLWMv/MBMIoQooEdqYwpqlOpNTSUsfeJpSRC.bin", "ZLkZXLLwoPoUFPCMNXdsZZNFE"},
-      {"QXykcjzxAAFwjPXXKdwkr/efSOMpPQBmGkNPQDbCLAFoLeHj/NnPkmsEECYcLxnOKnSGtg.cfg", "NgCBhmqvwrqOZlpgREUoxHEgpNeQRJvvuqkzLG"},
-      {"VbseXsnl/pPQeCmjl.txt", "evLLdtpKZenxlaiPaNsiQiylAHMIeWcXvyBBneHQBVgIOGvJLFauFNZEPWBIDdKYFNGyjewIUNFi"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(656u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_235",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"BEtcSDN.md", "SOyMjmOpVkS"},
-      {"CB/bjCCDFVxnan/gD.dat", "cJiOLopfiRAOoFHfFbzMbvJIxLpIBVfGAgwTcjgwPpgoeaGpgphDFBEukjeDcTMVAcWU"},
-      {"CKNPWWRqdJkEwlMbkkOj/xvkZEYOCCbwAApFKsHkUQSQobROdq.bin", "YeaOyToBdOmXIwgjtNYiPprvzIjMpBRvuPSbpXHQonNuJyyERdXcx"},
-      {"FZtFFGuQoEbObfRW/BocHbzuaWzPVszZtvIKrgc/ozkFbrZzJbN.dat", "cvzLfflVz"},
-      {"PGKAkuDIucNzHsCLqLRSCbmqh/fuDdcpWhDCo.txt", "dXEyTygJXAeCbsBjuHzlfbaoUNQvzimooWpJKrmvjGLceHSuslFWMlQZSCuseolw"},
-      {"ysBTuK/XCtIVFzYWQYZZMZmNHhb/MlQVKigWzZGZJwkGOlBtxyUmY.bin", "RwbNJFgIWQlLqhdKiaX"}
-    },
-      {},
-      {
-      {"BEtcSDN.md", "SOyMjmOpVkS"},
-      {"CB/bjCCDFVxnan/gD.dat", "cJiOLopfiRAOoFHfFbzMbvJIxLpIBVfGAgwTcjgwPpgoeaGpgphDFBEukjeDcTMVAcWU"},
-      {"CKNPWWRqdJkEwlMbkkOj/xvkZEYOCCbwAApFKsHkUQSQobROdq.bin", "YeaOyToBdOmXIwgjtNYiPprvzIjMpBRvuPSbpXHQonNuJyyERdXcx"},
-      {"FZtFFGuQoEbObfRW/BocHbzuaWzPVszZtvIKrgc/ozkFbrZzJbN.dat", "cvzLfflVz"},
-      {"PGKAkuDIucNzHsCLqLRSCbmqh/fuDdcpWhDCo.txt", "dXEyTygJXAeCbsBjuHzlfbaoUNQvzimooWpJKrmvjGLceHSuslFWMlQZSCuseolw"},
-      {"ysBTuK/XCtIVFzYWQYZZMZmNHhb/MlQVKigWzZGZJwkGOlBtxyUmY.bin", "RwbNJFgIWQlLqhdKiaX"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(610u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_236",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"lXtjvoXJCrXVbwoexJK.bin", "HfctIHbONFYQWCJBtzKKQSXqnSFnBKZGvONATgzLTXpIsocoGDquMUtyMNEhQsBkQkwDkOTjYmd"}
-    },
-      {},
-      {
-      {"lXtjvoXJCrXVbwoexJK.bin", "HfctIHbONFYQWCJBtzKKQSXqnSFnBKZGvONATgzLTXpIsocoGDquMUtyMNEhQsBkQkwDkOTjYmd"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_237",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"GOFDXZMAoglHPh.bin", "XilICm"},
-      {"HMIHWYmxUmzPjUOLfXBbCnHXQFnPVdiMkE/O.md", "TwOoHudAjMPqNNKNYHaZFLWmEKBWgHTqTmiTPwIKuKlYTCDEOxAbmB"},
-      {"KUgywfkOnlKENjjshWMgHHBJnUVXerx/hLtFIhruHTyLWiSthqgtlEOcNQuizfq.dat", "nicNziBIotoxgaAITtxlonHhlHWXeRycfKCeGbbXRDlosvne"},
-      {"MDeL.bin", "RThFAltsIjpRulfAzTvbYwcvbyZSZFDlhHuwXUIIFghInDthnOSTDJhaeaP"}
-    },
-      {},
-      {
-      {"GOFDXZMAoglHPh.bin", "XilICm"},
-      {"HMIHWYmxUmzPjUOLfXBbCnHXQFnPVdiMkE/O.md", "TwOoHudAjMPqNNKNYHaZFLWmEKBWgHTqTmiTPwIKuKlYTCDEOxAbmB"},
-      {"KUgywfkOnlKENjjshWMgHHBJnUVXerx/hLtFIhruHTyLWiSthqgtlEOcNQuizfq.dat", "nicNziBIotoxgaAITtxlonHhlHWXeRycfKCeGbbXRDlosvne"},
-      {"MDeL.bin", "RThFAltsIjpRulfAzTvbYwcvbyZSZFDlhHuwXUIIFghInDthnOSTDJhaeaP"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(392u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_238",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"AglaRSxeeLvpqizFVNXzhlTu/W/pmvtMRH.txt", "BApQozHWqIe"},
-      {"KuKHTZQjkwsrwNnRCYrFFjHLesWsl/lLOJeqbxPbTvYruTnRE/sXNOiUi.dat", "axEKJuZRG"},
-      {"LIKsEePjzpZFdvENiSLZrXGfCfrDd.dat", "WcvpQjXjEY"},
-      {"MhyTZEG/xkY/S.cfg", "dZOPPcwJGClHYsmvVsUBTOblHSmkyaSdQnYyNJO"},
-      {"MxLluOuweUjWtJCmnPksu.md", "TnOTXusTSVIjZPDLLPKnNfPgcLBRhIVxIvXznDGuSCBNiuWOkzrOBNVL"},
-      {"NljmRUqjWpfbvHqoNyvPQIzAZdluBIis.md", "aULwsfl"},
-      {"OMjxFjaZyHFtdRTjVX.md", "gBWYTIfgxmgGFSNMayLRkHCHXYcmBkBJDjHXzijo"},
-      {"UDiUfQk/yqAdvEL/QPXSiPdNfHvfUNtNcErmaq.txt", "LmrTGAEfDWaQRsmfYohebfxcQIbktsnqcGVBxPslLLvxkmKAKDBezQdhx"}
-    },
-      {},
-      {
-      {"AglaRSxeeLvpqizFVNXzhlTu/W/pmvtMRH.txt", "BApQozHWqIe"},
-      {"KuKHTZQjkwsrwNnRCYrFFjHLesWsl/lLOJeqbxPbTvYruTnRE/sXNOiUi.dat", "axEKJuZRG"},
-      {"LIKsEePjzpZFdvENiSLZrXGfCfrDd.dat", "WcvpQjXjEY"},
-      {"MhyTZEG/xkY/S.cfg", "dZOPPcwJGClHYsmvVsUBTOblHSmkyaSdQnYyNJO"},
-      {"MxLluOuweUjWtJCmnPksu.md", "TnOTXusTSVIjZPDLLPKnNfPgcLBRhIVxIvXznDGuSCBNiuWOkzrOBNVL"},
-      {"NljmRUqjWpfbvHqoNyvPQIzAZdluBIis.md", "aULwsfl"},
-      {"OMjxFjaZyHFtdRTjVX.md", "gBWYTIfgxmgGFSNMayLRkHCHXYcmBkBJDjHXzijo"},
-      {"UDiUfQk/yqAdvEL/QPXSiPdNfHvfUNtNcErmaq.txt", "LmrTGAEfDWaQRsmfYohebfxcQIbktsnqcGVBxPslLLvxkmKAKDBezQdhx"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(657u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_239",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      1u,
-      {
-      {"ThsMMaJQaCZDadICEvKkpYjoZuaVjnfq/DLlivFuprAbGjzGsZHcxmIyWgXvfpHetqGp/iGVjhQBCbRMIT.md", "afErIIigsksDOpTJ"}
-    },
-      {},
-      {
-      {"ThsMMaJQaCZDadICEvKkpYjoZuaVjnfq/DLlivFuprAbGjzGsZHcxmIyWgXvfpHetqGp/iGVjhQBCbRMIT.md", "afErIIigsksDOpTJ"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_240",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"ApxEVbVQ.cfg", "woKarPgCmqp"},
-      {"BjFVIcSKgIzdmSjPRNENvezeP/aRfMAQlybKvsQJvVVJHDnEnJoxBLu/SvKRbIDbPXiORJDoQocOaUfYGJw.dat", "kLGdUByqtLDrQyeknSReccVlcgWCtBWFtxyQIrDphMmZLtJN"},
-      {"MIIdeUDWymXJSvPyczsq.cfg", "qGXhRQqDAsPMeZGechpUghUDgLtZSRWwQUupbm"},
-      {"QXJVzFpUUElxYSUwcRkCzjTnqFiaVdcui/Y.dat", "XaftsqZhvNZAfveRA"}
-    },
-      {},
-      {
-      {"ApxEVbVQ.cfg", "woKarPgCmqp"},
-      {"BjFVIcSKgIzdmSjPRNENvezeP/aRfMAQlybKvsQJvVVJHDnEnJoxBLu/SvKRbIDbPXiORJDoQocOaUfYGJw.dat", "kLGdUByqtLDrQyeknSReccVlcgWCtBWFtxyQIrDphMmZLtJN"},
-      {"MIIdeUDWymXJSvPyczsq.cfg", "qGXhRQqDAsPMeZGechpUghUDgLtZSRWwQUupbm"},
-      {"QXJVzFpUUElxYSUwcRkCzjTnqFiaVdcui/Y.dat", "XaftsqZhvNZAfveRA"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(380u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_241",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"DihaGKpRANNekUjIgH/B/wjqxHcHqzBlTqkjVLnFBuOvFQhvoNjj.cfg", "YvIrQpKXGednpquJOLFifTEQxCziFlaVsVjxgGnxyVDCbxLBFWxVMHXjUboWgKJ"},
-      {"FEVHxfQLG/AueLRjfEMaMDjgBeNTxYsyKSdNF.bin", "TOwEfFflvknntEHjLwTWThjqrsPTagLPGsmiSAjQDQhYYfywqFuOzezQLdGYWCSaZCaanvUykBaY"},
-      {"FHQgKrdmoNOHAgzlUpWqKnNGeqsyqYTZRVS/AUZjeLbliFHHZxsVKOvOcMD/SvoaVehxmxw.bin", "tLrCPxFOgOvXMUErr"},
-      {"ItwxBFZ/sumwfQXlXWjFtQmtevJ/zrpPqumuPsCsB.dat", "zLiGfEyJQwGZpMKGIckxbSwDFalqZqjIdCDojbCbEEHfjpyoLRNSMCtobLNvRB"}
-    },
-      {},
-      {
-      {"DihaGKpRANNekUjIgH/B/wjqxHcHqzBlTqkjVLnFBuOvFQhvoNjj.cfg", "YvIrQpKXGednpquJOLFifTEQxCziFlaVsVjxgGnxyVDCbxLBFWxVMHXjUboWgKJ"},
-      {"FEVHxfQLG/AueLRjfEMaMDjgBeNTxYsyKSdNF.bin", "TOwEfFflvknntEHjLwTWThjqrsPTagLPGsmiSAjQDQhYYfywqFuOzezQLdGYWCSaZCaanvUykBaY"},
-      {"FHQgKrdmoNOHAgzlUpWqKnNGeqsyqYTZRVS/AUZjeLbliFHHZxsVKOvOcMD/SvoaVehxmxw.bin", "tLrCPxFOgOvXMUErr"},
-      {"ItwxBFZ/sumwfQXlXWjFtQmtevJ/zrpPqumuPsCsB.dat", "zLiGfEyJQwGZpMKGIckxbSwDFalqZqjIdCDojbCbEEHfjpyoLRNSMCtobLNvRB"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(520u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_242",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"AhFcpvGawlgu.txt", "XQyXcxTBNGxsjZxNFHhKzlM"},
-      {"CXeInBbIYLHbebr.bin", "KlqBuJajvyRazMiRYbqBNmGbPdrN"},
-      {"JKed/GBjHJavumLbeaJlAdbWiTHLXjuAuPHbFWQc/fBiFSAtETNKvgBVhrsWAHGJr.bin", "MoMzUrKLPXlPDIJJrvCBIBiTidEELLAiPXSIQoJaXTgqYL"},
-      {"RlsslwdthkLpQgskGw/ZAGbCwowFLmrhm.cfg", "dTHdoynJDyiUetRskXPLkcfGnpFpOvciwIHwzrtGidhVWVMW"},
-      {"SLanBHQkFzDjDwGMTJLGUXBBGNhUH/GiPOLthOIoNEbYmmZbtFuIrVVww/muHIYlADUwSebUbp.dat", "fhQTjksCZlQrCBqgRyXIymTbMykLbmsjIkuSqDiVxUdfwicQfv"},
-      {"SuKrQeEITrtKLqvt.bin", "kyCuQjsFQLnrTZNVtNHoeqGJBIRVyOkrnfnzXL"}
-    },
-      {},
-      {
-      {"AhFcpvGawlgu.txt", "XQyXcxTBNGxsjZxNFHhKzlM"},
-      {"CXeInBbIYLHbebr.bin", "KlqBuJajvyRazMiRYbqBNmGbPdrN"},
-      {"JKed/GBjHJavumLbeaJlAdbWiTHLXjuAuPHbFWQc/fBiFSAtETNKvgBVhrsWAHGJr.bin", "MoMzUrKLPXlPDIJJrvCBIBiTidEELLAiPXSIQoJaXTgqYL"},
-      {"RlsslwdthkLpQgskGw/ZAGbCwowFLmrhm.cfg", "dTHdoynJDyiUetRskXPLkcfGnpFpOvciwIHwzrtGidhVWVMW"},
-      {"SLanBHQkFzDjDwGMTJLGUXBBGNhUH/GiPOLthOIoNEbYmmZbtFuIrVVww/muHIYlADUwSebUbp.dat", "fhQTjksCZlQrCBqgRyXIymTbMykLbmsjIkuSqDiVxUdfwicQfv"},
-      {"SuKrQeEITrtKLqvt.bin", "kyCuQjsFQLnrTZNVtNHoeqGJBIRVyOkrnfnzXL"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(654u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_243",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"BNPngbJjTLEwQMetNy/i.cfg", "obxMDvAnrUjgmqempnHDXZlhJSORZWJuqtlkCUBKcGUHuyKwlvtQAxuwKOJvTWDmRykrHLKnsFGkR"},
-      {"CarVZQMPQEHOqsPcqFrmNqEaQ/RrNYFfhsmG.dat", "veGiGGTQgrFUltgusJsOxhVfFqSJNjOVYrWdeXwhJsOSJKFZHcJgEHwmvpgu"},
-      {"EEuwGGEYCqnFoeBWad.txt", "NfPApMBQkooGoqhcctRlEMekDtatSOetCbAQPrXtwBQHdzbCTFYXBUgufeaxIMLjiuXsHqeXoreWrgL"},
-      {"GmWbXtP/I.dat", "b"},
-      {"MYigLFEHfKo/UoGZBCvPujisfi.txt", "wxwOFyvskd"},
-      {"Os/khANGWpxTDPsdyi.bin", "QSJmPtfV"},
-      {"VeRMPUHVGehNPWn.md", "HtOnxGcELliKZxygvpQAHhDBLCZFExvRSzZPqxqlfdcdezXlWYALKKF"},
-      {"XGcFnHi.cfg", "YVSRxmyDDiB"}
-    },
-      {},
-      {
-      {"BNPngbJjTLEwQMetNy/i.cfg", "obxMDvAnrUjgmqempnHDXZlhJSORZWJuqtlkCUBKcGUHuyKwlvtQAxuwKOJvTWDmRykrHLKnsFGkR"},
-      {"CarVZQMPQEHOqsPcqFrmNqEaQ/RrNYFfhsmG.dat", "veGiGGTQgrFUltgusJsOxhVfFqSJNjOVYrWdeXwhJsOSJKFZHcJgEHwmvpgu"},
-      {"EEuwGGEYCqnFoeBWad.txt", "NfPApMBQkooGoqhcctRlEMekDtatSOetCbAQPrXtwBQHdzbCTFYXBUgufeaxIMLjiuXsHqeXoreWrgL"},
-      {"GmWbXtP/I.dat", "b"},
-      {"MYigLFEHfKo/UoGZBCvPujisfi.txt", "wxwOFyvskd"},
-      {"Os/khANGWpxTDPsdyi.bin", "QSJmPtfV"},
-      {"VeRMPUHVGehNPWn.md", "HtOnxGcELliKZxygvpQAHhDBLCZFExvRSzZPqxqlfdcdezXlWYALKKF"},
-      {"XGcFnHi.cfg", "YVSRxmyDDiB"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(731u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_244",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"BzncQuHRMdxbjB/tQBrOwdLgeEbbSTshvpKBzmJGcoFMu.dat", "AToCvoZf"},
-      {"FnDoUayslvoXzbEvrHcEARuyMdRug.bin", "QjPlYMnxqsuLrLfCwSomTAfQ"},
-      {"PLFTuofKEgGUNnWOlwnJgJsUdveqrsV/xNKHViIUpzR/ciuNnoaSLBUpGP.md", "EojVeYUbytdpLpoAVB"},
-      {"QXFYjqhrKdoYCJbMgCCP/IurIBcjTPkMGrgFShfpftLGdBGjqiek.bin", "DCiknchFvuauaOL"},
-      {"VZOjkZ/fXnmZLotVpgjrujkqEUxwg.txt", "zpnYfZwlIxlYiODyOjfbhsXkYHwgBFwNkFswyPxDarSMDTSCWsdaPoGAQCJaUpgNX"},
-      {"WgFoaGSDLaxWKsrvFBJgzfKyOWdNy.md", "lkMUEbCzWzpwjfDOaFdnEBDAonYOxzQaiH"},
-      {"XHOKRFGSLHNFfawMCkCyTWyu/HCzBgbEsIlGsykYssx.cfg", "rasZPKdrCduuWINJwNVLbXxhOPCdEAgQnnY"},
-      {"bWLsQzmzkLm/vQ/bD.md", "FOwjKxqoRMYXUpKJlSIbMQMKBfIIzfGtEclsMRoxLTkEPNuznRyWAMPyslsztJp"}
-    },
-      {},
-      {
-      {"BzncQuHRMdxbjB/tQBrOwdLgeEbbSTshvpKBzmJGcoFMu.dat", "AToCvoZf"},
-      {"FnDoUayslvoXzbEvrHcEARuyMdRug.bin", "QjPlYMnxqsuLrLfCwSomTAfQ"},
-      {"PLFTuofKEgGUNnWOlwnJgJsUdveqrsV/xNKHViIUpzR/ciuNnoaSLBUpGP.md", "EojVeYUbytdpLpoAVB"},
-      {"QXFYjqhrKdoYCJbMgCCP/IurIBcjTPkMGrgFShfpftLGdBGjqiek.bin", "DCiknchFvuauaOL"},
-      {"VZOjkZ/fXnmZLotVpgjrujkqEUxwg.txt", "zpnYfZwlIxlYiODyOjfbhsXkYHwgBFwNkFswyPxDarSMDTSCWsdaPoGAQCJaUpgNX"},
-      {"WgFoaGSDLaxWKsrvFBJgzfKyOWdNy.md", "lkMUEbCzWzpwjfDOaFdnEBDAonYOxzQaiH"},
-      {"XHOKRFGSLHNFfawMCkCyTWyu/HCzBgbEsIlGsykYssx.cfg", "rasZPKdrCduuWINJwNVLbXxhOPCdEAgQnnY"},
-      {"bWLsQzmzkLm/vQ/bD.md", "FOwjKxqoRMYXUpKJlSIbMQMKBfIIzfGtEclsMRoxLTkEPNuznRyWAMPyslsztJp"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(798u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_245",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"AQEarrhfdaSaiNjncKguqLpoGU/bsjU/qUozRJcqnuolHqNIsvOKFK.md", "szvIVVSrMfIsoEWbtdwpXNWXDqBPeVgTyjMRBIVtXyaYsPWCSmZKVfYRKssjYYa"},
-      {"DOgAxHifbokEkaDtzmdWiGotcLfZTWUsA/cbRKakLorNmiMMsJqMzpnmFtNsFVy/QGDzUfSUorfjXCrCStULMnvy.md", "IfLrocFPpGPuSPKMPpOM"},
-      {"FTYDLSQUEYILYJ/LUoDPEYiUnZMxFlpmZuOUCLBoiLhNxVB.md", "qsjqgdIpLlzkGehXzgpjMKIBlhkmhhXSRiOldIC"},
-      {"FWflViMkTByGVCveIMo.bin", "zxTrEVp"},
-      {"HMMJMRnSaCJCIsU.dat", "VzTGDFoQiEgKiibWaEOssJxEsbEHKczmKKyGKzXLGGIREdnDHzYOneOvdntbPO"},
-      {"HWigaPkzCIJvSVrfH/mjarpIILgWknBtnVoORTaSXJcJNf.dat", "dFwZBrNMaMdUrZrsATP"}
-    },
-      {},
-      {
-      {"AQEarrhfdaSaiNjncKguqLpoGU/bsjU/qUozRJcqnuolHqNIsvOKFK.md", "szvIVVSrMfIsoEWbtdwpXNWXDqBPeVgTyjMRBIVtXyaYsPWCSmZKVfYRKssjYYa"},
-      {"DOgAxHifbokEkaDtzmdWiGotcLfZTWUsA/cbRKakLorNmiMMsJqMzpnmFtNsFVy/QGDzUfSUorfjXCrCStULMnvy.md", "IfLrocFPpGPuSPKMPpOM"},
-      {"FTYDLSQUEYILYJ/LUoDPEYiUnZMxFlpmZuOUCLBoiLhNxVB.md", "qsjqgdIpLlzkGehXzgpjMKIBlhkmhhXSRiOldIC"},
-      {"FWflViMkTByGVCveIMo.bin", "zxTrEVp"},
-      {"HMMJMRnSaCJCIsU.dat", "VzTGDFoQiEgKiibWaEOssJxEsbEHKczmKKyGKzXLGGIREdnDHzYOneOvdntbPO"},
-      {"HWigaPkzCIJvSVrfH/mjarpIILgWknBtnVoORTaSXJcJNf.dat", "dFwZBrNMaMdUrZrsATP"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(671u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_246",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"GDryWQzGYMDdKqursvyjeIREwaPI/wlciDBVjwHlPpzbge/gepPCXMksfaIprvhcXLOSBvzSoyzAI.bin", "QgjbyvGBLLDuhMfdbgbJASf"},
-      {"bAV.bin", "ArEgXsxpmNjeFKAsXbuxVAfPLDKNBemBdXTUKwRORqiqRFFnmpnQeKfmFO"},
-      {"vKouECUJXMFLrhslUfeip/fXWYbiVHagPzcBULRkTlJnbEEsfa/blrXHwaXBNolbq.txt", "LFIcVvAyfnQpQMftfRiTrRUuVPnlQiICGRTgwHdtHoClsTAc"}
-    },
-      {},
-      {
-      {"GDryWQzGYMDdKqursvyjeIREwaPI/wlciDBVjwHlPpzbge/gepPCXMksfaIprvhcXLOSBvzSoyzAI.bin", "QgjbyvGBLLDuhMfdbgbJASf"},
-      {"bAV.bin", "ArEgXsxpmNjeFKAsXbuxVAfPLDKNBemBdXTUKwRORqiqRFFnmpnQeKfmFO"},
-      {"vKouECUJXMFLrhslUfeip/fXWYbiVHagPzcBULRkTlJnbEEsfa/blrXHwaXBNolbq.txt", "LFIcVvAyfnQpQMftfRiTrRUuVPnlQiICGRTgwHdtHoClsTAc"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(289u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_247",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"LMfrTELAjhY/wObZhi/HGApRlZCnoAkPFMZLI.txt", "GbRxehiZBatmdKiEZCiWTYWXlqaorWApsGWGjFoXZPO"},
-      {"NVADHrXpegYYJNNZQrJUHf.md", "XFtkBNihUuwvpnkVhJiU"},
-      {"PymfNwJTKkklRrHTmfb.dat", "LfdtLfPzJMYUErXZRSZaVQbVhGbgirNVwAEuUnKRQW"},
-      {"RHUwBxNAGtwSEvU/FIl/eBftroeXwycKEXRKSaFZgeqCwvRblLk.cfg", "ZRCTtlUIWVZClJJCxdqnZBlMJ"}
-    },
-      {},
-      {
-      {"LMfrTELAjhY/wObZhi/HGApRlZCnoAkPFMZLI.txt", "GbRxehiZBatmdKiEZCiWTYWXlqaorWApsGWGjFoXZPO"},
-      {"NVADHrXpegYYJNNZQrJUHf.md", "XFtkBNihUuwvpnkVhJiU"},
-      {"PymfNwJTKkklRrHTmfb.dat", "LfdtLfPzJMYUErXZRSZaVQbVhGbgirNVwAEuUnKRQW"},
-      {"RHUwBxNAGtwSEvU/FIl/eBftroeXwycKEXRKSaFZgeqCwvRblLk.cfg", "ZRCTtlUIWVZClJJCxdqnZBlMJ"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(338u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_248",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"DcBWWwbAl.dat", "zcuYaDrhunJMVhFuQiOBthCuLeQTOEoY"},
-      {"NlXggNTQFnRNvAiPQTpQtFNBVlY/kmvemUOQKlxvVpBWGrCkhTtuAnaDowBGbxV/rLbnNTYQFGHKYKvrC.bin", "gv"},
-      {"UYyEKMoxEpEL.bin", "gHaDDCbrZhhUbquVeqmTMULKhtAYWneJNsS"},
-      {"VVJUpzUlJcaWhAZJR/AbqvijpgCUJePepxFshXmyeaKqGrerrSaSTs/pVcMn.cfg", "SjdMZlikVMjYn"},
-      {"dLMMvvfqhQo.txt", "OZjWUEhMdmdWaXIyHcVTHGdmlIGDcUQSguHibnpdPrOSMUARcGltuIHsFtRHtjtGKAgTTS"},
-      {"erRY/z.cfg", "nsxlKziyoPGUvCgNpQaRlUmnzXdAvnExHEnKwyVWYJMmUvAomYlKDSmftSNqhP"},
-      {"mIzLvFiHS/oOnb.cfg", "bCPVzzsyxcYoEECWjEbNtLnwsWLsdBAPVeZyJrsepJBWhN"},
-      {"mkIJQiSwysmbqGFXLWjnczBglLzWeXWsa.md", "cQMsFIYVwHEasTQnNNsCqzkUiKHKhpzWMIUuolaBxIjJeZZPynrYinsqQvdB"},
-      {"panHtQB.txt", "oAuKbvXmpDtIHUzyoKbWZbquuIhXcJkzjGNhlxmefLZRwJzyjGvbwNghFgQVddECTF"}
-    },
-      {},
-      {
-      {"DcBWWwbAl.dat", "zcuYaDrhunJMVhFuQiOBthCuLeQTOEoY"},
-      {"NlXggNTQFnRNvAiPQTpQtFNBVlY/kmvemUOQKlxvVpBWGrCkhTtuAnaDowBGbxV/rLbnNTYQFGHKYKvrC.bin", "gv"},
-      {"UYyEKMoxEpEL.bin", "gHaDDCbrZhhUbquVeqmTMULKhtAYWneJNsS"},
-      {"VVJUpzUlJcaWhAZJR/AbqvijpgCUJePepxFshXmyeaKqGrerrSaSTs/pVcMn.cfg", "SjdMZlikVMjYn"},
-      {"dLMMvvfqhQo.txt", "OZjWUEhMdmdWaXIyHcVTHGdmlIGDcUQSguHibnpdPrOSMUARcGltuIHsFtRHtjtGKAgTTS"},
-      {"erRY/z.cfg", "nsxlKziyoPGUvCgNpQaRlUmnzXdAvnExHEnKwyVWYJMmUvAomYlKDSmftSNqhP"},
-      {"mIzLvFiHS/oOnb.cfg", "bCPVzzsyxcYoEECWjEbNtLnwsWLsdBAPVeZyJrsepJBWhN"},
-      {"mkIJQiSwysmbqGFXLWjnczBglLzWeXWsa.md", "cQMsFIYVwHEasTQnNNsCqzkUiKHKhpzWMIUuolaBxIjJeZZPynrYinsqQvdB"},
-      {"panHtQB.txt", "oAuKbvXmpDtIHUzyoKbWZbquuIhXcJkzjGNhlxmefLZRwJzyjGvbwNghFgQVddECTF"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(905u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_249",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"GA/JLPQxfyG.txt", "gYOpxBemHSPVbRGAWjHYdMeskGvQYefJRLvwbfLgvgjudRWTnXgehhhnnHnXuUilUxGN"},
-      {"GCVLId/sebCWYZFhHvglfIRgOz/XBpsbEZFvMIvrA.cfg", "KIhaHXCjHXjYGsoYaAelqTGIHdXXQQ"},
-      {"QIUvbaygRJwzeUWolDL/klXwERekpCaph/EJzAIZlLN.dat", "oSrTxYbRhtBXpJEwlrBfLMEN"},
-      {"QgMkyFQXOSPFOeMIJP.md", "FgCUyPTlhnyCAJYnVORsrB"},
-      {"TESZsUeW/jphahnvzeWaabWtUw/AUvMHkoAJgNIeXglna.dat", "kPqcBYBnYmypZjJmFsIgYizSsBFZtmCMsEujud"},
-      {"VEa.dat", "beGYYyovNJdWk"},
-      {"Ye/g.cfg", "lkkQPeADcqpErwpcqdIvkxLgGsHjbdxyVUTpPJfloFdzgyPiMIGUlEobssRvAYyWbfNmuKItWEW"}
-    },
-      {},
-      {
-      {"GA/JLPQxfyG.txt", "gYOpxBemHSPVbRGAWjHYdMeskGvQYefJRLvwbfLgvgjudRWTnXgehhhnnHnXuUilUxGN"},
-      {"GCVLId/sebCWYZFhHvglfIRgOz/XBpsbEZFvMIvrA.cfg", "KIhaHXCjHXjYGsoYaAelqTGIHdXXQQ"},
-      {"QIUvbaygRJwzeUWolDL/klXwERekpCaph/EJzAIZlLN.dat", "oSrTxYbRhtBXpJEwlrBfLMEN"},
-      {"QgMkyFQXOSPFOeMIJP.md", "FgCUyPTlhnyCAJYnVORsrB"},
-      {"TESZsUeW/jphahnvzeWaabWtUw/AUvMHkoAJgNIeXglna.dat", "kPqcBYBnYmypZjJmFsIgYizSsBFZtmCMsEujud"},
-      {"VEa.dat", "beGYYyovNJdWk"},
-      {"Ye/g.cfg", "lkkQPeADcqpErwpcqdIvkxLgGsHjbdxyVUTpPJfloFdzgyPiMIGUlEobssRvAYyWbfNmuKItWEW"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(611u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_250",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      1u,
-      {
-      {"TusBkbLplmibvNOCCAzxGBD/zKYxjdozqmVVSKMInrQVbEnB.bin", "QsyOQIXxmezkPiXZnQQkMhXQz"}
-    },
-      {},
-      {
-      {"TusBkbLplmibvNOCCAzxGBD/zKYxjdozqmVVSKMInrQVbEnB.bin", "QsyOQIXxmezkPiXZnQQkMhXQz"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_251",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      4u,
-      {
-      {"DeBqxRODHBTRMwobOunSTsnzlDePQARV/WyptFouw.bin", "PQtOhYdmIfxZerETUpqvUE"},
-      {"FRpoMvJAfath.md", "kheWDnYIAsNVLRucEJfVXWyTLtLKLRQEXftckqxzrwa"},
-      {"FViXkSbrenesUWCqCoyUfh.cfg", "eZytbKplfymbaeDDYujibwtFsbrBmJzlHMOtsZCIBlvhUnng"},
-      {"KX/GqkCENwcKkbltbvdHAhdAxLnTBrfoYxuorhv/ilIgNlSyMRLlYuQltBbioOxjAlJSUS.md", "DEXKeKIuLpypumHNtUoVTiuZWVZrdSGQvowLDBdKdhmkOwqGpWFZUIndYEfINdnYmPUNO"},
-      {"OuUKdzcBjJQvMNAn/vxKHESNKXyRKsOdAortzcdhS/o.txt", "sjSpAUeQb"},
-      {"XFqcFMhrrFbxjVHHvRMsZdGPKJJvpAuV/mRrghobsiCeIqRuuVstuEdTZpwZIYXn.cfg", "DEoJehHmfFjDBUisMNvgGzfixMeBpHUMeMTmoGYC"},
-      {"adZMHatnupHC.txt", "reraiHQfZnbUpAyjINrwncGLrROveeNIAqpu"},
-      {"brCtd/yjn/FBtqOgAGuTGsdG.bin", "TgiFAHsioIRHImqfDTcqVArIfYMSYmtKExQqsuwNGGsOgdRCrvkzLqhaonMbQrlgrKw"},
-      {"k/sxhS/PEvcDSx.bin", "XMQDFGnBByKW"}
-    },
-      {},
-      {
-      {"DeBqxRODHBTRMwobOunSTsnzlDePQARV/WyptFouw.bin", "PQtOhYdmIfxZerETUpqvUE"},
-      {"FRpoMvJAfath.md", "kheWDnYIAsNVLRucEJfVXWyTLtLKLRQEXftckqxzrwa"},
-      {"FViXkSbrenesUWCqCoyUfh.cfg", "eZytbKplfymbaeDDYujibwtFsbrBmJzlHMOtsZCIBlvhUnng"},
-      {"KX/GqkCENwcKkbltbvdHAhdAxLnTBrfoYxuorhv/ilIgNlSyMRLlYuQltBbioOxjAlJSUS.md", "DEXKeKIuLpypumHNtUoVTiuZWVZrdSGQvowLDBdKdhmkOwqGpWFZUIndYEfINdnYmPUNO"},
-      {"OuUKdzcBjJQvMNAn/vxKHESNKXyRKsOdAortzcdhS/o.txt", "sjSpAUeQb"},
-      {"XFqcFMhrrFbxjVHHvRMsZdGPKJJvpAuV/mRrghobsiCeIqRuuVstuEdTZpwZIYXn.cfg", "DEoJehHmfFjDBUisMNvgGzfixMeBpHUMeMTmoGYC"},
-      {"adZMHatnupHC.txt", "reraiHQfZnbUpAyjINrwncGLrROveeNIAqpu"},
-      {"brCtd/yjn/FBtqOgAGuTGsdG.bin", "TgiFAHsioIRHImqfDTcqVArIfYMSYmtKExQqsuwNGGsOgdRCrvkzLqhaonMbQrlgrKw"},
-      {"k/sxhS/PEvcDSx.bin", "XMQDFGnBByKW"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(996u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_252",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"FCjAnEGDZfBlBAYWXdUB/DsfAMkcBUAKQ.dat", "BIHlMUshkOpzeaRzHTpauuYgGfmJsqLTVkSuxeSkYxgELZLkyq"},
-      {"IZZmYGjNbYUtjhhChuJt/nllOyyMCOxqpCbeNRAQYkyLHvhP.bin", "lTiosxaRbacHZejPQpgaWIRdttLrWmAOeVtBhw"},
-      {"NJfIeJspEuHuAonZpEcmYRhxGLFdI/SwnlMoG.txt", "fAUQEduHPcQgTcGLtAoPYFsadXVFYXXOHYLimmENaCwyoiVIWJcsZNCQxYByZJDW"},
-      {"PKhBINfc/aiwZwkHmbmFhowEbvQECVpIhhfyL/GasJpKHdAlMPiYjvQaz.txt", "rZjdFJsaULbbrTTFJHXRjtySWFadUaseBzUCLmTfWUuEuEsdKDkTKXGRKwbUvND"},
-      {"TBimTHDuumeLqVvgdKbXM.bin", "enkWnJvSXGHKWFcJfAgaxUDnKhDXqebuKgebip"},
-      {"Tsp/bZiAwBRQIdgn/ycFJpaOGQedbzjJCpfDtUcqNLM.txt", "k"}
-    },
-      {},
-      {
-      {"FCjAnEGDZfBlBAYWXdUB/DsfAMkcBUAKQ.dat", "BIHlMUshkOpzeaRzHTpauuYgGfmJsqLTVkSuxeSkYxgELZLkyq"},
-      {"IZZmYGjNbYUtjhhChuJt/nllOyyMCOxqpCbeNRAQYkyLHvhP.bin", "lTiosxaRbacHZejPQpgaWIRdttLrWmAOeVtBhw"},
-      {"NJfIeJspEuHuAonZpEcmYRhxGLFdI/SwnlMoG.txt", "fAUQEduHPcQgTcGLtAoPYFsadXVFYXXOHYLimmENaCwyoiVIWJcsZNCQxYByZJDW"},
-      {"PKhBINfc/aiwZwkHmbmFhowEbvQECVpIhhfyL/GasJpKHdAlMPiYjvQaz.txt", "rZjdFJsaULbbrTTFJHXRjtySWFadUaseBzUCLmTfWUuEuEsdKDkTKXGRKwbUvND"},
-      {"TBimTHDuumeLqVvgdKbXM.bin", "enkWnJvSXGHKWFcJfAgaxUDnKhDXqebuKgebip"},
-      {"Tsp/bZiAwBRQIdgn/ycFJpaOGQedbzjJCpfDtUcqNLM.txt", "k"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(725u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_253",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      2u,
-      {
-      {"ZfBiPCxZOjeXfDrDUiFS/WgRPZfqmqn.md", "xENRxqOJMQcDSsyBUSchtoRdkYBJJwgOqcvYwgWVNrc"}
-    },
-      {},
-      {
-      {"ZfBiPCxZOjeXfDrDUiFS/WgRPZfqmqn.md", "xENRxqOJMQcDSsyBUSchtoRdkYBJJwgOqcvYwgWVNrc"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(56u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_254",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"EhDRJPqvSYOkPCHEhtaOMUBlYUDZkOdKHt/wLBVnhysJ/JAmksAtG.bin", "RikdDzEUXtkEEYgWNAWNvwEmgtbVVxjNSNoenKwYAPywxUjh"},
-      {"NtqalaPkfgXSDJcytSJKsDBb/JRPFHJZKYkPSb/VbJvZkjtUOttN.cfg", "fOzoMppffIHcmbzfrzhgHYSaxfhqsReaRmpE"},
-      {"PUMh/eNYTXTVzKZgzZcErMSAipyfoWoOURZKEpaE/aVdZvJFoZeHfzQBVEBpkSRnrjYVVoDLa.bin", "bQeUzTxeAfzpmZoDMUjNcHwrSgglOdeWpJjMBDnOE"},
-      {"UGMDTYr/xNiQldFV.md", "mhghkwIUOkFDvHUvKGsTDsE"},
-      {"WDEBOUDbBQHBdbafgOMrspAfnIiPWjOzn/lpGbTwVUNggqdPUptjdz.md", "ZBMFVWIchvGWtMdeWtLnmNjkbLQoWtpcIxcWMRvrbsJjniuKYqbxc"},
-      {"aTtaayThTeI/N/qzUhBv.cfg", "TAnlZYcLUNvWhNaXbxM"}
-    },
-      {},
-      {
-      {"EhDRJPqvSYOkPCHEhtaOMUBlYUDZkOdKHt/wLBVnhysJ/JAmksAtG.bin", "RikdDzEUXtkEEYgWNAWNvwEmgtbVVxjNSNoenKwYAPywxUjh"},
-      {"NtqalaPkfgXSDJcytSJKsDBb/JRPFHJZKYkPSb/VbJvZkjtUOttN.cfg", "fOzoMppffIHcmbzfrzhgHYSaxfhqsReaRmpE"},
-      {"PUMh/eNYTXTVzKZgzZcErMSAipyfoWoOURZKEpaE/aVdZvJFoZeHfzQBVEBpkSRnrjYVVoDLa.bin", "bQeUzTxeAfzpmZoDMUjNcHwrSgglOdeWpJjMBDnOE"},
-      {"UGMDTYr/xNiQldFV.md", "mhghkwIUOkFDvHUvKGsTDsE"},
-      {"WDEBOUDbBQHBdbafgOMrspAfnIiPWjOzn/lpGbTwVUNggqdPUptjdz.md", "ZBMFVWIchvGWtMdeWtLnmNjkbLQoWtpcIxcWMRvrbsJjniuKYqbxc"},
-      {"aTtaayThTeI/N/qzUhBv.cfg", "TAnlZYcLUNvWhNaXbxM"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(723u),
-      { 0x00, 0x00 },
-      { static_cast<std::uint32_t>(1u) },
-      {},
-      "EOF out-of-bounds archive tail case, target type ignored for EOF source mode."
-    },
-    {
-      "AUTO_EndOfFile_TrailingArchives_MEDIUM_255",
-      "unbundle",
-      "eof_oob",
-      "UNP_EOF_001",
-      "",
-      3u,
-      {
-      {"MGtHktWmiQAEUXXpIZ.md", "DURqcLf"},
-      {"XtKWDwmiastEztiQfYsQVbMscrYX/ohfMb.dat", "XwImewhdTFvgGmCuZTmLxYRejWvOLvBZrML"},
-      {"cfqABOhfkoF.bin", "spBDFirfQaHlkacPPSVwIQwBXcnROjaAxeCCOSIHlvGpCoBykPImbSmNpZuUgJWMyBnwnn"},
-      {"kOlWHhgaoechsyhyRPa/nMIXfOLOWfTRDHrUMotXUI.dat", "iwzFAspiJCUYblBGvztFNcWSGiwiLxa"},
-      {"lMAsffBuGliQCxgXVrizffc/YqoXiqHEkDRyyzkjHhtnDKenRBLeloHhsfAe/GoOBcE.bin", "hEiaqBHEdTb"},
-      {"qOMhmen/ynEeMxgYDusQKEysKWixUe.bin", "sTzykCMtPSZxkJfGYRypDbgKYZtOamknAOHVvofxNrtrEgyonlJez"},
-      {"rFCWwKnD.dat", "KEUzWTkadaoBrCzlmIlpNoYR"}
-    },
-      {},
-      {
-      {"MGtHktWmiQAEUXXpIZ.md", "DURqcLf"},
-      {"XtKWDwmiastEztiQfYsQVbMscrYX/ohfMb.dat", "XwImewhdTFvgGmCuZTmLxYRejWvOLvBZrML"},
-      {"cfqABOhfkoF.bin", "spBDFirfQaHlkacPPSVwIQwBXcnROjaAxeCCOSIHlvGpCoBykPImbSmNpZuUgJWMyBnwnn"},
-      {"kOlWHhgaoechsyhyRPa/nMIXfOLOWfTRDHrUMotXUI.dat", "iwzFAspiJCUYblBGvztFNcWSGiwiLxa"},
-      {"lMAsffBuGliQCxgXVrizffc/YqoXiqHEkDRyyzkjHhtnDKenRBLeloHhsfAe/GoOBcE.bin", "hEiaqBHEdTb"},
-      {"qOMhmen/ynEeMxgYDusQKEysKWixUe.bin", "sTzykCMtPSZxkJfGYRypDbgKYZtOamknAOHVvofxNrtrEgyonlJez"},
-      {"rFCWwKnD.dat", "KEUzWTkadaoBrCzlmIlpNoYR"}
-    },
-      static_cast<std::uint32_t>(0u),
-      static_cast<std::size_t>(696u),
       { 0x00, 0x00 },
       { static_cast<std::uint32_t>(1u) },
       {},
@@ -19984,6 +20159,17 @@ bool ValidateCaseOutcome(const GeneratedFenceCase& pCase,
         peanutbutter::testing::ContainsToken(pOutcome.mCollectedLogs, pCase.mExpectedFenceFlag);
     if (!aHasFenceFlag) {
       pError = "missing expected fence flag: " + pCase.mExpectedFenceFlag;
+      return false;
+    }
+  }
+
+  for (const std::string& aForbiddenFlag : pCase.mForbiddenFenceFlags) {
+    const bool aHasForbiddenFlag =
+        peanutbutter::testing::ContainsToken(pOutcome.mMutatedUnbundleMessage, aForbiddenFlag) ||
+        peanutbutter::testing::ContainsToken(pOutcome.mMutatedRecoverMessage, aForbiddenFlag) ||
+        peanutbutter::testing::ContainsToken(pOutcome.mCollectedLogs, aForbiddenFlag);
+    if (aHasForbiddenFlag) {
+      pError = "encountered forbidden fence flag: " + aForbiddenFlag;
       return false;
     }
   }

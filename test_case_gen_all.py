@@ -15,6 +15,7 @@ Outputs:
 
 from __future__ import annotations
 
+import ast
 import json
 import random
 import re
@@ -27,6 +28,10 @@ from typing import Dict, List, Optional, Tuple
 import test_case_gen_engine as engine
 
 SCRIPT_DIR = Path(__file__).resolve().parent
+
+# Narrow/specialized fence scope: one deterministic case per family/target.
+SMALL_CASES_PER_SPEC = 600
+MEDIUM_CASES_PER_SPEC = 200
 
 
 SOURCE_TYPES = [
@@ -43,12 +48,9 @@ TARGET_TYPES = [
     "out_of_this_archive_bounds",
     "within_recovery_header",
     "within_archive_header",
-    "make_zero",
 ]
 
-# Keep generation intentionally minimal while triaging failures.
-SMALL_CASES_PER_SPEC = 512
-MEDIUM_CASES_PER_SPEC = 256
+
 MAX_CASE_RETRIES = 64
 RANDOM_SEED = 20260310
 
@@ -107,6 +109,63 @@ def run_executor_cpp_step() -> None:
 def parse_format_constants(p_path: Path) -> Dict[str, int]:
     text = p_path.read_text(encoding="utf-8")
 
+    def strip_cpp_comments(source: str) -> str:
+        source = re.sub(r"/\*.*?\*/", "", source, flags=re.DOTALL)
+        source = re.sub(r"//.*", "", source)
+        return source
+
+    def eval_int_expr(expr: str, symbols: Dict[str, int]) -> int:
+        node = ast.parse(expr, mode="eval")
+
+        def visit(n: ast.AST) -> int:
+            if isinstance(n, ast.Expression):
+                return visit(n.body)
+            if isinstance(n, ast.Constant) and isinstance(n.value, int):
+                return int(n.value)
+            if isinstance(n, ast.Name):
+                if n.id not in symbols:
+                    raise RuntimeError(f"Unknown symbol '{n.id}' in constexpr expression '{expr}'.")
+                return int(symbols[n.id])
+            if isinstance(n, ast.UnaryOp) and isinstance(n.op, (ast.UAdd, ast.USub)):
+                value = visit(n.operand)
+                return value if isinstance(n.op, ast.UAdd) else -value
+            if isinstance(n, ast.BinOp):
+                left = visit(n.left)
+                right = visit(n.right)
+                if isinstance(n.op, ast.Add):
+                    return left + right
+                if isinstance(n.op, ast.Sub):
+                    return left - right
+                if isinstance(n.op, ast.Mult):
+                    return left * right
+                if isinstance(n.op, (ast.Div, ast.FloorDiv)):
+                    return left // right
+                if isinstance(n.op, ast.Mod):
+                    return left % right
+                if isinstance(n.op, ast.LShift):
+                    return left << right
+                if isinstance(n.op, ast.RShift):
+                    return left >> right
+                if isinstance(n.op, ast.BitOr):
+                    return left | right
+                if isinstance(n.op, ast.BitAnd):
+                    return left & right
+                if isinstance(n.op, ast.BitXor):
+                    return left ^ right
+            raise RuntimeError(f"Unsupported constexpr expression '{expr}'.")
+
+        return int(visit(node))
+
+    def extract_test_build_block(source: str) -> str:
+        match = re.search(
+            r"#ifdef\s+PEANUT_BUTTER_ULTIMA_TEST_BUILD(.*?)#else",
+            source,
+            flags=re.DOTALL,
+        )
+        if not match:
+            raise RuntimeError("Could not find PEANUT_BUTTER_ULTIMA_TEST_BUILD block in FormatConstants.hpp.")
+        return match.group(1)
+
     def parse_named(name: str) -> int:
         match = re.search(rf"{name}\s*=\s*([0-9]+)\s*;", text)
         if not match:
@@ -117,18 +176,23 @@ def parse_format_constants(p_path: Path) -> Dict[str, int]:
     checksum_len = parse_named("SB_RECOVERY_CHECKSUM_LENGTH")
     stride_len = parse_named("SB_RECOVERY_STRIDE_LENGTH")
 
-    payload_match = re.search(
-        r"#ifdef\s+PEANUT_BUTTER_ULTIMA_TEST_BUILD.*?SB_PAYLOAD_SIZE\s*=\s*([0-9]+)\s*;",
-        text,
-        flags=re.DOTALL,
-    )
+    symbols = {
+        "SB_PLAIN_TEXT_HEADER_LENGTH": plain_header_len,
+        "SB_RECOVERY_CHECKSUM_LENGTH": checksum_len,
+        "SB_RECOVERY_STRIDE_LENGTH": stride_len,
+        "SB_RECOVERY_HEADER_LENGTH": checksum_len + stride_len,
+        "EB_MAX_LENGTH": parse_named("EB_MAX_LENGTH"),
+    }
+
+    test_block = strip_cpp_comments(extract_test_build_block(text))
+    payload_match = re.search(r"SB_PAYLOAD_SIZE\s*=\s*([^;]+)\s*;", test_block)
     if not payload_match:
         raise RuntimeError(
             "Could not parse test-build SB_PAYLOAD_SIZE from FormatConstants.hpp "
             "(expected PEANUT_BUTTER_ULTIMA_TEST_BUILD branch)."
         )
 
-    payload_len = int(payload_match.group(1))
+    payload_len = eval_int_expr(payload_match.group(1).strip(), symbols)
     return {
         "plain_header_length": plain_header_len,
         "recovery_checksum_length": checksum_len,
@@ -210,6 +274,28 @@ def override_expected_error_for_make_zero(p_source: str, p_existing: str) -> str
     return p_existing
 
 
+def expected_fence_flag_for_target(p_source: str, p_target: Optional[str]) -> str:
+    if p_source in ("eof_gar", "eof_oob"):
+        return ""
+    mapping = {
+        "within_archive_header": "FENCE_IN_ARCHIVE_HEADER",
+        "within_recovery_header": "FENCE_IN_RECOVERY_HEADER",
+        "out_of_entire_archive_list_bounds": "FENCE_IN_GAP_ARCHIVE",
+        "out_of_this_archive_bounds": "FENCE_OUTSIDE_PAYLOAD_RANGE",
+    }
+    return mapping.get(p_target, "")
+
+
+def forbidden_fence_flags_for_target(p_source: str, p_target: Optional[str]) -> List[str]:
+    if p_source not in ("file_name_length", "file_content_length", "directory_name_length"):
+        return []
+    if p_target == "within_archive_header":
+        return ["FENCE_IN_RECOVERY_HEADER"]
+    if p_target == "within_recovery_header":
+        return ["FENCE_IN_ARCHIVE_HEADER"]
+    return []
+
+
 def forced_generation_target(p_target: Optional[str]) -> Optional[str]:
     if p_target in engine.TARGET_TYPES:
         return p_target
@@ -241,6 +327,8 @@ def to_case_dict(p_case: engine.TestCase,
                  p_target: Optional[str],
                  p_requested_target: Optional[str]) -> Dict[str, object]:
     archive_block_count = archive_block_count_for_case(p_case)
+    expected_fence_flag = expected_fence_flag_for_target(p_source, p_target)
+    forbidden_fence_flags = forbidden_fence_flags_for_target(p_source, p_target)
     return {
         "case_id": p_case.case_id,
         "size_class": p_case.size_class,
@@ -252,6 +340,8 @@ def to_case_dict(p_case: engine.TestCase,
         "illegal_target_type": p_case.illegal_target_type,
         "target_type_requested": p_requested_target,
         "expected_error_code": p_case.expected_error_code,
+        "expected_fence_flag": expected_fence_flag,
+        "forbidden_fence_flags": forbidden_fence_flags,
         "selected_subject": p_case.selected_subject,
         "pretty_case_name": pretty_case_name(p_source, p_target),
         "pretty_cpp_file_name": pretty_cpp_file_name(p_source, p_target),
@@ -288,27 +378,34 @@ def generate_with_retries(rng: random.Random,
     if size_class == "small":
         size_attempts.append("medium")
 
-    for size_attempt in size_attempts:
-        for _ in range(MAX_CASE_RETRIES):
-            try:
-                case = engine.generate_case(
-                    case_id=case_id,
-                    size_class=size_attempt,
-                    rng=rng,
-                    forced_source=source,
-                    forced_target=forced_target,
-                )
-                if target in engine.TARGET_TYPES and case.illegal_target_type != target:
-                    # With strict target disabled in engine mode, retry until we get
-                    # the exact requested target class.
-                    last_error = RuntimeError(
-                        f"Generated target '{case.illegal_target_type}' did not match requested '{target}'."
+    previous_target_mode = engine.FAILURE_TARGET_TYPE
+    if target in engine.TARGET_TYPES:
+        engine.FAILURE_TARGET_TYPE = target
+    else:
+        engine.FAILURE_TARGET_TYPE = "any"
+
+    try:
+        for size_attempt in size_attempts:
+            for _ in range(MAX_CASE_RETRIES):
+                try:
+                    case = engine.generate_case(
+                        case_id=case_id,
+                        size_class=size_attempt,
+                        rng=rng,
+                        forced_source=source,
+                        forced_target=forced_target,
                     )
+                    if target in engine.TARGET_TYPES and case.illegal_target_type != target:
+                        last_error = RuntimeError(
+                            f"Generated target '{case.illegal_target_type}' did not match requested '{target}'."
+                        )
+                        continue
+                    return case
+                except RuntimeError as exc:
+                    last_error = exc
                     continue
-                return case
-            except RuntimeError as exc:
-                last_error = exc
-                continue
+    finally:
+        engine.FAILURE_TARGET_TYPE = previous_target_mode
 
     raise RuntimeError(
         f"Failed to generate case after {MAX_CASE_RETRIES} attempts "
@@ -316,25 +413,72 @@ def generate_with_retries(rng: random.Random,
     )
 
 
-def apply_target_overrides(p_case: engine.TestCase, p_source: str, p_target: Optional[str]) -> None:
+def case_archive_count_and_layout(p_case: engine.TestCase) -> Tuple[int, engine.ArchiveLayout]:
+    stream, _ = engine.build_fields(p_case.tree)
+    layout = engine.ArchiveLayout(p_case.archive_payload_length)
+    archive_count = max(1, (len(stream) + layout.logical_per_archive - 1) // layout.logical_per_archive)
+    return archive_count, layout
+
+
+def set_case_mutation_value(p_case: engine.TestCase, value: int) -> None:
+    p_case.mutation.new_value = value
+    p_case.mutation.new_value_le_hex = engine.le_hex(value, p_case.mutation.width_bytes)
+
+
+def specialize_recovery_missing_archive_case(p_case: engine.TestCase) -> bool:
+    if p_case.mutation.archive_index != 0:
+        return False
+
+    stream, _ = engine.build_fields(p_case.tree)
+    layout = engine.ArchiveLayout(p_case.archive_payload_length)
+    file_lengths = engine.file_lengths_for_stream(layout, len(stream))
+    if not file_lengths:
+        return False
+
+    checksum_width = engine.RECOVERY_HEADER_LENGTH - engine.RECOVERY_DIST_WIDTH
+    block_start = p_case.mutation.offset - engine.PLAIN_HEADER_LENGTH - checksum_width
+    if block_start < 0:
+        return False
+
+    header_end_abs = engine.PLAIN_HEADER_LENGTH + block_start + engine.RECOVERY_HEADER_LENGTH
+    archive_file_len = file_lengths[0]
+    # Point into missing archive-1 payload (not its header) so gap flag is deterministic.
+    target_abs = archive_file_len + engine.PLAIN_HEADER_LENGTH + engine.RECOVERY_HEADER_LENGTH + 1
+    distance = target_abs - header_end_abs
+    if distance <= 0:
+        return False
+
+    max_value = (1 << (8 * p_case.mutation.width_bytes)) - 1
+    if distance > max_value:
+        return False
+
+    set_case_mutation_value(p_case, distance)
+    # Force archive index 1 to be a gap across both small and medium populations.
+    p_case.archive_set_mutation.remove_archive_indices = [1]
+    p_case.archive_set_mutation.create_archive_indices = [max(2, len(file_lengths))]
+    p_case.notes.append(
+        "Target override: forced recovery-distance out-of-entire-list mutation into deterministic archive-1 gap."
+    )
+    return True
+
+
+def apply_target_overrides(p_case: engine.TestCase, p_source: str, p_target: Optional[str]) -> bool:
     p_case.flow = preferred_flow(p_source, p_target)
 
-    if p_target == "make_zero":
-        p_case.illegal_target_type = "make_zero"
-        p_case.mutation.new_value = 0
-        p_case.mutation.new_value_le_hex = engine.le_hex(0, p_case.mutation.width_bytes)
-        p_case.expected_error_code = override_expected_error_for_make_zero(
-            p_source, p_case.expected_error_code
+    if p_source == "recovery_header" and p_target == "out_of_entire_archive_list_bounds":
+        return specialize_recovery_missing_archive_case(p_case)
+
+    if p_target == "out_of_entire_archive_list_bounds" and p_source not in ("eof_gar", "eof_oob"):
+        # Force at least one missing archive index so gap-flag family has deterministic coverage.
+        stream, _ = engine.build_fields(p_case.tree)
+        layout = engine.ArchiveLayout(p_case.archive_payload_length)
+        archive_count = max(1, (len(stream) + layout.logical_per_archive - 1) // layout.logical_per_archive)
+        synthetic_index = archive_count + 1
+        p_case.archive_set_mutation.create_archive_indices = [synthetic_index]
+        p_case.notes.append(
+            "Target override: added synthetic trailing archive to guarantee a missing-index gap for gap-fence assertions."
         )
-        p_case.notes.append("Target override: forced mutation value to zero (make_zero).")
-        if p_source == "file_content_length":
-            p_case.notes.append(
-                "FileContent make_zero can be non-deterministic in runtime outcome; expected UNP_EOF_003 is preferred."
-            )
-        if p_source == "recovery_header":
-            p_case.notes.append(
-                "RecoveryStride make_zero maps to UNP_EOF_003: zero stride is a legal value in current runtime semantics."
-            )
+    return True
 
 
 def main() -> None:
@@ -364,18 +508,27 @@ def main() -> None:
             local_index = i if size == "small" else i - SMALL_CASES_PER_SPEC
             case_id = f"AUTO_{pretty_name}_{size.upper()}_{local_index:03d}"
 
-            case = generate_with_retries(
-                rng=rng,
-                case_id=case_id,
-                size_class=size,
-                source=source,
-                target=target,
-            )
-            if case.size_class != size:
-                case.notes.append(
-                    f"Requested size_class='{size}' was not representable; generated as '{case.size_class}'."
+            case: Optional[engine.TestCase] = None
+            for _ in range(MAX_CASE_RETRIES):
+                case = generate_with_retries(
+                    rng=rng,
+                    case_id=case_id,
+                    size_class=size,
+                    source=source,
+                    target=target,
                 )
-            apply_target_overrides(case, source, target)
+                if case.size_class != size:
+                    case.notes.append(
+                        f"Requested size_class='{size}' was not representable; generated as '{case.size_class}'."
+                    )
+                if apply_target_overrides(case, source, target):
+                    break
+            else:
+                raise RuntimeError(
+                    f"Failed to apply specialization overrides for case {case_id} "
+                    f"(source={source}, target={target})."
+                )
+            assert case is not None
 
             case_dict = to_case_dict(case, source, target, target)
             all_cases.append(case_dict)

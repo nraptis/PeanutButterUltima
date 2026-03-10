@@ -22,6 +22,7 @@ from typing import Dict, Iterable, List, Optional
 
 DEFAULT_LOG_PATH = "run_brew_tests_detailed_logs.txt"
 DEFAULT_CASES_PATH = "tests/generated/test_cases_all.json"
+SCRIPT_DIR = Path(__file__).resolve().parent
 
 
 @dataclass
@@ -160,15 +161,31 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def resolve_input_path(raw_path: str, label: str) -> Path:
+    candidate = Path(raw_path)
+    if candidate.is_absolute():
+        if candidate.exists():
+            return candidate
+        raise SystemExit(f"Missing {label} file: {candidate}")
+
+    cwd_candidate = Path.cwd() / candidate
+    if cwd_candidate.exists():
+        return cwd_candidate
+
+    script_candidate = SCRIPT_DIR / candidate
+    if script_candidate.exists():
+        return script_candidate
+
+    raise SystemExit(
+        f"Missing {label} file: tried '{cwd_candidate}' and '{script_candidate}'.\n"
+        f"Tip: run './run_brew_tests.sh' from the repo root first."
+    )
+
+
 def main() -> None:
     args = parse_args()
-    log_path = Path(args.log)
-    cases_path = Path(args.cases)
-
-    if not log_path.exists():
-        raise SystemExit(f"Missing log file: {log_path}")
-    if not cases_path.exists():
-        raise SystemExit(f"Missing cases file: {cases_path}")
+    log_path = resolve_input_path(args.log, "log")
+    cases_path = resolve_input_path(args.cases, "cases")
 
     log_lines = log_path.read_text(encoding="utf-8", errors="ignore").splitlines()
     failures = extract_failures(log_lines)

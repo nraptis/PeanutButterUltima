@@ -133,8 +133,9 @@ bool DiscoverArchiveSet(FileSystem& pFileSystem,
     if (aRecord.mHeader.mArchiveCount == 0) {
       continue;
     }
-    const std::uint64_t aDeclaredEnd = static_cast<std::uint64_t>(aRecord.mHeader.mArchiveIndex) +
-                                       static_cast<std::uint64_t>(aRecord.mHeader.mArchiveCount - 1);
+    // mArchiveCount is the total archive count in the set (0-based indices),
+    // not a relative count from each record's own index.
+    const std::uint64_t aDeclaredEnd = static_cast<std::uint64_t>(aRecord.mHeader.mArchiveCount - 1);
     if (aDeclaredEnd > aMaxArchiveIndex) {
       aMaxArchiveIndex = static_cast<std::uint32_t>(
           std::min<std::uint64_t>(aDeclaredEnd, std::numeric_limits<std::uint32_t>::max()));

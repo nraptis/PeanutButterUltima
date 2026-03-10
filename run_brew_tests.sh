@@ -19,6 +19,13 @@ typeset -a PASSED_TESTS
 typeset -a FAILED_TESTS
 typeset -A FAILED_REASONS
 
+{
+  echo "run_brew_tests_detailed_logs.txt"
+  echo "generated_at: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+  echo "status: run started"
+  echo ""
+} > "$DETAILED_LOG_FILE"
+
 sanitize_stem() {
   echo "$1" | sed -E 's/[^A-Za-z0-9_]/_/g'
 }

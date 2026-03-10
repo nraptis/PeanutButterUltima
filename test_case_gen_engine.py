@@ -8,6 +8,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import random
 import re
@@ -39,7 +40,9 @@ SYNC_FORMAT_CONSTANTS = True
 
 PLAIN_HEADER_LENGTH = 40
 RECOVERY_HEADER_LENGTH = 16
-L1_PAYLOAD_LENGTH = 48
+# L1_PAYLOAD_LENGTH = 88
+L1_PAYLOAD_LENGTH = RECOVERY_HEADER_LENGTH + 1
+
 L1_LENGTH = L1_PAYLOAD_LENGTH + RECOVERY_HEADER_LENGTH
 SB_L3_LENGTH_DEFAULT = L1_LENGTH * 4
 ARCHIVE_TARGET_L3_BLOCKS_LO = 1
@@ -70,6 +73,63 @@ FLOW_TYPES = ["unbundle", "recover"]
 def _parse_constants_from_format_constants(path: str) -> Dict[str, int]:
     text = Path(path).read_text(encoding="utf-8")
 
+    def _strip_cpp_comments(source: str) -> str:
+        source = re.sub(r"/\*.*?\*/", "", source, flags=re.DOTALL)
+        source = re.sub(r"//.*", "", source)
+        return source
+
+    def _eval_int_expr(expr: str, symbols: Dict[str, int]) -> int:
+        node = ast.parse(expr, mode="eval")
+
+        def visit(n: ast.AST) -> int:
+            if isinstance(n, ast.Expression):
+                return visit(n.body)
+            if isinstance(n, ast.Constant) and isinstance(n.value, int):
+                return int(n.value)
+            if isinstance(n, ast.Name):
+                if n.id not in symbols:
+                    raise RuntimeError(f"Unknown symbol '{n.id}' in constexpr expression '{expr}'.")
+                return int(symbols[n.id])
+            if isinstance(n, ast.UnaryOp) and isinstance(n.op, (ast.UAdd, ast.USub)):
+                value = visit(n.operand)
+                return value if isinstance(n.op, ast.UAdd) else -value
+            if isinstance(n, ast.BinOp):
+                left = visit(n.left)
+                right = visit(n.right)
+                if isinstance(n.op, ast.Add):
+                    return left + right
+                if isinstance(n.op, ast.Sub):
+                    return left - right
+                if isinstance(n.op, ast.Mult):
+                    return left * right
+                if isinstance(n.op, (ast.Div, ast.FloorDiv)):
+                    return left // right
+                if isinstance(n.op, ast.Mod):
+                    return left % right
+                if isinstance(n.op, ast.LShift):
+                    return left << right
+                if isinstance(n.op, ast.RShift):
+                    return left >> right
+                if isinstance(n.op, ast.BitOr):
+                    return left | right
+                if isinstance(n.op, ast.BitAnd):
+                    return left & right
+                if isinstance(n.op, ast.BitXor):
+                    return left ^ right
+            raise RuntimeError(f"Unsupported constexpr expression '{expr}'.")
+
+        return int(visit(node))
+
+    def _extract_test_build_block(source: str) -> str:
+        match = re.search(
+            r"#ifdef\s+PEANUT_BUTTER_ULTIMA_TEST_BUILD(.*?)#else",
+            source,
+            flags=re.DOTALL,
+        )
+        if not match:
+            raise RuntimeError("Could not find PEANUT_BUTTER_ULTIMA_TEST_BUILD block in FormatConstants.hpp.")
+        return match.group(1)
+
     def _parse_named(name: str) -> int:
         match = re.search(rf"{name}\s*=\s*([0-9]+)\s*;", text)
         if not match:
@@ -80,16 +140,20 @@ def _parse_constants_from_format_constants(path: str) -> Dict[str, int]:
     checksum = _parse_named("SB_RECOVERY_CHECKSUM_LENGTH")
     stride = _parse_named("SB_RECOVERY_STRIDE_LENGTH")
 
-    payload_match = re.search(
-        r"#ifdef\s+PEANUT_BUTTER_ULTIMA_TEST_BUILD.*?SB_PAYLOAD_SIZE\s*=\s*([0-9]+)\s*;",
-        text,
-        flags=re.DOTALL,
-    )
+    symbols = {
+        "SB_PLAIN_TEXT_HEADER_LENGTH": plain_header,
+        "SB_RECOVERY_CHECKSUM_LENGTH": checksum,
+        "SB_RECOVERY_STRIDE_LENGTH": stride,
+        "SB_RECOVERY_HEADER_LENGTH": checksum + stride,
+        "EB_MAX_LENGTH": _parse_named("EB_MAX_LENGTH"),
+    }
+    test_block = _strip_cpp_comments(_extract_test_build_block(text))
+    payload_match = re.search(r"SB_PAYLOAD_SIZE\s*=\s*([^;]+)\s*;", test_block)
     if not payload_match:
         raise RuntimeError(
-            "Could not parse SB_PAYLOAD_SIZE from test-build branch in FormatConstants.hpp"
+            "Could not parse SB_PAYLOAD_SIZE from active test-build branch in FormatConstants.hpp"
         )
-    payload = int(payload_match.group(1))
+    payload = _eval_int_expr(payload_match.group(1).strip(), symbols)
 
     return {
         "plain_header_length": plain_header,
@@ -470,7 +534,7 @@ def choose_illegal_value(
     layout: ArchiveLayout,
     stream_len: int,
     start_archive: int,
-    start_file_off: int,
+    start_payload_off: int,
     width_bytes: int,
     illegal_target_type: str,
     min_value: int = 1,
@@ -479,15 +543,25 @@ def choose_illegal_value(
     file_lengths = file_lengths_for_stream(layout, stream_len)
     if start_archive < 0 or start_archive >= len(file_lengths):
         return None
-    if start_file_off < 0 or start_file_off >= file_lengths[start_archive]:
+    if start_payload_off < 0 or start_payload_off >= layout.payload_length:
         return None
 
     starts = file_start_abs_positions(file_lengths)
-    start_abs = starts[start_archive] + start_file_off
+    start_abs = starts[start_archive] + PLAIN_HEADER_LENGTH + start_payload_off
     total_bytes = sum(file_lengths)
     if start_abs >= total_bytes:
         return None
     remaining_total = total_bytes - start_abs - 1
+
+    def choose_by_absolute_targets(target_abs_positions: List[int]) -> Optional[int]:
+        candidates: List[int] = []
+        for target_abs in target_abs_positions:
+            delta = target_abs - start_abs
+            if min_value <= delta <= max_value:
+                candidates.append(delta)
+        if not candidates:
+            return None
+        return rng.choice(candidates)
 
     if illegal_target_type == "out_of_entire_archive_list_bounds":
         lo = max(remaining_total + 1, min_value)
@@ -504,33 +578,30 @@ def choose_illegal_value(
         return rng.randint(lo, max_value)
 
     if illegal_target_type == "within_recovery_header":
-        header_positions = [pos for pos in recovery_header_abs_positions(layout, stream_len) if pos > start_abs]
-        if not header_positions:
-            return None
-        for _ in range(RETRY_LOOPS):
-            rec_abs = rng.choice(header_positions)
-            k = rng.randint(0, RECOVERY_HEADER_LENGTH - 1)
-            d = (rec_abs + k) - start_abs
-            if min_value <= d <= max_value:
-                return d
-        return None
+        targets: List[int] = []
+        for archive_index, file_length in enumerate(file_lengths):
+            payload_length = max(0, file_length - PLAIN_HEADER_LENGTH)
+            if payload_length == 0:
+                continue
+            archive_start_abs = starts[archive_index]
+            for block_start in range(0, payload_length, layout.l1_length):
+                rec_start_abs = archive_start_abs + PLAIN_HEADER_LENGTH + block_start
+                rec_end_abs = min(
+                    rec_start_abs + RECOVERY_HEADER_LENGTH,
+                    archive_start_abs + file_length,
+                )
+                for abs_pos in range(rec_start_abs, rec_end_abs):
+                    targets.append(abs_pos)
+        return choose_by_absolute_targets(targets)
 
     if illegal_target_type == "within_archive_header":
-        candidates: List[int] = []
-        for archive_index, file_start in enumerate(starts):
-            h_start = file_start
-            h_end = file_start + PLAIN_HEADER_LENGTH - 1
-            if h_end <= start_abs:
-                continue
-            d_lo = max(0, h_start - start_abs)
-            d_hi = min(h_end - start_abs, max_value)
-            d_lo = max(d_lo, min_value)
-            if d_lo <= d_hi:
-                for d in range(d_lo, d_hi + 1):
-                    candidates.append(d)
-        if not candidates:
-            return None
-        return rng.choice(candidates)
+        targets: List[int] = []
+        for archive_index, file_length in enumerate(file_lengths):
+            archive_start_abs = starts[archive_index]
+            header_end_abs = min(archive_start_abs + PLAIN_HEADER_LENGTH, archive_start_abs + file_length)
+            for abs_pos in range(archive_start_abs, header_end_abs):
+                targets.append(abs_pos)
+        return choose_by_absolute_targets(targets)
 
     return None
 
@@ -686,7 +757,19 @@ def generate_case(case_id: str,
             notes.append("Trimmed EOF source tree to keep logical stream within one archive.")
 
         if len(stream) > layout.logical_per_archive:
-            raise RuntimeError(f"Could not constrain EOF source stream to one archive for {case_id}")
+            # Tiny payload geometry can leave a single random medium file still too large.
+            # Fall back to a compact deterministic tree that is guaranteed to fit.
+            tree = TreeSpec(
+                files=[
+                    FileEntry(path="a.txt", content="a"),
+                    FileEntry(path="b.txt", content="b"),
+                ],
+                empty_dirs=[],
+            )
+            stream, fields = build_fields(tree)
+            notes.append("EOF source fallback: replaced oversized tree with compact deterministic file set.")
+            if len(stream) > layout.logical_per_archive:
+                raise RuntimeError(f"Could not constrain EOF source stream to one archive for {case_id}")
 
         ensure_pickable(tree, "file_name_length", rng, max_name_len, max_content_len)
         stream, fields = build_fields(tree)
@@ -723,8 +806,8 @@ def generate_case(case_id: str,
                 raise RuntimeError(f"Could not place EOF sentinel file away from archive boundary for {case_id}")
             tree.files.append(
                 FileEntry(
-                    path=f"ZZ_SENTINEL_{sentinel_loops:03d}.txt",
-                    content="sentinel_payload_block",
+                    path=f"z{sentinel_loops:03d}.t",
+                    content="s",
                 )
             )
             tree.files = sorted(tree.files, key=lambda x: x.path)
@@ -783,7 +866,7 @@ def generate_case(case_id: str,
         width = RECOVERY_DIST_WIDTH
         subject = f"archive_{archive_index}_recovery_header_at_{offset}"
         start_archive = archive_index
-        start_off = PLAIN_HEADER_LENGTH + (block_index * layout.l1_length) + RECOVERY_HEADER_LENGTH
+        start_off = (block_index * layout.l1_length) + RECOVERY_HEADER_LENGTH
     else:
         picks = selectable_integer_refs(layout, fields[field_kind])
         grow_loops = 0
@@ -801,7 +884,8 @@ def generate_case(case_id: str,
             notes.append("Expanded tree to obtain selectable field target.")
         ref = rng.choice(picks)
         archive_index, offset = layout.logical_to_physical(ref.logical_offset)
-        start_archive, start_off = layout.logical_to_physical(ref.logical_end_offset)
+        start_archive, start_end_file_off = layout.logical_to_physical(ref.logical_end_offset)
+        start_off = start_end_file_off - PLAIN_HEADER_LENGTH
         width = ref.width_bytes
         subject = ref.subject_path
 
@@ -811,14 +895,50 @@ def generate_case(case_id: str,
         else:
             value = None
         min_illegal_value = 1
-        if field_kind == "file_content_length":
-            # Runtime content-length fence is tied to readable logical capacity from the decode cursor.
+
+        def refresh_selected_field() -> bool:
+            nonlocal ref
+            nonlocal archive_index
+            nonlocal offset
+            nonlocal start_archive
+            nonlocal start_off
+            nonlocal width
+            nonlocal subject
+            nonlocal min_illegal_value
+
+            if field_kind not in ("file_name_length", "directory_name_length", "file_content_length"):
+                return True
+
+            current_picks = selectable_integer_refs(layout, fields[field_kind])
+            if not current_picks:
+                return False
+
+            selected = None
+            for candidate in current_picks:
+                if candidate.subject_path == subject and candidate.width_bytes == width:
+                    selected = candidate
+                    break
+            if selected is None:
+                selected = rng.choice(current_picks)
+                if selected.subject_path != subject:
+                    notes.append(
+                        f"Mutation subject shifted from '{subject}' to '{selected.subject_path}' while satisfying constraints."
+                    )
+
+            ref = selected
+            archive_index, offset = layout.logical_to_physical(ref.logical_offset)
+            start_archive, start_end_file_off = layout.logical_to_physical(ref.logical_end_offset)
+            start_off = start_end_file_off - PLAIN_HEADER_LENGTH
+            width = ref.width_bytes
+            subject = ref.subject_path
+
             total_logical_capacity = archive_count * layout.logical_per_archive
             min_illegal_value = max(1, (total_logical_capacity - ref.logical_end_offset) + 1)
-        elif field_kind in ("file_name_length", "directory_name_length"):
-            # Path-length fence can trigger via MAX_VALID_FILE_PATH_LENGTH or logical overflow.
-            # Keep this anchored to the logical stream tail so target classes remain representable.
-            min_illegal_value = max(1, (len(stream) - ref.logical_end_offset) + 1)
+            return True
+
+        if not refresh_selected_field():
+            raise RuntimeError(f"Could not refresh selected field for {case_id}")
+
         if illegal_target_type != "make_zero":
             target_order = [illegal_target_type]
             if not strict_target:
@@ -848,15 +968,14 @@ def generate_case(case_id: str,
                         break
                 if value is not None:
                     break
-                if strict_target:
-                    # Respect fixed target config; do not mutate into another class.
-                    break
                 if field_kind == "directory_name_length":
                     append_unique_dir(tree, rng, max_name_len)
                 else:
                     append_unique_file(tree, rng, max_name_len, max_content_len)
                 stream, fields = build_fields(tree)
                 archive_count = max(1, (len(stream) + layout.logical_per_archive - 1) // layout.logical_per_archive)
+                if not refresh_selected_field():
+                    continue
                 notes.append("Expanded tree to satisfy illegal-target mutation constraints.")
         else:
             notes.append("Target make_zero: forced integer field value to zero.")

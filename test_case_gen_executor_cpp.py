@@ -85,6 +85,17 @@ def expected_fence_flag(case: Dict[str, Any]) -> str:
     return str(value) if isinstance(value, str) else ""
 
 
+def forbidden_fence_flags(case: Dict[str, Any]) -> List[str]:
+    values = case.get("forbidden_fence_flags", [])
+    if not isinstance(values, list):
+        return []
+    out: List[str] = []
+    for value in values:
+        if isinstance(value, str) and value:
+            out.append(value)
+    return out
+
+
 def infer_recoverable_files(case: Dict[str, Any]) -> List[Dict[str, str]]:
     recoverable = case.get("recoverable_files")
     if isinstance(recoverable, list):
@@ -168,6 +179,7 @@ def case_to_cpp_initializer(case: Dict[str, Any], config: Dict[str, Any]) -> str
     field_kind = cxx_escape(str(case.get("field_kind", "")))
     expected_error = cxx_escape(str(case.get("expected_error_code", "UNK_SYS_001")))
     expected_flag = cxx_escape(expected_fence_flag(case))
+    forbidden_flags = forbidden_fence_flags(case)
     comment = cxx_escape(str(case.get("failure_point_comment", "")))
     blocks = archive_block_count(case, config)
 
@@ -188,6 +200,7 @@ def case_to_cpp_initializer(case: Dict[str, Any], config: Dict[str, Any]) -> str
     bytes_init = emit_byte_vector(mutation_bytes, "      ")
     create_init = emit_u32_vector(create_indices)
     remove_init = emit_u32_vector(remove_indices)
+    forbidden_flags_init = emit_string_list(forbidden_flags, "      ")
 
     return (
         "    {\n"
@@ -196,6 +209,7 @@ def case_to_cpp_initializer(case: Dict[str, Any], config: Dict[str, Any]) -> str
         f'      "{field_kind}",\n'
         f'      "{expected_error}",\n'
         f'      "{expected_flag}",\n'
+        f"      {forbidden_flags_init},\n"
         f"      {blocks}u,\n"
         f"      {input_init},\n"
         f"      {empty_dirs_init},\n"
@@ -235,6 +249,7 @@ struct GeneratedFenceCase {{
   std::string mFieldKind;
   std::string mExpectedErrorCode;
   std::string mExpectedFenceFlag;
+  std::vector<std::string> mForbiddenFenceFlags;
   std::size_t mArchiveBlockCount = 1;
   std::vector<TestSeedFile> mInputFiles;
   std::vector<std::string> mInputEmptyDirs;
@@ -281,6 +296,17 @@ bool ValidateCaseOutcome(const GeneratedFenceCase& pCase,
         peanutbutter::testing::ContainsToken(pOutcome.mCollectedLogs, pCase.mExpectedFenceFlag);
     if (!aHasFenceFlag) {{
       pError = "missing expected fence flag: " + pCase.mExpectedFenceFlag;
+      return false;
+    }}
+  }}
+
+  for (const std::string& aForbiddenFlag : pCase.mForbiddenFenceFlags) {{
+    const bool aHasForbiddenFlag =
+        peanutbutter::testing::ContainsToken(pOutcome.mMutatedUnbundleMessage, aForbiddenFlag) ||
+        peanutbutter::testing::ContainsToken(pOutcome.mMutatedRecoverMessage, aForbiddenFlag) ||
+        peanutbutter::testing::ContainsToken(pOutcome.mCollectedLogs, aForbiddenFlag);
+    if (aHasForbiddenFlag) {{
+      pError = "encountered forbidden fence flag: " + aForbiddenFlag;
       return false;
     }}
   }}

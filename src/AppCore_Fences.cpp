@@ -44,17 +44,22 @@ std::uint32_t ClassifyAbsoluteTargetFlags(const FenceDomain& pDomain, std::uint6
   const std::uint64_t aArchiveOffset = (pAbsoluteTarget >= aArchive.mAbsoluteArchiveStart)
                                            ? pAbsoluteTarget - aArchive.mAbsoluteArchiveStart
                                            : 0;
+  const bool aWithinArchiveFile =
+      (pAbsoluteTarget < pDomain.mTotalAbsoluteLength) && (aArchiveOffset < aArchiveFileLength);
 
   std::uint32_t aFlags = kFenceNone;
   if (aArchive.mMissingGap) {
     aFlags |= kFenceInGapArchive;
   }
-  if (aArchiveOffset < static_cast<std::uint64_t>(kArchiveHeaderLength)) {
-    aFlags |= kFenceInArchiveHeader;
-  } else {
-    const std::uint64_t aPayloadOffset = aArchiveOffset - static_cast<std::uint64_t>(kArchiveHeaderLength);
-    if ((aPayloadOffset % static_cast<std::uint64_t>(kBlockLength)) < static_cast<std::uint64_t>(kRecoveryHeaderLength)) {
-      aFlags |= kFenceInRecoveryHeader;
+  if (aWithinArchiveFile) {
+    if (aArchiveOffset < static_cast<std::uint64_t>(kArchiveHeaderLength)) {
+      aFlags |= kFenceInArchiveHeader;
+    } else {
+      const std::uint64_t aPayloadOffset = aArchiveOffset - static_cast<std::uint64_t>(kArchiveHeaderLength);
+      if ((aPayloadOffset % static_cast<std::uint64_t>(kBlockLength)) <
+          static_cast<std::uint64_t>(kRecoveryHeaderLength)) {
+        aFlags |= kFenceInRecoveryHeader;
+      }
     }
   }
   if (pAbsoluteTarget >= pDomain.mTotalAbsoluteLength || aArchiveOffset >= aArchiveFileLength ||
@@ -79,7 +84,8 @@ std::uint32_t BuildLogicalOverflowFlags(const FenceDomain& pDomain,
     aFlags |= kFenceInGapArchive;
   }
   if (pLength > 0) {
-    aFlags |= ClassifyAbsoluteTargetFlags(pDomain, SaturatingAdd(CursorAbsolutePosition(pDomain, pCursor), pLength));
+    const std::uint64_t aAbsoluteTarget = SaturatingAdd(CursorAbsolutePosition(pDomain, pCursor), pLength);
+    aFlags |= ClassifyAbsoluteTargetFlags(pDomain, aAbsoluteTarget);
   }
   return aFlags;
 }
@@ -132,9 +138,6 @@ std::uint32_t BuildRecoveryDistanceFlags(const FenceDomain& pDomain,
       static_cast<std::uint64_t>(pBlockStartOffset) + static_cast<std::uint64_t>(kRecoveryHeaderLength) + pDistance;
   if (aCandidatePhysicalOffset >= static_cast<std::uint64_t>(aArchive.mPayloadLength)) {
     aFlags |= kFenceOutsidePayloadRange;
-  } else if ((aCandidatePhysicalOffset % static_cast<std::uint64_t>(kBlockLength)) <
-             static_cast<std::uint64_t>(kRecoveryHeaderLength)) {
-    aFlags |= kFenceInRecoveryHeader;
   }
 
   return aFlags;
@@ -225,11 +228,9 @@ FenceDomain BuildFenceDomain(const std::vector<ArchiveHeaderRecord>& pArchives) 
   std::uint64_t aReadableEnd = aDomain.mTotalLogicalLength;
   for (std::size_t aIndex = aDomain.mArchives.size(); aIndex > 0; --aIndex) {
     FenceDomainArchive& aArchive = aDomain.mArchives[aIndex - 1];
-    /*
     if (aArchive.mMissingGap) {
       aReadableEnd = aArchive.mLogicalStart;
     }
-    */
     aArchive.mReadableLogicalEnd = aReadableEnd;
   }
 
