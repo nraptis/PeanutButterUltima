@@ -13,6 +13,8 @@
 
 namespace peanutbutter {
 
+inline constexpr std::size_t MAX_ARCHIVE_BLOCK_COUNT = 2000;
+
 class Logger {
  public:
   virtual ~Logger() = default;
@@ -95,6 +97,7 @@ struct RuntimeSettings {
 };
 
 struct BundleRequest {
+  // File-or-folder source path.
   std::string mSourceDirectory;
   std::string mDestinationDirectory;
   std::string mArchivePrefix;
@@ -106,6 +109,7 @@ struct BundleRequest {
 };
 
 struct UnbundleRequest {
+  // File-or-folder archive input path.
   std::string mArchiveDirectory;
   std::string mDestinationDirectory;
   std::string mPasswordOne;
@@ -114,7 +118,9 @@ struct UnbundleRequest {
 };
 
 struct RecoverRequest {
+  // File-or-folder archive input path.
   std::string mArchiveDirectory;
+  // Optional file-or-folder override for recovery start selection.
   std::string mRecoveryStartFilePath;
   std::string mDestinationDirectory;
   std::string mPasswordOne;

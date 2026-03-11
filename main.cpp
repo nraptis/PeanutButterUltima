@@ -529,9 +529,11 @@ int main(int argc, char* argv[]) {
                         action_buttons_row,
                         action_spinner_row,
                         debug_console);
-  peanutbutter::RotateMaskBlockCipher aCrypt(
+  /* peanutbutter::RotateMaskBlockCipher aCrypt(
       static_cast<std::uint8_t>(kQtRotateMask & 0xFFU),
-      kQtRotateShift);
+      kQtRotateShift); */
+  peanutbutter::PassthroughCrypt aCrypt();
+
   peanutbutter::SessionLogger aLogger([&aShell](const std::string& pMessage, bool pIsError) {
     aShell.AppendLog(QString::fromStdString(pIsError ? "[error] " + pMessage : pMessage));
   });

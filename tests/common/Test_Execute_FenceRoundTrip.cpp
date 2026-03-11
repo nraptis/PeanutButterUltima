@@ -42,9 +42,20 @@ bool ApplyArchiveDataMutations(std::vector<TestArchive>& pArchives,
     }
 
     TestArchive& aArchive = *aIt;
+    const std::size_t aPayloadAvailable =
+        (aArchive.mData.size() > peanutbutter::SB_PLAIN_TEXT_HEADER_LENGTH)
+            ? (aArchive.mData.size() - peanutbutter::SB_PLAIN_TEXT_HEADER_LENGTH)
+            : 0;
+    const std::size_t aPayloadLength = std::min<std::size_t>(
+        static_cast<std::size_t>(aArchive.mArchiveHeader.mData.mPayloadLength), aPayloadAvailable);
+    const std::size_t aLogicalCapacity = peanutbutter::detail::LogicalCapacityForPhysicalLength(aPayloadLength);
+    // Backward-compatibility: older generated cases may encode archive-global logical offsets.
+    const std::size_t aNormalizedLogicalOffset =
+        (aLogicalCapacity > 0) ? (aMutation.mPayloadLogicalOffset % aLogicalCapacity) : aMutation.mPayloadLogicalOffset;
+
     std::set<std::size_t> aTouchedBlocks;
     for (std::size_t aByteIndex = 0; aByteIndex < aMutation.mBytes.size(); ++aByteIndex) {
-      const std::size_t aLogicalOffset = aMutation.mPayloadLogicalOffset + aByteIndex;
+      const std::size_t aLogicalOffset = aNormalizedLogicalOffset + aByteIndex;
       const std::size_t aBlockIndex = aLogicalOffset / peanutbutter::SB_PAYLOAD_SIZE;
       const std::size_t aInBlockPayload = aLogicalOffset % peanutbutter::SB_PAYLOAD_SIZE;
       const std::size_t aPhysicalPayloadOffset =

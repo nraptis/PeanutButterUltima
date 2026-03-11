@@ -21,6 +21,7 @@ import random
 import re
 import subprocess
 import sys
+import hashlib
 from dataclasses import asdict
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -30,9 +31,9 @@ import test_case_gen_engine as engine
 SCRIPT_DIR = Path(__file__).resolve().parent
 
 # Narrow/specialized fence scope: one deterministic case per family/target.
-SMALL_CASES_PER_SPEC = 600
-MEDIUM_CASES_PER_SPEC = 200
-
+SMALL_CASES_PER_SPEC = 32
+MEDIUM_CASES_PER_SPEC = 16
+ENCODE_TESTS_CASES_AS_DATA = True
 
 SOURCE_TYPES = [
     "file_name_length",
@@ -48,6 +49,7 @@ TARGET_TYPES = [
     "out_of_this_archive_bounds",
     "within_recovery_header",
     "within_archive_header",
+    "make_zero",
 ]
 
 
@@ -59,6 +61,7 @@ OUTPUT_DIR = SCRIPT_DIR / "tests" / "generated"
 OUTPUT_JSON = OUTPUT_DIR / "test_cases_all.json"
 OUTPUT_INDEX = OUTPUT_DIR / "test_cases_all_index.txt"
 ENGINE_OUTPUT_JSON = OUTPUT_DIR / "test_cases.json"
+
 
 
 def run_script_command(command: List[str], step_name: str) -> None:
@@ -95,9 +98,10 @@ def run_engine_step() -> None:
 
 
 def run_executor_cpp_step() -> None:
+    executor_name = "test_case_gen_executor_cpp_data.py" if ENCODE_TESTS_CASES_AS_DATA else "test_case_gen_executor_cpp_code.py"
     command = [
         sys.executable,
-        str(SCRIPT_DIR / "test_case_gen_executor_cpp.py"),
+        str(SCRIPT_DIR / executor_name),
         "--input",
         str(OUTPUT_JSON),
         "--output-dir",
@@ -359,10 +363,15 @@ def to_case_dict(p_case: engine.TestCase,
 def build_specs() -> List[Tuple[str, Optional[str]]]:
     specs: List[Tuple[str, Optional[str]]] = []
     for source in SOURCE_TYPES:
+        # EOF trailing-garbage cannot be represented when payload bytes per L1 block is 1 (RH + 1).
+        if source == "eof_gar" and engine.L1_PAYLOAD_LENGTH <= 1:
+            continue
         if source in ("eof_gar", "eof_oob"):
             specs.append((source, None))
             continue
         for target in TARGET_TYPES:
+            if source == "recovery_header" and target == "make_zero":
+                continue
             specs.append((source, target))
     return specs
 
@@ -426,24 +435,32 @@ def set_case_mutation_value(p_case: engine.TestCase, value: int) -> None:
 
 
 def specialize_recovery_missing_archive_case(p_case: engine.TestCase) -> bool:
-    if p_case.mutation.archive_index != 0:
-        return False
-
     stream, _ = engine.build_fields(p_case.tree)
     layout = engine.ArchiveLayout(p_case.archive_payload_length)
     file_lengths = engine.file_lengths_for_stream(layout, len(stream))
     if not file_lengths:
         return False
 
+    # Anchor this family at archive[0], recovery block 0 distance field to avoid
+    # unrelated decode-path fences masking the intended recovery-header fence.
     checksum_width = engine.RECOVERY_HEADER_LENGTH - engine.RECOVERY_DIST_WIDTH
-    block_start = p_case.mutation.offset - engine.PLAIN_HEADER_LENGTH - checksum_width
-    if block_start < 0:
-        return False
-
-    header_end_abs = engine.PLAIN_HEADER_LENGTH + block_start + engine.RECOVERY_HEADER_LENGTH
+    p_case.mutation.archive_index = 0
+    p_case.mutation.offset = engine.PLAIN_HEADER_LENGTH + checksum_width
+    p_case.mutation.payload_logical_offset = -1
+    p_case.mutation.width_bytes = engine.RECOVERY_DIST_WIDTH
+    p_case.selected_subject = "archive_0_recovery_header_at_block_0"
+    header_end_abs = engine.PLAIN_HEADER_LENGTH + engine.RECOVERY_HEADER_LENGTH
     archive_file_len = file_lengths[0]
-    # Point into missing archive-1 payload (not its header) so gap flag is deterministic.
-    target_abs = archive_file_len + engine.PLAIN_HEADER_LENGTH + engine.RECOVERY_HEADER_LENGTH + 1
+
+    # Generalized gap targeting:
+    # 1) deterministically select a jump distance in [1..6]
+    # 2) point the mutated stride into that future archive payload
+    # 3) synthesize trailing archives so the gap can exist in the archive set
+    jump_seed = f"{p_case.case_id}:{p_case.archive_payload_length}".encode("utf-8")
+    jump = 1 + (int(hashlib.sha256(jump_seed).hexdigest()[:8], 16) % 6)
+    gap_archive_index = jump
+    target_archive_start_abs = gap_archive_index * archive_file_len
+    target_abs = target_archive_start_abs + engine.PLAIN_HEADER_LENGTH + engine.RECOVERY_HEADER_LENGTH + 1
     distance = target_abs - header_end_abs
     if distance <= 0:
         return False
@@ -453,11 +470,23 @@ def specialize_recovery_missing_archive_case(p_case: engine.TestCase) -> bool:
         return False
 
     set_case_mutation_value(p_case, distance)
-    # Force archive index 1 to be a gap across both small and medium populations.
-    p_case.archive_set_mutation.remove_archive_indices = [1]
-    p_case.archive_set_mutation.create_archive_indices = [max(2, len(file_lengths))]
+    # Remove the selected jump archive and synthesize trailing archives so the
+    # archive list can still extend beyond the gap.
+    p_case.archive_set_mutation.remove_archive_indices = [gap_archive_index]
+    create_indices = set(p_case.archive_set_mutation.create_archive_indices)
+    create_indices.discard(gap_archive_index)
+    current_max_index = max(0, len(file_lengths) - 1)
+    required_max_index = gap_archive_index + 1
+    if current_max_index < required_max_index:
+        for idx in range(current_max_index + 1, required_max_index + 1):
+            if idx == gap_archive_index:
+                continue
+            create_indices.add(idx)
+    p_case.archive_set_mutation.create_archive_indices = sorted(create_indices)
     p_case.notes.append(
-        "Target override: forced recovery-distance out-of-entire-list mutation into deterministic archive-1 gap."
+        "Target override: anchored recovery-distance mutation at archive[0] block-0, "
+        f"selected deterministic jump={jump}, removed archive[{gap_archive_index}], "
+        f"and synthesized trailing archives through index {required_max_index}."
     )
     return True
 

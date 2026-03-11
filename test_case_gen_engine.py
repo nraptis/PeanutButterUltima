@@ -32,6 +32,7 @@ MEDIUM_COUNT = 0
 
 FUDGE_LOOPS = 4096
 RETRY_LOOPS = 256
+SPREAD_GROWTH_LIMIT = 512
 
 RANDOM_SEED = 1337
 OUTPUT_JSON = "tests/generated/test_cases.json"
@@ -40,8 +41,8 @@ SYNC_FORMAT_CONSTANTS = True
 
 PLAIN_HEADER_LENGTH = 40
 RECOVERY_HEADER_LENGTH = 16
-# L1_PAYLOAD_LENGTH = 88
-L1_PAYLOAD_LENGTH = RECOVERY_HEADER_LENGTH + 1
+# L1_PAYLOAD_LENGTH = 48 - RECOVERY_HEADER_LENGTH
+L1_PAYLOAD_LENGTH = RECOVERY_HEADER_LENGTH + 2
 
 L1_LENGTH = L1_PAYLOAD_LENGTH + RECOVERY_HEADER_LENGTH
 SB_L3_LENGTH_DEFAULT = L1_LENGTH * 4
@@ -261,6 +262,22 @@ def append_unique_file(tree: TreeSpec,
     raise RuntimeError("Unable to generate unique file path.")
 
 
+def extend_last_file_content_by_one_byte(tree: TreeSpec,
+                                         rng: random.Random,
+                                         max_name_len: int,
+                                         max_content_len: int) -> None:
+    if not tree.files:
+        append_unique_file(tree, rng, max_name_len, max_content_len)
+        return
+    target_path = sorted(f.path for f in tree.files)[-1]
+    extra = rng.choice(string.ascii_letters + string.digits)
+    for file_entry in tree.files:
+        if file_entry.path == target_path:
+            file_entry.content = file_entry.content + extra
+            return
+    raise RuntimeError("Could not extend last file content for EOF relayout.")
+
+
 def append_unique_dir(tree: TreeSpec, rng: random.Random, max_name_len: int) -> None:
     existing = set(tree.empty_dirs)
     for _ in range(RETRY_LOOPS):
@@ -300,6 +317,7 @@ class FieldRef:
 class Mutation:
     archive_index: int
     offset: int
+    payload_logical_offset: int
     width_bytes: int
     new_value: int
     new_value_le_hex: str
@@ -499,6 +517,21 @@ def payload_bytes_for_logical(layout: ArchiveLayout, logical_bytes: int) -> int:
     return ((last_physical + 1 + SB_L3_LENGTH_DEFAULT - 1) // SB_L3_LENGTH_DEFAULT) * SB_L3_LENGTH_DEFAULT
 
 
+def logical_blocks_for_logical(layout: ArchiveLayout, logical_bytes: int) -> int:
+    if logical_bytes <= 0:
+        return 0
+    return (logical_bytes + layout.data_per_block - 1) // layout.data_per_block
+
+
+def logical_capacity_for_physical_payload(layout: ArchiveLayout, payload_bytes: int) -> int:
+    if payload_bytes <= 0:
+        return 0
+    full_blocks = payload_bytes // layout.l1_length
+    rem = payload_bytes % layout.l1_length
+    rem_data = max(0, rem - layout.recovery_header_len)
+    return (full_blocks * layout.data_per_block) + rem_data
+
+
 def file_lengths_for_stream(layout: ArchiveLayout, stream_len: int) -> List[int]:
     logical_parts = logical_bytes_per_archive(layout, stream_len)
     return [PLAIN_HEADER_LENGTH + payload_bytes_for_logical(layout, logical) for logical in logical_parts]
@@ -513,16 +546,100 @@ def file_start_abs_positions(file_lengths: List[int]) -> List[int]:
     return starts
 
 
+def archive_count_for_stream(layout: ArchiveLayout, stream_len: int) -> int:
+    return max(1, (stream_len + layout.logical_per_archive - 1) // layout.logical_per_archive)
+
+
+def choose_spread_archive_goal(rng: random.Random, field_kind: str, illegal_target_type: str) -> int:
+    if field_kind in ("eof_gar", "eof_oob"):
+        return 1
+    if field_kind == "recovery_header":
+        if illegal_target_type == "within_archive_header":
+            return rng.randint(3, 8)
+        return rng.randint(2, 6)
+    if illegal_target_type == "make_zero":
+        return rng.randint(2, 4)
+    return rng.randint(2, 5)
+
+
+def expand_tree_for_spread(tree: TreeSpec,
+                           layout: ArchiveLayout,
+                           stream: bytes,
+                           fields: Dict[str, List[FieldRef]],
+                           field_kind: str,
+                           rng: random.Random,
+                           max_name_len: int,
+                           max_content_len: int,
+                           desired_archive_count: int,
+                           notes: List[str]) -> Tuple[bytes, Dict[str, List[FieldRef]], int]:
+    archive_count = archive_count_for_stream(layout, len(stream))
+    initial_archive_count = archive_count
+    loops = 0
+    growth_limit = max(1, min(FUDGE_LOOPS, SPREAD_GROWTH_LIMIT))
+    while archive_count < desired_archive_count and loops < growth_limit:
+        if field_kind == "directory_name_length" and rng.random() < 0.35:
+            append_unique_dir(tree, rng, max_name_len)
+        else:
+            append_unique_file(tree, rng, max_name_len, max_content_len, prefer_max_bytes=True)
+        stream, fields = build_fields(tree)
+        archive_count = archive_count_for_stream(layout, len(stream))
+        loops += 1
+    if loops > 0:
+        notes.append(
+            f"Expanded tree for spread: archive count {initial_archive_count}->{archive_count} "
+            f"(target {desired_archive_count})."
+        )
+    return stream, fields, archive_count
+
+
+def _offset_edge_distance(layout: ArchiveLayout, logical_offset: int) -> int:
+    if layout.data_per_block <= 1:
+        return 0
+    offset_in_block = logical_offset % layout.data_per_block
+    return min(offset_in_block, (layout.data_per_block - 1) - offset_in_block)
+
+
+def choose_spread_field_ref(rng: random.Random, layout: ArchiveLayout, refs: List[FieldRef]) -> FieldRef:
+    scored: List[Tuple[int, FieldRef]] = []
+    for ref in refs:
+        archive_index, _ = layout.logical_to_physical(ref.logical_offset)
+        local_logical_offset = ref.logical_offset % max(1, layout.logical_per_archive)
+        block_index = local_logical_offset // max(1, layout.data_per_block)
+        edge_distance = _offset_edge_distance(layout, local_logical_offset)
+        edge_bonus = max(0, 3 - edge_distance)
+        score = (block_index * 10000) + (local_logical_offset * 10) + (archive_index * 100) + edge_bonus
+        scored.append((score, ref))
+    scored.sort(key=lambda item: item[0], reverse=True)
+    top_count = max(1, len(scored) // 5)
+    return rng.choice([ref for _, ref in scored[:top_count]])
+
+
+def choose_spread_recovery_anchor(rng: random.Random,
+                                  used_blocks_by_archive: List[int],
+                                  source_archives: List[int]) -> Optional[Tuple[int, int]]:
+    candidates: List[Tuple[int, int, int]] = []
+    for archive_index in source_archives:
+        used_blocks = max(0, used_blocks_by_archive[archive_index])
+        for block_index in range(used_blocks):
+            score = (block_index * 10000) + (archive_index * 100)
+            candidates.append((score, archive_index, block_index))
+    if not candidates:
+        return None
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    top_count = max(1, len(candidates) // 3)
+    _, archive_index, block_index = rng.choice(candidates[:top_count])
+    return archive_index, block_index
+
+
 def recovery_header_abs_positions(layout: ArchiveLayout, stream_len: int) -> List[int]:
     logical_parts = logical_bytes_per_archive(layout, stream_len)
     lengths = file_lengths_for_stream(layout, stream_len)
     starts = file_start_abs_positions(lengths)
     out: List[int] = []
     for archive_index, logical in enumerate(logical_parts):
-        payload_len = lengths[archive_index] - PLAIN_HEADER_LENGTH
-        if payload_len <= 0:
+        used_blocks = logical_blocks_for_logical(layout, logical)
+        if used_blocks <= 0:
             continue
-        used_blocks = payload_len // layout.l1_length
         for block_index in range(used_blocks):
             file_off = PLAIN_HEADER_LENGTH + (block_index * layout.l1_length)
             out.append(starts[archive_index] + file_off)
@@ -579,16 +696,19 @@ def choose_illegal_value(
 
     if illegal_target_type == "within_recovery_header":
         targets: List[int] = []
-        for archive_index, file_length in enumerate(file_lengths):
-            payload_length = max(0, file_length - PLAIN_HEADER_LENGTH)
-            if payload_length == 0:
+        logical_parts = logical_bytes_per_archive(layout, stream_len)
+        for archive_index, logical in enumerate(logical_parts):
+            used_blocks = logical_blocks_for_logical(layout, logical)
+            if used_blocks <= 0:
                 continue
             archive_start_abs = starts[archive_index]
-            for block_start in range(0, payload_length, layout.l1_length):
+            archive_end_abs = archive_start_abs + file_lengths[archive_index]
+            for block_index in range(used_blocks):
+                block_start = block_index * layout.l1_length
                 rec_start_abs = archive_start_abs + PLAIN_HEADER_LENGTH + block_start
                 rec_end_abs = min(
                     rec_start_abs + RECOVERY_HEADER_LENGTH,
-                    archive_start_abs + file_length,
+                    archive_end_abs,
                 )
                 for abs_pos in range(rec_start_abs, rec_end_abs):
                     targets.append(abs_pos)
@@ -677,10 +797,12 @@ def make_failure_comment(field_kind: str, illegal_target_type: str) -> str:
 
 def expected_error_code(field_kind: str, illegal_target_type: str) -> str:
     if illegal_target_type == "make_zero":
-        if field_kind in ("file_name_length", "directory_name_length", "file_content_length"):
+        if field_kind in ("file_name_length", "directory_name_length"):
             return "UNP_EOF_003"
+        if field_kind == "file_content_length":
+            return "UNP_FNL_FENCE"
         if field_kind == "recovery_header":
-            return "UNP_EOF_003"
+            return ""
     if field_kind in ("file_name_length", "directory_name_length"):
         return "UNP_FNL_FENCE"
     if field_kind == "file_content_length":
@@ -701,6 +823,8 @@ def generate_case(case_id: str,
                   forced_target: Optional[str] = None) -> TestCase:
     field_kind = forced_source if forced_source is not None else choose_from_mode(rng, FAILURE_SOURCE_TYPE, SOURCE_TYPES)
     illegal_target_type = forced_target if forced_target is not None else choose_from_mode(rng, FAILURE_TARGET_TYPE, TARGET_TYPES)
+    if field_kind == "recovery_header" and illegal_target_type == "make_zero":
+        illegal_target_type = "out_of_this_archive_bounds"
     flow = choose_from_mode(rng, FLOW_TYPE, FLOW_TYPES)
     strict_target = FAILURE_TARGET_TYPE != "any"
 
@@ -744,92 +868,176 @@ def generate_case(case_id: str,
         append_unique_file(tree, rng, max_name_len, max_content_len)
     notes: List[str] = []
     archive_set_mutation = ArchiveSetMutation(create_archive_indices=[], remove_archive_indices=[])
+    payload_logical_offset = -1
+    eof_runtime_logical_capacity = -1
 
     stream, fields = build_fields(tree)
-    archive_count = max(1, (len(stream) + layout.logical_per_archive - 1) // layout.logical_per_archive)
+    archive_count = archive_count_for_stream(layout, len(stream))
+
+    if field_kind not in ("eof_gar", "eof_oob"):
+        desired_archive_count = choose_spread_archive_goal(rng, field_kind, illegal_target_type)
+        stream, fields, archive_count = expand_tree_for_spread(
+            tree=tree,
+            layout=layout,
+            stream=stream,
+            fields=fields,
+            field_kind=field_kind,
+            rng=rng,
+            max_name_len=max_name_len,
+            max_content_len=max_content_len,
+            desired_archive_count=desired_archive_count,
+            notes=notes,
+        )
 
     if field_kind in ("eof_gar", "eof_oob"):
-        # Keep EOF-source cases in a single logical archive so EOF classification is
-        # about dangling bytes/archive-tail mutation, not incidental multi-archive drift.
-        while len(stream) > layout.logical_per_archive and len(tree.files) > 1:
-            tree.files = sorted(tree.files, key=lambda x: x.path)[:-1]
-            stream, fields = build_fields(tree)
-            notes.append("Trimmed EOF source tree to keep logical stream within one archive.")
-
-        if len(stream) > layout.logical_per_archive:
-            # Tiny payload geometry can leave a single random medium file still too large.
-            # Fall back to a compact deterministic tree that is guaranteed to fit.
-            tree = TreeSpec(
-                files=[
-                    FileEntry(path="a.txt", content="a"),
-                    FileEntry(path="b.txt", content="b"),
-                ],
-                empty_dirs=[],
-            )
-            stream, fields = build_fields(tree)
-            notes.append("EOF source fallback: replaced oversized tree with compact deterministic file set.")
-            if len(stream) > layout.logical_per_archive:
-                raise RuntimeError(f"Could not constrain EOF source stream to one archive for {case_id}")
-
-        ensure_pickable(tree, "file_name_length", rng, max_name_len, max_content_len)
-        stream, fields = build_fields(tree)
-        picks = selectable_integer_refs(
-            layout,
-            [entry for entry in fields["file_name_length"] if entry.span_length > 0],
-        )
-        grow_loops = 0
-        while not picks:
-            if grow_loops >= FUDGE_LOOPS:
-                raise RuntimeError(f"Could not create EOF anchor field for {case_id}")
-            append_unique_file(tree, rng, max_name_len, max_content_len, prefer_max_bytes=True)
-            stream, fields = build_fields(tree)
-            picks = selectable_integer_refs(
-                layout,
-                [entry for entry in fields["file_name_length"] if entry.span_length > 0],
-            )
-            grow_loops += 1
-            notes.append("Expanded tree to obtain EOF mutation anchor path length.")
-
-        # Prefer a non-terminal file-name length so path_length=0 becomes an early logical end marker.
-        ref = picks[-1]
-
-        # Sentinel rule:
-        # If the selected path-length field lands on archive boundary edge conditions, append a sentinel
-        # file and retry so the resulting early end marker has deterministic trailing bytes.
-        sentinel_loops = 0
-        while True:
-            # Keep one full record byte after the mutated length field inside the same archive when possible.
-            after_len = ref.logical_end_offset
-            if (after_len % layout.logical_per_archive) != 0:
-                break
-            if sentinel_loops >= FUDGE_LOOPS:
-                raise RuntimeError(f"Could not place EOF sentinel file away from archive boundary for {case_id}")
-            tree.files.append(
-                FileEntry(
-                    path=f"z{sentinel_loops:03d}.t",
-                    content="s",
+        if field_kind == "eof_gar":
+            if layout.data_per_block <= 1:
+                raise RuntimeError(
+                    f"EOF garbage generation requires payload bytes per block > 1 (got {layout.data_per_block})."
                 )
-            )
-            tree.files = sorted(tree.files, key=lambda x: x.path)
+            relayout_loops = 0
+            while True:
+                stream, fields = build_fields(tree)
+                stream_end_offset = collect_zero_marker_offsets(tree)[0]
+                archive_count = archive_count_for_stream(layout, len(stream))
+
+                # Edge case:
+                # [..][00][00]| end-of-last-archive
+                # No archive exists to hold garbage bytes after the marker.
+                injection_logical = stream_end_offset + 2
+                injection_archive = injection_logical // layout.logical_per_archive
+                if injection_archive >= archive_count:
+                    if relayout_loops >= FUDGE_LOOPS:
+                        raise RuntimeError(f"Could not place EOF garbage bytes in an existing archive for {case_id}")
+                    extend_last_file_content_by_one_byte(tree, rng, max_name_len, max_content_len)
+                    relayout_loops += 1
+                    notes.append("EOF relayout: extended last file by 1 byte to move terminator off archive tail.")
+                    continue
+
+                # Edge case:
+                # [..]|[00][00][...]
+                # If payload data per block is 2, [00][00] exhausts the first data block.
+                # Nudge stream shape and retry for stable trailing-garbage classification.
+                marker_in_archive = stream_end_offset % layout.logical_per_archive
+                if layout.data_per_block == 2 and marker_in_archive == 0:
+                    if relayout_loops >= FUDGE_LOOPS:
+                        raise RuntimeError(f"Could not relayout EOF marker for payload-size=2 case {case_id}")
+                    extend_last_file_content_by_one_byte(tree, rng, max_name_len, max_content_len)
+                    relayout_loops += 1
+                    notes.append("EOF relayout: payload-size=2 boundary case, extended last file by 1 byte.")
+                    continue
+
+                payload_logical_offset = injection_logical % layout.logical_per_archive
+                logical_parts = logical_bytes_per_archive(layout, len(stream))
+                if injection_archive >= len(logical_parts):
+                    if relayout_loops >= FUDGE_LOOPS:
+                        raise RuntimeError(f"Could not derive logical-part bounds for {case_id}")
+                    extend_last_file_content_by_one_byte(tree, rng, max_name_len, max_content_len)
+                    relayout_loops += 1
+                    notes.append("EOF relayout: extended last file by 1 byte to stabilize archive logical partition.")
+                    continue
+
+                archive_logical_length = logical_parts[injection_archive]
+                used_payload_length = payload_bytes_for_logical(layout, archive_logical_length)
+                eof_runtime_logical_capacity = logical_capacity_for_physical_payload(layout, used_payload_length)
+                runtime_remaining = eof_runtime_logical_capacity - payload_logical_offset
+                block_remaining = layout.data_per_block - (payload_logical_offset % layout.data_per_block)
+                width = min(runtime_remaining, block_remaining)
+                if width <= 0:
+                    if relayout_loops >= FUDGE_LOOPS:
+                        raise RuntimeError(f"Could not derive positive EOF garbage span for {case_id}")
+                    extend_last_file_content_by_one_byte(tree, rng, max_name_len, max_content_len)
+                    relayout_loops += 1
+                    notes.append("EOF relayout: extended last file by 1 byte to create runtime-bounded garbage span.")
+                    continue
+                break
+
+            archive_index, offset = layout.logical_to_physical(injection_logical)
+            subject = f"eof_trailing_garbage_at_{injection_logical}"
+            garbage_bytes = bytes(rng.randint(1, 255) for _ in range(width))
+            value = int.from_bytes(garbage_bytes, "little")
+            notes.append("EOF garbage mode: filled remaining logical bytes in this payload block with non-zero garbage.")
+        else:
+            # Keep EOF out-of-bounds source cases in one archive so added trailing archive
+            # deterministically drives UNP_EOF_001 classification.
+            while len(stream) > layout.logical_per_archive and len(tree.files) > 1:
+                tree.files = sorted(tree.files, key=lambda x: x.path)[:-1]
+                stream, fields = build_fields(tree)
+                notes.append("Trimmed EOF source tree to keep logical stream within one archive.")
+
+            if len(stream) > layout.logical_per_archive:
+                tree = TreeSpec(
+                    files=[
+                        FileEntry(path="a.txt", content="a"),
+                        FileEntry(path="b.txt", content="b"),
+                    ],
+                    empty_dirs=[],
+                )
+                stream, fields = build_fields(tree)
+                notes.append("EOF source fallback: replaced oversized tree with compact deterministic file set.")
+                if len(stream) > layout.logical_per_archive:
+                    raise RuntimeError(f"Could not constrain EOF source stream to one archive for {case_id}")
+
+            ensure_pickable(tree, "file_name_length", rng, max_name_len, max_content_len)
             stream, fields = build_fields(tree)
             picks = selectable_integer_refs(
                 layout,
                 [entry for entry in fields["file_name_length"] if entry.span_length > 0],
             )
-            if not picks:
-                raise RuntimeError(f"EOF sentinel insertion removed selectable path-length fields for {case_id}")
-            ref = picks[-2] if len(picks) >= 2 else picks[-1]
-            sentinel_loops += 1
-            notes.append("Added EOF sentinel file to avoid archive-boundary terminal EOF mutation.")
+            grow_loops = 0
+            while not picks:
+                if grow_loops >= FUDGE_LOOPS:
+                    raise RuntimeError(f"Could not create EOF anchor field for {case_id}")
+                append_unique_file(tree, rng, max_name_len, max_content_len, prefer_max_bytes=True)
+                stream, fields = build_fields(tree)
+                picks = selectable_integer_refs(
+                    layout,
+                    [entry for entry in fields["file_name_length"] if entry.span_length > 0],
+                )
+                grow_loops += 1
+                notes.append("Expanded tree to obtain EOF mutation anchor path length.")
 
-        archive_index, offset = layout.logical_to_physical(ref.logical_offset)
-        width = ref.width_bytes
-        subject = ref.subject_path
-        value = 0
-        if field_kind == "eof_oob":
-            archive_count = max(1, (len(stream) + layout.logical_per_archive - 1) // layout.logical_per_archive)
+            # Prefer a non-terminal file-name length so path_length=0 becomes an early logical end marker.
+            ref = picks[-1]
+
+            # Sentinel rule:
+            # If the selected path-length field lands on archive boundary edge conditions, append a sentinel
+            # file and retry so the resulting early end marker has deterministic trailing bytes.
+            sentinel_loops = 0
+            while True:
+                # Keep one full record byte after the mutated length field inside the same archive when possible.
+                after_len = ref.logical_end_offset
+                if (after_len % layout.logical_per_archive) != 0:
+                    break
+                if sentinel_loops >= FUDGE_LOOPS:
+                    raise RuntimeError(f"Could not place EOF sentinel file away from archive boundary for {case_id}")
+                tree.files.append(
+                    FileEntry(
+                        path=f"z{sentinel_loops:03d}.t",
+                        content="s",
+                    )
+                )
+                tree.files = sorted(tree.files, key=lambda x: x.path)
+                stream, fields = build_fields(tree)
+                picks = selectable_integer_refs(
+                    layout,
+                    [entry for entry in fields["file_name_length"] if entry.span_length > 0],
+                )
+                if not picks:
+                    raise RuntimeError(f"EOF sentinel insertion removed selectable path-length fields for {case_id}")
+                ref = picks[-2] if len(picks) >= 2 else picks[-1]
+                sentinel_loops += 1
+                notes.append("Added EOF sentinel file to avoid archive-boundary terminal EOF mutation.")
+
+            archive_index, offset = layout.logical_to_physical(ref.logical_offset)
+            payload_logical_offset = ref.logical_offset % layout.logical_per_archive
+            width = ref.width_bytes
+            subject = ref.subject_path
+            value = 0
+            archive_count = archive_count_for_stream(layout, len(stream))
             archive_set_mutation.create_archive_indices = [archive_count]
             notes.append("EOF out-of-bounds mode: added trailing archive to force UNP_EOF_001 classification.")
+
         notes.append("EOF source mode active: ignored configured target type.")
     elif field_kind == "recovery_header":
         grow_loops = 0
@@ -839,7 +1047,7 @@ def generate_case(case_id: str,
             logical_parts = logical_bytes_per_archive(layout, len(stream))
             archive_count = len(logical_parts)
             used_blocks_by_archive = [
-                (payload_bytes_for_logical(layout, logical) // layout.l1_length) if logical > 0 else 0
+                logical_blocks_for_logical(layout, logical)
                 for logical in logical_parts
             ]
 
@@ -857,14 +1065,27 @@ def generate_case(case_id: str,
             grow_loops += 1
             notes.append("Expanded tree to obtain selectable recovery header candidate.")
 
-        # Use a deterministic, first-reachable recovery header anchor so recover flow
-        # reads and fences this header before any EOF fallback path can hide it.
-        archive_index = source_archives[0]
-        block_index = 0
+        if illegal_target_type == "out_of_entire_archive_list_bounds":
+            # Keep missing-archive recovery-distance cases deterministic and early so
+            # recovery-header fence is surfaced before other decode-fence paths.
+            anchor = (source_archives[0], 0)
+        else:
+            anchor = choose_spread_recovery_anchor(rng, used_blocks_by_archive, source_archives)
+        if anchor is None:
+            raise RuntimeError(f"Could not select spread recovery header anchor for {case_id}")
+        archive_index, block_index = anchor
         recovery_checksum_width = RECOVERY_HEADER_LENGTH - RECOVERY_DIST_WIDTH
         offset = PLAIN_HEADER_LENGTH + (block_index * layout.l1_length) + recovery_checksum_width
         width = RECOVERY_DIST_WIDTH
         subject = f"archive_{archive_index}_recovery_header_at_{offset}"
+        if illegal_target_type == "out_of_entire_archive_list_bounds":
+            notes.append(
+                f"Selected deterministic recovery-header anchor at archive {archive_index}, block {block_index}."
+            )
+        else:
+            notes.append(
+                f"Selected recovery-header anchor at archive {archive_index}, block {block_index} for spread."
+            )
         start_archive = archive_index
         start_off = (block_index * layout.l1_length) + RECOVERY_HEADER_LENGTH
     else:
@@ -879,11 +1100,12 @@ def generate_case(case_id: str,
                 append_unique_dir(tree, rng, max_name_len)
             stream, fields = build_fields(tree)
             picks = selectable_integer_refs(layout, fields[field_kind])
-            archive_count = max(1, (len(stream) + layout.logical_per_archive - 1) // layout.logical_per_archive)
+            archive_count = archive_count_for_stream(layout, len(stream))
             grow_loops += 1
             notes.append("Expanded tree to obtain selectable field target.")
-        ref = rng.choice(picks)
+        ref = choose_spread_field_ref(rng, layout, picks)
         archive_index, offset = layout.logical_to_physical(ref.logical_offset)
+        payload_logical_offset = ref.logical_offset % layout.logical_per_archive
         start_archive, start_end_file_off = layout.logical_to_physical(ref.logical_end_offset)
         start_off = start_end_file_off - PLAIN_HEADER_LENGTH
         width = ref.width_bytes
@@ -905,6 +1127,7 @@ def generate_case(case_id: str,
             nonlocal width
             nonlocal subject
             nonlocal min_illegal_value
+            nonlocal payload_logical_offset
 
             if field_kind not in ("file_name_length", "directory_name_length", "file_content_length"):
                 return True
@@ -919,7 +1142,7 @@ def generate_case(case_id: str,
                     selected = candidate
                     break
             if selected is None:
-                selected = rng.choice(current_picks)
+                selected = choose_spread_field_ref(rng, layout, current_picks)
                 if selected.subject_path != subject:
                     notes.append(
                         f"Mutation subject shifted from '{subject}' to '{selected.subject_path}' while satisfying constraints."
@@ -927,6 +1150,7 @@ def generate_case(case_id: str,
 
             ref = selected
             archive_index, offset = layout.logical_to_physical(ref.logical_offset)
+            payload_logical_offset = ref.logical_offset % layout.logical_per_archive
             start_archive, start_end_file_off = layout.logical_to_physical(ref.logical_end_offset)
             start_off = start_end_file_off - PLAIN_HEADER_LENGTH
             width = ref.width_bytes
@@ -950,6 +1174,19 @@ def generate_case(case_id: str,
                     dedupe.append(t)
 
             for _ in range(FUDGE_LOOPS):
+                # Keep mutation anchor synchronized with the current tree. If the
+                # current tree shape makes all candidate anchors non-selectable,
+                # grow first and retry instead of probing with stale coordinates.
+                if not refresh_selected_field():
+                    if field_kind == "directory_name_length":
+                        append_unique_dir(tree, rng, max_name_len)
+                    else:
+                        append_unique_file(tree, rng, max_name_len, max_content_len)
+                    stream, fields = build_fields(tree)
+                    archive_count = archive_count_for_stream(layout, len(stream))
+                    notes.append("Expanded tree to restore selectable mutation anchor.")
+                    continue
+
                 for t in dedupe:
                     value = choose_illegal_value(
                         rng,
@@ -973,9 +1210,7 @@ def generate_case(case_id: str,
                 else:
                     append_unique_file(tree, rng, max_name_len, max_content_len)
                 stream, fields = build_fields(tree)
-                archive_count = max(1, (len(stream) + layout.logical_per_archive - 1) // layout.logical_per_archive)
-                if not refresh_selected_field():
-                    continue
+                archive_count = archive_count_for_stream(layout, len(stream))
                 notes.append("Expanded tree to satisfy illegal-target mutation constraints.")
         else:
             notes.append("Target make_zero: forced integer field value to zero.")
@@ -984,7 +1219,15 @@ def generate_case(case_id: str,
             raise RuntimeError(f"Could not derive mutation value for {case_id}")
 
     archive_file_len = PLAIN_HEADER_LENGTH + archive_payload_length
-    if offset + width > archive_file_len:
+    if field_kind == "eof_gar" and payload_logical_offset >= 0:
+        eof_capacity_bound = eof_runtime_logical_capacity if eof_runtime_logical_capacity > 0 else layout.logical_per_archive
+        if payload_logical_offset + width > eof_capacity_bound:
+            raise RuntimeError(
+                "Selected EOF garbage span exceeds archive logical payload bounds "
+                f"(payload_logical_offset={payload_logical_offset}, width={width}, "
+                f"logical_per_archive={eof_capacity_bound})."
+            )
+    elif offset + width > archive_file_len:
         raise RuntimeError(
             "Selected mutation bytes exceed archive file bounds "
             f"(offset={offset}, width={width}, archive_file_len={archive_file_len})."
@@ -1020,6 +1263,7 @@ def generate_case(case_id: str,
         mutation=Mutation(
             archive_index=archive_index,
             offset=offset,
+            payload_logical_offset=payload_logical_offset,
             width_bytes=width,
             new_value=value,
             new_value_le_hex=le_hex(value, width),

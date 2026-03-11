@@ -48,23 +48,16 @@ std::vector<PlannedArchiveLayout> BuildArchiveLayouts(std::size_t pLogicalByteLe
   return aLayouts;
 }
 
-std::uint64_t ComputeRecoveryDistance(const PlannedArchiveLayout& pLayout,
-                                      std::size_t pBlockStartOffset,
-                                      const std::vector<std::size_t>& pRecordStartLogicalOffsets) {
-  const std::size_t aRecoveryEnd = pBlockStartOffset + kRecoveryHeaderLength;
-  for (std::size_t aRecordIndex = 0; aRecordIndex < pRecordStartLogicalOffsets.size(); ++aRecordIndex) {
-    const std::size_t aRecordStart = pRecordStartLogicalOffsets[aRecordIndex];
-    if (aRecordStart < pLayout.mLogicalStart || aRecordStart >= pLayout.mLogicalEnd) {
-      continue;
-    }
-
-    const std::size_t aLocalLogicalOffset = aRecordStart - pLayout.mLogicalStart;
-    const std::size_t aPhysicalOffset = PhysicalOffsetForLogicalOffset(aLocalLogicalOffset);
-    if (aPhysicalOffset >= aRecoveryEnd) {
-      return static_cast<std::uint64_t>(aPhysicalOffset - aRecoveryEnd);
-    }
+std::vector<std::size_t> BuildRecordPhysicalOffsetsForLayout(
+    const PlannedArchiveLayout& pLayout,
+    const std::vector<std::size_t>& pRecordStartLogicalOffsets) {
+  std::vector<std::size_t> aPhysicalOffsets;
+  const auto aBegin = std::lower_bound(
+      pRecordStartLogicalOffsets.begin(), pRecordStartLogicalOffsets.end(), pLayout.mLogicalStart);
+  for (auto aIt = aBegin; aIt != pRecordStartLogicalOffsets.end() && *aIt < pLayout.mLogicalEnd; ++aIt) {
+    aPhysicalOffsets.push_back(PhysicalOffsetForLogicalOffset(*aIt - pLayout.mLogicalStart));
   }
-  return 0;
+  return aPhysicalOffsets;
 }
 
 bool CopyLogicalBytesIntoPage(unsigned char* pPageBuffer,
@@ -93,18 +86,30 @@ bool CopyLogicalBytesIntoPage(unsigned char* pPageBuffer,
 
 void InitializePageRecoveryHeaders(unsigned char* pPageBuffer,
                                    std::size_t pPageLength,
-                                   const PlannedArchiveLayout& pLayout,
                                    std::size_t pPageStartOffset,
-                                   const std::vector<std::size_t>& pRecordStartLogicalOffsets) {
-  std::memset(pPageBuffer, 0, kPageLength);
+                                   const std::vector<std::size_t>& pRecordStartPhysicalOffsets) {
+  std::memset(pPageBuffer, 0, pPageLength);
+  std::size_t aNextRecordOffsetIndex = std::lower_bound(
+      pRecordStartPhysicalOffsets.begin(), pRecordStartPhysicalOffsets.end(), pPageStartOffset + kRecoveryHeaderLength) -
+                                       pRecordStartPhysicalOffsets.begin();
+
   for (std::size_t aBlockIndex = 0; aBlockIndex < kPageBlockCount; ++aBlockIndex) {
     const std::size_t aBlockStart = pPageStartOffset + (aBlockIndex * kBlockLength);
     if (aBlockStart + kRecoveryHeaderLength > pPageStartOffset + pPageLength) {
       break;
     }
 
+    const std::size_t aRecoveryEnd = aBlockStart + kRecoveryHeaderLength;
+    while (aNextRecordOffsetIndex < pRecordStartPhysicalOffsets.size() &&
+           pRecordStartPhysicalOffsets[aNextRecordOffsetIndex] < aRecoveryEnd) {
+      ++aNextRecordOffsetIndex;
+    }
+
     RecoveryHeader aHeader{};
-    aHeader.mDistanceToNextRecord = ComputeRecoveryDistance(pLayout, aBlockStart, pRecordStartLogicalOffsets);
+    if (aNextRecordOffsetIndex < pRecordStartPhysicalOffsets.size()) {
+      aHeader.mDistanceToNextRecord =
+          static_cast<std::uint64_t>(pRecordStartPhysicalOffsets[aNextRecordOffsetIndex] - aRecoveryEnd);
+    }
     std::memcpy(pPageBuffer + (aBlockIndex * kBlockLength), &aHeader, sizeof(aHeader));
   }
 }
@@ -168,8 +173,13 @@ class LogicalRecordStreamer {
       }
 
       if (mPhase == Phase::kPathLengthBytes) {
-        while (mPhaseOffset < 2 && pBytesRead < pMaxBytes) {
-          pBuffer[pBytesRead++] = mLengthBytes[mPhaseOffset++];
+        const std::size_t aRemainingSource = 2 - mPhaseOffset;
+        const std::size_t aRemainingDest = pMaxBytes - pBytesRead;
+        const std::size_t aCopyLength = std::min(aRemainingSource, aRemainingDest);
+        if (aCopyLength > 0) {
+          std::memcpy(pBuffer + pBytesRead, mLengthBytes + mPhaseOffset, aCopyLength);
+          pBytesRead += aCopyLength;
+          mPhaseOffset += aCopyLength;
         }
         if (mPhaseOffset == 2) {
           mPhaseOffset = 0;
@@ -183,8 +193,13 @@ class LogicalRecordStreamer {
       }
 
       if (mPhase == Phase::kPathBytes) {
-        while (mPhaseOffset < mCurrentPath.size() && pBytesRead < pMaxBytes) {
-          pBuffer[pBytesRead++] = static_cast<unsigned char>(mCurrentPath[mPhaseOffset++]);
+        const std::size_t aRemainingSource = mCurrentPath.size() - mPhaseOffset;
+        const std::size_t aRemainingDest = pMaxBytes - pBytesRead;
+        const std::size_t aCopyLength = std::min(aRemainingSource, aRemainingDest);
+        if (aCopyLength > 0) {
+          std::memcpy(pBuffer + pBytesRead, mCurrentPath.data() + mPhaseOffset, aCopyLength);
+          pBytesRead += aCopyLength;
+          mPhaseOffset += aCopyLength;
         }
         if (mPhaseOffset == mCurrentPath.size()) {
           mPhase = Phase::kContentLengthBytes;
@@ -194,8 +209,13 @@ class LogicalRecordStreamer {
       }
 
       if (mPhase == Phase::kContentLengthBytes) {
-        while (mPhaseOffset < 6 && pBytesRead < pMaxBytes) {
-          pBuffer[pBytesRead++] = mContentLengthBytes[mPhaseOffset++];
+        const std::size_t aRemainingSource = 6 - mPhaseOffset;
+        const std::size_t aRemainingDest = pMaxBytes - pBytesRead;
+        const std::size_t aCopyLength = std::min(aRemainingSource, aRemainingDest);
+        if (aCopyLength > 0) {
+          std::memcpy(pBuffer + pBytesRead, mContentLengthBytes + mPhaseOffset, aCopyLength);
+          pBytesRead += aCopyLength;
+          mPhaseOffset += aCopyLength;
         }
         if (mPhaseOffset == 6) {
           mPhaseOffset = 0;
@@ -328,11 +348,14 @@ class LogicalRecordStreamer {
 PreflightResult CheckBundleJob(FileSystem& pFileSystem,
                                const RuntimeSettings& pSettings,
                                const BundleRequest& pRequest) {
-  if (!pFileSystem.IsDirectory(pRequest.mSourceDirectory)) {
-    return MakeInvalid("Bundle Failed", "Bundle failed: source directory does not exist.");
+  const std::optional<BundleInputSelection> aSourceSelection =
+      ResolveBundleInputSelection(pFileSystem, pRequest.mSourceDirectory);
+  if (!aSourceSelection.has_value()) {
+    return MakeInvalid("Bundle Failed", "Bundle failed: source file or folder does not exist.");
   }
-  if (pFileSystem.ListFilesRecursive(pRequest.mSourceDirectory).empty() &&
-      pFileSystem.ListDirectoriesRecursive(pRequest.mSourceDirectory).empty()) {
+  if (!aSourceSelection->mSingleFile &&
+      pFileSystem.ListFilesRecursive(aSourceSelection->mSearchDirectory).empty() &&
+      pFileSystem.ListDirectoriesRecursive(aSourceSelection->mSearchDirectory).empty()) {
     return MakeInvalid("Bundle Failed", "Bundle failed: source directory is empty.");
   }
 
@@ -373,10 +396,15 @@ OperationResult RunBundleJob(FileSystem& pFileSystem,
     return MakeFailure(pLogger, "Bundle Failed", aSettingsError);
   }
 
+  const std::optional<BundleInputSelection> aSourceSelection =
+      ResolveBundleInputSelection(pFileSystem, pRequest.mSourceDirectory);
+  if (!aSourceSelection.has_value()) {
+    return MakeFailure(pLogger, "Bundle Failed", "Bundle failed: source file or folder does not exist.");
+  }
+
   pLogger.LogStatus("Bundle job starting...");
-  const std::vector<SourceFileEntry> aFiles = CollectSourceEntries(pFileSystem, pRequest.mSourceDirectory);
-  const std::vector<std::string> aEmptyDirectories =
-      CollectEmptyDirectoryEntries(pFileSystem, pRequest.mSourceDirectory);
+  const std::vector<SourceFileEntry> aFiles = CollectSourceEntries(pFileSystem, aSourceSelection.value());
+  const std::vector<std::string> aEmptyDirectories = CollectEmptyDirectoryEntries(pFileSystem, aSourceSelection.value());
   if (aFiles.empty() && aEmptyDirectories.empty()) {
     return MakeFailure(pLogger, "Bundle Failed", "Bundle failed: could not read source files.");
   }
@@ -414,14 +442,17 @@ OperationResult RunBundleJob(FileSystem& pFileSystem,
   }
 
   const std::uint64_t aArchiveIdentifier = GenerateArchiveIdentifier();
-  const std::string aSourceStem = pFileSystem.StemName(pRequest.mSourceDirectory);
+  const std::string aSourceStem = pFileSystem.StemName(aSourceSelection->mSourcePath);
   std::unique_ptr<PackWorkspace> aWorkspace = std::make_unique<PackWorkspace>();
   LogicalRecordStreamer aStreamer(pFileSystem, aFiles, aEmptyDirectories);
 
   std::uint64_t aProcessedBytes = 0;
   std::size_t aFilesProcessed = 0;
+  std::size_t aNextCompletedFileIndex = 0;
   for (std::size_t aArchiveIndex = 0; aArchiveIndex < aLayouts.size(); ++aArchiveIndex) {
     const PlannedArchiveLayout& aLayout = aLayouts[aArchiveIndex];
+    const std::vector<std::size_t> aRecordStartPhysicalOffsets =
+        BuildRecordPhysicalOffsetsForLayout(aLayout, aRecordStartLogicalOffsets);
     ArchiveHeader aHeader;
     aHeader.mIdentifier = aArchiveIdentifier;
     aHeader.mArchiveIndex = static_cast<std::uint32_t>(aArchiveIndex);
@@ -450,9 +481,8 @@ OperationResult RunBundleJob(FileSystem& pFileSystem,
       const std::size_t aPageLength = std::min(kPageLength, aLayout.mUsedPayloadLength - aPageStart);
       InitializePageRecoveryHeaders(aWorkspace->mPageBuffer,
                                     aPageLength,
-                                    aLayout,
                                     aPageStart,
-                                    aRecordStartLogicalOffsets);
+                                    aRecordStartPhysicalOffsets);
 
       const std::size_t aPageLogicalTarget =
           std::min(LogicalCapacityForPhysicalLength(aPageLength), aArchiveLogicalLength - aArchiveLogicalWritten);
@@ -493,12 +523,11 @@ OperationResult RunBundleJob(FileSystem& pFileSystem,
       return MakeFailure(pLogger, "Bundle Failed", "Bundle failed: could not finalize archive " + aArchiveName);
     }
 
-    for (std::size_t aFileIndex = 0; aFileIndex < aFiles.size(); ++aFileIndex) {
-      if (aFileEndLogicalOffsets[aFileIndex] <= aLayout.mLogicalEnd &&
-          aFileEndLogicalOffsets[aFileIndex] > aLayout.mLogicalStart) {
-        ++aFilesProcessed;
-        aProcessedBytes += aFiles[aFileIndex].mContentLength;
-      }
+    while (aNextCompletedFileIndex < aFileEndLogicalOffsets.size() &&
+           aFileEndLogicalOffsets[aNextCompletedFileIndex] <= aLayout.mLogicalEnd) {
+      ++aFilesProcessed;
+      aProcessedBytes += aFiles[aNextCompletedFileIndex].mContentLength;
+      ++aNextCompletedFileIndex;
     }
 
     pLogger.LogStatus("Bundled archive " + std::to_string(aArchiveIndex + 1) + " / " +

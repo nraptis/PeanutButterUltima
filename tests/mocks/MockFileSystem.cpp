@@ -27,6 +27,9 @@ class MockFileReadStream final : public FileReadStream {
     if (!mReady) {
       return false;
     }
+    if (pLength == 0) {
+      return true;
+    }
     return mDrive.ReadFileBytes(mPath, pOffset, pDestination, pLength);
   }
 
@@ -49,11 +52,14 @@ class MockFileWriteStream final : public FileWriteStream {
   }
 
   bool Write(const unsigned char* pData, std::size_t pLength) override {
-    if (!mReady || mClosed || pData == nullptr) {
+    if (!mReady || mClosed) {
       return false;
     }
     if (pLength == 0) {
       return true;
+    }
+    if (pData == nullptr) {
+      return false;
     }
     if (!mDrive.AppendFileBytes(mPath, pData, pLength)) {
       return false;

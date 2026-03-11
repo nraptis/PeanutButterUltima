@@ -67,22 +67,37 @@ struct ArchiveInputSelection {
   std::string mSelectedFilePath;
 };
 
+struct BundleInputSelection {
+  std::string mSourcePath;
+  std::string mSearchDirectory;
+  std::string mSelectedFilePath;
+  bool mSingleFile = false;
+};
+
 PreflightResult MakeInvalid(const std::string& pTitle, const std::string& pMessage);
 PreflightResult MakeNeedsDestination(const std::string& pTitle, const std::string& pMessage);
 OperationResult MakeFailure(Logger& pLogger, const std::string& pTitle, const std::string& pMessage);
 
 std::string FormatBytes(std::uint64_t pBytes);
+std::optional<BundleInputSelection> ResolveBundleInputSelection(const FileSystem& pFileSystem,
+                                                                const std::string& pFileOrFolderPath);
 std::optional<ArchiveInputSelection> ResolveArchiveInputSelection(const FileSystem& pFileSystem,
                                                                   const std::string& pArchivePathOrDirectory);
 std::optional<ArchiveInputSelection> ResolveArchiveInputSelection(const FileSystem& pFileSystem,
                                                                   const std::string& pArchivePathOrDirectory,
                                                                   const std::string& pSelectedFilePath);
+std::string ResolveDirectoryTargetPath(const FileSystem& pFileSystem,
+                                       const std::string& pPathOrDirectory);
 std::vector<DirectoryEntry> CollectArchiveFilesByHeaderScan(const FileSystem& pFileSystem,
                                                             const ArchiveInputSelection& pSelection);
 std::vector<SourceFileEntry> CollectSourceEntries(const FileSystem& pFileSystem,
                                                   const std::string& pSourceDirectory);
+std::vector<SourceFileEntry> CollectSourceEntries(const FileSystem& pFileSystem,
+                                                  const BundleInputSelection& pSelection);
 std::vector<std::string> CollectEmptyDirectoryEntries(const FileSystem& pFileSystem,
                                                       const std::string& pSourceDirectory);
+std::vector<std::string> CollectEmptyDirectoryEntries(const FileSystem& pFileSystem,
+                                                      const BundleInputSelection& pSelection);
 std::size_t LogicalCapacityForPhysicalLength(std::size_t pPhysicalLength);
 std::size_t EffectiveArchivePhysicalPayloadLength(const RuntimeSettings& pSettings);
 std::size_t EffectiveArchiveLogicalPayloadLength(const RuntimeSettings& pSettings);
@@ -93,6 +108,8 @@ bool TryBuildBundleSettings(const RuntimeSettings& pBaseSettings,
                             RuntimeSettings& pBundleSettings,
                             std::string* pErrorMessage);
 void GenerateChecksum(const unsigned char* pBlockData, unsigned char* pDestination);
+void GenerateLegacyChecksum(const unsigned char* pBlockData, unsigned char* pDestination);
+bool ChecksumMatches(const unsigned char* pBlockData, const unsigned char* pExpectedChecksum);
 std::uint64_t ReadLeFromBytes(const unsigned char* pBytes, std::size_t pWidth);
 void WriteLeToBytes(unsigned char* pBytes, std::uint64_t pValue, std::size_t pWidth);
 bool TryReadArchiveHeader(const FileSystem& pFileSystem,
@@ -122,22 +139,63 @@ OperationResult RunBundleJob(FileSystem& pFileSystem,
                              const BundleRequest& pRequest,
                              DestinationAction pAction);
 
-PreflightResult CheckDecodeJob(FileSystem& pFileSystem,
-                               const std::string& pJobName,
-                               const std::string& pArchivePathOrDirectory,
-                               const std::string& pSelectedArchiveFilePath,
-                               const std::string& pDestinationDirectory);
-OperationResult RunDecodeJob(FileSystem& pFileSystem,
-                             const Crypt& pCrypt,
-                             Logger& pLogger,
-                             const RuntimeSettings& pSettings,
-                             const std::string& pJobName,
-                             const std::string& pArchivePathOrDirectory,
-                             const std::string& pSelectedArchiveFilePath,
-                             const std::string& pDestinationDirectory,
-                             bool pUseEncryption,
-                             bool pRecoverMode,
-                             DestinationAction pAction);
+bool DiscoverArchiveSetForDecode(FileSystem& pFileSystem,
+                                 Logger& pLogger,
+                                 const RuntimeSettings& pSettings,
+                                 const std::string& pJobName,
+                                 const std::string& pArchivePathOrDirectory,
+                                 const std::string& pSelectedArchiveFilePath,
+                                 std::vector<ArchiveHeaderRecord>& pArchives,
+                                 std::size_t& pSelectedArchiveOffset,
+                                 bool& pSelectedArchiveOffsetValid,
+                                 std::string& pErrorMessage);
+bool ResolveRecoveryStartPositionForDecode(FileSystem& pFileSystem,
+                                           const Crypt& pCrypt,
+                                           const std::vector<ArchiveHeaderRecord>& pArchives,
+                                           bool pUseEncryption,
+                                           std::size_t& pStartArchiveOffset,
+                                           std::size_t& pStartPhysicalOffset,
+                                           std::string& pErrorMessage);
+bool DecodeArchiveSetForUnbundle(FileSystem& pFileSystem,
+                                 const Crypt& pCrypt,
+                                 Logger& pLogger,
+                                 const std::vector<ArchiveHeaderRecord>& pArchives,
+                                 std::size_t pStartPhysicalOffset,
+                                 const std::string& pDestinationDirectory,
+                                 bool pWriteFiles,
+                                 bool pUseEncryption,
+                                 std::uint64_t& pProcessedBytes,
+                                 std::size_t& pFilesProcessed,
+                                 std::size_t& pEmptyDirectoriesProcessed,
+                                 std::string& pErrorMessage);
+bool DecodeArchiveSetForRecover(FileSystem& pFileSystem,
+                                const Crypt& pCrypt,
+                                Logger& pLogger,
+                                const std::vector<ArchiveHeaderRecord>& pArchives,
+                                std::size_t pStartPhysicalOffset,
+                                const std::string& pDestinationDirectory,
+                                bool pWriteFiles,
+                                bool pUseEncryption,
+                                std::uint64_t& pProcessedBytes,
+                                std::size_t& pFilesProcessed,
+                                std::size_t& pEmptyDirectoriesProcessed,
+                                std::string& pErrorMessage);
+OperationResult RunUnbundleDecodeJob(FileSystem& pFileSystem,
+                                     const Crypt& pCrypt,
+                                     Logger& pLogger,
+                                     const RuntimeSettings& pSettings,
+                                     const std::string& pArchivePathOrDirectory,
+                                     const std::string& pDestinationPathOrDirectory,
+                                     bool pUseEncryption,
+                                     DestinationAction pAction);
+OperationResult RunRecoverDecodeJob(FileSystem& pFileSystem,
+                                    const Crypt& pCrypt,
+                                    Logger& pLogger,
+                                    const RuntimeSettings& pSettings,
+                                    const std::string& pArchivePathOrDirectory,
+                                    const std::string& pDestinationPathOrDirectory,
+                                    bool pUseEncryption,
+                                    DestinationAction pAction);
 
 PreflightResult CheckUnbundleJob(FileSystem& pFileSystem, const UnbundleRequest& pRequest);
 OperationResult RunUnbundleJob(FileSystem& pFileSystem,

@@ -32,6 +32,7 @@
 
 #include <array>
 #include <cstdint>
+#include <mutex>
 
 #include "AppCore.hpp"
 #include "Encryption/RotateMaskBlockCipher.hpp"
@@ -70,6 +71,7 @@ std::string resolveConfigPath(const peanutbutter::FileSystem& pFileSystem) {
 class PathDropFilter final : public QObject {
  public:
   enum class TargetType {
+    Any,
     Folder,
     File,
   };
@@ -125,6 +127,10 @@ class PathDropFilter final : public QObject {
     }
 
     const QString aLocalPath = aUrls.front().toLocalFile();
+    if (mTargetType == TargetType::Any) {
+      const std::string aPath = aLocalPath.toStdString();
+      return (mFileSystem.IsDirectory(aPath) || mFileSystem.IsFile(aPath)) ? aLocalPath : QString();
+    }
     if (mTargetType == TargetType::Folder) {
       return mFileSystem.IsDirectory(aLocalPath.toStdString()) ? aLocalPath : QString();
     }
@@ -154,6 +160,25 @@ QString configStringValue(const QJsonObject& pObject, const char* pKey, const ch
 std::uint32_t configArchiveBlockCountValue(const QJsonObject& pObject, std::uint32_t pFallback) {
   const QJsonValue aValue = pObject.value(QStringLiteral("default_archive_blocks"));
   return aValue.isDouble() ? static_cast<std::uint32_t>(aValue.toDouble()) : pFallback;
+}
+
+QString pickFileOrFolder(QWidget* pParent, const QString& pWhat) {
+  QMessageBox aChoice(pParent);
+  aChoice.setIcon(QMessageBox::Question);
+  aChoice.setWindowTitle("Pick path type");
+  aChoice.setText("Pick a file or folder for " + pWhat + ".");
+  QPushButton* const aFileButton = aChoice.addButton("File", QMessageBox::ActionRole);
+  QPushButton* const aFolderButton = aChoice.addButton("Folder", QMessageBox::ActionRole);
+  aChoice.addButton("Cancel", QMessageBox::RejectRole);
+  aChoice.exec();
+
+  if (aChoice.clickedButton() == aFileButton) {
+    return QFileDialog::getOpenFileName(pParent, "Pick file for " + pWhat);
+  }
+  if (aChoice.clickedButton() == aFolderButton) {
+    return QFileDialog::getExistingDirectory(pParent, "Pick folder for " + pWhat);
+  }
+  return QString();
 }
 
 class FakeAppShellQt final : public peanutbutter::AppShell {
@@ -308,10 +333,10 @@ int main(int argc, char* argv[]) {
   auto* loading_layout = new QVBoxLayout(loading_widget);
   auto* loading_indicator = new QProgressBar(loading_widget);
 
-  source_edit->setPlaceholderText("pack source folder -> archive folder");
-  archive_edit->setPlaceholderText("archive folder -> unarchive folder");
-  unarchive_edit->setPlaceholderText("unarchive folder");
-  recovery_edit->setPlaceholderText("recovery start file");
+  source_edit->setPlaceholderText("bundle source file/folder -> archive folder");
+  archive_edit->setPlaceholderText("archive file/folder -> unarchive/recover destination");
+  unarchive_edit->setPlaceholderText("unarchive/recover destination folder or file");
+  recovery_edit->setPlaceholderText("recover start file/folder (optional)");
   file_prefix_edit->setPlaceholderText("file_prefix");
   file_suffix_edit->setPlaceholderText("file_suffix");
   password1_edit->setPlaceholderText("Password1");
@@ -329,10 +354,10 @@ int main(int argc, char* argv[]) {
   archive_clear_button->setText("X");
   unarchive_clear_button->setText("X");
   recovery_clear_button->setText("X");
-  source_pick_button->setText("Folder...");
-  archive_pick_button->setText("Folder...");
-  unarchive_pick_button->setText("Folder...");
-  recovery_pick_button->setText("File...");
+  source_pick_button->setText("Path...");
+  archive_pick_button->setText("Path...");
+  unarchive_pick_button->setText("Path...");
+  recovery_pick_button->setText("Path...");
 
   constexpr int kInputHeight = 44;
   constexpr int kActionHeight = 54;
@@ -477,10 +502,10 @@ int main(int argc, char* argv[]) {
   for (QLineEdit* aEdit : {source_edit, archive_edit, unarchive_edit, recovery_edit}) {
     aEdit->setAcceptDrops(true);
   }
-  source_edit->installEventFilter(new PathDropFilter(aFileSystem, source_edit, PathDropFilter::TargetType::Folder));
-  archive_edit->installEventFilter(new PathDropFilter(aFileSystem, archive_edit, PathDropFilter::TargetType::Folder));
-  unarchive_edit->installEventFilter(new PathDropFilter(aFileSystem, unarchive_edit, PathDropFilter::TargetType::Folder));
-  recovery_edit->installEventFilter(new PathDropFilter(aFileSystem, recovery_edit, PathDropFilter::TargetType::File));
+  source_edit->installEventFilter(new PathDropFilter(aFileSystem, source_edit, PathDropFilter::TargetType::Any));
+  archive_edit->installEventFilter(new PathDropFilter(aFileSystem, archive_edit, PathDropFilter::TargetType::Any));
+  unarchive_edit->installEventFilter(new PathDropFilter(aFileSystem, unarchive_edit, PathDropFilter::TargetType::Any));
+  recovery_edit->installEventFilter(new PathDropFilter(aFileSystem, recovery_edit, PathDropFilter::TargetType::Any));
 
   auto* content_layout = new QGridLayout(content_widget);
   content_layout->setContentsMargins(0, 0, 0, 0);
@@ -529,16 +554,40 @@ int main(int argc, char* argv[]) {
                         action_buttons_row,
                         action_spinner_row,
                         debug_console);
-  peanutbutter::RotateMaskBlockCipher12 aCrypt(kQtRotateMask, kQtRotateShift);
-  //peanutbutter::PassthroughCrypt aCrypt;
+  //peanutbutter::RotateMaskBlockCipher12 aCrypt(kQtRotateMask, kQtRotateShift);
+  peanutbutter::PassthroughCrypt aCrypt;
   
 
-  peanutbutter::SessionLogger aLogger([&aShell](const std::string& pMessage, bool pIsError) {
+  const std::string aBaseDirectory = inferredBaseDirectory(aFileSystem);
+  const std::string aSharedLogFilePath = aFileSystem.JoinPath(aBaseDirectory, "log_text_bundle_shared.txt");
+  (void)aFileSystem.WriteTextFile(aSharedLogFilePath, std::string());
+  std::string aMirrorLogFilePath;
+  std::mutex aMirrorLogMutex;
+
+  peanutbutter::SessionLogger aLogger([&aShell, &aFileSystem, &aMirrorLogFilePath, &aMirrorLogMutex](const std::string& pMessage, bool pIsError) {
     aShell.AppendLog(QString::fromStdString(pIsError ? "[error] " + pMessage : pMessage));
+    std::string aMirrorPath;
+    {
+      std::lock_guard<std::mutex> aLock(aMirrorLogMutex);
+      aMirrorPath = aMirrorLogFilePath;
+    }
+    if (!aMirrorPath.empty()) {
+      std::string aLine;
+      if (pIsError) {
+        aLine += "[error] ";
+      }
+      aLine += pMessage;
+      aLine += "\n";
+      (void)aFileSystem.AppendTextFile(aMirrorPath, aLine);
+    }
   });
   aLogger.SetFileSystem(&aFileSystem);
-  const auto beginLogSession = [&](const char* pFileName) {
-    aLogger.BeginSession(aFileSystem.JoinPath(inferredBaseDirectory(aFileSystem), pFileName));
+  const auto beginLogSession = [&](const char* pPrimaryFileName, bool pMirrorShared) {
+    {
+      std::lock_guard<std::mutex> aLock(aMirrorLogMutex);
+      aMirrorLogFilePath = pMirrorShared ? aSharedLogFilePath : std::string();
+    }
+    aLogger.BeginSession(aFileSystem.JoinPath(aBaseDirectory, pPrimaryFileName));
   };
   peanutbutter::RuntimeSettings aSettings;
   const std::size_t aSelectedBlocks =
@@ -557,32 +606,32 @@ int main(int argc, char* argv[]) {
   QObject::connect(clear_logs_button, &QPushButton::clicked, debug_console, &QPlainTextEdit::clear);
 
   QObject::connect(source_pick_button, &QToolButton::clicked, &window, [&]() {
-    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick pack source folder");
-    if (!aFolder.isEmpty()) {
-      source_edit->setText(aFolder);
+    const QString aPath = pickFileOrFolder(&window, "bundle source");
+    if (!aPath.isEmpty()) {
+      source_edit->setText(aPath);
     }
   });
   QObject::connect(archive_pick_button, &QToolButton::clicked, &window, [&]() {
-    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick archive folder");
-    if (!aFolder.isEmpty()) {
-      archive_edit->setText(aFolder);
+    const QString aPath = pickFileOrFolder(&window, "archive source");
+    if (!aPath.isEmpty()) {
+      archive_edit->setText(aPath);
     }
   });
   QObject::connect(unarchive_pick_button, &QToolButton::clicked, &window, [&]() {
-    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick unarchive folder");
-    if (!aFolder.isEmpty()) {
-      unarchive_edit->setText(aFolder);
+    const QString aPath = pickFileOrFolder(&window, "unarchive/recover destination");
+    if (!aPath.isEmpty()) {
+      unarchive_edit->setText(aPath);
     }
   });
   QObject::connect(recovery_pick_button, &QToolButton::clicked, &window, [&]() {
-    const QString aFile = QFileDialog::getOpenFileName(&window, "Pick recovery start file");
-    if (!aFile.isEmpty()) {
-      recovery_edit->setText(aFile);
+    const QString aPath = pickFileOrFolder(&window, "recover start");
+    if (!aPath.isEmpty()) {
+      recovery_edit->setText(aPath);
     }
   });
 
   QObject::connect(pack_button, &QPushButton::clicked, &window, [&]() {
-    beginLogSession("bundle_logging.txt");
+    beginLogSession("log_text_bundle.txt", true);
     const std::size_t aSelectedBlocks =
         archive_size_combo->currentData().value<qulonglong>() > 0
             ? static_cast<std::size_t>(archive_size_combo->currentData().value<qulonglong>())
@@ -602,7 +651,7 @@ int main(int argc, char* argv[]) {
     aEntryPoint.TriggerBundleFlow(aRequest);
   });
   QObject::connect(unpack_button, &QPushButton::clicked, &window, [&]() {
-    beginLogSession("unbundle_logging.txt");
+    beginLogSession("log_text_unbundle.txt", true);
     aCore.SetSettings(aSettings);
     peanutbutter::UnbundleRequest aRequest;
     aRequest.mArchiveDirectory = archive_edit->text().toStdString();
@@ -613,7 +662,7 @@ int main(int argc, char* argv[]) {
     aEntryPoint.TriggerUnbundleFlow(aRequest);
   });
   QObject::connect(sanity_button, &QPushButton::clicked, &window, [&]() {
-    beginLogSession("sanity_logging.txt");
+    beginLogSession("sanity_logging.txt", false);
     aCore.SetSettings(aSettings);
     peanutbutter::ValidateRequest aRequest;
     aRequest.mLeftDirectory = source_edit->text().toStdString();
@@ -621,7 +670,7 @@ int main(int argc, char* argv[]) {
     aEntryPoint.TriggerSanityFlow(aRequest);
   });
   QObject::connect(recover_button, &QPushButton::clicked, &window, [&]() {
-    beginLogSession("recover_logging.txt");
+    beginLogSession("log_text_recover.txt", true);
     aCore.SetSettings(aSettings);
     peanutbutter::RecoverRequest aRequest;
     aRequest.mArchiveDirectory = archive_edit->text().toStdString();

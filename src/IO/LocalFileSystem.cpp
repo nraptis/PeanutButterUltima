@@ -43,23 +43,18 @@ std::string LocalExtension(const std::string& pPath) {
 class LocalFileReadStream final : public FileReadStream {
  public:
   explicit LocalFileReadStream(std::string pPath)
-      : mPath(std::move(pPath)),
-        mInput(std::filesystem::path(mPath), std::ios::binary) {
+      : mPath(std::move(pPath)) {
     const std::filesystem::path aPath(mPath);
     std::error_code aError;
-    if (!std::filesystem::exists(aPath, aError) || aError || !std::filesystem::is_regular_file(aPath, aError) || aError) {
-      mInput.close();
+    const std::uintmax_t aRawLength = std::filesystem::file_size(aPath, aError);
+    if (aError) {
       return;
     }
+    mInput.open(aPath, std::ios::binary);
     if (!mInput.is_open()) {
       return;
     }
-    mLength = static_cast<std::size_t>(std::filesystem::file_size(aPath, aError));
-    if (aError) {
-      mLength = 0;
-      mInput.close();
-      return;
-    }
+    mLength = static_cast<std::size_t>(aRawLength);
     mReady = true;
   }
 
@@ -72,7 +67,7 @@ class LocalFileReadStream final : public FileReadStream {
   }
 
   bool Read(std::size_t pOffset, unsigned char* pDestination, std::size_t pLength) const override {
-    if (!mReady || pDestination == nullptr) {
+    if (!mReady) {
       return false;
     }
     if (pOffset > mLength || pLength > mLength - pOffset) {
@@ -81,25 +76,36 @@ class LocalFileReadStream final : public FileReadStream {
     if (pLength == 0) {
       return true;
     }
+    if (pDestination == nullptr) {
+      return false;
+    }
     if (!mInput.is_open()) {
       return false;
     }
-    mInput.clear();
-    mInput.seekg(static_cast<std::streamoff>(pOffset), std::ios::beg);
-    if (!mInput.good()) {
-      return false;
+    if (!mCursorValid || mCursor != pOffset) {
+      mInput.clear();
+      mInput.seekg(static_cast<std::streamoff>(pOffset), std::ios::beg);
+      if (!mInput.good()) {
+        mCursorValid = false;
+        return false;
+      }
     }
 
     mInput.read(reinterpret_cast<char*>(pDestination), static_cast<std::streamsize>(pLength));
     if (mInput.gcount() != static_cast<std::streamsize>(pLength)) {
+      mCursorValid = false;
       return false;
     }
+    mCursor = pOffset + pLength;
+    mCursorValid = true;
     return true;
   }
 
  private:
   std::string mPath;
   mutable std::ifstream mInput;
+  mutable std::size_t mCursor = 0;
+  mutable bool mCursorValid = false;
   std::size_t mLength = 0;
   bool mReady = false;
 };
@@ -114,11 +120,14 @@ class LocalFileWriteStream final : public FileWriteStream {
   }
 
   bool Write(const unsigned char* pData, std::size_t pLength) override {
-    if (!mOutput.is_open() || pData == nullptr) {
+    if (!mOutput.is_open()) {
       return false;
     }
     if (pLength == 0) {
       return true;
+    }
+    if (pData == nullptr) {
+      return false;
     }
     mOutput.write(reinterpret_cast<const char*>(pData), static_cast<std::streamsize>(pLength));
     if (!mOutput.good()) {
@@ -245,9 +254,6 @@ std::unique_ptr<FileWriteStream> LocalFileSystem::OpenWriteStream(const std::str
 }
 
 bool LocalFileSystem::AppendFile(const std::string& pPath, const unsigned char* pContents, std::size_t pLength) {
-  if (pContents == nullptr) {
-    return false;
-  }
   const std::string aParent = ParentLocalPath(pPath);
   if (!aParent.empty() && !EnsureDirectory(aParent)) {
     return false;
@@ -259,6 +265,9 @@ bool LocalFileSystem::AppendFile(const std::string& pPath, const unsigned char* 
   }
   if (pLength == 0) {
     return true;
+  }
+  if (pContents == nullptr) {
+    return false;
   }
   aOutput.write(reinterpret_cast<const char*>(pContents), static_cast<std::streamsize>(pLength));
   return aOutput.good();

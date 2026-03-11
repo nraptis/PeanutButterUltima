@@ -9,6 +9,10 @@
 #include <sstream>
 #include <utility>
 
+#if defined(__ARM_FEATURE_CRC32)
+#include <arm_acle.h>
+#endif
+
 namespace peanutbutter {
 
 FunctionLogger::FunctionLogger(std::function<void(const std::string&, bool)> pSink) : mSink(std::move(pSink)) {}
@@ -115,6 +119,119 @@ bool EndsWithCaseInsensitive(std::string_view pText, std::string_view pSuffix) {
   return true;
 }
 
+inline std::uint64_t RotateLeft64(std::uint64_t pValue, int pBits) {
+  return (pValue << pBits) | (pValue >> (64 - pBits));
+}
+
+std::uint64_t ComputeFastChecksum64V1(const unsigned char* pBlockData) {
+  const unsigned char* aPayload = pBlockData + kRecoveryHeaderLength;
+  constexpr std::uint64_t kMul1 = 0x9e3779b185ebca87ULL;
+  constexpr std::uint64_t kMul2 = 0xc2b2ae3d27d4eb4fULL;
+  constexpr std::uint64_t kMul3 = 0x165667b19e3779f9ULL;
+
+  std::uint64_t aStateA = 0x243f6a8885a308d3ULL;
+  std::uint64_t aStateB = 0x13198a2e03707344ULL;
+  std::size_t aIndex = 0;
+
+#if defined(__ARM_FEATURE_CRC32)
+  std::uint32_t aCrcEven = 0x9e3779b9u;
+  std::uint32_t aCrcOdd = 0x85ebca6bu;
+  for (; aIndex + 1 < peanutbutter::SB_PAYLOAD_SIZE; aIndex += 2) {
+    aCrcEven = __crc32b(aCrcEven, aPayload[aIndex]);
+    aCrcOdd = __crc32b(aCrcOdd, aPayload[aIndex + 1]);
+  }
+  if (aIndex < peanutbutter::SB_PAYLOAD_SIZE) {
+    aCrcEven = __crc32b(aCrcEven, aPayload[aIndex]);
+    ++aIndex;
+  }
+  aStateA ^= (static_cast<std::uint64_t>(aCrcEven) << 32) | static_cast<std::uint64_t>(aCrcOdd);
+  aStateA = RotateLeft64(aStateA * kMul1, 23) * kMul2;
+#else
+  for (; aIndex + sizeof(std::uint64_t) <= peanutbutter::SB_PAYLOAD_SIZE; aIndex += sizeof(std::uint64_t)) {
+    std::uint64_t aChunk = 0;
+    std::memcpy(&aChunk, aPayload + aIndex, sizeof(aChunk));
+#if defined(__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
+    aChunk = __builtin_bswap64(aChunk);
+#endif
+    aStateA ^= aChunk;
+    aStateA = RotateLeft64(aStateA * kMul1, 27) * kMul2;
+  }
+#endif
+
+  for (; aIndex < peanutbutter::SB_PAYLOAD_SIZE; ++aIndex) {
+    aStateB ^= static_cast<std::uint64_t>(aPayload[aIndex]);
+    aStateB *= kMul3;
+    aStateB = RotateLeft64(aStateB, 13);
+  }
+
+  std::uint64_t aMixed = aStateA ^ RotateLeft64(aStateB, 32);
+  aMixed ^= static_cast<std::uint64_t>(peanutbutter::SB_PAYLOAD_SIZE) * kMul1;
+  aMixed ^= aMixed >> 33;
+  aMixed *= 0xff51afd7ed558ccdULL;
+  aMixed ^= aMixed >> 33;
+  aMixed *= 0xc4ceb9fe1a85ec53ULL;
+  aMixed ^= aMixed >> 33;
+  return aMixed;
+}
+
+std::uint64_t ComputeFastChecksum64(const unsigned char* pBlockData) {
+  const unsigned char* aPayload = pBlockData + kRecoveryHeaderLength;
+  constexpr std::uint64_t kMul1 = 0x9e3779b185ebca87ULL;
+  constexpr std::uint64_t kMul2 = 0xc2b2ae3d27d4eb4fULL;
+  constexpr std::uint64_t kMul3 = 0x165667b19e3779f9ULL;
+
+  std::uint64_t aStateA = 0x243f6a8885a308d3ULL;
+  std::uint64_t aStateB = 0x13198a2e03707344ULL;
+  std::size_t aIndex = 0;
+
+#if defined(__ARM_FEATURE_CRC32)
+  std::uint32_t aCrc = 0x9e3779b9u;
+#if defined(__aarch64__)
+  for (; aIndex + sizeof(std::uint64_t) <= peanutbutter::SB_PAYLOAD_SIZE; aIndex += sizeof(std::uint64_t)) {
+    std::uint64_t aChunk = 0;
+    std::memcpy(&aChunk, aPayload + aIndex, sizeof(aChunk));
+    aCrc = __crc32d(aCrc, aChunk);
+  }
+#else
+  for (; aIndex + sizeof(std::uint32_t) <= peanutbutter::SB_PAYLOAD_SIZE; aIndex += sizeof(std::uint32_t)) {
+    std::uint32_t aChunk = 0;
+    std::memcpy(&aChunk, aPayload + aIndex, sizeof(aChunk));
+    aCrc = __crc32w(aCrc, aChunk);
+  }
+#endif
+  for (; aIndex < peanutbutter::SB_PAYLOAD_SIZE; ++aIndex) {
+    aCrc = __crc32b(aCrc, aPayload[aIndex]);
+  }
+  aStateA ^= static_cast<std::uint64_t>(aCrc);
+  aStateA = RotateLeft64(aStateA * kMul1, 27) * kMul2;
+#else
+  for (; aIndex + sizeof(std::uint64_t) <= peanutbutter::SB_PAYLOAD_SIZE; aIndex += sizeof(std::uint64_t)) {
+    std::uint64_t aChunk = 0;
+    std::memcpy(&aChunk, aPayload + aIndex, sizeof(aChunk));
+#if defined(__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
+    aChunk = __builtin_bswap64(aChunk);
+#endif
+    aStateA ^= aChunk;
+    aStateA = RotateLeft64(aStateA * kMul1, 27) * kMul2;
+  }
+#endif
+
+  for (; aIndex < peanutbutter::SB_PAYLOAD_SIZE; ++aIndex) {
+    aStateB ^= static_cast<std::uint64_t>(aPayload[aIndex]);
+    aStateB *= kMul3;
+    aStateB = RotateLeft64(aStateB, 13);
+  }
+
+  std::uint64_t aMixed = aStateA ^ RotateLeft64(aStateB, 32);
+  aMixed ^= static_cast<std::uint64_t>(peanutbutter::SB_PAYLOAD_SIZE) * kMul1;
+  aMixed ^= aMixed >> 33;
+  aMixed *= 0xff51afd7ed558ccdULL;
+  aMixed ^= aMixed >> 33;
+  aMixed *= 0xc4ceb9fe1a85ec53ULL;
+  aMixed ^= aMixed >> 33;
+  return aMixed;
+}
+
 }  // namespace
 
 PreflightResult MakeInvalid(const std::string& pTitle, const std::string& pMessage) {
@@ -144,6 +261,26 @@ std::string FormatBytes(std::uint64_t pBytes) {
   return aStream.str();
 }
 
+std::optional<BundleInputSelection> ResolveBundleInputSelection(const FileSystem& pFileSystem,
+                                                                const std::string& pFileOrFolderPath) {
+  BundleInputSelection aSelection;
+  aSelection.mSourcePath = pFileOrFolderPath;
+  if (pFileSystem.IsDirectory(pFileOrFolderPath)) {
+    aSelection.mSearchDirectory = pFileOrFolderPath;
+    aSelection.mSingleFile = false;
+    return aSelection;
+  }
+
+  if (pFileSystem.IsFile(pFileOrFolderPath)) {
+    aSelection.mSearchDirectory = pFileSystem.ParentPath(pFileOrFolderPath);
+    aSelection.mSelectedFilePath = pFileOrFolderPath;
+    aSelection.mSingleFile = true;
+    return aSelection;
+  }
+
+  return std::nullopt;
+}
+
 std::optional<ArchiveInputSelection> ResolveArchiveInputSelection(const FileSystem& pFileSystem,
                                                                   const std::string& pArchivePathOrDirectory) {
   ArchiveInputSelection aSelection;
@@ -163,6 +300,11 @@ std::optional<ArchiveInputSelection> ResolveArchiveInputSelection(const FileSyst
                                                                   const std::string& pArchivePathOrDirectory,
                                                                   const std::string& pSelectedFilePath) {
   if (!pSelectedFilePath.empty()) {
+    if (pFileSystem.IsDirectory(pSelectedFilePath)) {
+      ArchiveInputSelection aSelection;
+      aSelection.mSearchDirectory = pSelectedFilePath;
+      return aSelection;
+    }
     if (!pFileSystem.IsFile(pSelectedFilePath)) {
       return std::nullopt;
     }
@@ -172,6 +314,19 @@ std::optional<ArchiveInputSelection> ResolveArchiveInputSelection(const FileSyst
     return aSelection;
   }
   return ResolveArchiveInputSelection(pFileSystem, pArchivePathOrDirectory);
+}
+
+std::string ResolveDirectoryTargetPath(const FileSystem& pFileSystem,
+                                       const std::string& pPathOrDirectory) {
+  if (!pFileSystem.IsFile(pPathOrDirectory)) {
+    return pPathOrDirectory;
+  }
+
+  std::string aParent = pFileSystem.ParentPath(pPathOrDirectory);
+  if (aParent.empty()) {
+    aParent = pFileSystem.CurrentWorkingDirectory();
+  }
+  return aParent;
 }
 
 std::vector<DirectoryEntry> CollectArchiveFilesByHeaderScan(const FileSystem& pFileSystem,
@@ -212,6 +367,23 @@ std::vector<SourceFileEntry> CollectSourceEntries(const FileSystem& pFileSystem,
   return aRecords;
 }
 
+std::vector<SourceFileEntry> CollectSourceEntries(const FileSystem& pFileSystem,
+                                                  const BundleInputSelection& pSelection) {
+  if (!pSelection.mSingleFile) {
+    return CollectSourceEntries(pFileSystem, pSelection.mSearchDirectory);
+  }
+
+  std::unique_ptr<FileReadStream> aStream = pFileSystem.OpenReadStream(pSelection.mSelectedFilePath);
+  if (aStream == nullptr || !aStream->IsReady()) {
+    return {};
+  }
+  SourceFileEntry aEntry;
+  aEntry.mSourcePath = pSelection.mSelectedFilePath;
+  aEntry.mRelativePath = pFileSystem.FileName(pSelection.mSelectedFilePath);
+  aEntry.mContentLength = static_cast<std::uint64_t>(aStream->GetLength());
+  return {std::move(aEntry)};
+}
+
 std::vector<std::string> CollectEmptyDirectoryEntries(const FileSystem& pFileSystem,
                                                       const std::string& pSourceDirectory) {
   std::vector<DirectoryEntry> aDirectories = pFileSystem.ListDirectoriesRecursive(pSourceDirectory);
@@ -230,6 +402,14 @@ std::vector<std::string> CollectEmptyDirectoryEntries(const FileSystem& pFileSys
     }
   }
   return aEmptyDirectories;
+}
+
+std::vector<std::string> CollectEmptyDirectoryEntries(const FileSystem& pFileSystem,
+                                                      const BundleInputSelection& pSelection) {
+  if (pSelection.mSingleFile) {
+    return {};
+  }
+  return CollectEmptyDirectoryEntries(pFileSystem, pSelection.mSearchDirectory);
 }
 
 std::size_t LogicalCapacityForPhysicalLength(std::size_t pPhysicalLength) {
@@ -277,9 +457,9 @@ bool TryBuildBundleSettings(const RuntimeSettings& pBaseSettings,
     return false;
   }
 
-  if (pRequest.mArchiveBlockCount > (std::numeric_limits<std::size_t>::max() / peanutbutter::SB_L3_LENGTH)) {
+  if (pRequest.mArchiveBlockCount > peanutbutter::MAX_ARCHIVE_BLOCK_COUNT) {
     if (pErrorMessage != nullptr) {
-      *pErrorMessage = "Bundle failed: archive block count is too large.";
+      *pErrorMessage = "Bundle failed: archive block count exceeds MAX_ARCHIVE_BLOCK_COUNT (2000).";
     }
     return false;
   }
@@ -302,6 +482,17 @@ void GenerateChecksum(const unsigned char* pBlockData, unsigned char* pDestinati
     return;
   }
 
+  const std::uint64_t aChecksum = ComputeFastChecksum64(pBlockData);
+  for (std::size_t aIndex = 0; aIndex < peanutbutter::SB_RECOVERY_CHECKSUM_LENGTH; ++aIndex) {
+    pDestination[aIndex] = static_cast<unsigned char>((aChecksum >> (8 * aIndex)) & 0xFFu);
+  }
+}
+
+void GenerateLegacyChecksum(const unsigned char* pBlockData, unsigned char* pDestination) {
+  if (pBlockData == nullptr || pDestination == nullptr) {
+    return;
+  }
+
   std::memset(pDestination, 0, peanutbutter::SB_RECOVERY_CHECKSUM_LENGTH);
   std::uint32_t aTwiddle = 5381u;
   std::size_t aDestinationIndex = 0;
@@ -314,6 +505,29 @@ void GenerateChecksum(const unsigned char* pBlockData, unsigned char* pDestinati
       aDestinationIndex = 0;
     }
   }
+}
+
+bool ChecksumMatches(const unsigned char* pBlockData, const unsigned char* pExpectedChecksum) {
+  if (pBlockData == nullptr || pExpectedChecksum == nullptr) {
+    return false;
+  }
+
+  unsigned char aChecksum[peanutbutter::SB_RECOVERY_CHECKSUM_LENGTH] = {};
+  GenerateChecksum(pBlockData, aChecksum);
+  if (std::memcmp(pExpectedChecksum, aChecksum, peanutbutter::SB_RECOVERY_CHECKSUM_LENGTH) == 0) {
+    return true;
+  }
+
+  const std::uint64_t aV1Checksum = ComputeFastChecksum64V1(pBlockData);
+  for (std::size_t aIndex = 0; aIndex < peanutbutter::SB_RECOVERY_CHECKSUM_LENGTH; ++aIndex) {
+    aChecksum[aIndex] = static_cast<unsigned char>((aV1Checksum >> (8 * aIndex)) & 0xFFu);
+  }
+  if (std::memcmp(pExpectedChecksum, aChecksum, peanutbutter::SB_RECOVERY_CHECKSUM_LENGTH) == 0) {
+    return true;
+  }
+
+  GenerateLegacyChecksum(pBlockData, aChecksum);
+  return std::memcmp(pExpectedChecksum, aChecksum, peanutbutter::SB_RECOVERY_CHECKSUM_LENGTH) == 0;
 }
 
 std::uint64_t ReadLeFromBytes(const unsigned char* pBytes, std::size_t pWidth) {

@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Python cache
+__pycache__/
+**/__pycache__/
+_pychache_/
+
+# Release build/output directories
+release/
+build-release/
+build-test-release/
+**/release/

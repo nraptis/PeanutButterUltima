@@ -1,0 +1,36 @@
+Bundle / Unbundle / Recover path semantics (new direction)
+=========================================================
+
+1) File-or-folder source arguments
+- Bundle source path (`mSourceDirectory`) accepts either:
+  - File: bundle only that file.
+  - Folder: bundle the folder contents.
+- Unbundle source path (`mArchiveDirectory`) accepts either:
+  - Folder: unbundle whole discovered archive directory from lowest archive index.
+  - File: unbundle the file's direct parent directory, starting from that file's archive index.
+- Recover source/start path semantics:
+  - `mArchiveDirectory` remains the archive file-or-folder source.
+  - If `mRecoveryStartFilePath` is provided, it overrides archive start selection and may be file or folder:
+    - Folder: recover whole discovered directory from lowest archive index.
+    - File: recover the file's direct parent directory, starting from that file's archive index.
+  - If `mRecoveryStartFilePath` is empty, recover uses `mArchiveDirectory` with the same file/folder rules.
+
+2) Destination path normalization for Unbundle and Recover
+- If unbundle/recover destination path resolves to an existing file, treat destination as that file's direct parent directory.
+- Otherwise, treat destination as the directory path as entered.
+
+3) UI path input behavior (all four path boxes)
+- `source_edit`, `archive_edit`, `unarchive_edit`, `recovery_edit` all accept drag-and-drop of:
+  - one local file, or
+  - one local folder.
+- All four picker buttons allow choosing either file or folder.
+
+4) Logging files maintained
+- Shared mirror log (2+ modes): `log_text_bundle_shared.txt`
+- Bundle mode log: `log_text_bundle.txt`
+- Unbundle mode log: `log_text_unbundle.txt`
+- Recover mode log: `log_text_recover.txt`
+
+5) Flow direction
+- Prefer specialized run paths over a single branch-heavy mode switch.
+- Keep helper moves in `AppCore_Helpers` only when behavior is exactly shared.

@@ -40,6 +40,7 @@ set(PEANUT_BUTTER_ULTIMA_CORE_SOURCES
   src/AppCore_Helpers.cpp
   src/AppCore_Fences.cpp
   src/AppCore_Pack.cpp
+  src/AppCore_DecodeShared.cpp
   src/AppCore_Unpack.cpp
   src/AppCore_Recover.cpp
   src/AppCore_Validate.cpp
@@ -68,6 +69,7 @@ target_link_libraries(PeanutButterUltimaQuickSmoke PRIVATE PeanutButterUltimaCor
 
 set(PEANUT_BUTTER_ULTIMA_TEST_EXECUTOR_SOURCES
   tests/common/Test_Utils.cpp
+  tests/common/Test_GeneratedFenceCaseData.cpp
   tests/common/Test_Wrappers.cpp
   tests/common/Test_Execute_Bundle.cpp
   tests/common/Test_Execute_Smoke.cpp
@@ -91,6 +93,12 @@ function(peanut_butter_add_test_suite pSuiteName pSuiteLabel pGlobPattern)
 
     add_executable(${pSuiteTarget} ${pSuiteSource})
     target_include_directories(${pSuiteTarget} PRIVATE src tests/common tests/mocks)
+    target_compile_definitions(
+      ${pSuiteTarget}
+      PRIVATE
+      PEANUT_BUTTER_ULTIMA_TEST_BUILD
+      PEANUT_BUTTER_ULTIMA_TEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/tests/generated/data\"
+    )
     target_link_libraries(${pSuiteTarget} PRIVATE PeanutButterUltimaTestExecutor)
 
     add_test(NAME ${pSuiteTarget} COMMAND ${pSuiteTarget})
@@ -104,3 +112,4 @@ set_tests_properties(PeanutButterUltimaQuickSmoke PROPERTIES LABELS "quick_smoke
 
 peanut_butter_add_test_suite("Codex" "codex" "${CMAKE_CURRENT_SOURCE_DIR}/tests/codex/*.cpp")
 peanut_butter_add_test_suite("Generated" "generated" "${CMAKE_CURRENT_SOURCE_DIR}/tests/generated/*.cpp")
+peanut_butter_add_test_suite("GeneratedGold" "generated_gold" "${CMAKE_CURRENT_SOURCE_DIR}/tests/generated_gold/*.cpp")

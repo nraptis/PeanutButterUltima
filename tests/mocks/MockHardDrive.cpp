@@ -267,7 +267,7 @@ bool MockHardDrive::ReadFileBytes(const std::string& pPath,
                                   unsigned char* pDestination,
                                   std::size_t pLength) const {
   const auto aIterator = mFiles.find(Normalize(pPath));
-  if (aIterator == mFiles.end() || pDestination == nullptr) {
+  if (aIterator == mFiles.end()) {
     return false;
   }
   const std::vector<unsigned char>& aBytes = aIterator->second;
@@ -276,6 +276,9 @@ bool MockHardDrive::ReadFileBytes(const std::string& pPath,
   }
   if (pLength == 0) {
     return true;
+  }
+  if (pDestination == nullptr) {
+    return false;
   }
   std::copy(aBytes.begin() + static_cast<std::ptrdiff_t>(pOffset),
             aBytes.begin() + static_cast<std::ptrdiff_t>(pOffset + pLength),
@@ -293,14 +296,14 @@ bool MockHardDrive::ClearFileBytes(const std::string& pPath) {
 bool MockHardDrive::AppendFileBytes(const std::string& pPath,
                                     const unsigned char* pData,
                                     std::size_t pLength) {
-  if (pData == nullptr) {
-    return false;
-  }
   const std::string aPath = Normalize(pPath);
   EnsureParents(aPath);
   std::vector<unsigned char>& aBytes = mFiles[aPath];
   if (pLength == 0) {
     return true;
+  }
+  if (pData == nullptr) {
+    return false;
   }
   aBytes.insert(aBytes.end(), pData, pData + pLength);
   return true;

@@ -20,10 +20,9 @@ inline constexpr std::size_t EB_MAX_LENGTH = 16;
 
 
 #ifdef PEANUT_BUTTER_ULTIMA_TEST_BUILD
-//inline constexpr std::size_t SB_PAYLOAD_SIZE = 48;  // Fixed test-target payload size.
+inline constexpr std::size_t SB_PAYLOAD_SIZE = 48 - SB_RECOVERY_HEADER_LENGTH;  // Fixed test-target payload size.
 //inline constexpr std::size_t SB_PAYLOAD_SIZE = 88;  // Fixed test-target payload size.
-inline constexpr std::size_t SB_PAYLOAD_SIZE = SB_RECOVERY_HEADER_LENGTH + 1;
-
+//inline constexpr std::size_t SB_PAYLOAD_SIZE = SB_RECOVERY_HEADER_LENGTH + 3;
 
 #else
 // inline constexpr std::size_t SB_PAYLOAD_SIZE = 12;
