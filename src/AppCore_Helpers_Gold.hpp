@@ -1,0 +1,6 @@
+#ifndef PEANUT_BUTTER_ULTIMA_APP_CORE_HELPERS_GOLD_HPP_
+#define PEANUT_BUTTER_ULTIMA_APP_CORE_HELPERS_GOLD_HPP_
+
+// Intentionally empty placeholder for audit iterations.
+
+#endif  // PEANUT_BUTTER_ULTIMA_APP_CORE_HELPERS_GOLD_HPP_

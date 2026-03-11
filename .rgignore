@@ -1,1 +1,9 @@
 tests/generated_gold/**
+tests/generated/**
+test_case_gen_all.py
+test_case_gen_engine.py
+test_case_gen_executor_cpp_code.py
+test_case_gen_executor_cpp_data.py
+test_case_gen_executor_cpp.py
+test_case_gen_executor_readable.py
+triage_generated_failures.py

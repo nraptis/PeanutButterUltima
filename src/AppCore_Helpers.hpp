@@ -74,6 +74,32 @@ struct BundleInputSelection {
   bool mSingleFile = false;
 };
 
+PreflightResult CheckBundleJob(FileSystem& pFileSystem,
+                               const RuntimeSettings& pSettings,
+                               const BundleRequest& pRequest);
+OperationResult RunBundleJob(FileSystem& pFileSystem,
+                             const Crypt& pCrypt,
+                             Logger& pLogger,
+                             const RuntimeSettings& pSettings,
+                             const BundleRequest& pRequest,
+                             DestinationAction pAction);
+
+PreflightResult CheckUnbundleJob(FileSystem& pFileSystem, const UnbundleRequest& pRequest);
+OperationResult RunUnbundleJob(FileSystem& pFileSystem,
+                               const Crypt& pCrypt,
+                               Logger& pLogger,
+                               const RuntimeSettings& pSettings,
+                               const UnbundleRequest& pRequest,
+                               DestinationAction pAction);
+
+PreflightResult CheckRecoverJob(FileSystem& pFileSystem, const RecoverRequest& pRequest);
+OperationResult RunRecoverJob(FileSystem& pFileSystem,
+                              const Crypt& pCrypt,
+                              Logger& pLogger,
+                              const RuntimeSettings& pSettings,
+                              const RecoverRequest& pRequest,
+                              DestinationAction pAction);
+
 PreflightResult MakeInvalid(const std::string& pTitle, const std::string& pMessage);
 PreflightResult MakeNeedsDestination(const std::string& pTitle, const std::string& pMessage);
 OperationResult MakeFailure(Logger& pLogger, const std::string& pTitle, const std::string& pMessage);
@@ -129,16 +155,6 @@ std::string MakeArchiveName(const std::string& pSourceStem,
 void LogMissingArchiveRanges(Logger& pLogger,
                              const std::vector<std::pair<std::uint32_t, std::uint32_t>>& pMissingRanges);
 
-PreflightResult CheckBundleJob(FileSystem& pFileSystem,
-                               const RuntimeSettings& pSettings,
-                               const BundleRequest& pRequest);
-OperationResult RunBundleJob(FileSystem& pFileSystem,
-                             const Crypt& pCrypt,
-                             Logger& pLogger,
-                             const RuntimeSettings& pSettings,
-                             const BundleRequest& pRequest,
-                             DestinationAction pAction);
-
 bool DiscoverArchiveSetForDecode(FileSystem& pFileSystem,
                                  Logger& pLogger,
                                  const RuntimeSettings& pSettings,
@@ -180,6 +196,17 @@ bool DecodeArchiveSetForRecover(FileSystem& pFileSystem,
                                 std::size_t& pFilesProcessed,
                                 std::size_t& pEmptyDirectoriesProcessed,
                                 std::string& pErrorMessage);
+PreflightResult RoleDecodeCheckPathAndDestination(FileSystem& pFileSystem,
+                                                  const std::string& pOperationName,
+                                                  const std::string& pArchivePathOrDirectory,
+                                                  const std::string& pDestinationDirectory);
+bool RoleDecodeDiscoverArchiveWindow(FileSystem& pFileSystem,
+                                     Logger& pLogger,
+                                     const RuntimeSettings& pSettings,
+                                     const std::string& pJobName,
+                                     const std::string& pArchivePathOrDirectory,
+                                     std::vector<ArchiveHeaderRecord>& pDecodeArchives,
+                                     std::string& pErrorMessage);
 OperationResult RunUnbundleDecodeJob(FileSystem& pFileSystem,
                                      const Crypt& pCrypt,
                                      Logger& pLogger,
@@ -196,22 +223,6 @@ OperationResult RunRecoverDecodeJob(FileSystem& pFileSystem,
                                     const std::string& pDestinationPathOrDirectory,
                                     bool pUseEncryption,
                                     DestinationAction pAction);
-
-PreflightResult CheckUnbundleJob(FileSystem& pFileSystem, const UnbundleRequest& pRequest);
-OperationResult RunUnbundleJob(FileSystem& pFileSystem,
-                               const Crypt& pCrypt,
-                               Logger& pLogger,
-                               const RuntimeSettings& pSettings,
-                               const UnbundleRequest& pRequest,
-                               DestinationAction pAction);
-
-PreflightResult CheckRecoverJob(FileSystem& pFileSystem, const RecoverRequest& pRequest);
-OperationResult RunRecoverJob(FileSystem& pFileSystem,
-                              const Crypt& pCrypt,
-                              Logger& pLogger,
-                              const RuntimeSettings& pSettings,
-                              const RecoverRequest& pRequest,
-                              DestinationAction pAction);
 
 }  // namespace peanutbutter::detail
 

@@ -37,14 +37,9 @@ set(PEANUT_BUTTER_ULTIMA_CORE_SOURCES
   src/Encryption/Crypt.cpp
   src/IO/FileSystem.cpp
   src/IO/LocalFileSystem.cpp
+  src/AppCore_Helpers_Gold.cpp
   src/AppCore_Helpers.cpp
-  src/AppCore_Fences.cpp
-  src/AppCore_Pack.cpp
-  src/AppCore_DecodeShared.cpp
-  src/AppCore_Unpack.cpp
-  src/AppCore_Recover.cpp
-  src/AppCore_Validate.cpp
-  src/AppCore.cpp
+  src/AppCore_Unverified.cpp
 )
 
 add_library(PeanutButterUltimaCore STATIC ${PEANUT_BUTTER_ULTIMA_CORE_SOURCES})

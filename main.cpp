@@ -72,6 +72,7 @@ std::string resolveConfigPath(const peanutbutter::FileSystem& pFileSystem) {
 class PathDropFilter final : public QObject {
  public:
   enum class TargetType {
+    Any,
     Folder,
     File,
   };
@@ -127,6 +128,11 @@ class PathDropFilter final : public QObject {
     }
 
     const QString aLocalPath = aUrls.front().toLocalFile();
+    if (mTargetType == TargetType::Any) {
+      return (mFileSystem.IsDirectory(aLocalPath.toStdString()) || mFileSystem.IsFile(aLocalPath.toStdString()))
+                 ? aLocalPath
+                 : QString();
+    }
     if (mTargetType == TargetType::Folder) {
       return mFileSystem.IsDirectory(aLocalPath.toStdString()) ? aLocalPath : QString();
     }
@@ -257,7 +263,7 @@ int main(int argc, char* argv[]) {
   layout->setContentsMargins(12, 12, 12, 12);
   layout->setSpacing(8);
   for (int aColumn = 0; aColumn < 8; ++aColumn) {
-    layout->setColumnStretch(aColumn, aColumn == 7 ? 0 : 1);
+    layout->setColumnStretch(aColumn, aColumn >= 6 ? 0 : 1);
   }
 
   auto* source_edit = new QLineEdit(&window);
@@ -270,14 +276,14 @@ int main(int argc, char* argv[]) {
   auto* password2_edit = new QLineEdit(&window);
   auto* archive_size_combo = new QComboBox(&window);
   auto* clear_logs_button = new QPushButton("Clear Logs", &window);
-  auto* source_clear_button = new QToolButton(&window);
-  auto* source_pick_button = new QToolButton(&window);
-  auto* archive_clear_button = new QToolButton(&window);
-  auto* archive_pick_button = new QToolButton(&window);
-  auto* unarchive_clear_button = new QToolButton(&window);
-  auto* unarchive_pick_button = new QToolButton(&window);
-  auto* recovery_clear_button = new QToolButton(&window);
-  auto* recovery_pick_button = new QToolButton(&window);
+  auto* source_file_button = new QToolButton(&window);
+  auto* source_folder_button = new QToolButton(&window);
+  auto* archive_file_button = new QToolButton(&window);
+  auto* archive_folder_button = new QToolButton(&window);
+  auto* unarchive_file_button = new QToolButton(&window);
+  auto* unarchive_folder_button = new QToolButton(&window);
+  auto* recovery_file_button = new QToolButton(&window);
+  auto* recovery_folder_button = new QToolButton(&window);
   auto* divider_inputs = new QFrame(&window);
   auto* divider_passwords = new QFrame(&window);
   auto* divider_actions = new QFrame(&window);
@@ -310,10 +316,10 @@ int main(int argc, char* argv[]) {
   auto* loading_layout = new QVBoxLayout(loading_widget);
   auto* loading_indicator = new QProgressBar(loading_widget);
 
-  source_edit->setPlaceholderText("pack source folder -> archive folder");
-  archive_edit->setPlaceholderText("archive folder -> unarchive folder");
-  unarchive_edit->setPlaceholderText("unarchive folder");
-  recovery_edit->setPlaceholderText("recovery start file");
+  source_edit->setPlaceholderText("bundle source file or folder");
+  archive_edit->setPlaceholderText("unbundle source file or folder");
+  unarchive_edit->setPlaceholderText("unbundle target file or folder");
+  recovery_edit->setPlaceholderText("recover source file or folder");
   file_prefix_edit->setPlaceholderText("file_prefix");
   file_suffix_edit->setPlaceholderText("file_suffix");
   password1_edit->setPlaceholderText("Password1");
@@ -327,14 +333,14 @@ int main(int argc, char* argv[]) {
     aEdit->setTextMargins(0, 4, 0, 4);
   }
 
-  source_clear_button->setText("X");
-  archive_clear_button->setText("X");
-  unarchive_clear_button->setText("X");
-  recovery_clear_button->setText("X");
-  source_pick_button->setText("Folder...");
-  archive_pick_button->setText("Folder...");
-  unarchive_pick_button->setText("Folder...");
-  recovery_pick_button->setText("File...");
+  source_file_button->setText("File");
+  source_folder_button->setText("Folder");
+  archive_file_button->setText("File");
+  archive_folder_button->setText("Folder");
+  unarchive_file_button->setText("File");
+  unarchive_folder_button->setText("Folder");
+  recovery_file_button->setText("File");
+  recovery_folder_button->setText("Folder");
 
   constexpr int kInputHeight = 44;
   constexpr int kActionHeight = 54;
@@ -370,14 +376,11 @@ int main(int argc, char* argv[]) {
       "  height: 12px;"
       "}");
   archive_size_combo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-  source_clear_button->setFixedSize(54, kInputHeight);
-  archive_clear_button->setFixedSize(54, kInputHeight);
-  unarchive_clear_button->setFixedSize(54, kInputHeight);
-  recovery_clear_button->setFixedSize(54, kInputHeight);
-  source_pick_button->setFixedSize(72, kInputHeight);
-  archive_pick_button->setFixedSize(72, kInputHeight);
-  unarchive_pick_button->setFixedSize(72, kInputHeight);
-  recovery_pick_button->setFixedSize(72, kInputHeight);
+  for (QToolButton* aButton : {source_file_button, source_folder_button, archive_file_button, archive_folder_button,
+                               unarchive_file_button, unarchive_folder_button, recovery_file_button,
+                               recovery_folder_button}) {
+    aButton->setFixedSize(72, kInputHeight);
+  }
   clear_logs_button->setFixedHeight(kActionHeight);
   clear_logs_button->setMinimumHeight(kActionHeight);
   clear_logs_button->setMaximumHeight(kActionHeight);
@@ -477,30 +480,30 @@ int main(int argc, char* argv[]) {
   for (QLineEdit* aEdit : {source_edit, archive_edit, unarchive_edit, recovery_edit}) {
     aEdit->setAcceptDrops(true);
   }
-  source_edit->installEventFilter(new PathDropFilter(aFileSystem, source_edit, PathDropFilter::TargetType::Folder));
-  archive_edit->installEventFilter(new PathDropFilter(aFileSystem, archive_edit, PathDropFilter::TargetType::Folder));
-  unarchive_edit->installEventFilter(new PathDropFilter(aFileSystem, unarchive_edit, PathDropFilter::TargetType::Folder));
-  recovery_edit->installEventFilter(new PathDropFilter(aFileSystem, recovery_edit, PathDropFilter::TargetType::File));
+  source_edit->installEventFilter(new PathDropFilter(aFileSystem, source_edit, PathDropFilter::TargetType::Any));
+  archive_edit->installEventFilter(new PathDropFilter(aFileSystem, archive_edit, PathDropFilter::TargetType::Any));
+  unarchive_edit->installEventFilter(new PathDropFilter(aFileSystem, unarchive_edit, PathDropFilter::TargetType::Any));
+  recovery_edit->installEventFilter(new PathDropFilter(aFileSystem, recovery_edit, PathDropFilter::TargetType::Any));
 
   auto* content_layout = new QGridLayout(content_widget);
   content_layout->setContentsMargins(0, 0, 0, 0);
   content_layout->setSpacing(8);
   for (int aColumn = 0; aColumn < 8; ++aColumn) {
-    content_layout->setColumnStretch(aColumn, aColumn == 7 ? 0 : 1);
+    content_layout->setColumnStretch(aColumn, aColumn >= 6 ? 0 : 1);
   }
 
-  content_layout->addWidget(source_clear_button, 0, 0);
-  content_layout->addWidget(source_edit, 0, 1, 1, 6);
-  content_layout->addWidget(source_pick_button, 0, 7);
-  content_layout->addWidget(archive_clear_button, 1, 0);
-  content_layout->addWidget(archive_edit, 1, 1, 1, 6);
-  content_layout->addWidget(archive_pick_button, 1, 7);
-  content_layout->addWidget(unarchive_clear_button, 2, 0);
-  content_layout->addWidget(unarchive_edit, 2, 1, 1, 6);
-  content_layout->addWidget(unarchive_pick_button, 2, 7);
-  content_layout->addWidget(recovery_clear_button, 3, 0);
-  content_layout->addWidget(recovery_edit, 3, 1, 1, 6);
-  content_layout->addWidget(recovery_pick_button, 3, 7);
+  content_layout->addWidget(source_edit, 0, 0, 1, 6);
+  content_layout->addWidget(source_file_button, 0, 6);
+  content_layout->addWidget(source_folder_button, 0, 7);
+  content_layout->addWidget(archive_edit, 1, 0, 1, 6);
+  content_layout->addWidget(archive_file_button, 1, 6);
+  content_layout->addWidget(archive_folder_button, 1, 7);
+  content_layout->addWidget(unarchive_edit, 2, 0, 1, 6);
+  content_layout->addWidget(unarchive_file_button, 2, 6);
+  content_layout->addWidget(unarchive_folder_button, 2, 7);
+  content_layout->addWidget(recovery_edit, 3, 0, 1, 6);
+  content_layout->addWidget(recovery_file_button, 3, 6);
+  content_layout->addWidget(recovery_folder_button, 3, 7);
   content_layout->addWidget(divider_inputs, 4, 0, 1, 8);
   content_layout->addWidget(password_row_host, 5, 0, 1, 8);
   content_layout->addWidget(naming_row_host, 6, 0, 1, 8);
@@ -549,34 +552,54 @@ int main(int argc, char* argv[]) {
   peanutbutter::ApplicationCore aCore(aFileSystem, aCrypt, aLogger, aSettings);
   peanutbutter::QtAppController aEntryPoint(aShell, aCore, aFileSystem, &window);
 
-  QObject::connect(source_clear_button, &QToolButton::clicked, source_edit, &QLineEdit::clear);
-  QObject::connect(archive_clear_button, &QToolButton::clicked, archive_edit, &QLineEdit::clear);
-  QObject::connect(unarchive_clear_button, &QToolButton::clicked, unarchive_edit, &QLineEdit::clear);
-  QObject::connect(recovery_clear_button, &QToolButton::clicked, recovery_edit, &QLineEdit::clear);
   QObject::connect(clear_logs_button, &QPushButton::clicked, debug_console, &QPlainTextEdit::clear);
 
-  QObject::connect(source_pick_button, &QToolButton::clicked, &window, [&]() {
-    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick pack source folder");
+  QObject::connect(source_file_button, &QToolButton::clicked, &window, [&]() {
+    const QString aFile = QFileDialog::getOpenFileName(&window, "Pick bundle source file");
+    if (!aFile.isEmpty()) {
+      source_edit->setText(aFile);
+    }
+  });
+  QObject::connect(source_folder_button, &QToolButton::clicked, &window, [&]() {
+    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick bundle source folder");
     if (!aFolder.isEmpty()) {
       source_edit->setText(aFolder);
     }
   });
-  QObject::connect(archive_pick_button, &QToolButton::clicked, &window, [&]() {
-    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick archive folder");
+  QObject::connect(archive_file_button, &QToolButton::clicked, &window, [&]() {
+    const QString aFile = QFileDialog::getOpenFileName(&window, "Pick unbundle source file");
+    if (!aFile.isEmpty()) {
+      archive_edit->setText(aFile);
+    }
+  });
+  QObject::connect(archive_folder_button, &QToolButton::clicked, &window, [&]() {
+    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick unbundle source folder");
     if (!aFolder.isEmpty()) {
       archive_edit->setText(aFolder);
     }
   });
-  QObject::connect(unarchive_pick_button, &QToolButton::clicked, &window, [&]() {
-    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick unarchive folder");
+  QObject::connect(unarchive_file_button, &QToolButton::clicked, &window, [&]() {
+    const QString aFile = QFileDialog::getOpenFileName(&window, "Pick unbundle target file");
+    if (!aFile.isEmpty()) {
+      unarchive_edit->setText(aFile);
+    }
+  });
+  QObject::connect(unarchive_folder_button, &QToolButton::clicked, &window, [&]() {
+    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick unbundle target folder");
     if (!aFolder.isEmpty()) {
       unarchive_edit->setText(aFolder);
     }
   });
-  QObject::connect(recovery_pick_button, &QToolButton::clicked, &window, [&]() {
-    const QString aFile = QFileDialog::getOpenFileName(&window, "Pick recovery start file");
+  QObject::connect(recovery_file_button, &QToolButton::clicked, &window, [&]() {
+    const QString aFile = QFileDialog::getOpenFileName(&window, "Pick recover source file");
     if (!aFile.isEmpty()) {
       recovery_edit->setText(aFile);
+    }
+  });
+  QObject::connect(recovery_folder_button, &QToolButton::clicked, &window, [&]() {
+    const QString aFolder = QFileDialog::getExistingDirectory(&window, "Pick recover source folder");
+    if (!aFolder.isEmpty()) {
+      recovery_edit->setText(aFolder);
     }
   });
 

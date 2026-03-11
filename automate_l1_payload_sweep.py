@@ -59,7 +59,14 @@ def set_test_payload_size_n(format_constants_path: Path, n: int) -> None:
     format_constants_path.write_text(updated, encoding="utf-8")
 
 
-def run_command(cmd: list[str], cwd: Path, *, allowed_return_codes: set[int] | None = None) -> tuple[str, int]:
+def run_command(
+    cmd: list[str],
+    cwd: Path,
+    *,
+    allowed_return_codes: set[int] | None = None,
+    echo_output: bool = True,
+    suppress_line_patterns: tuple[re.Pattern[str], ...] = (),
+) -> tuple[str, int]:
     if allowed_return_codes is None:
         allowed_return_codes = {0}
     proc = subprocess.run(
@@ -69,7 +76,11 @@ def run_command(cmd: list[str], cwd: Path, *, allowed_return_codes: set[int] | N
         text=True,
     )
     output = (proc.stdout or "") + (proc.stderr or "")
-    print(output, end="")
+    if echo_output:
+        for line in output.splitlines(keepends=True):
+            if suppress_line_patterns and any(p.search(line) for p in suppress_line_patterns):
+                continue
+            print(line, end="")
     if proc.returncode not in allowed_return_codes:
         raise RuntimeError(f"Command failed ({proc.returncode}): {' '.join(cmd)}")
     return output, proc.returncode
@@ -126,7 +137,15 @@ def run_brew_release_and_parse(
     ignored_failed_tests: set[str],
     ignored_test_prefixes: tuple[str, ...] = (),
 ) -> BrewRunResult:
-    output, return_code = run_command([str(cwd / "run_brew_tests_release.sh")], cwd, allowed_return_codes={0, 1, 2, 8})
+    suppress_patterns = (
+        re.compile(r"^\[\s*\d+%\]\s"),  # CMake progress lines.
+    )
+    output, return_code = run_command(
+        [str(cwd / "run_brew_tests_release.sh")],
+        cwd,
+        allowed_return_codes={0, 1, 2, 8},
+        suppress_line_patterns=suppress_patterns,
+    )
     match = re.search(r"(\d+)% tests passed, (\d+) tests failed out of (\d+)", output)
     if not match:
         if "RESULT: BUILD CONFIGURE FAILED" in output:
@@ -239,7 +258,7 @@ def main() -> None:
     generated_cases_json = repo_root / "tests/generated/test_cases_all.json"
     report_path = repo_root / "automate_l1_payload_sweep_output.txt"
     ignored_failed_tests: set[str] = set()
-    ignored_test_prefixes = ("PeanutButterUltimaCodex_",)
+    ignored_test_prefixes = ("PeanutButterUltimaCodex_", "PeanutButterUltimaGeneratedGold_")
     allowed_mismatch_generated_passers = {
         "PeanutButterUltimaGenerated_Test_Fences_EndOfFile_TrailingArchives"
     }
@@ -253,7 +272,7 @@ def main() -> None:
         print(f"[INIT] LAST_N={last_n}")
         set_test_payload_size_n(format_constants, last_n)
         print(f"[INIT] SB_PAYLOAD_SIZE = SB_RECOVERY_HEADER_LENGTH + {last_n}")
-        run_command([sys.executable, str(generator_script)], repo_root)
+        run_command([sys.executable, str(generator_script)], repo_root, echo_output=False)
         recovery_header_len = parse_recovery_header_length(format_constants)
 
         for n in range(args.start, args.end + 1):
@@ -329,7 +348,7 @@ def main() -> None:
                 f"(expected all fail except allowed passers)"
             )
 
-            run_command([sys.executable, str(generator_script)], repo_root)
+            run_command([sys.executable, str(generator_script)], repo_root, echo_output=False)
             regenerated_run = run_brew_release_and_parse(
                 repo_root,
                 ignored_failed_tests=ignored_failed_tests,

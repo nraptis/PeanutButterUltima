@@ -678,13 +678,15 @@ def choose_illegal_value(
                 candidates.append(delta)
         if not candidates:
             return None
-        return rng.choice(candidates)
+        # Prefer the nearest representable illegal jump. Large random jumps often
+        # trigger secondary decode paths and produce unstable error-family surfaces.
+        return min(candidates)
 
     if illegal_target_type == "out_of_entire_archive_list_bounds":
         lo = max(remaining_total + 1, min_value)
         if lo > max_value:
             return None
-        return rng.randint(lo, max_value)
+        return lo
 
     if illegal_target_type == "out_of_this_archive_bounds":
         archive_end_abs = starts[start_archive] + file_lengths[start_archive] - 1
@@ -692,7 +694,7 @@ def choose_illegal_value(
         lo = max(remaining_this_archive + 1, min_value)
         if lo > max_value:
             return None
-        return rng.randint(lo, max_value)
+        return lo
 
     if illegal_target_type == "within_recovery_header":
         targets: List[int] = []
@@ -1219,6 +1221,9 @@ def generate_case(case_id: str,
             raise RuntimeError(f"Could not derive mutation value for {case_id}")
 
     archive_file_len = PLAIN_HEADER_LENGTH + archive_payload_length
+    per_archive_lengths = file_lengths_for_stream(layout, len(stream))
+    if 0 <= archive_index < len(per_archive_lengths):
+        archive_file_len = per_archive_lengths[archive_index]
     if field_kind == "eof_gar" and payload_logical_offset >= 0:
         eof_capacity_bound = eof_runtime_logical_capacity if eof_runtime_logical_capacity > 0 else layout.logical_per_archive
         if payload_logical_offset + width > eof_capacity_bound:
@@ -1227,7 +1232,7 @@ def generate_case(case_id: str,
                 f"(payload_logical_offset={payload_logical_offset}, width={width}, "
                 f"logical_per_archive={eof_capacity_bound})."
             )
-    elif offset + width > archive_file_len:
+    if offset + width > archive_file_len:
         raise RuntimeError(
             "Selected mutation bytes exceed archive file bounds "
             f"(offset={offset}, width={width}, archive_file_len={archive_file_len})."

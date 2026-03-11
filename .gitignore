@@ -12,3 +12,8 @@ release/
 build-release/
 build-test-release/
 **/release/
+
+# Local runtime folders
+archive/
+unarchive/
+unbundle/

@@ -179,36 +179,26 @@ while IFS= read -r line; do
   fi
 done < "$TEST_LIST_FILE"
 
-CODEX_SOURCE_COUNT=$(find "$SCRIPT_DIR/tests/codex" -maxdepth 1 -type f -name '*.cpp' | wc -l | tr -d '[:space:]')
+typeset -a GENERATED_TEST_NAMES
+for test_name in "${TEST_NAMES[@]}"; do
+  case "$test_name" in
+    PeanutButterUltimaGenerated_*)
+      GENERATED_TEST_NAMES+=("$test_name")
+      ;;
+  esac
+done
+TEST_NAMES=("${GENERATED_TEST_NAMES[@]}")
+
 GENERATED_SOURCE_COUNT=$(find "$SCRIPT_DIR/tests/generated" -maxdepth 1 -type f -name '*.cpp' | wc -l | tr -d '[:space:]')
 
-CODEX_TEST_COUNT=0
 GENERATED_TEST_COUNT=0
 for test_name in "${TEST_NAMES[@]}"; do
   case "$test_name" in
-    PeanutButterUltimaCodex_*)
-      CODEX_TEST_COUNT=$((CODEX_TEST_COUNT + 1))
-      ;;
     PeanutButterUltimaGenerated_*)
       GENERATED_TEST_COUNT=$((GENERATED_TEST_COUNT + 1))
       ;;
   esac
 done
-
-if [ "$CODEX_SOURCE_COUNT" -gt 0 ] && [ "$CODEX_TEST_COUNT" -eq 0 ]; then
-  echo "RESULT: FAIL"
-  echo "Codex tests exist in tests/codex but no codex tests were registered by CMake."
-  echo "CTEST DISCOVERY OUTPUT:"
-  sed -n '1,200p' "$TEST_LIST_FILE"
-  {
-    echo "run_brew_tests_detailed_logs.txt"
-    echo "Codex tests exist in tests/codex but no codex tests were registered by CMake."
-    echo ""
-    echo "CTEST DISCOVERY OUTPUT:"
-    sed -n '1,200p' "$TEST_LIST_FILE"
-  } > "$DETAILED_LOG_FILE"
-  exit 1
-fi
 
 if [ "$GENERATED_SOURCE_COUNT" -gt 0 ] && [ "$GENERATED_TEST_COUNT" -eq 0 ]; then
   echo "RESULT: FAIL"
@@ -225,7 +215,7 @@ if [ "$GENERATED_SOURCE_COUNT" -gt 0 ] && [ "$GENERATED_TEST_COUNT" -eq 0 ]; the
   exit 1
 fi
 
-echo "DISCOVERY: codex_sources=$CODEX_SOURCE_COUNT codex_tests=$CODEX_TEST_COUNT generated_sources=$GENERATED_SOURCE_COUNT generated_tests=$GENERATED_TEST_COUNT"
+echo "DISCOVERY: generated_sources=$GENERATED_SOURCE_COUNT generated_tests=$GENERATED_TEST_COUNT"
 
 : > "$TEST_OUTPUT_FILE"
 

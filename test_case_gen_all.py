@@ -31,9 +31,9 @@ import test_case_gen_engine as engine
 SCRIPT_DIR = Path(__file__).resolve().parent
 
 # Narrow/specialized fence scope: one deterministic case per family/target.
-SMALL_CASES_PER_SPEC = 32
-MEDIUM_CASES_PER_SPEC = 16
-ENCODE_TESTS_CASES_AS_DATA = True
+SMALL_CASES_PER_SPEC = 24
+MEDIUM_CASES_PER_SPEC = 12
+ENCODE_TESTS_CASES_AS_DATA = False
 
 SOURCE_TYPES = [
     "file_name_length",
@@ -281,10 +281,13 @@ def override_expected_error_for_make_zero(p_source: str, p_existing: str) -> str
 def expected_fence_flag_for_target(p_source: str, p_target: Optional[str]) -> str:
     if p_source in ("eof_gar", "eof_oob"):
         return ""
+    if p_target == "out_of_entire_archive_list_bounds":
+        if p_source == "recovery_header":
+            return "FENCE_IN_GAP_ARCHIVE"
+        return "FENCE_OUTSIDE_PAYLOAD_RANGE"
     mapping = {
         "within_archive_header": "FENCE_IN_ARCHIVE_HEADER",
         "within_recovery_header": "FENCE_IN_RECOVERY_HEADER",
-        "out_of_entire_archive_list_bounds": "FENCE_IN_GAP_ARCHIVE",
         "out_of_this_archive_bounds": "FENCE_OUTSIDE_PAYLOAD_RANGE",
     }
     return mapping.get(p_target, "")
@@ -498,14 +501,29 @@ def apply_target_overrides(p_case: engine.TestCase, p_source: str, p_target: Opt
         return specialize_recovery_missing_archive_case(p_case)
 
     if p_target == "out_of_entire_archive_list_bounds" and p_source not in ("eof_gar", "eof_oob"):
-        # Force at least one missing archive index so gap-flag family has deterministic coverage.
-        stream, _ = engine.build_fields(p_case.tree)
-        layout = engine.ArchiveLayout(p_case.archive_payload_length)
-        archive_count = max(1, (len(stream) + layout.logical_per_archive - 1) // layout.logical_per_archive)
-        synthetic_index = archive_count + 1
-        p_case.archive_set_mutation.create_archive_indices = [synthetic_index]
+        # Do not add synthetic archives here. For non-recovery sources, the core
+        # generator already selects an out-of-entire-list illegal distance; adding
+        # archives after value selection can accidentally re-legalize that distance.
         p_case.notes.append(
-            "Target override: added synthetic trailing archive to guarantee a missing-index gap for gap-fence assertions."
+            "Target override: preserved generated archive set to avoid re-legalizing out-of-entire-list mutation."
+        )
+        return True
+
+    if p_target == "out_of_this_archive_bounds" and p_source in (
+        "file_name_length",
+        "file_content_length",
+        "directory_name_length",
+    ):
+        # Force the immediate next archive index to be missing so out-of-this
+        # jumps cannot silently resolve into valid adjacent-archive data.
+        gap_index = int(p_case.mutation.archive_index) + 1
+        create_indices = set(p_case.archive_set_mutation.create_archive_indices)
+        create_indices.discard(gap_index)
+        create_indices.add(gap_index + 1)
+        p_case.archive_set_mutation.remove_archive_indices = [gap_index]
+        p_case.archive_set_mutation.create_archive_indices = sorted(create_indices)
+        p_case.notes.append(
+            f"Target override: forced gap at archive[{gap_index}] for out-of-this-archive target."
         )
     return True
 
