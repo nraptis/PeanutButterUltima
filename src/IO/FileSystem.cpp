@@ -1,29 +1,51 @@
 #include "IO/FileSystem.hpp"
 
+#include <algorithm>
+
+#include "PeanutButter.hpp"
+
 namespace peanutbutter {
 
-bool FileSystem::ReadFile(const std::string& pPath, ByteVector& pContents) const {
-  pContents.clear();
+bool FileSystem::ReadFile(const std::string& pPath, ByteBuffer& pContents) const {
+  pContents.Clear();
   std::unique_ptr<FileReadStream> aStream = OpenReadStream(pPath);
   if (aStream == nullptr || !aStream->IsReady()) {
     return false;
   }
-  pContents.resize(aStream->GetLength());
-  return aStream->Read(0, pContents.data(), pContents.size());
+  const std::size_t aLength = aStream->GetLength();
+  if (!pContents.Resize(aLength)) {
+    return false;
+  }
+  return aStream->Read(0, pContents.Data(), pContents.Size());
 }
 
 bool FileSystem::ReadTextFile(const std::string& pPath, std::string& pContents) const {
-  ByteVector aBytes;
-  if (!ReadFile(pPath, aBytes)) {
+  std::unique_ptr<FileReadStream> aStream = OpenReadStream(pPath);
+  if (aStream == nullptr || !aStream->IsReady()) {
     pContents.clear();
     return false;
   }
-  pContents.assign(reinterpret_cast<const char*>(aBytes.data()), aBytes.size());
+
+  pContents.clear();
+  const std::size_t aLength = aStream->GetLength();
+  pContents.reserve(aLength);
+
+  std::size_t aOffset = 0;
+  while (aOffset < aLength) {
+    L3BlockBuffer aBuffer{};
+    const std::size_t aChunkLength = std::min(kBlockSizeL3, aLength - aOffset);
+    if (!aStream->Read(aOffset, aBuffer.Data(), aChunkLength)) {
+      pContents.clear();
+      return false;
+    }
+    pContents.append(reinterpret_cast<const char*>(aBuffer.Data()), aChunkLength);
+    aOffset += aChunkLength;
+  }
   return true;
 }
 
-bool FileSystem::WriteFile(const std::string& pPath, const ByteVector& pContents) {
-  return WriteFile(pPath, pContents.data(), pContents.size());
+bool FileSystem::WriteFile(const std::string& pPath, const ByteBuffer& pContents) {
+  return WriteFile(pPath, pContents.Data(), pContents.Size());
 }
 
 bool FileSystem::WriteFile(const std::string& pPath, const unsigned char* pContents, std::size_t pLength) {

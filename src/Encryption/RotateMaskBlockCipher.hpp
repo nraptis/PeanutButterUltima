@@ -3,14 +3,17 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
+#include <memory>
 
 #include "Encryption/Crypt.hpp"
+#include "PeanutButter.hpp"
 
 namespace peanutbutter {
 
 class RotateMaskBlockCipher final : public Crypt {
  public:
-  static constexpr std::size_t kBlockSize = 12;
+  static constexpr std::size_t kBlockSize = kBlockSizeL3;
 
   RotateMaskBlockCipher(std::uint8_t pMask, int pShift) : mMask(pMask), mShift(pShift) {}
 
@@ -48,12 +51,13 @@ class RotateMaskBlockCipher final : public Crypt {
              std::size_t pRotation,
              std::string* pErrorMessage,
              const char* pOperation) const {
+    (void)pWorker;
     if (pLength == 0) {
       return true;
     }
-    if (pSource == nullptr || pWorker == nullptr || pDestination == nullptr) {
+    if (pSource == nullptr || pDestination == nullptr) {
       if (pErrorMessage != nullptr) {
-        *pErrorMessage = std::string(pOperation) + " failed: invalid source, worker, or destination buffer.";
+        *pErrorMessage = std::string(pOperation) + " failed: invalid source or destination buffer.";
       }
       return false;
     }
@@ -65,19 +69,33 @@ class RotateMaskBlockCipher final : public Crypt {
       return false;
     }
 
-    const unsigned char aAntimask = static_cast<unsigned char>(~mMask);
-    for (std::size_t aBlockBase = 0; aBlockBase < pLength; aBlockBase += kBlockSize) {
-      for (std::size_t aIndex = 0; aIndex < kBlockSize; ++aIndex) {
-        const std::size_t aSourceIndex =
-            aIndex + pRotation < kBlockSize ? aIndex + pRotation : aIndex + pRotation - kBlockSize;
-        const unsigned char aBaseByte = static_cast<unsigned char>(pSource[aBlockBase + aIndex] & aAntimask);
-        const unsigned char aMasked = static_cast<unsigned char>(pSource[aBlockBase + aSourceIndex] & mMask);
-        pWorker[aBlockBase + aIndex] = static_cast<unsigned char>(aBaseByte | aMasked);
+    const bool aAliasedIo = (pSource == pDestination);
+    std::unique_ptr<L3BlockBuffer> aAliasedInput;
+    if (aAliasedIo) {
+      aAliasedInput = std::unique_ptr<L3BlockBuffer>(new (std::nothrow) L3BlockBuffer());
+      if (!aAliasedInput) {
+        if (pErrorMessage != nullptr) {
+          *pErrorMessage = std::string(pOperation) + " failed: insufficient memory for alias-safe block temp.";
+        }
+        return false;
       }
     }
 
-    for (std::size_t aIndex = 0; aIndex < pLength; ++aIndex) {
-      pDestination[aIndex] = pWorker[aIndex];
+    const unsigned char aAntimask = static_cast<unsigned char>(~mMask);
+    for (std::size_t aBlockBase = 0; aBlockBase < pLength; aBlockBase += kBlockSize) {
+      const unsigned char* aInputBlock = pSource + aBlockBase;
+      if (aAliasedIo) {
+        std::memcpy(aAliasedInput->Data(), aInputBlock, kBlockSize);
+        aInputBlock = aAliasedInput->Data();
+      }
+      unsigned char* aOutputBlock = pDestination + aBlockBase;
+      for (std::size_t aIndex = 0; aIndex < kBlockSize; ++aIndex) {
+        const std::size_t aSourceIndex =
+            aIndex + pRotation < kBlockSize ? aIndex + pRotation : aIndex + pRotation - kBlockSize;
+        const unsigned char aBaseByte = static_cast<unsigned char>(aInputBlock[aIndex] & aAntimask);
+        const unsigned char aMasked = static_cast<unsigned char>(aInputBlock[aSourceIndex] & mMask);
+        aOutputBlock[aIndex] = static_cast<unsigned char>(aBaseByte | aMasked);
+      }
     }
     return true;
   }

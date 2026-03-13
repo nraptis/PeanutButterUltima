@@ -1,28 +1,97 @@
 run_brew_tests_detailed_logs.txt
-generated_at: 2026-03-11 00:38:50 EDT
-summary: 22 passed, 0 failed, 22 total (100% passed)
+generated_at: 2026-03-13 11:33:18 EDT
+summary: 42 passed, 0 failed, 42 total (100% passed)
 
-No failed tests.
+Missing linked random test cases:
+  - TestBundleUnbundle_SEC_ZONE_002+CHK_001_Medium_NRandom
 
-QuickSmoke.cpp PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualEndOfFile_TrailingArchives PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualEndOfFile_TrailingGarbage PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileContent_InArchiveHeader PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileContent_InRecoveryHeader PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileContent_MissingArchive PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileContent_Outlying PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileContent_Zero_Desync PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileName_InArchiveHeader PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileName_InRecoveryHeader PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileName_MissingArchive PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileName_Outlying PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFileName_Zero_MidPayload PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFolderName_InArchiveHeader PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFolderName_InRecoveryHeader PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFolderName_MissingArchive PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFolderName_Outlying PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualFolderName_Zero_MidPayload PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualRecoveryStride_InArchiveHeader PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualRecoveryStride_InRecoveryHeader PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualRecoveryStride_MissingArchive PASSED!
-PeanutButterUltimaGeneratedGold_Test_Fences_ManualRecoveryStride_Outlying PASSED!
+No failed case-level tests.
+
+Passed case-level tests:
+  - Test_Bundle_Helpers
+  - Test_Unbundle_Helpers
+  - Test_Recover_Helpers
+  - Test_Recover_EmissionCodes
+  - Test_MockFailure_FileSystemOutOfMemory
+  - Test_MockFailure_Crypt_DEC_001
+  - Test_AllEncryptionErrors
+  - Test_AllFileSystemErrors
+  - Test_Bundle_Validators
+  - Test_Unbundle_Validators
+  - Test_Recover_Validators
+  - Test_Bundle_PerformAndValidate
+  - Test_Bundle_PerformAndValidate_DataMutation
+  - Test_Bundle_PerformAndValidate_ArchiveMutation
+  - Test_Unbundle_PerformAndValidate
+  - Test_Recover_PerformAndValidate
+  - Test_RoundTrip_PerformAndValidate
+  - Test_RoundTrip_PerformAndValidate_DataMutation
+  - Test_RoundTrip_PerformAndValidate_ArchiveMutation
+  - TestBundleUnbundleOneSmallFile_NRandom
+  - TestBundleUnbundleTwoSmallFiles_NRandom
+  - TestBundleUnbundleThreeSmallFiles_NRandom
+  - TestRoundTripOneSmallFile_NRandom
+  - TestRoundTripTwoSmallFiles_NRandom
+  - TestRoundTripThreeSmallFiles_NRandom
+  - TestBundleUnbundleOneMediumFile_NRandom
+  - TestBundleUnbundleTwoMediumFiles_NRandom
+  - TestBundleUnbundleThreeMediumFiles_NRandom
+  - TestBundleUnbundle_EOF_001+PNL_003+PNL_002_Medium_NRandom
+  - TestRoundTripMangledBlockManySmallFiles_NRandom
+  - TestRoundTripTwoMangledBlocksManySmallFiles_NRandom
+  - TestRoundTripSeveralMangledBlocksManyMixedFiles_NRandom
+  - TestRoundTripOneMediumFile_NRandom
+  - TestRoundTripTwoMediumFiles_NRandom
+  - TestRoundTripThreeMediumFiles_NRandom
+  - TestRoundTripOneLargeFileDeletingFirstArchive_NRandom
+  - TestRoundTripOneLargeFileDeletingManyArchives_NRandom
+  - TestRoundTripTwoLargeFilesDeletingFirstArchive_NRandom
+  - TestRoundTripTwoLargeFilesDeletingManyArchives_NRandom
+  - TestRoundTripManySmallFilesDeletingFirstArchive_NRandom
+  - TestRoundTripManySmallFilesDeletingManyArchives_NRandom
+  - TestRoundTripManyMixedFilesDeletingOrManglingManyArchives_NRandom
+
+Raw codex output:
+[PASS] Test_Bundle_Helpers
+[PASS] Test_Unbundle_Helpers
+[PASS] Test_Recover_Helpers
+[PASS] Test_Recover_EmissionCodes
+[PASS] Test_MockFailure_FileSystemOutOfMemory
+[PASS] Test_MockFailure_Crypt_DEC_001
+[PASS] Test_AllEncryptionErrors
+[PASS] Test_AllFileSystemErrors
+[PASS] Test_Bundle_Validators
+[PASS] Test_Unbundle_Validators
+[PASS] Test_Recover_Validators
+[PASS] Test_Bundle_PerformAndValidate
+[PASS] Test_Bundle_PerformAndValidate_DataMutation
+[PASS] Test_Bundle_PerformAndValidate_ArchiveMutation
+[PASS] Test_Unbundle_PerformAndValidate
+[PASS] Test_Recover_PerformAndValidate
+[PASS] Test_RoundTrip_PerformAndValidate
+[PASS] Test_RoundTrip_PerformAndValidate_DataMutation
+[PASS] Test_RoundTrip_PerformAndValidate_ArchiveMutation
+[PASS] TestBundleUnbundleOneSmallFile_NRandom
+[PASS] TestBundleUnbundleTwoSmallFiles_NRandom
+[PASS] TestBundleUnbundleThreeSmallFiles_NRandom
+[PASS] TestRoundTripOneSmallFile_NRandom
+[PASS] TestRoundTripTwoSmallFiles_NRandom
+[PASS] TestRoundTripThreeSmallFiles_NRandom
+[PASS] TestBundleUnbundleOneMediumFile_NRandom
+[PASS] TestBundleUnbundleTwoMediumFiles_NRandom
+[PASS] TestBundleUnbundleThreeMediumFiles_NRandom
+[PASS] TestBundleUnbundle_EOF_001+PNL_003+PNL_002_Medium_NRandom
+[PASS] TestRoundTripMangledBlockManySmallFiles_NRandom
+[PASS] TestRoundTripTwoMangledBlocksManySmallFiles_NRandom
+[PASS] TestRoundTripSeveralMangledBlocksManyMixedFiles_NRandom
+[PASS] TestRoundTripOneMediumFile_NRandom
+[PASS] TestRoundTripTwoMediumFiles_NRandom
+[PASS] TestRoundTripThreeMediumFiles_NRandom
+[PASS] TestRoundTripOneLargeFileDeletingFirstArchive_NRandom
+[PASS] TestRoundTripOneLargeFileDeletingManyArchives_NRandom
+[PASS] TestRoundTripTwoLargeFilesDeletingFirstArchive_NRandom
+[PASS] TestRoundTripTwoLargeFilesDeletingManyArchives_NRandom
+[PASS] TestRoundTripManySmallFilesDeletingFirstArchive_NRandom
+[PASS] TestRoundTripManySmallFilesDeletingManyArchives_NRandom
+[PASS] TestRoundTripManyMixedFilesDeletingOrManglingManyArchives_NRandom
+Total: 42, Failed: 0

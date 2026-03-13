@@ -1,0 +1,24 @@
+Algorithm: unbundle(request, archive_file_list, crypt, filesys, logger, cancel)
+
+Goal
+- Strict decode of archives into destination output.
+
+Flow
+1. Preflight source/destination.
+2. Discover archive family and index ordering.
+3. Start decode progress logs.
+4. Run decode core in strict mode.
+5. On terminator, emit success summary.
+
+Behavior
+- Archive index gaps are terminal errors.
+- Checksum or record-parse failures are terminal errors.
+- Destination writes are streamed; no whole-file RAM load.
+
+Logging
+- Discovery logs include scanned/found/template/gaps.
+- Decode logs include bytes and file counts processed.
+
+Cancel
+- Cancel checks in loops.
+- Current file finishes first when cancel is requested during write.

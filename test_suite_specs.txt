@@ -1,0 +1,317 @@
+Test Suite Specifications (Adversarial, Black-Box)
+=================================================
+
+Purpose
+- Define a complete test contract for an external adversarial model that does not read this project's source code.
+- Cover bundle, unbundle, recover, and bundle-with-mutations behavior.
+- Require deterministic randomization and strong edge-case coverage.
+
+Scope
+- In scope: bundle/unbundle/recover correctness, archive format correctness, mutation-triggered failures, and recovery correctness.
+- In scope: data mutations (payload byte overwrites before checksum) and file-list mutations (create/delete source entries by index).
+- Out of scope: UI tests and log-string matching.
+
+Non-negotiable constraints
+1. The test generator is black-box with respect to engine internals.
+2. Tests must use a mock hard drive + mock file system for all file I/O.
+3. Tests must be reproducible from seed + loop index + config knobs.
+4. Tests must support tiny block sizes and boundary values.
+5. No test is allowed to load full giant files into memory as a correctness requirement.
+
+Universal knobs
+- UNIVERSAL_SEED: unsigned integer.
+- UNIVERSAL_LOOPS: integer in [1, 10000].
+- UNIVERSAL_K_BLOCK_SIZE_L3: integer in [41, +inf), configurable per test case.
+- UNIVERSAL_TARGET_ARCHIVE_BLOCK_COUNT: integer in [1, 2048].
+
+Derived constants (per test case)
+- ARCHIVE_HEADER_LENGTH = 40 bytes.
+- RECOVERY_HEADER_LENGTH = 40 bytes.
+- PAYLOAD_BYTES_PER_BLOCK = UNIVERSAL_K_BLOCK_SIZE_L3 - RECOVERY_HEADER_LENGTH.
+- MAX_VALID_FILE_PATH_LENGTH = 2048.
+- MAX_ARCHIVE_COUNT = 65535.
+- MAX_BLOCKS_PER_ARCHIVE = 2048.
+
+Recommended mandatory block-size vector
+- Must include at least: 41, 42, 48, 64, 80, 144040.
+- Additional random values in [41, 262144] are encouraged.
+
+Recommended mandatory archive-block-count vector
+- Must include at least: 1, 2, 3, 17, 64.
+- Include randomized values up to 2048 when runtime budget permits.
+
+Random test file model
+
+RandomTestFileNameType
+- kInvalidSmall
+- kMinimum            // length 1
+- kSmall              // length [1..8]
+- kMedium             // length [9..64]
+- kLarge              // length [65..2048]
+- kInvalidLarge       // length >= 2049
+
+RandomTestFileContentType
+- kZero               // length 0
+- kSmall              // length [0..4]
+- kMedium             // length [5..64]
+- kLarge              // fits into 1.5..6 payload blocks
+- kGiant              // fits into 12..18 payload blocks
+
+TestFile contract
+- path (relative path string)
+- is_directory (bool)
+- content_bytes (for files)
+
+Factory contract
+- TestFile GetRandomTestFile(RandomTestFileNameType pNameType,
+                             RandomTestFileContentType pContentType)
+
+Name validity guidance
+- Valid names: relative, non-empty, no control bytes, no path traversal segments ("." or ".." parts), no absolute-path forms.
+- kInvalidSmall should target short invalid forms (empty name, control byte, ".", "..", absolute marker).
+- kInvalidLarge should target length > 2048 (still deterministic from seed).
+
+Content sizing guidance
+- For kLarge and kGiant, size ranges are computed using PAYLOAD_BYTES_PER_BLOCK.
+- Example: kLarge in [ceil(1.5 * PAYLOAD_BYTES_PER_BLOCK), 6 * PAYLOAD_BYTES_PER_BLOCK].
+- Example: kGiant in [12 * PAYLOAD_BYTES_PER_BLOCK, 18 * PAYLOAD_BYTES_PER_BLOCK].
+
+Mock hard drive + mock file system requirements
+- Directory tree operations: create, clear, list recursive files, list recursive dirs.
+- File operations: open read stream, open write stream, random-access read, append, close.
+- Metadata: file length, file existence, directory existence, path joins/splits.
+- Deterministic ordering behavior for directory listing.
+- Ability to inject archive-file-level faults for adversarial tests.
+- Optional instrumentation hooks for bytes read/written and open/close counts.
+
+On-disk format contract to verify
+
+Archive file naming
+- Name pattern: {prefix}{source_stem}_{zero_padded_ordinal}{suffix}.
+- Ordinal padding width equals decimal digits of (archive_count - 1), minimum 1.
+
+Archive header layout (40 bytes, little-endian)
+- [0..3]   magic (u32) = 0xDECAFBAD
+- [4..5]   version_major (u16) = 1
+- [6..7]   version_minor (u16) = 2
+- [8..11]  archive_index (u32)
+- [12..15] archive_count (u32)
+- [16..19] payload_length (u32) = (target_archive_block_count * kBlockSizeL3)
+- [20]     record_count_mod256 (u8)
+- [21]     folder_count_mod256 (u8)
+- [22..23] reserved16 (u16)
+- [24..31] reservedA (u64)
+- [32..39] reservedB (u64)
+
+Recovery header layout (40 bytes, little-endian)
+- [0..7]   checksum word1 (u64)
+- [8..15]  checksum word2 (u64)
+- [16..23] checksum word3 (u64)
+- [24..31] checksum word4 (u64)
+- [32..33] skip archive distance (u16)
+- [34..35] skip block distance (u16)
+- [36..39] skip byte distance (u32)
+
+Record stream layout (payload bytes)
+- path_length (u16)
+- path bytes
+- content_length (u64)
+- content bytes
+- terminator record: path_length == 0
+- directory marker: content_length == 0xFFFFFFFFFFFFFFFF
+
+Archive size invariants
+- each archive file size == ARCHIVE_HEADER_LENGTH + (target_archive_block_count * kBlockSizeL3)
+- all unwritten tail space must be zero-filled
+
+Error/outcome contract for assertions
+- Assert primarily on OperationResult fields:
+  - mSucceeded
+  - mCanceled
+  - mErrorCode
+- Do not assert exact failure message text.
+- Expected error-code set to validate:
+  - NONE
+  - CANCELED
+  - INVALID_REQUEST
+  - FILE_SYSTEM
+  - CRYPT
+  - ARCHIVE_HEADER
+  - GAP_001
+  - BLOCK_CHECKSUM
+  - RECORD_PARSE
+  - RECOVER_EXHAUSTED
+  - INTERNAL
+
+Core suite A: Happy flow round-trip
+
+Pattern
+1. Generate random TestFile set (files + optional empty folders).
+2. Bundle with mock file system.
+3. Unbundle from produced archives into clean destination.
+4. Verify outputs and format rigorously.
+
+Required checks
+- File names and bytes exactly match source set.
+- Empty folders exactly match source set.
+- No orphan paths are created.
+- Archive count and archive sizes are exactly as planned.
+- Archive headers are fully validated byte-by-byte.
+- Recovery headers are fully validated byte-by-byte.
+- Recovery checksum recomputation matches stored checksum for every block.
+
+Core suite B: Adversarial archive-data mutation
+
+Pattern
+1. Create random base_files.
+2. Compute expected bundle layout for base_files.
+3. Pick random injection_site from computed layout.
+4. Determine if injection_site can produce the target error.
+5. If not valid, adapt base_files deterministically until valid.
+6. Execute baseline round-trip (bundle + unbundle) and validate with Happy-flow checks.
+7. Build mutation list for bundle-with-mutations (payload byte overwrites at logical offsets).
+8. Re-run bundle-with-mutations.
+9. Run strict unbundle and assert expected error code/outcome.
+10. Compute EXPECTED_RECOVERY_FILES from helper oracle.
+11. Run real recover.
+12. Compare recover output to EXPECTED_RECOVERY_FILES byte-for-byte and path-for-path.
+
+Mutation rules
+- Data mutations are applied before block checksum computation.
+- Mutation offsets are in logical payload-byte space across all planned blocks.
+- A mutation may cross block boundaries.
+
+Core suite C: Adversarial archive-file mutation
+
+Pattern
+1. Create random base_files.
+2. Compute expected bundle layout mem_lo.
+3. Pick random injection_site using mem_lo and scenario requirements.
+4. Determine if chosen file-level mutation can produce target error.
+5. Adapt base_files deterministically until valid.
+6. Execute baseline round-trip and validate with Happy-flow checks.
+7. Apply archive-file-level mutation(s) to produced archive set.
+8. Run strict unbundle and assert expected error code/outcome.
+9. Compute EXPECTED_RECOVERY_FILES from helper oracle.
+10. Run real recover.
+11. Compare recover output to EXPECTED_RECOVERY_FILES.
+
+Archive-file mutation examples to support
+- Delete archive by index (creates gap/empty archive box behavior).
+- Delete index range.
+- Truncate archive file.
+- Corrupt archive header bytes.
+- Corrupt recovery header bytes.
+- Reorder or duplicate file names in candidate input list (discovery stability check).
+
+Required helper APIs for the adversarial model
+- ComputeBundleLayout(files, kBlockSizeL3, targetArchiveBlockCount)
+- FindInjectionSite(layout, targetError, rng)
+- CanInjectionYieldTarget(layout, site, targetError)
+- AdaptBaseFilesForInjection(baseFiles, targetError, site, rng)
+- BuildDataMutationsForTarget(layout, site, targetError, rng)
+- BuildArchiveFileMutationsForTarget(layout, site, targetError, rng)
+- CalculateExpectedRecoveryFiles(layout, appliedMutations)
+- CompareRecoveredOutput(expected, actual)
+
+Adaptive shaping loop requirements
+- Must be deterministic.
+- Must terminate with max_attempts guard.
+- Must report why shaping failed if target condition is unreachable.
+- Must preserve randomness by deriving each attempt from deterministic child seeds.
+
+Mandatory edge/boundary coverage
+
+Path boundaries
+- length 0 (invalid)
+- length 1
+- length 8
+- length 9
+- length 64
+- length 65
+- length 2048
+- length 2049 (invalid)
+
+Content boundaries
+- 0
+- 1
+- 4
+- 5
+- 64
+- 65
+- PAYLOAD_BYTES_PER_BLOCK - 1
+- PAYLOAD_BYTES_PER_BLOCK
+- PAYLOAD_BYTES_PER_BLOCK + 1
+- 2 * PAYLOAD_BYTES_PER_BLOCK - 1
+- 2 * PAYLOAD_BYTES_PER_BLOCK
+
+Topology boundaries
+- zero files + at least one empty folder
+- one tiny file
+- one giant file
+- many small files
+- mixed files + empty folders
+- paths with deep nesting
+
+Archive boundaries
+- target archive block count 1
+- target archive block count near max test budget
+- planned archive count exactly 1
+- planned archive count near MAX_ARCHIVE_COUNT clipping window
+- discovery with candidate files outside chosen filename template
+
+Recover-specific boundaries
+- missing first archive index
+- missing middle archive index
+- multiple gap ranges
+- checksum mismatch block
+- parse-error block with valid checksum (forces stride decision path)
+- recover exhausted with zero recovered files
+- recover succeeds without full terminator but with recovered files
+
+Determinism and reproducibility
+- All randomness must derive from UNIVERSAL_SEED.
+- Each loop iteration uses deterministic child seed:
+  - child_seed = Hash(UNIVERSAL_SEED, test_name, loop_index, kBlockSizeL3, targetArchiveBlockCount)
+- Failure output must print:
+  - test name
+  - loop index
+  - universal seed
+  - derived child seed
+  - kBlockSizeL3
+  - target archive block count
+  - generated files summary
+  - applied mutations summary
+  - expected vs actual result summary
+
+Pass/fail rules
+- Any mismatch in headers, recovery checksum, file bytes, folders, or error code is fail.
+- Any non-deterministic replay with same seed/config is fail.
+- Any orphan output path is fail.
+- Any recover mismatch vs oracle is fail.
+
+Practical guidance for loops
+- Suite must run with loops in [1..10000].
+- For high loops, use weighted scheduling so all boundary classes still execute.
+- Ensure at least one case per mandatory boundary per run before pure random sampling.
+
+Bundle-with-mutations requirements
+- Support both mutation classes in tests:
+  - DataMutation: logical payload byte overwrite.
+  - CreateFileMutation: insert source entry at index.
+  - DeleteFileMutation: delete source entry at index.
+- File-mutation ordering contract:
+  - apply deletions first (descending index semantics)
+  - apply creates second (insert-at-index)
+
+What to ignore
+- Ignore exact log text and log timing.
+- Ignore UI rendering.
+- Ignore implementation-private helper names.
+
+Deliverables expected from adversarial model
+1. Reusable generator/helpers implementing this spec.
+2. Happy-flow suite.
+3. Adversarial archive-data suite.
+4. Adversarial archive-file suite.
+5. Deterministic replay harness for single failing seed/loop reproduction.

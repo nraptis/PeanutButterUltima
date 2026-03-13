@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug PeanutButterUltima",
+      "name": "Debug CMake Launch Target",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build-debug/PeanutButterUltima.app/Contents/MacOS/PeanutButterUltima",
+      "program": "${command:cmake.launchTargetPath}",
       "cwd": "${workspaceFolder}",
       "MIMode": "lldb",
       "preLaunchTask": "Build PeanutButterUltima Debug",

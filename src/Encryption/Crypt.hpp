@@ -48,23 +48,6 @@ class PassthroughCrypt final : public Crypt {
                   CryptMode pMode) const override;
 };
 
-class XorCrypt final : public Crypt {
- public:
-  bool SealData(const unsigned char* pSource,
-                unsigned char* pWorker,
-                unsigned char* pDestination,
-                std::size_t pLength,
-                std::string* pErrorMessage,
-                CryptMode pMode) const override;
-
-  bool UnsealData(const unsigned char* pSource,
-                  unsigned char* pWorker,
-                  unsigned char* pDestination,
-                  std::size_t pLength,
-                  std::string* pErrorMessage,
-                  CryptMode pMode) const override;
-};
-
 }  // namespace peanutbutter
 
 #endif  // PEANUT_BUTTER_ULTIMA_ENCRYPTION_CRYPT_HPP_

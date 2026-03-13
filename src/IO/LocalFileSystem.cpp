@@ -194,7 +194,9 @@ bool LocalFileSystem::DirectoryHasEntries(const std::string& pPath) const {
   return std::filesystem::directory_iterator(std::filesystem::path(pPath)) != std::filesystem::directory_iterator();
 }
 
-std::vector<DirectoryEntry> LocalFileSystem::ListFilesRecursive(const std::string& pRootPath) const {
+std::vector<DirectoryEntry> LocalFileSystem::ListFilesRecursive(
+    const std::string& pRootPath,
+    const std::function<bool(std::size_t)>& pProgressCallback) const {
   std::vector<DirectoryEntry> aEntries;
   const std::filesystem::path aRoot(pRootPath);
   if (!std::filesystem::is_directory(aRoot)) {
@@ -206,11 +208,16 @@ std::vector<DirectoryEntry> LocalFileSystem::ListFilesRecursive(const std::strin
     }
     aEntries.push_back(
         {aEntry.path().lexically_normal().generic_string(), std::filesystem::relative(aEntry.path(), aRoot).generic_string(), false});
+    if (pProgressCallback && !pProgressCallback(aEntries.size())) {
+      break;
+    }
   }
   return aEntries;
 }
 
-std::vector<DirectoryEntry> LocalFileSystem::ListDirectoriesRecursive(const std::string& pRootPath) const {
+std::vector<DirectoryEntry> LocalFileSystem::ListDirectoriesRecursive(
+    const std::string& pRootPath,
+    const std::function<bool(std::size_t)>& pProgressCallback) const {
   std::vector<DirectoryEntry> aEntries;
   const std::filesystem::path aRoot(pRootPath);
   if (!std::filesystem::is_directory(aRoot)) {
@@ -222,6 +229,9 @@ std::vector<DirectoryEntry> LocalFileSystem::ListDirectoriesRecursive(const std:
     }
     aEntries.push_back(
         {aEntry.path().lexically_normal().generic_string(), std::filesystem::relative(aEntry.path(), aRoot).generic_string(), true});
+    if (pProgressCallback && !pProgressCallback(aEntries.size())) {
+      break;
+    }
   }
   return aEntries;
 }

@@ -1,0 +1,51 @@
+Algorithm: bundle(request, source_entries, crypt, filesys, logger, cancel)
+
+Goal
+- Build PBTR archives from source files/folders.
+- Keep archive output deterministic from the discovery plan.
+
+Phases
+- `preflight`
+- `discovery`
+- `flight`
+
+Preflight
+1. Validate source and destination paths.
+2. Validate archive block count.
+3. Apply destination action (`merge` / `clear` / `cancel`).
+
+Discovery
+1. Collect and sort source entries.
+2. Resolve file lengths.
+3. Build logical record stream:
+   - path length (u16)
+   - path bytes
+   - content length (u64)
+   - content bytes
+   - terminator record (path length 0)
+4. Plan archive count from logical bytes and archive block size.
+5. Build per-archive metadata and names.
+6. Emit discovery progress logs by item count.
+
+Flight
+1. For each planned archive:
+   - write archive header
+   - write fixed-size L3 blocks
+2. For each block:
+   - fill payload from logical stream
+   - compute recovery stride to next record boundary
+   - compute block checksum (payload + stride)
+   - write recovery header
+   - encrypt (optional)
+   - append block
+3. Emit progress logs by data processed and items processed.
+
+Cancel behavior
+- Cancel checks are wired into discovery and block/file loops.
+- If cancel arrives while writing file content, bundle finishes the current file first.
+- After the current file is complete, the active archive is finalized (zero-filled remainder) and bundle stops.
+
+Output
+- Success: complete archive set.
+- Canceled: archive set valid up to cancellation boundary.
+- Failure: trap-able error code + message.

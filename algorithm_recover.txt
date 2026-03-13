@@ -1,0 +1,26 @@
+Algorithm: recover(request, archive_file_list, crypt, filesys, logger, cancel)
+
+Goal
+- Best-effort decode and salvage across missing/corrupt archives.
+
+Flow
+1. Preflight source/destination.
+2. Discover archive family (filename-template based, gaps allowed).
+3. Start decode progress logs.
+4. Run decode core in recover mode.
+5. Emit recovery summary (files recovered, failed blocks, elapsed time).
+
+Recover behavior
+- Missing archive index: reset parser and continue.
+- Corrupt checksum/decrypt/read block: skip block and continue.
+- Parse failure: reset parser and try forward stride jump when valid.
+- Terminator found: successful completion.
+- No terminator: return recover-exhausted unless recoverable output was produced.
+
+Logging
+- Discovery logs same shape as decode.
+- Recover logs include stride-jump notices (rate-limited), skipped damage progress, and final summary.
+
+Cancel
+- Cancel checks in discovery and block loops.
+- If cancel arrives during a file write, recover finishes that file first, then returns canceled.

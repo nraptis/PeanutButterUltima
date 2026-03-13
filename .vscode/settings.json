@@ -1,0 +1,13 @@
+{
+  "cmake.useCMakePresets": "always",
+  "cmake.configureOnOpen": true,
+  "cmake.configurePreset": "debug",
+  "cmake.buildPreset": "debug",
+  "cmake.testPreset": "debug",
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "C_Cpp.default.buildTask": "Build PeanutButterUltima Debug",
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/build-debug/compile_commands.json",
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build-debug"
+  ]
+}

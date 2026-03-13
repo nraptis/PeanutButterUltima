@@ -1,0 +1,81 @@
+System Specifications
+=====================
+
+Current direction
+- Bundle works.
+- Unbundle works.
+- Recover works.
+- Validate works.
+
+Engine principles
+1. Streaming I/O only (no whole-file loads for bundle/unbundle/recover).
+2. Logging includes both data-processed and items-processed progress.
+3. Cancellation is cooperative and wired into major loops.
+4. Cancellation policy is "finish current file" before stop.
+5. Errors are trap-able via explicit engine error codes.
+
+Error model
+- Engine returns:
+  - `mSucceeded`
+  - `mCanceled`
+  - `mErrorCode`
+  - `mFailureMessage`
+- Error codes are stable enum values and string-mappable.
+- UI surfaces readable message and code label.
+
+Archive format (active)
+- Archive header at file start.
+- Fixed-size L3 blocks.
+- Per-block recovery header:
+  - checksum
+  - recovery stride
+- Payload stores logical records:
+  - path length (u16)
+  - path bytes
+  - content length (u64)
+  - content bytes
+- Terminator record is path length `0`.
+
+Discovery direction
+- Decode/recover discovery is filename-template based.
+- Candidate archives are sorted by parsed numeric index.
+- Gaps are measured and logged.
+- Unbundle treats index gaps as terminal.
+- Recover treats index gaps as damage and continues.
+
+Bundle requirements
+- Deterministic archive planning from discovery.
+- Discovery logs include file/folder counts and plan totals.
+- Flight logs include archive and byte progress.
+
+Unbundle requirements
+- Strict decode behavior.
+- Checksum/parse/gap errors are terminal.
+- Progress logs include files and bytes unpacked.
+
+Recover requirements
+- Best-effort continuation across missing/corrupt regions.
+- Parser reset on corruption.
+- Optional forward stride jumps from checksum-valid blocks.
+- Final summary includes recovered files/bytes and failed blocks.
+
+Cancellation requirements
+- Cancel checks are present in discovery, block, and parse loops.
+- If cancellation is requested while writing a file, the engine finishes that file first.
+- After file-boundary completion, operation returns canceled cleanly.
+
+Validate requirements
+- Keep current Validate discovery and compare logging scheme.
+- Compare loop remains chunked (64KB).
+- Validate emits discovery progress, compare progress, and capped summary details.
+
+Build layout
+- App shell entry points remain in `main_qt`.
+- Active engine source files:
+  - `AppShell_Bundle.*`
+  - `AppShell_Unbundle.*`
+  - `AppShell_Sanity.*`
+  - `AppShell_ArchiveFormat.*`
+  - `AppShell_Common.*`
+  - `AppShell_Types.*`
+- `tests/` folder and test targets are intentionally removed in this branch state.

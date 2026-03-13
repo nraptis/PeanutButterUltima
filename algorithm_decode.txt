@@ -1,0 +1,42 @@
+Algorithm: decode_core(unbundle|recover)
+
+Goal
+- Decode PBTR archive blocks into files/folders.
+- Support strict mode (unbundle) and best-effort mode (recover).
+
+Inputs
+- selected archive family
+- destination directory
+- optional decrypt path
+- cancel coordinator
+
+Core steps
+1. Discover archive family from filename template and sorted index list.
+2. Read per-block recovery header and validate checksum.
+3. Parse payload stream records:
+   - path length (u16)
+   - path bytes
+   - content length (u64)
+   - content bytes
+   - terminator (path length 0)
+4. Write files/folders to destination.
+5. Emit progress logs by bytes and files processed.
+
+Unbundle policy
+- Fail-fast on archive gaps, checksum failures, and parse errors.
+- Stop only on logical terminator success.
+
+Recover policy
+- Continue across gaps/corrupt blocks.
+- Reset parser on corruption.
+- Optionally honor valid recovery stride jumps to plausible forward targets.
+- Recover as many files as possible; partial file may exist for interrupted span.
+
+Cancel policy
+- Cancel checks run through discovery and decode loops.
+- If cancel arrives while writing a file, finish that file first, then stop.
+
+Output
+- Success: decode completed (or recover produced recoverable output).
+- Canceled: distinct canceled result.
+- Failure: trap-able error code + message.
