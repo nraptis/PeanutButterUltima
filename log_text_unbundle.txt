@@ -1,2 +1,0 @@
-Unbundle: request accepted.
-Decode discovery: selected identifier = 3005979308084975522.

@@ -1,97 +1,41 @@
 run_brew_tests_detailed_logs.txt
-generated_at: 2026-03-13 11:33:18 EDT
-summary: 42 passed, 0 failed, 42 total (100% passed)
+generated_at: 2026-03-13 20:42:57 EDT
+summary: 14 passed, 0 failed, 14 total (100% passed)
 
-Missing linked random test cases:
-  - TestBundleUnbundle_SEC_ZONE_002+CHK_001_Medium_NRandom
+No missing random test cases.
 
 No failed case-level tests.
 
 Passed case-level tests:
-  - Test_Bundle_Helpers
-  - Test_Unbundle_Helpers
-  - Test_Recover_Helpers
-  - Test_Recover_EmissionCodes
-  - Test_MockFailure_FileSystemOutOfMemory
-  - Test_MockFailure_Crypt_DEC_001
-  - Test_AllEncryptionErrors
-  - Test_AllFileSystemErrors
-  - Test_Bundle_Validators
-  - Test_Unbundle_Validators
-  - Test_Recover_Validators
-  - Test_Bundle_PerformAndValidate
-  - Test_Bundle_PerformAndValidate_DataMutation
-  - Test_Bundle_PerformAndValidate_ArchiveMutation
-  - Test_Unbundle_PerformAndValidate
-  - Test_Recover_PerformAndValidate
-  - Test_RoundTrip_PerformAndValidate
-  - Test_RoundTrip_PerformAndValidate_DataMutation
-  - Test_RoundTrip_PerformAndValidate_ArchiveMutation
-  - TestBundleUnbundleOneSmallFile_NRandom
-  - TestBundleUnbundleTwoSmallFiles_NRandom
-  - TestBundleUnbundleThreeSmallFiles_NRandom
-  - TestRoundTripOneSmallFile_NRandom
-  - TestRoundTripTwoSmallFiles_NRandom
-  - TestRoundTripThreeSmallFiles_NRandom
-  - TestBundleUnbundleOneMediumFile_NRandom
-  - TestBundleUnbundleTwoMediumFiles_NRandom
-  - TestBundleUnbundleThreeMediumFiles_NRandom
-  - TestBundleUnbundle_EOF_001+PNL_003+PNL_002_Medium_NRandom
-  - TestRoundTripMangledBlockManySmallFiles_NRandom
-  - TestRoundTripTwoMangledBlocksManySmallFiles_NRandom
-  - TestRoundTripSeveralMangledBlocksManyMixedFiles_NRandom
-  - TestRoundTripOneMediumFile_NRandom
-  - TestRoundTripTwoMediumFiles_NRandom
-  - TestRoundTripThreeMediumFiles_NRandom
-  - TestRoundTripOneLargeFileDeletingFirstArchive_NRandom
-  - TestRoundTripOneLargeFileDeletingManyArchives_NRandom
-  - TestRoundTripTwoLargeFilesDeletingFirstArchive_NRandom
-  - TestRoundTripTwoLargeFilesDeletingManyArchives_NRandom
-  - TestRoundTripManySmallFilesDeletingFirstArchive_NRandom
-  - TestRoundTripManySmallFilesDeletingManyArchives_NRandom
-  - TestRoundTripManyMixedFilesDeletingOrManglingManyArchives_NRandom
+  - happy_path.bundle_unbundle_round_trip_tree_matches
+  - happy_path.validate_passes_for_identical_trees
+  - happy_path.recover_on_healthy_archives_matches_original_tree
+  - augment_data.data_mutation_changes_payload_but_keeps_checksums_consistent
+  - augment_data.create_and_delete_mutations_affect_unbundled_tree
+  - augment_disk.missing_archive_gap_is_fatal_for_unbundle_but_recover_can_proceed
+  - augment_disk.payload_corruption_breaks_unbundle_but_recover_keeps_healthy_data
+  - augment_disk.header_magic_corruption_causes_strict_unbundle_failure
+  - augment_disk.many_small_files_reach_at_least_three_archives_delete_middle_then_recover
+  - augment_disk.one_large_file_multi_archive_delete_last_partial_recover
+  - augment_disk.two_large_files_span_three_delete_last_first_full_second_partial
+  - augment_disk.two_large_files_span_three_delete_first_first_missing_second_full
+  - augment_disk.two_large_files_span_four_delete_second_to_last_first_full_second_partial
+  - augment_disk.two_large_files_span_four_delete_second_first_partial_second_full
 
 Raw codex output:
-[PASS] Test_Bundle_Helpers
-[PASS] Test_Unbundle_Helpers
-[PASS] Test_Recover_Helpers
-[PASS] Test_Recover_EmissionCodes
-[PASS] Test_MockFailure_FileSystemOutOfMemory
-[PASS] Test_MockFailure_Crypt_DEC_001
-[PASS] Test_AllEncryptionErrors
-[PASS] Test_AllFileSystemErrors
-[PASS] Test_Bundle_Validators
-[PASS] Test_Unbundle_Validators
-[PASS] Test_Recover_Validators
-[PASS] Test_Bundle_PerformAndValidate
-[PASS] Test_Bundle_PerformAndValidate_DataMutation
-[PASS] Test_Bundle_PerformAndValidate_ArchiveMutation
-[PASS] Test_Unbundle_PerformAndValidate
-[PASS] Test_Recover_PerformAndValidate
-[PASS] Test_RoundTrip_PerformAndValidate
-[PASS] Test_RoundTrip_PerformAndValidate_DataMutation
-[PASS] Test_RoundTrip_PerformAndValidate_ArchiveMutation
-[PASS] TestBundleUnbundleOneSmallFile_NRandom
-[PASS] TestBundleUnbundleTwoSmallFiles_NRandom
-[PASS] TestBundleUnbundleThreeSmallFiles_NRandom
-[PASS] TestRoundTripOneSmallFile_NRandom
-[PASS] TestRoundTripTwoSmallFiles_NRandom
-[PASS] TestRoundTripThreeSmallFiles_NRandom
-[PASS] TestBundleUnbundleOneMediumFile_NRandom
-[PASS] TestBundleUnbundleTwoMediumFiles_NRandom
-[PASS] TestBundleUnbundleThreeMediumFiles_NRandom
-[PASS] TestBundleUnbundle_EOF_001+PNL_003+PNL_002_Medium_NRandom
-[PASS] TestRoundTripMangledBlockManySmallFiles_NRandom
-[PASS] TestRoundTripTwoMangledBlocksManySmallFiles_NRandom
-[PASS] TestRoundTripSeveralMangledBlocksManyMixedFiles_NRandom
-[PASS] TestRoundTripOneMediumFile_NRandom
-[PASS] TestRoundTripTwoMediumFiles_NRandom
-[PASS] TestRoundTripThreeMediumFiles_NRandom
-[PASS] TestRoundTripOneLargeFileDeletingFirstArchive_NRandom
-[PASS] TestRoundTripOneLargeFileDeletingManyArchives_NRandom
-[PASS] TestRoundTripTwoLargeFilesDeletingFirstArchive_NRandom
-[PASS] TestRoundTripTwoLargeFilesDeletingManyArchives_NRandom
-[PASS] TestRoundTripManySmallFilesDeletingFirstArchive_NRandom
-[PASS] TestRoundTripManySmallFilesDeletingManyArchives_NRandom
-[PASS] TestRoundTripManyMixedFilesDeletingOrManglingManyArchives_NRandom
-Total: 42, Failed: 0
+[PASS] happy_path.bundle_unbundle_round_trip_tree_matches
+[PASS] happy_path.validate_passes_for_identical_trees
+[PASS] happy_path.recover_on_healthy_archives_matches_original_tree
+[PASS] augment_data.data_mutation_changes_payload_but_keeps_checksums_consistent
+[PASS] augment_data.create_and_delete_mutations_affect_unbundled_tree
+[PASS] augment_disk.missing_archive_gap_is_fatal_for_unbundle_but_recover_can_proceed
+[PASS] augment_disk.payload_corruption_breaks_unbundle_but_recover_keeps_healthy_data
+[PASS] augment_disk.header_magic_corruption_causes_strict_unbundle_failure
+[PASS] augment_disk.many_small_files_reach_at_least_three_archives_delete_middle_then_recover
+[PASS] augment_disk.one_large_file_multi_archive_delete_last_partial_recover
+[PASS] augment_disk.two_large_files_span_three_delete_last_first_full_second_partial
+[PASS] augment_disk.two_large_files_span_three_delete_first_first_missing_second_full
+[PASS] augment_disk.two_large_files_span_four_delete_second_to_last_first_full_second_partial
+[PASS] augment_disk.two_large_files_span_four_delete_second_first_partial_second_full
+
+Summary: 14 passed, 0 failed, 14 total.

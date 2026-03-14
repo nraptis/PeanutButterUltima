@@ -1,7 +1,0 @@
-[Build] Mode=debug, BLOCK_SIZE_L3=144000, ARCHIVE_HEADER_LENGTH=40, RECOVERY_HEADER_LENGTH=16.
-Bundle: request accepted.
-[Bundle][Discovery] Collecting source entries START.
-[Bundle][Discovery] Found 2 files and 0 empty folders.
-[Bundle][Discovery] Planned 1 archives.
-[Bundle][Discovery] Planned 1 archives, 3 records, payload 141KB DONE.
-[Bundle][Flight] Writing 1 archives to '/Users/magneto/Desktop/Codex Playground/PeanutButter/archive' START.

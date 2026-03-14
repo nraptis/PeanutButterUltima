@@ -1,0 +1,94 @@
+Final Error Code Specification
+==============================
+
+Scope
+- This file defines the active engine error codes returned through `OperationResult.mErrorCode`.
+- The numeric values are stable and should be treated as API-level constants.
+
+Return surface
+- `OperationResult` contains:
+  - `mSucceeded` (bool)
+  - `mCanceled` (bool)
+  - `mErrorCode` (enum)
+  - `mFailureMessage` (string)
+- Logger output prefixes errors with `ErrorCodeToString(...)`.
+
+Error code table
+
+0  `NONE`
+- Meaning: success path.
+- Typical emitters: successful bundle/unbundle/recover/validate and helper operations.
+
+1  `CANCELED`
+- Meaning: operation was cancelled by user request.
+- Typical behavior: cooperative cancel with boundary-aware shutdown.
+
+2  `INVALID_REQUEST`
+- Meaning: request or inputs are invalid before/early during operation.
+- Examples:
+  - empty destination path
+  - invalid archive block count
+  - empty source entries
+  - source path exceeds `kMaxPathLength`
+  - decode discovery cannot build usable archive family
+  - mutation indices/ranges invalid
+
+3  `FILE_SYSTEM`
+- Meaning: file system I/O failed.
+- Examples:
+  - cannot open/read/write/close source, archive, or output files
+  - cannot create destination or parent directories
+  - validate compare file open/read failures
+
+4  `CRYPT`
+- Meaning: encryption/decryption failed.
+- Examples:
+  - `SealData` failure during bundle
+  - `UnsealData` failure during unbundle/recover
+
+5  `ARCHIVE_HEADER`
+- Meaning: archive/recovery structural parsing failed in strict decode path.
+- Examples:
+  - archive block region too short
+  - failed recovery header parse
+  - decode exhausted space before logical terminator
+
+6  `GAP_001`
+- Meaning: strict decode encountered a missing archive slot.
+- Example:
+  - empty `ArchiveFileBox` encountered while unbundling.
+
+7  `BLOCK_CHECKSUM`
+- Meaning: block checksum mismatch.
+- Behavior:
+  - unbundle: terminal
+  - recover: counted as damaged block and skipped
+
+8  `RECORD_PARSE`
+- Meaning: record framing/path/content parse failed.
+- Examples:
+  - path length > `kMaxPathLength`
+  - path safety validation failed
+  - validate found normal-file/folder mismatches
+
+9  `RECOVER_EXHAUSTED`
+- Meaning: recover ran out of useful archive space without a logical terminator.
+- Emitted when no files were successfully recovered by termination point.
+
+255 `INTERNAL`
+- Meaning: invariant/overflow/internal state error.
+- Examples:
+  - discovery overflow
+  - invalid payload math
+  - serialization impossible under invariants
+
+Mode-specific interpretation notes
+- Unbundle is strict: `GAP_001`, checksum failure, and parse failure stop the job.
+- Recover is best-effort: many block-level failures are tolerated and counted; summary reports failed block count.
+- Cancel is represented explicitly as `CANCELED` and `mCanceled=true`.
+
+String mapping
+- Current mapping (`ErrorCodeToString`):
+  - `NONE`, `CANCELED`, `INVALID_REQUEST`, `FILE_SYSTEM`, `CRYPT`,
+    `ARCHIVE_HEADER`, `GAP_001`, `BLOCK_CHECKSUM`, `RECORD_PARSE`,
+    `RECOVER_EXHAUSTED`, `INTERNAL`.

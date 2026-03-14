@@ -1,0 +1,159 @@
+Final Algorithm Specification (Detailed)
+========================================
+
+Notation
+- `L3` block size = `kBlockSizeL3`.
+- Recovery header size = `kRecoveryHeaderLength`.
+- Payload bytes per block = `kPayloadBytesPerL3 = kBlockSizeL3 - kRecoveryHeaderLength`.
+- Archive payload bytes = `archive_block_count * kPayloadBytesPerL3`.
+
+A) Bundle (detailed)
+
+A1. Discovery
+1. Validate request:
+  - destination non-empty
+  - archive block count in `[1, kMaxBlocksPerArchive]`
+2. Copy source entries and sort by `mRelativePath`.
+3. For each entry:
+  - require non-empty relative path
+  - require path length <= `kMaxPathLength`
+  - for files: open read stream and capture file length
+4. Compute logical stream offsets using record grammar:
+  - `u16 path_length`
+  - `path bytes`
+  - `u64 content_length`
+  - `content bytes` (or none for directory marker)
+5. Append terminator record (`path_length = 0`).
+6. Compute `archive_count = ceil(total_logical_bytes / payload_bytes_per_archive)` (minimum 1).
+7. Reject if `archive_count > kMaxArchiveCount`.
+8. Build per-archive plan:
+  - archive ordinal/index
+  - block count
+  - payload length bytes
+  - record/folder modulo counters
+  - formatted file path
+
+A2. Flight
+1. Ensure destination directory exists.
+2. Build streaming logical record reader (`BundleLogicalStream`).
+3. For each planned archive:
+  - write 40-byte archive header
+  - for each block:
+    1) zero full block buffer
+    2) fill payload bytes from logical stream into `[recovery_header..end)`
+    3) compute `distance_to_next_record` from current logical block start
+    4) encode `SkipRecord` from that distance
+    5) compute checksum over payload + skip record
+    6) write recovery header into block prefix
+    7) encrypt optional
+    8) write full block
+4. Complete archive file and continue.
+5. Require logical stream terminator consumed by final archive.
+
+A3. Cancel in bundle
+- If cancel arrives while stream is inside file content:
+  - request stop-after-current-file
+  - finish current file, then stop after active archive finalization
+- If cancel arrives at safe boundary:
+  - stop immediately
+
+B) Unbundle and Recover shared decode core (detailed)
+
+B1. Discovery selection (filename-driven)
+1. Parse all candidates into `(prefix, numeric_index, suffix, digit_width)`.
+2. Choose anchor template from first parsed candidate.
+3. Keep only files with same prefix+suffix as anchor.
+4. De-duplicate by index:
+  - prefer candidate with readable header
+  - otherwise prefer longer file
+5. Sort indices and clip to window `[min_index, min_index + kMaxArchiveCount - 1]`.
+6. Count observed gaps.
+7. Build dense `ArchiveFileBox` list from `min_index..max_index`:
+  - each box has `mSequenceJumber`, `mPayloadStart`, `mPayloadLength`, `mEmpty`
+8. If headers vote for larger declared archive-count tail, extend `max_index` and mark those as empty tail boxes.
+
+B2. Decode setup
+1. Ensure destination exists.
+2. Determine `blocks_per_archive` from first readable header payload length; fallback to observed block count; minimum 1.
+3. Recompute each archive box payload span using `blocks_per_archive` and actual discovered block counts.
+4. Initialize decode parser state machine at record boundary.
+
+B3. Block loop
+For cursor `(archive_index, block_index, payload_offset)`:
+1. If box is empty:
+  - unbundle: fail with `GAP_001`
+  - recover: count failed blocks, reset parser, advance archive
+2. Open archive file and read block bytes at
+  - `archive_header_length + block_index * kBlockSizeL3`
+3. Decrypt if enabled.
+4. Parse recovery header.
+5. Recompute checksum and compare.
+  - unbundle: mismatch is terminal `BLOCK_CHECKSUM`
+  - recover: count failed block, reset parser, advance block
+6. Feed payload bytes to parser from `payload_offset..kBlockSizeL3`.
+7. Parser state machine:
+  - read `u16 path_length`
+  - if zero => logical terminator
+  - read path bytes and validate safe relative path
+  - read `u64 content_length`
+    - `0xFFFFFFFFFFFFFFFF` => create directory record
+    - else open output file and stream content bytes
+8. On parser error:
+  - unbundle: terminal `RECORD_PARSE`
+  - recover:
+    - count failed block
+    - abort/reset partial parser state
+    - attempt stride jump (see B4); if invalid, advance block
+9. On parser terminator:
+  - emit decode done summary
+  - recover adds recover summary
+  - return success
+
+B4. Recovery stride jump resolution
+1. Validate skip fields:
+  - non-zero overall distance
+  - `block_distance < blocks_per_archive`
+  - `byte_distance < kPayloadBytesPerL3`
+2. Compute target global block:
+  - `delta_blocks = archive_distance * blocks_per_archive + block_distance`
+  - `target = current_global_block + delta_blocks`
+3. Derive `(target_archive, target_block)` from `target`.
+4. Validate target archive exists in discovered map.
+5. Validate target block is inside target archive's readable block count.
+6. Set cursor to target with payload offset `kRecoveryHeaderLength + byte_distance`.
+
+B5. Exhaustion behavior
+- Recover:
+  - emit "rest not recoverable" + summary
+  - success if any files recovered
+  - else `RECOVER_EXHAUSTED`
+- Unbundle:
+  - fail `ARCHIVE_HEADER` if terminator not reached
+
+C) Validate (detailed)
+
+C1. Discovery
+1. Validate both paths are existing directories.
+2. Recursively list files and directories on both sides.
+3. Maintain discovery scanned-item counters and periodic logs.
+4. Build sets/maps:
+  - files by relative path
+  - empty-folder sets (directory without files in subtree)
+
+C2. Compare
+1. For each left file:
+  - if missing on right => classify mismatch
+  - else compare lengths and then bytes in 64KB chunks
+2. Byte comparison increments `bytes_compared` only for confirmed matched bytes.
+3. Track `files_compared` and `folders_compared`.
+
+C3. Summary
+1. Emit capped detail lines per mismatch class.
+2. Emit totals and Good/Warn/Fail synthesis.
+3. Return success when no normal mismatches.
+4. Return `RECORD_PARSE` when normal mismatches exist.
+
+D) BundleWithMutations (detailed delta)
+- Same as Bundle with two inserts:
+  1) Entry list mutations before discovery.
+  2) Payload byte overwrites applied after payload fill and before checksum/recovery-header write.

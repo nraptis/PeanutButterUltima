@@ -106,7 +106,10 @@ for BUILD_PATH in "${BUILD_DIRS[@]}"; do
   fi
 done
 
-cmake -S "$SCRIPT_DIR" -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=Debug
+cmake -S "$SCRIPT_DIR" -B "$BUILD_DIR" \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DPEANUT_BUTTER_ULTIMA_BUILD_APP=OFF \
+  -DPEANUT_BUTTER_ULTIMA_BUILD_TESTS=ON
 BUILD_EXIT_CODE=$?
 if [ "$BUILD_EXIT_CODE" -ne 0 ]; then
   echo "RESULT: BUILD CONFIGURE FAILED"
@@ -144,15 +147,18 @@ CODEX_EXIT_CODE=$?
 
 collect_case_results "$TEST_OUTPUT_FILE"
 
-RANDOM_CASE_SOURCE_COUNT=$(find "$SCRIPT_DIR/tests/random" -maxdepth 1 -type f -name 'Test*.cpp' | wc -l | tr -d '[:space:]')
-for random_src in "$SCRIPT_DIR"/tests/random/Test*.cpp(N); do
-  random_case_name="$(basename "$random_src" .cpp)"
-  if [ -z "${SEEN_CASES[$random_case_name]-}" ]; then
-    MISSING_RANDOM_CASES+=("$random_case_name")
-  else
-    RANDOM_CASE_SEEN_COUNT=$((RANDOM_CASE_SEEN_COUNT + 1))
-  fi
-done
+RANDOM_CASE_SOURCE_COUNT=0
+if [ -d "$SCRIPT_DIR/tests/random" ]; then
+  RANDOM_CASE_SOURCE_COUNT=$(find "$SCRIPT_DIR/tests/random" -maxdepth 1 -type f -name 'Test*.cpp' | wc -l | tr -d '[:space:]')
+  for random_src in "$SCRIPT_DIR"/tests/random/Test*.cpp(N); do
+    random_case_name="$(basename "$random_src" .cpp)"
+    if [ -z "${SEEN_CASES[$random_case_name]-}" ]; then
+      MISSING_RANDOM_CASES+=("$random_case_name")
+    else
+      RANDOM_CASE_SEEN_COUNT=$((RANDOM_CASE_SEEN_COUNT + 1))
+    fi
+  done
+fi
 
 TOTAL_CASE_COUNT=$(( ${#PASSED_CASES[@]} + ${#FAILED_CASES[@]} ))
 FAILED_CASE_COUNT=${#FAILED_CASES[@]}
@@ -164,7 +170,7 @@ fi
 write_detailed_log "${#PASSED_CASES[@]}" "$FAILED_CASE_COUNT" "$TOTAL_CASE_COUNT" "$PASS_PERCENT"
 
 echo "DISCOVERY: codex_binary=$CODEX_BINARY case_lines_seen=$TOTAL_CASE_COUNT"
-echo "INFO: PeanutButterCodexTests is built with PEANUT_BUTTER_ULTIMA_TEST_BUILD (BLOCK_SIZE_L3=24u)."
+echo "INFO: PeanutButterCodexTests is built with PEANUT_BUTTER_ULTIMA_TEST_BUILD."
 echo "RANDOM CASES: seen=${RANDOM_CASE_SEEN_COUNT}/${RANDOM_CASE_SOURCE_COUNT}"
 
 if [ "${#MISSING_RANDOM_CASES[@]}" -gt 0 ]; then

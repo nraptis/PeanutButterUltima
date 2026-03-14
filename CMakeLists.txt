@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(PEANUT_BUTTER_ULTIMA_BUILD_APP "Build PeanutButterUltima Qt application." ON)
+option(PEANUT_BUTTER_ULTIMA_BUILD_TESTS "Build PeanutButterCodexTests executable." OFF)
 
 if(PEANUT_BUTTER_ULTIMA_BUILD_APP)
   find_package(Qt6 QUIET COMPONENTS Widgets)
@@ -16,6 +17,46 @@ if(PEANUT_BUTTER_ULTIMA_BUILD_APP)
     find_package(Qt5 REQUIRED COMPONENTS Widgets)
     set(PB_QT_TARGET Qt5::Widgets)
   endif()
+endif()
+
+if(PEANUT_BUTTER_ULTIMA_BUILD_TESTS)
+  set(PB_TEST_SOURCES
+      tests/TestMain.cpp
+      tests/common/BlindTestFixtures.cpp
+      tests/happy_path/HappyPathSuite.cpp
+      tests/augment_data/AugmentDataSuite.cpp
+      tests/augment_disk/AugmentDiskSuite.cpp
+      test_starter_kit/src/MockHardDrive.cpp
+      test_starter_kit/src/MockFileSystem.cpp
+      test_starter_kit/src/EmptyTestCrypt.cpp
+      test_starter_kit/src/StarterKitHelpers.cpp
+      test_starter_kit/src/TestScenarioHelpers.cpp
+      src/AppShell_ArchiveFormat.cpp
+      src/AppShell_Bundle.cpp
+      src/AppShell_Common.cpp
+      src/AppShell_Extended_Bundle.cpp
+      src/AppShell_Extended_Types.cpp
+      src/AppShell_Sanity.cpp
+      src/AppShell_Types.cpp
+      src/AppShell_Unbundle.cpp
+      src/IO/FileSystem.cpp
+  )
+
+  add_executable(PeanutButterCodexTests ${PB_TEST_SOURCES} ${PB_WINDOWS_RC_SOURCE})
+  target_include_directories(
+      PeanutButterCodexTests
+      PRIVATE
+        src
+        .
+        test_starter_kit/include
+  )
+  target_compile_definitions(
+      PeanutButterCodexTests
+      PRIVATE
+        PEANUT_BUTTER_ULTIMA_TEST_BUILD
+        $<$<CONFIG:Debug>:PEANUT_BUTTER_ULTIMA_DEBUG_BUILD>
+        $<$<CONFIG:Release>:PEANUT_BUTTER_ULTIMA_RELEASE_BUILD>
+  )
 endif()
 
 set(PB_WINDOWS_RC_SOURCE "")
