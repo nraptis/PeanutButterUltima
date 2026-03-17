@@ -15,6 +15,34 @@
 namespace peanutbutter {
 namespace {
 
+std::string AppendWriteStreamError(const std::string& pBaseMessage,
+                                   const FileWriteStream* pWriteStream) {
+  if (pWriteStream == nullptr) {
+    return pBaseMessage;
+  }
+  const std::string aDetail = pWriteStream->LastErrorMessage();
+  if (aDetail.empty()) {
+    return pBaseMessage;
+  }
+  return pBaseMessage + " (" + aDetail + ")";
+}
+
+std::unique_ptr<Crypt> CreateRequestedCrypt(const CryptGenerator& pGenerator,
+                                            const CryptGeneratorRequest& pRequest,
+                                            std::string* pErrorMessage) {
+  if (!pGenerator) {
+    if (pErrorMessage != nullptr) {
+      *pErrorMessage = "crypt generator is not configured.";
+    }
+    return {};
+  }
+  std::unique_ptr<Crypt> aCrypt = pGenerator(pRequest, pErrorMessage);
+  if (aCrypt == nullptr && pErrorMessage != nullptr && pErrorMessage->empty()) {
+    *pErrorMessage = "crypt generator returned no crypt.";
+  }
+  return aCrypt;
+}
+
 struct RecordInfo {
   std::string mSourcePath;
   std::string mRelativePath;
@@ -368,7 +396,6 @@ OperationResult PerformBundleFlightWithMutations(
     const BundleDiscovery& pDiscovery,
     const std::vector<DataMutation>& pDataMutations,
     FileSystem& pFileSystem,
-    const Crypt& pCrypt,
     CancelCoordinator* pCancelCoordinator) {
   if (pDiscovery.mArchives.empty()) {
     return MakeFailure(ErrorCode::kInvalidRequest, "bundle discovery did not plan archives.");
@@ -391,6 +418,22 @@ OperationResult PerformBundleFlightWithMutations(
     return aDataMutationResult;
   }
 
+  std::unique_ptr<Crypt> aGeneratedCrypt;
+  if (pRequest.mUseEncryption) {
+    CryptGeneratorRequest aCryptRequest;
+    aCryptRequest.mEncryptionStrength = pRequest.mEncryptionStrength;
+    aCryptRequest.mPasswordOne = pRequest.mPasswordOne;
+    aCryptRequest.mPasswordTwo = pRequest.mPasswordTwo;
+    aCryptRequest.mUseEncryption = pRequest.mUseEncryption;
+    aCryptRequest.mLogStatus = [](const std::string&) {};
+    std::string aCryptError;
+    aGeneratedCrypt = CreateRequestedCrypt(pRequest.mCryptGenerator, aCryptRequest, &aCryptError);
+    if (aGeneratedCrypt == nullptr) {
+      return MakeFailure(ErrorCode::kCrypt,
+                         aCryptError.empty() ? "failed creating bundle crypt." : aCryptError);
+    }
+  }
+
   std::vector<RecordInfo> aRecords;
   aRecords.reserve(pDiscovery.mResolvedEntries.size());
   for (std::size_t aIndex = 0u; aIndex < pDiscovery.mResolvedEntries.size(); ++aIndex) {
@@ -406,9 +449,9 @@ OperationResult PerformBundleFlightWithMutations(
   }
 
   BundleLogicalStream aStream(aRecords, pFileSystem);
-  L3BlockBuffer aPlainBlock{};
-  L3BlockBuffer aEncryptedBlock{};
-  L3BlockBuffer aWorkerBlock{};
+  BlockBuffer aPlainBlock;
+  BlockBuffer aEncryptedBlock;
+  BlockBuffer aWorkerBlock;
   std::uint64_t aCurrentBlockLogicalStart = 0u;
 
   for (const BundleArchivePlan& aArchive : pDiscovery.mArchives) {
@@ -421,7 +464,8 @@ OperationResult PerformBundleFlightWithMutations(
     std::unique_ptr<FileWriteStream> aWrite = pFileSystem.OpenWriteStream(aArchive.mArchivePath);
     if (aWrite == nullptr || !aWrite->IsReady()) {
       return MakeFailure(ErrorCode::kFileSystem,
-                         "failed creating archive file: " + aArchive.mArchivePath);
+                         AppendWriteStreamError("failed creating archive file: " + aArchive.mArchivePath,
+                                                aWrite.get()));
     }
 
     ArchiveHeader aHeader{};
@@ -433,7 +477,8 @@ OperationResult PerformBundleFlightWithMutations(
     aHeader.mPayloadLength = aArchive.mPayloadBytes;
     aHeader.mRecordCountMod256 = aArchive.mRecordCountMod256;
     aHeader.mFolderCountMod256 = aArchive.mFolderCountMod256;
-    aHeader.mReserved16 = 0u;
+    aHeader.mEncryptionStrength = pRequest.mEncryptionStrength;
+    aHeader.mReserved8 = 0u;
     aHeader.mReservedA = 0u;
     aHeader.mReservedB = 0u;
 
@@ -443,7 +488,8 @@ OperationResult PerformBundleFlightWithMutations(
     }
     if (!aWrite->Write(aHeaderBytes, sizeof(aHeaderBytes))) {
       return MakeFailure(ErrorCode::kFileSystem,
-                         "failed writing archive header: " + aArchive.mArchivePath);
+                         AppendWriteStreamError("failed writing archive header: " + aArchive.mArchivePath,
+                                                aWrite.get()));
     }
 
     for (std::uint32_t aBlockIndex = 0u; aBlockIndex < aArchive.mBlockCount; ++aBlockIndex) {
@@ -490,12 +536,12 @@ OperationResult PerformBundleFlightWithMutations(
 
       if (pRequest.mUseEncryption) {
         std::string aCryptError;
-        if (!pCrypt.SealData(aPlainBlock.Data(),
-                             aWorkerBlock.Data(),
-                             aEncryptedBlock.Data(),
-                             kBlockSizeL3,
-                             &aCryptError,
-                             CryptMode::kNormal)) {
+        if (!aGeneratedCrypt->SealData(aPlainBlock.Data(),
+                                       aWorkerBlock.Data(),
+                                       aEncryptedBlock.Data(),
+                                       kBlockSizeL3,
+                                       &aCryptError,
+                                       CryptMode::kNormal)) {
           return MakeFailure(ErrorCode::kCrypt,
                              aCryptError.empty() ? "encryption failed." : aCryptError);
         }
@@ -505,13 +551,15 @@ OperationResult PerformBundleFlightWithMutations(
 
       if (!aWrite->Write(aEncryptedBlock.Data(), kBlockSizeL3)) {
         return MakeFailure(ErrorCode::kFileSystem,
-                           "failed writing archive block: " + aArchive.mArchivePath);
+                           AppendWriteStreamError("failed writing archive block: " + aArchive.mArchivePath,
+                                                  aWrite.get()));
       }
     }
 
     if (!aWrite->Close()) {
       return MakeFailure(ErrorCode::kFileSystem,
-                         "failed closing archive file: " + aArchive.mArchivePath);
+                         AppendWriteStreamError("failed closing archive file: " + aArchive.mArchivePath,
+                                                aWrite.get()));
     }
 
     if (aStream.ReachedStopBoundary()) {
@@ -533,7 +581,6 @@ OperationResult BundleWithMutations(
     const std::vector<CreateFileMutation>& pCreateMutations,
     const std::vector<DeleteFileMutation>& pDeleteMutations,
     FileSystem& pFileSystem,
-    const Crypt& pCrypt,
     CancelCoordinator* pCancelCoordinator) {
   BundleDiscovery aDiscovery;
   OperationResult aDiscoveryResult = DiscoverBundlePlanWithMutations(pRequest,
@@ -550,7 +597,6 @@ OperationResult BundleWithMutations(
                                           aDiscovery,
                                           pDataMutations,
                                           pFileSystem,
-                                          pCrypt,
                                           pCancelCoordinator);
 }
 

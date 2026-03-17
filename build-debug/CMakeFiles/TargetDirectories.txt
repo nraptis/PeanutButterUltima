@@ -1,0 +1,3 @@
+/Users/magneto/Desktop/Codex Playground/PeanutButterUltima/build-debug/CMakeFiles/PeanutButterUltima.dir
+/Users/magneto/Desktop/Codex Playground/PeanutButterUltima/build-debug/CMakeFiles/edit_cache.dir
+/Users/magneto/Desktop/Codex Playground/PeanutButterUltima/build-debug/CMakeFiles/rebuild_cache.dir

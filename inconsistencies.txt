@@ -1,0 +1,38 @@
+Current Implementation Oddities
+===============================
+
+These are the main inconsistencies or surprising edges I found while aligning the docs to the live code.
+
+1. `mPayloadLength` is named like logical payload, but it is not.
+- The bundle writer stores:
+  - `mPayloadLength = block_count * BLOCK_SIZE_L3`
+- That value includes every per-block recovery header.
+- The reader follows the same convention, so the on-disk format is stable, but the field name is misleading.
+
+2. Decode directory scanning is only recursive when the top level has zero files.
+- Current decode source collection does this:
+  - if the selected folder has any top-level files, only those top-level files are considered
+  - recursive scanning happens only when the top-level file list is empty
+- Result:
+  - nested archive files are ignored whenever the chosen folder also contains any top-level file at all, even unrelated ones
+
+3. Archive-family selection is anchored to the first parsed filename after sorting.
+- Decode sorts candidate paths and uses the first parsed filename as the template anchor.
+- If multiple unrelated archive families live in the same source folder, the chosen family can depend on filename ordering rather than explicit user intent.
+
+4. The filename parser is broader than the writer.
+- Writer format:
+  - `prefix + source_stem + "_" + zero_padded_index + suffix`
+- Reader format:
+  - any trailing digit run before the extension is treated as the archive index
+- Result:
+  - names like `backup42.PBTR` and `backup_42.PBTR` both parse as archive files
+
+5. There is an older recover-start-path surface that is not part of the active Qt flow.
+- `AppShell.cpp` still references a `mRecoveryStartFilePath` style recover request.
+- The active Qt flow uses `PBDecodeRequest` and always recovers from the discovered candidate set as a whole.
+- In practice, the shipped flow does not expose a caller-selected recovery start file.
+
+6. Internal naming contains a typo.
+- `ArchiveFileBox` uses the field name `mSequenceJumber`.
+- The typo is internal only and does not change the on-disk format.

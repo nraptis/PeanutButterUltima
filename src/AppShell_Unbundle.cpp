@@ -45,6 +45,50 @@ OperationResult MakeCanceled() {
   return aResult;
 }
 
+std::unique_ptr<Crypt> CreateRequestedCrypt(const CryptGenerator& pGenerator,
+                                            const CryptGeneratorRequest& pRequest,
+                                            std::string* pErrorMessage) {
+  if (!pGenerator) {
+    if (pErrorMessage != nullptr) {
+      *pErrorMessage = "crypt generator is not configured.";
+    }
+    return {};
+  }
+  std::unique_ptr<Crypt> aCrypt = pGenerator(pRequest, pErrorMessage);
+  if (aCrypt == nullptr && pErrorMessage != nullptr && pErrorMessage->empty()) {
+    *pErrorMessage = "crypt generator returned no crypt.";
+  }
+  return aCrypt;
+}
+
+const char* DecodeModeName(bool pRecoverMode) {
+  return pRecoverMode ? "Recover" : "Unbundle";
+}
+
+void ReportDecodeCryptStageProgress(Logger& pLogger,
+                                    bool pRecoverMode,
+                                    CryptGenerationStage pStage,
+                                    double pStageFraction) {
+  switch (pStage) {
+    case CryptGenerationStage::kExpansion:
+      ReportProgress(pLogger,
+                     DecodeModeName(pRecoverMode),
+                     ProgressProfileKind::kUnbundle,
+                     ProgressPhase::kExpansion,
+                     pStageFraction,
+                     "Expanding crypt tables.");
+      break;
+    case CryptGenerationStage::kLayerCake:
+      ReportProgress(pLogger,
+                     DecodeModeName(pRecoverMode),
+                     ProgressProfileKind::kUnbundle,
+                     ProgressPhase::kLayerCake,
+                     pStageFraction,
+                     "Building layer cake.");
+      break;
+  }
+}
+
 OperationResult MakeFailure(ErrorCode pCode, const std::string& pMessage, Logger& pLogger) {
   OperationResult aResult;
   aResult.mSucceeded = false;
@@ -107,6 +151,31 @@ struct DiscoverySelection {
   std::size_t mClippedArchiveCount = 0u;
 };
 
+bool ResolveSelectionEncryptionStrength(const DiscoverySelection& pSelection,
+                                        EncryptionStrength& pOutStrength,
+                                        std::string& pOutErrorMessage) {
+  bool aFoundReadableHeader = false;
+  for (const ArchiveCandidate& aCandidate : pSelection.mArchives) {
+    if (!aCandidate.mHasReadableHeader) {
+      continue;
+    }
+    if (!aFoundReadableHeader) {
+      pOutStrength = aCandidate.mHeader.mEncryptionStrength;
+      aFoundReadableHeader = true;
+      continue;
+    }
+    if (aCandidate.mHeader.mEncryptionStrength != pOutStrength) {
+      pOutErrorMessage = "selected archive family has mismatched encryption strengths.";
+      return false;
+    }
+  }
+  if (!aFoundReadableHeader) {
+    pOutErrorMessage = "selected archive family did not expose a readable encryption strength.";
+    return false;
+  }
+  return true;
+}
+
 bool ReadCandidateMetadata(const std::string& pPath,
                            FileSystem& pFileSystem,
                            ArchiveCandidate& pOutCandidate) {
@@ -153,11 +222,18 @@ bool ReadCandidateMetadata(const std::string& pPath,
 }
 
 bool SelectArchiveFamily(const std::vector<std::string>& pArchiveFileList,
+                         const std::string& pModeName,
                          FileSystem& pFileSystem,
                          Logger& pLogger,
                          DiscoverySelection& pOutSelection,
                          CancelCoordinator* pCancelCoordinator) {
   pOutSelection = DiscoverySelection{};
+  ReportProgress(pLogger,
+                 pModeName,
+                 ProgressProfileKind::kUnbundle,
+                 ProgressPhase::kDiscovery,
+                 0.0,
+                 "Scanning archive candidates.");
 
   pLogger.LogStatus("[Decode][Discovery] Collecting archive candidates START.");
 
@@ -185,6 +261,17 @@ bool SelectArchiveFamily(const std::vector<std::string>& pArchiveFileList,
                         std::to_string(aInput.size()) + " candidate archives (" +
                         FormatHumanBytes(aScannedBytes) + ").");
     }
+    if (((aIndex + 1u) % 128u) == 0u || (aIndex + 1u) == aInput.size()) {
+      ReportProgress(pLogger,
+                     pModeName,
+                     ProgressProfileKind::kUnbundle,
+                     ProgressPhase::kDiscovery,
+                     aInput.empty()
+                         ? 1.0
+                         : (static_cast<double>(aIndex + 1u) /
+                            static_cast<double>(aInput.size())),
+                     "Scanning archive candidates.");
+    }
   }
 
   if (aParsed.empty()) {
@@ -205,8 +292,38 @@ bool SelectArchiveFamily(const std::vector<std::string>& pArchiveFileList,
 
   pLogger.LogStatus("[Decode][Discovery] Filename template anchor: '" + aParsed.front().mFileName + "'.");
 
+  std::unordered_map<std::uint64_t, std::size_t> aFamilyVotes;
+  for (const ArchiveCandidate& aCandidate : aParsed) {
+    std::string aPrefix;
+    std::string aSuffix;
+    std::uint32_t aIndex = 0u;
+    std::size_t aDigits = 0u;
+    if (!ParseArchiveFileTemplate(aCandidate.mFileName, aPrefix, aIndex, aSuffix, aDigits)) {
+      continue;
+    }
+    if (aPrefix != aAnchorPrefix || aSuffix != aAnchorSuffix) {
+      continue;
+    }
+    if (!aCandidate.mHasReadableHeader) {
+      continue;
+    }
+    ++aFamilyVotes[aCandidate.mHeader.mArchiveFamilyId];
+  }
+
+  bool aHasDominantFamily = false;
+  std::uint64_t aDominantFamilyId = 0u;
+  std::size_t aDominantFamilyVotes = 0u;
+  for (const auto& aVote : aFamilyVotes) {
+    if (aVote.second > aDominantFamilyVotes) {
+      aDominantFamilyId = aVote.first;
+      aDominantFamilyVotes = aVote.second;
+      aHasDominantFamily = true;
+    }
+  }
+
   std::unordered_map<std::uint32_t, ArchiveCandidate> aByIndex;
   std::size_t aIgnored = 0u;
+  std::size_t aFamilyFiltered = 0u;
   for (ArchiveCandidate& aCandidate : aParsed) {
     std::string aPrefix;
     std::string aSuffix;
@@ -218,6 +335,12 @@ bool SelectArchiveFamily(const std::vector<std::string>& pArchiveFileList,
     }
     if (aPrefix != aAnchorPrefix || aSuffix != aAnchorSuffix) {
       ++aIgnored;
+      continue;
+    }
+    if (aHasDominantFamily &&
+        aCandidate.mHasReadableHeader &&
+        aCandidate.mHeader.mArchiveFamilyId != aDominantFamilyId) {
+      ++aFamilyFiltered;
       continue;
     }
 
@@ -353,8 +476,23 @@ bool SelectArchiveFamily(const std::vector<std::string>& pArchiveFileList,
     pLogger.LogStatus("[Decode][Discovery] Ignored " + std::to_string(aIgnored) +
                       " candidate archives outside the filename template.");
   }
+  if (aHasDominantFamily) {
+    pLogger.LogStatus("[Decode][Discovery] Header family id selected " +
+                      std::to_string(aDominantFamilyId) + " from " +
+                      std::to_string(aDominantFamilyVotes) + " readable headers.");
+  }
+  if (aFamilyFiltered > 0u) {
+    pLogger.LogStatus("[Decode][Discovery] Ignored " + std::to_string(aFamilyFiltered) +
+                      " candidate archives with mismatched header family id.");
+  }
   pLogger.LogStatus("[Decode][Discovery] Chose " + std::to_string(pOutSelection.mArchives.size()) +
                     " archive candidates after filename discovery DONE.");
+  ReportProgress(pLogger,
+                 pModeName,
+                 ProgressProfileKind::kUnbundle,
+                 ProgressPhase::kDiscovery,
+                 1.0,
+                 "Decode discovery complete.");
   return true;
 }
 
@@ -369,10 +507,12 @@ class DecodeParser final {
 
   DecodeParser(const std::string& pDestinationDirectory,
                FileSystem& pFileSystem,
-               Logger& pLogger)
+               Logger& pLogger,
+               CancelCoordinator* pCancelCoordinator)
       : mDestinationDirectory(pDestinationDirectory),
         mFileSystem(pFileSystem),
-        mLogger(pLogger) {}
+        mLogger(pLogger),
+        mCancelCoordinator(pCancelCoordinator) {}
 
   bool Consume(const unsigned char* pData,
                std::size_t pStart,
@@ -492,6 +632,9 @@ class DecodeParser final {
 
           mCurrentOutputPath = aOutPath;
           mCurrentFileDisplayName = RecordDisplayName(mFileSystem, mCurrentPath);
+          if (mCancelCoordinator != nullptr) {
+            mCancelCoordinator->SetWritingPath(aOutPath);
+          }
           mContentBytesRemaining = mCurrentContentLength;
 
           mStage = Stage::kContentBytes;
@@ -550,6 +693,9 @@ class DecodeParser final {
       (void)mCurrentWrite->Close();
       mCurrentWrite.reset();
     }
+    if (mCancelCoordinator != nullptr) {
+      mCancelCoordinator->ClearActivity();
+    }
   }
 
   void ResetRecordState() {
@@ -565,6 +711,9 @@ class DecodeParser final {
     mCurrentPath.clear();
     mCurrentOutputPath.clear();
     mCurrentFileDisplayName.clear();
+    if (mCancelCoordinator != nullptr && mCurrentWrite == nullptr) {
+      mCancelCoordinator->ClearActivity();
+    }
   }
 
   std::uint64_t FilesWritten() const { return mFilesWritten; }
@@ -577,8 +726,12 @@ class DecodeParser final {
       (void)mCurrentWrite->Close();
       mCurrentWrite.reset();
     }
+    if (mCancelCoordinator != nullptr && !mCurrentOutputPath.empty()) {
+      mCancelCoordinator->NoteFinishedWriting(mCurrentOutputPath);
+      mCancelCoordinator->ClearActivity();
+    }
 
-    mLogger.LogStatus("[Decode][Flight] File written: [[ " + mCurrentFileDisplayName + " ]].");
+    //mLogger.LogStatus("[Decode][Flight] File written: [[ " + mCurrentFileDisplayName + " ]].");
     ++mFilesWritten;
 
     if (mStopAfterCurrentFile) {
@@ -593,6 +746,7 @@ class DecodeParser final {
   std::string mDestinationDirectory;
   FileSystem& mFileSystem;
   Logger& mLogger;
+  CancelCoordinator* mCancelCoordinator = nullptr;
 
   Stage mStage = Stage::kPathLength;
   unsigned char mPathLengthLe[2] = {};
@@ -679,9 +833,15 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
                           const std::vector<std::string>& pArchiveFileList,
                           bool pRecoverMode,
                           FileSystem& pFileSystem,
-                          const Crypt& pCrypt,
                           Logger& pLogger,
                           CancelCoordinator* pCancelCoordinator) {
+  const std::string aModeName = DecodeModeName(pRecoverMode);
+  ReportProgress(pLogger,
+                 aModeName,
+                 ProgressProfileKind::kUnbundle,
+                 ProgressPhase::kPreflight,
+                 1.0,
+                 aModeName + " preflight complete.");
   if (pRequest.mDestinationDirectory.empty()) {
     return MakeFailure(ErrorCode::kInvalidRequest, "destination directory is required.", pLogger);
   }
@@ -690,7 +850,7 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
   }
 
   DiscoverySelection aSelection;
-  if (!SelectArchiveFamily(pArchiveFileList, pFileSystem, pLogger, aSelection, pCancelCoordinator)) {
+  if (!SelectArchiveFamily(pArchiveFileList, aModeName, pFileSystem, pLogger, aSelection, pCancelCoordinator)) {
     if (pCancelCoordinator != nullptr && pCancelCoordinator->IsCancelRequested()) {
       return MakeCanceled();
     }
@@ -701,6 +861,49 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
 
   if (aSelection.mArchives.empty()) {
     return MakeFailure(ErrorCode::kInvalidRequest, "decode plan contains no archives.", pLogger);
+  }
+
+  std::unique_ptr<Crypt> aGeneratedCrypt;
+  if (pRequest.mUseEncryption) {
+    EncryptionStrength aEncryptionStrength = EncryptionStrength::kHigh;
+    std::string aStrengthError;
+    if (!ResolveSelectionEncryptionStrength(aSelection, aEncryptionStrength, aStrengthError)) {
+      return MakeFailure(ErrorCode::kArchiveHeader,
+                         aStrengthError.empty() ? "failed resolving archive encryption strength." : aStrengthError,
+                         pLogger);
+    }
+    CryptGeneratorRequest aCryptRequest;
+    aCryptRequest.mEncryptionStrength = aEncryptionStrength;
+    aCryptRequest.mPasswordOne = pRequest.mPasswordOne;
+    aCryptRequest.mPasswordTwo = pRequest.mPasswordTwo;
+    aCryptRequest.mUseEncryption = pRequest.mUseEncryption;
+    aCryptRequest.mRecoverMode = pRecoverMode;
+    aCryptRequest.mLogStatus = [&pLogger](const std::string& pMessage) {
+      pLogger.LogStatus(pMessage);
+    };
+    aCryptRequest.mReportProgress = [&pLogger, pRecoverMode](CryptGenerationStage pStage, double pStageFraction) {
+      ReportDecodeCryptStageProgress(pLogger, pRecoverMode, pStage, pStageFraction);
+    };
+    std::string aCryptError;
+    aGeneratedCrypt = CreateRequestedCrypt(pRequest.mCryptGenerator, aCryptRequest, &aCryptError);
+    if (aGeneratedCrypt == nullptr) {
+      return MakeFailure(ErrorCode::kCrypt,
+                         aCryptError.empty() ? "failed creating decode crypt." : aCryptError,
+                         pLogger);
+    }
+  } else {
+    ReportProgress(pLogger,
+                   aModeName,
+                   ProgressProfileKind::kUnbundle,
+                   ProgressPhase::kExpansion,
+                   1.0,
+                   "Encryption disabled.");
+    ReportProgress(pLogger,
+                   aModeName,
+                   ProgressProfileKind::kUnbundle,
+                   ProgressPhase::kLayerCake,
+                   1.0,
+                   "Encryption disabled.");
   }
 
   std::unordered_map<std::uint32_t, ArchiveCandidate> aByIndex;
@@ -742,32 +945,113 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
     }
   }
 
-  pLogger.LogStatus("[Decode] Successfully unpacked 0 files (0B) START.");
+  pLogger.LogStatus("[Decode][Flight] Unpacked 0B from 0 archives into 0 items START.");
 
-  DecodeParser aParser(pRequest.mDestinationDirectory, pFileSystem, pLogger);
-  L3BlockBuffer aEncrypted{};
-  L3BlockBuffer aPlain{};
-  L3BlockBuffer aWorker{};
+  DecodeParser aParser(pRequest.mDestinationDirectory, pFileSystem, pLogger, pCancelCoordinator);
+  BlockBuffer aEncrypted;
+  BlockBuffer aPlain;
+  BlockBuffer aWorker;
 
   std::uint64_t aFailedBlocks = 0u;
   std::uint64_t aJumpCount = 0u;
   std::uint64_t aGapBoxesEncountered = 0u;
   std::uint64_t aNextByteLog = std::max<std::uint64_t>(1u, kProgressByteLogIntervalDefault);
   const auto aStart = std::chrono::steady_clock::now();
+  bool aLoggedCancelFinishFile = false;
+  bool aLoggedCancelTimeout = false;
 
   Cursor aCursor{};
   aCursor.mArchiveIndex = aSelection.mMinIndex;
   aCursor.mBlockIndex = 0u;
   aCursor.mPayloadOffset = kRecoveryHeaderLength;
+  const std::uint64_t aArchiveSpanCount =
+      static_cast<std::uint64_t>(aSelection.mMaxIndex - aSelection.mMinIndex) + 1u;
+  const std::uint64_t aTotalDecodeBlocksEstimate =
+      aArchiveSpanCount * static_cast<std::uint64_t>(aBlocksPerArchive);
+  const auto aCountArchivesScanned = [&](const Cursor& pProgressCursor) -> std::uint64_t {
+    if (pProgressCursor.mArchiveIndex < aSelection.mMinIndex) {
+      return 0u;
+    }
+    const std::uint64_t aCount =
+        static_cast<std::uint64_t>(pProgressCursor.mArchiveIndex - aSelection.mMinIndex) + 1u;
+    return std::min<std::uint64_t>(aCount, aArchiveSpanCount);
+  };
+  const auto aFormatDecodeProgressPercent = [&](const Cursor& pProgressCursor) -> std::string {
+    if (aTotalDecodeBlocksEstimate == 0u) {
+      return std::string("0.000");
+    }
+    const std::uint64_t aArchiveDistance =
+        (pProgressCursor.mArchiveIndex >= aSelection.mMinIndex)
+            ? static_cast<std::uint64_t>(pProgressCursor.mArchiveIndex - aSelection.mMinIndex)
+            : 0u;
+    const std::uint64_t aCurrentBlocks = std::min<std::uint64_t>(
+        aTotalDecodeBlocksEstimate,
+        (aArchiveDistance * static_cast<std::uint64_t>(aBlocksPerArchive)) +
+            static_cast<std::uint64_t>(pProgressCursor.mBlockIndex));
+    return FormatPercent(aCurrentBlocks, aTotalDecodeBlocksEstimate);
+  };
+  const std::uint64_t aTotalPayloadBytesEstimate =
+      aArchiveSpanCount * static_cast<std::uint64_t>(kPayloadBytesPerL3) *
+      static_cast<std::uint64_t>(aBlocksPerArchive);
+  const auto aComputeDecodePayloadProgressBytes = [&](const Cursor& pProgressCursor) -> std::uint64_t {
+    if (pProgressCursor.mArchiveIndex < aSelection.mMinIndex) {
+      return 0u;
+    }
+    const std::uint64_t aArchiveDistance =
+        static_cast<std::uint64_t>(pProgressCursor.mArchiveIndex - aSelection.mMinIndex);
+    const std::uint64_t aBlockOffset =
+        static_cast<std::uint64_t>(pProgressCursor.mBlockIndex) *
+        static_cast<std::uint64_t>(kPayloadBytesPerL3);
+    const std::uint64_t aPayloadOffset =
+        pProgressCursor.mPayloadOffset > kRecoveryHeaderLength
+            ? static_cast<std::uint64_t>(pProgressCursor.mPayloadOffset - kRecoveryHeaderLength)
+            : 0u;
+    const std::uint64_t aProgressBytes =
+        (aArchiveDistance * aPayloadBytesPerArchive) + aBlockOffset + aPayloadOffset;
+    return std::min<std::uint64_t>(aProgressBytes, aTotalPayloadBytesEstimate);
+  };
+  ReportProgress(pLogger,
+                 aModeName,
+                 ProgressProfileKind::kUnbundle,
+                 ProgressPhase::kFlight,
+                 0.0,
+                 "Decoding archive payloads.");
 
   while (aCursor.mArchiveIndex <= aSelection.mMaxIndex) {
     if (pCancelCoordinator != nullptr && pCancelCoordinator->IsCancelRequested()) {
       if (aParser.IsInsideFile()) {
         aParser.RequestStopAfterCurrentFile();
+        if (!aLoggedCancelFinishFile) {
+          pLogger.LogStatus("[Cancel] Finishing current file before stopping.");
+          aLoggedCancelFinishFile = true;
+        }
+        if (pCancelCoordinator->ShouldCancelNow()) {
+          if (!aLoggedCancelTimeout) {
+            pLogger.LogStatus("[Cancel] Timed out waiting to finish the current file; stopping decode now.");
+            aLoggedCancelTimeout = true;
+          }
+          aParser.AbortPartialFile();
+          aParser.ResetRecordState();
+          pCancelCoordinator->LogEndingJob();
+          pCancelCoordinator->LogModeCancelled(aModeName);
+          return MakeCanceled();
+        }
       } else if (pCancelCoordinator->ShouldCancelNow()) {
+        pCancelCoordinator->LogEndingJob();
+        pCancelCoordinator->LogModeCancelled(aModeName);
         return MakeCanceled();
       }
     }
+
+    ReportProgress(pLogger,
+                   aModeName,
+                   ProgressProfileKind::kUnbundle,
+                   ProgressPhase::kFlight,
+                   aTotalPayloadBytesEstimate == 0u
+                       ? 1.0
+                       : (static_cast<double>(aComputeDecodePayloadProgressBytes(aCursor)) /
+                          static_cast<double>(aTotalPayloadBytesEstimate)),
+                   "Decoding archive payloads.");
 
     if (aCursor.mArchiveIndex < aSelection.mMinIndex || aCursor.mArchiveIndex > aSelection.mMaxIndex) {
       break;
@@ -821,6 +1105,9 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
       continue;
     }
 
+    if (pCancelCoordinator != nullptr && !aParser.IsInsideFile()) {
+      pCancelCoordinator->SetReadingPath(aArchive.mPath);
+    }
     std::unique_ptr<FileReadStream> aRead = pFileSystem.OpenReadStream(aArchive.mPath);
     if (aRead == nullptr || !aRead->IsReady()) {
       if (!pRecoverMode) {
@@ -863,10 +1150,13 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
       aCursor.mPayloadOffset = kRecoveryHeaderLength;
       continue;
     }
+    if (pCancelCoordinator != nullptr && !aParser.IsInsideFile()) {
+      pCancelCoordinator->ClearActivity();
+    }
 
     if (pRequest.mUseEncryption) {
       std::string aCryptError;
-      if (!pCrypt.UnsealData(aEncrypted.Data(), aWorker.Data(), aPlain.Data(), kBlockSizeL3, &aCryptError, CryptMode::kNormal)) {
+      if (!aGeneratedCrypt->UnsealData(aEncrypted.Data(), aWorker.Data(), aPlain.Data(), kBlockSizeL3, &aCryptError, CryptMode::kNormal)) {
         if (!pRecoverMode) {
           return MakeFailure(ErrorCode::kCrypt,
                              aCryptError.empty() ? "decryption failed." : aCryptError,
@@ -934,20 +1224,30 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
     }
 
     while (aParser.BytesWritten() >= aNextByteLog) {
-      pLogger.LogStatus("[Decode] Successfully unpacked " +
-                        std::to_string(aParser.FilesWritten()) +
-                        " files (" + FormatHumanBytes(aParser.BytesWritten()) + ").");
+      pLogger.LogStatus("[Decode][Flight] Unpacked " +
+                        FormatHumanBytes(aParser.BytesWritten()) +
+                        " from " + std::to_string(aCountArchivesScanned(aCursor)) +
+                        " archives into " +
+                        std::to_string(aParser.FilesWritten() + aParser.FoldersCreated()) +
+                        " items (" + aFormatDecodeProgressPercent(aCursor) + "%).");
       aNextByteLog += std::max<std::uint64_t>(1u, kProgressByteLogIntervalDefault);
     }
 
     if (aCanceledAtBoundary) {
+      if (pCancelCoordinator != nullptr) {
+        pCancelCoordinator->LogEndingJob();
+        pCancelCoordinator->LogModeCancelled(aModeName);
+      }
       return MakeCanceled();
     }
 
     if (aTerminated) {
-      pLogger.LogStatus("[Decode] Successfully unpacked " +
-                        std::to_string(aParser.FilesWritten()) +
-                        " files (" + FormatHumanBytes(aParser.BytesWritten()) + ") DONE.");
+      pLogger.LogStatus("[Decode][Flight] Unpacked " +
+                        FormatHumanBytes(aParser.BytesWritten()) +
+                        " from " + std::to_string(aCountArchivesScanned(aCursor)) +
+                        " archives into " +
+                        std::to_string(aParser.FilesWritten() + aParser.FoldersCreated()) +
+                        " items (100.000%) DONE.");
 
       if (pRecoverMode) {
         const auto aElapsed = std::chrono::duration_cast<std::chrono::seconds>(
@@ -963,6 +1263,12 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
         pLogger.LogStatus("[Recover] Summary: Output directory was '" +
                           pRequest.mDestinationDirectory + "'.");
       }
+      ReportProgress(pLogger,
+                     aModeName,
+                     ProgressProfileKind::kUnbundle,
+                     ProgressPhase::kFlight,
+                     1.0,
+                     aModeName + " complete.");
       return MakeSuccess();
     }
 
@@ -1017,6 +1323,12 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
                       pRequest.mDestinationDirectory + "'.");
 
     if (aParser.FilesWritten() > 0u) {
+      ReportProgress(pLogger,
+                     aModeName,
+                     ProgressProfileKind::kUnbundle,
+                     ProgressPhase::kFlight,
+                     1.0,
+                     aModeName + " complete.");
       return MakeSuccess();
     }
     return MakeFailure(ErrorCode::kRecoverExhausted,
@@ -1034,14 +1346,12 @@ OperationResult RunDecode(const UnbundleRequest& pRequest,
 OperationResult Unbundle(const UnbundleRequest& pRequest,
                          const std::vector<std::string>& pArchiveFileList,
                          FileSystem& pFileSystem,
-                         const Crypt& pCrypt,
                          Logger& pLogger,
                          CancelCoordinator* pCancelCoordinator) {
   return RunDecode(pRequest,
                    pArchiveFileList,
                    false,
                    pFileSystem,
-                   pCrypt,
                    pLogger,
                    pCancelCoordinator);
 }
@@ -1049,14 +1359,12 @@ OperationResult Unbundle(const UnbundleRequest& pRequest,
 OperationResult Recover(const UnbundleRequest& pRequest,
                         const std::vector<std::string>& pArchiveFileList,
                         FileSystem& pFileSystem,
-                        const Crypt& pCrypt,
                         Logger& pLogger,
                         CancelCoordinator* pCancelCoordinator) {
   return RunDecode(pRequest,
                    pArchiveFileList,
                    true,
                    pFileSystem,
-                   pCrypt,
                    pLogger,
                    pCancelCoordinator);
 }

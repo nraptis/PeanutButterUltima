@@ -1,159 +1,195 @@
-Final Algorithm Specification (Detailed)
-========================================
+Final Archive / Unarchive / Recover Specification (Detailed)
+============================================================
 
 Notation
-- `L3` block size = `kBlockSizeL3`.
-- Recovery header size = `kRecoveryHeaderLength`.
-- Payload bytes per block = `kPayloadBytesPerL3 = kBlockSizeL3 - kRecoveryHeaderLength`.
-- Archive payload bytes = `archive_block_count * kPayloadBytesPerL3`.
+- `ARCHIVE_HEADER_LENGTH = 48`
+- `RECOVERY_HEADER_LENGTH = 48`
+- `BLOCK_SIZE_L3 = 1000704`
+- `PAYLOAD_BYTES_PER_L3 = 1000656`
+- `payload_bytes_per_archive = archive_block_count * 1000656`
 
-A) Bundle (detailed)
+A) Archive
 
-A1. Discovery
+A1. Discovery and planning
 1. Validate request:
-  - destination non-empty
-  - archive block count in `[1, kMaxBlocksPerArchive]`
-2. Copy source entries and sort by `mRelativePath`.
-3. For each entry:
-  - require non-empty relative path
-  - require path length <= `kMaxPathLength`
-  - for files: open read stream and capture file length
-4. Compute logical stream offsets using record grammar:
-  - `u16 path_length`
-  - `path bytes`
-  - `u64 content_length`
-  - `content bytes` (or none for directory marker)
-5. Append terminator record (`path_length = 0`).
-6. Compute `archive_count = ceil(total_logical_bytes / payload_bytes_per_archive)` (minimum 1).
-7. Reject if `archive_count > kMaxArchiveCount`.
-8. Build per-archive plan:
-  - archive ordinal/index
-  - block count
-  - payload length bytes
-  - record/folder modulo counters
-  - formatted file path
+  - destination directory must be non-empty
+  - archive block count must be in `[1, 2048]`
+2. Receive source entries from the caller.
+3. Sort source entries by `mRelativePath`.
+4. Validate each entry:
+  - relative path must be non-empty
+  - relative path length must be `<= 2048`
+  - file entries must expose a readable file length
+5. Build the logical record stream size:
+  - every record contributes `2 + path_length + 8 + content_length`
+  - empty-directory records use `content_length = 0xFFFFFFFFFFFFFFFF` and no content bytes
+6. Record every record start offset.
+7. Append one extra record-start offset for the terminator.
+8. Add the terminator size (`2` bytes) to total logical bytes.
+9. Compute:
+  - `archive_count = ceil(total_logical_bytes / payload_bytes_per_archive)`
+  - minimum archive count is `1`
+10. Reject if `archive_count > 65535`.
+11. For each archive ordinal:
+  - compute the archive filename
+  - count how many record starts fall inside that archive's logical payload window
+  - count how many empty-directory record starts fall inside that window
+  - store `record_count % 256` and `folder_count % 256`
+12. Compute the archive family id from bundle metadata.
 
-A2. Flight
-1. Ensure destination directory exists.
-2. Build streaming logical record reader (`BundleLogicalStream`).
+A2. Archive writing
+1. Ensure the destination directory exists.
+2. Build a streaming logical-record reader.
 3. For each planned archive:
-  - write 40-byte archive header
-  - for each block:
-    1) zero full block buffer
-    2) fill payload bytes from logical stream into `[recovery_header..end)`
-    3) compute `distance_to_next_record` from current logical block start
-    4) encode `SkipRecord` from that distance
-    5) compute checksum over payload + skip record
-    6) write recovery header into block prefix
-    7) encrypt optional
-    8) write full block
-4. Complete archive file and continue.
-5. Require logical stream terminator consumed by final archive.
+  - open the output file
+  - write the `48`-byte archive header
+4. For each L3 block in that archive:
+  - zero the full `1000704`-byte plain block
+  - stream logical bytes into the payload region `[48 .. 1000703]`
+  - compute the current block's logical payload start
+  - find the next record start at or after that logical offset
+  - convert that distance into the fixed-size skip record
+  - compute the checksum over:
+    - the full payload region
+    - the skip record
+  - serialize the `48`-byte recovery header into the block prefix
+  - seal (encrypt) the full L3 block
+  - write the full L3 block to the archive file
+5. After all planned archives are written, require that the logical stream has terminated.
 
-A3. Cancel in bundle
-- If cancel arrives while stream is inside file content:
-  - request stop-after-current-file
-  - finish current file, then stop after active archive finalization
-- If cancel arrives at safe boundary:
-  - stop immediately
+A3. Directory handling
+- Single-file bundle input stores one file record using the source file's basename.
+- Directory bundle input stores:
+  - all files recursively
+  - only empty directories as explicit directory records
+- Non-empty directories are not stored as standalone records.
 
-B) Unbundle and Recover shared decode core (detailed)
+B) Unarchive and Recover shared discovery
 
-B1. Discovery selection (filename-driven)
-1. Parse all candidates into `(prefix, numeric_index, suffix, digit_width)`.
-2. Choose anchor template from first parsed candidate.
-3. Keep only files with same prefix+suffix as anchor.
-4. De-duplicate by index:
-  - prefer candidate with readable header
-  - otherwise prefer longer file
-5. Sort indices and clip to window `[min_index, min_index + kMaxArchiveCount - 1]`.
-6. Count observed gaps.
-7. Build dense `ArchiveFileBox` list from `min_index..max_index`:
-  - each box has `mSequenceJumber`, `mPayloadStart`, `mPayloadLength`, `mEmpty`
-8. If headers vote for larger declared archive-count tail, extend `max_index` and mark those as empty tail boxes.
+B1. Candidate collection
+1. If the chosen source path is a file, use that one file.
+2. If the chosen source path is a directory:
+  - collect top-level files
+  - if no top-level files exist, fall back to a recursive scan
+3. Sort candidate paths.
 
-B2. Decode setup
-1. Ensure destination exists.
-2. Determine `blocks_per_archive` from first readable header payload length; fallback to observed block count; minimum 1.
-3. Recompute each archive box payload span using `blocks_per_archive` and actual discovered block counts.
-4. Initialize decode parser state machine at record boundary.
+B2. Candidate parsing
+1. For each candidate:
+  - open it
+  - record file length
+  - parse `(prefix, numeric_index, suffix, digit_width)` from the filename
+  - if enough bytes exist, try to read and validate the archive header
+  - infer readable block count from file length and, if possible, header `mPayloadLength`
+2. Ignore candidates whose filenames do not parse.
 
-B3. Block loop
-For cursor `(archive_index, block_index, payload_offset)`:
-1. If box is empty:
-  - unbundle: fail with `GAP_001`
-  - recover: count failed blocks, reset parser, advance archive
-2. Open archive file and read block bytes at
-  - `archive_header_length + block_index * kBlockSizeL3`
-3. Decrypt if enabled.
-4. Parse recovery header.
-5. Recompute checksum and compare.
-  - unbundle: mismatch is terminal `BLOCK_CHECKSUM`
-  - recover: count failed block, reset parser, advance block
-6. Feed payload bytes to parser from `payload_offset..kBlockSizeL3`.
-7. Parser state machine:
-  - read `u16 path_length`
-  - if zero => logical terminator
-  - read path bytes and validate safe relative path
-  - read `u64 content_length`
-    - `0xFFFFFFFFFFFFFFFF` => create directory record
-    - else open output file and stream content bytes
-8. On parser error:
-  - unbundle: terminal `RECORD_PARSE`
-  - recover:
-    - count failed block
-    - abort/reset partial parser state
-    - attempt stride jump (see B4); if invalid, advance block
-9. On parser terminator:
-  - emit decode done summary
-  - recover adds recover summary
-  - return success
+B3. Family selection
+1. Sort parsed candidates by path.
+2. Choose the first parsed filename as the template anchor.
+3. Keep only candidates whose parsed prefix and suffix match that anchor.
+4. If readable headers exist inside that anchor family:
+  - vote by `mArchiveFamilyId`
+  - keep only the dominant family id
+5. De-duplicate by numeric index:
+  - prefer a candidate with a readable header
+  - otherwise prefer the longer file
+6. Sort surviving indices.
+7. Clip the selection window to:
+  - `[min_index, min_index + MAX_ARCHIVE_COUNT - 1]`
+8. Count missing indices as gaps.
+9. If readable headers vote for a longer tail via `mArchiveCount`, extend the index window and mark those missing tail indices as gaps too.
+10. Build a dense `ArchiveFileBox` list from `min_index` through `max_index`.
 
-B4. Recovery stride jump resolution
-1. Validate skip fields:
-  - non-zero overall distance
-  - `block_distance < blocks_per_archive`
-  - `byte_distance < kPayloadBytesPerL3`
-2. Compute target global block:
-  - `delta_blocks = archive_distance * blocks_per_archive + block_distance`
-  - `target = current_global_block + delta_blocks`
-3. Derive `(target_archive, target_block)` from `target`.
-4. Validate target archive exists in discovered map.
-5. Validate target block is inside target archive's readable block count.
-6. Set cursor to target with payload offset `kRecoveryHeaderLength + byte_distance`.
+C) Unarchive and Recover shared block loop
 
-B5. Exhaustion behavior
-- Recover:
-  - emit "rest not recoverable" + summary
-  - success if any files recovered
-  - else `RECOVER_EXHAUSTED`
-- Unbundle:
-  - fail `ARCHIVE_HEADER` if terminator not reached
+C1. Decode setup
+1. Ensure destination directory exists.
+2. If encryption is enabled:
+  - resolve a single encryption strength from readable headers
+  - build the unseal (decrypt) engine
+3. Determine `blocks_per_archive`:
+  - first choice: first readable header whose `mPayloadLength` is a positive multiple of `BLOCK_SIZE_L3`
+  - fallback: discovered block count from the first archive
+  - final fallback: `1`
+4. Recompute archive-box payload spans using that `blocks_per_archive`.
+5. Initialize the parser at record boundary.
 
-C) Validate (detailed)
+C2. Per-block strict flow
+1. For the current `(archive_index, block_index, payload_offset)`:
+  - fail if the archive box is empty
+  - fail if the archive file cannot be opened
+  - fail if the archive is too short for the requested block
+  - fail if the block cannot be read
+  - unseal (decrypt) the block
+  - fail if unseal fails
+  - parse the recovery header
+  - fail if recovery-header parse fails
+  - recompute checksum
+  - fail if checksum mismatches
+  - feed payload bytes into the record parser
+  - fail if record parsing fails
+2. Succeed only when the parser reaches the terminator record.
+3. Fail if archive space is exhausted before the terminator.
 
-C1. Discovery
-1. Validate both paths are existing directories.
-2. Recursively list files and directories on both sides.
-3. Maintain discovery scanned-item counters and periodic logs.
-4. Build sets/maps:
-  - files by relative path
-  - empty-folder sets (directory without files in subtree)
+C3. Record parser
+1. Read `u16 path_length`.
+2. If `path_length == 0`, terminate successfully.
+3. Read `path_length` bytes and validate the path:
+  - relative only
+  - no `.` or `..`
+  - no control bytes
+  - length `<= 2048`
+4. Read `u64 content_length`.
+5. If `content_length == 0xFFFFFFFFFFFFFFFF`:
+  - ensure the output directory exists
+  - count one created folder
+  - reset parser state
+6. Otherwise:
+  - reject implausible lengths above `1 << 40`
+  - ensure the output file's parent directory exists
+  - open the output file
+  - stream exactly `content_length` bytes into it
+  - close the file
+  - count one written file
+  - reset parser state
 
-C2. Compare
-1. For each left file:
-  - if missing on right => classify mismatch
-  - else compare lengths and then bytes in 64KB chunks
-2. Byte comparison increments `bytes_compared` only for confirmed matched bytes.
-3. Track `files_compared` and `folders_compared`.
+D) Recover-only differences
 
-C3. Summary
-1. Emit capped detail lines per mismatch class.
-2. Emit totals and Good/Warn/Fail synthesis.
-3. Return success when no normal mismatches.
-4. Return `RECORD_PARSE` when normal mismatches exist.
+D1. Recover handling of damaged blocks
+- If the current archive box is empty:
+  - count a failed region
+  - abort any partial output file
+  - reset parser state
+  - advance to the next archive
+- If the archive file cannot be opened, is too short, cannot be read, fails unseal, fails recovery-header parse, or fails checksum:
+  - count one failed block
+  - abort any partial output file
+  - reset parser state
+  - advance to the next block
 
-D) BundleWithMutations (detailed delta)
-- Same as Bundle with two inserts:
-  1) Entry list mutations before discovery.
-  2) Payload byte overwrites applied after payload fill and before checksum/recovery-header write.
+D2. Recover handling of record-parse failures
+1. Count one failed block.
+2. Abort any partial output file.
+3. Reset parser state.
+4. Try to resolve the stored recovery stride:
+  - reject all-zero stride
+  - reject `block_distance >= blocks_per_archive`
+  - reject `byte_distance >= 1000656`
+  - reject missing target archive
+  - reject target block outside the target archive's readable block count
+5. If stride resolution succeeds:
+  - jump directly to the target archive, block, and payload byte offset
+6. Otherwise:
+  - advance to the next block
+
+D3. Recover success and failure
+- Recover returns success if:
+  - it reaches the terminator, or
+  - it exhausts archive space after recovering at least one file
+- Recover returns `RECOVER_EXHAUSTED` if archive space is exhausted before the terminator and no files were recovered.
+
+E) Archive naming and index parsing
+- Writer format:
+  - `prefix + source_stem + "_" + zero_padded_index + suffix`
+- Reader format:
+  - parse any trailing digit run before the file extension as the archive index
+- Decode family selection depends on filename parsing as well as, when available, header family id.

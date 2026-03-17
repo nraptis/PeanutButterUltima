@@ -32,6 +32,22 @@ inline void AppendDurationPart(std::ostringstream& pStream,
 
 }  // namespace
 
+const char* ProgressPhaseToString(ProgressPhase pPhase) {
+  switch (pPhase) {
+    case ProgressPhase::kPreflight:
+      return "Preflight";
+    case ProgressPhase::kDiscovery:
+      return "Discovery";
+    case ProgressPhase::kExpansion:
+      return "Expansion";
+    case ProgressPhase::kLayerCake:
+      return "LayerCake";
+    case ProgressPhase::kFlight:
+      return "Flight";
+  }
+  return "Progress";
+}
+
 std::string FormatHumanDurationSeconds(std::uint64_t pTotalSeconds) {
   const std::uint64_t aDays = pTotalSeconds / 86400u;
   pTotalSeconds %= 86400u;
@@ -61,12 +77,82 @@ std::string FormatHumanBytes(std::uint64_t pBytes) {
   }
 
   std::ostringstream aOut;
-  if (aUnit == 0u) {
-    aOut << pBytes << " " << kUnits[aUnit];
-    return aOut.str();
-  }
-  aOut << std::fixed << std::setprecision(aValue >= 10.0 ? 0 : 1) << aValue << " " << kUnits[aUnit];
+  aOut << std::fixed << std::setprecision(3) << aValue << " " << kUnits[aUnit];
   return aOut.str();
+}
+
+std::string FormatPercent(std::uint64_t pCurrent, std::uint64_t pTotal) {
+  double aPercent = 100.0;
+  if (pTotal > 0u) {
+    aPercent = (static_cast<double>(pCurrent) / static_cast<double>(pTotal)) * 100.0;
+  }
+  aPercent = std::max(0.0, std::min(100.0, aPercent));
+  std::ostringstream aOut;
+  aOut << std::fixed << std::setprecision(3) << aPercent;
+  return aOut.str();
+}
+
+double ClampProgressFraction(double pValue) {
+  return std::max(0.0, std::min(1.0, pValue));
+}
+
+double ComputeOverallProgress(ProgressProfileKind pProfile,
+                              ProgressPhase pPhase,
+                              double pPhaseFraction) {
+  const double aClampedPhaseFraction = ClampProgressFraction(pPhaseFraction);
+
+  double aPreflightWeight = kBundleProgressFactorPreflight;
+  double aDiscoveryWeight = kBundleProgressFactorDiscovery;
+  double aExpansionWeight = kBundleProgressFactorExpansion;
+  double aLayerCakeWeight = kBundleProgressFactorLayerCake;
+  double aFlightWeight = kBundleProgressFactorFlight;
+  if (pProfile == ProgressProfileKind::kUnbundle) {
+    aPreflightWeight = kUnbundleProgressFactorPreflight;
+    aDiscoveryWeight = kUnbundleProgressFactorDiscovery;
+    aExpansionWeight = kUnbundleProgressFactorExpansion;
+    aLayerCakeWeight = kUnbundleProgressFactorLayerCake;
+    aFlightWeight = kUnbundleProgressFactorFlight;
+  }
+
+  double aBase = 0.0;
+  double aWeight = 0.0;
+  switch (pPhase) {
+    case ProgressPhase::kPreflight:
+      aBase = 0.0;
+      aWeight = aPreflightWeight;
+      break;
+    case ProgressPhase::kDiscovery:
+      aBase = aPreflightWeight;
+      aWeight = aDiscoveryWeight;
+      break;
+    case ProgressPhase::kExpansion:
+      aBase = aPreflightWeight + aDiscoveryWeight;
+      aWeight = aExpansionWeight;
+      break;
+    case ProgressPhase::kLayerCake:
+      aBase = aPreflightWeight + aDiscoveryWeight + aExpansionWeight;
+      aWeight = aLayerCakeWeight;
+      break;
+    case ProgressPhase::kFlight:
+      aBase = aPreflightWeight + aDiscoveryWeight + aExpansionWeight + aLayerCakeWeight;
+      aWeight = aFlightWeight;
+      break;
+  }
+  return ClampProgressFraction(aBase + (aWeight * aClampedPhaseFraction));
+}
+
+void ReportProgress(Logger& pLogger,
+                    const std::string& pModeName,
+                    ProgressProfileKind pProfile,
+                    ProgressPhase pPhase,
+                    double pPhaseFraction,
+                    const std::string& pDetail) {
+  ProgressInfo aProgress;
+  aProgress.mModeName = pModeName;
+  aProgress.mPhase = pPhase;
+  aProgress.mOverallFraction = ComputeOverallProgress(pProfile, pPhase, pPhaseFraction);
+  aProgress.mDetail = pDetail;
+  pLogger.LogProgress(aProgress);
 }
 
 ElapsedTimeLogGate::ElapsedTimeLogGate(const std::string& pModeLabel, Logger& pLogger)

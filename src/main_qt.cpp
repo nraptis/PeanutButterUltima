@@ -35,6 +35,7 @@
 #include <QWheelEvent>
 #include <QWidget>
 
+#include <algorithm>
 #include <array>
 #include <atomic>
 #include <chrono>
@@ -56,8 +57,7 @@
 #include "AppShell_Sanity.hpp"
 #include "AppShell_Unbundle.hpp"
 #include "Encryption/Crypt.hpp"
-#include "Encryption/RotateMaskBlockCipher.hpp"
-
+#include "StressCrypt.hpp"
 #include "IO/LocalFileSystem.hpp"
 
 namespace {
@@ -65,6 +65,90 @@ namespace {
 using namespace std::chrono_literals;
 
 constexpr char kDefaultArchiveExtension[] = ".PBTR";
+constexpr peanutbutter::EncryptionStrength kDefaultBundleEncryptionStrength =
+    peanutbutter::EncryptionStrength::kHigh;
+// constexpr peanutbutter::EncryptionStrength kDefaultBundleEncryptionStrength =
+//     peanutbutter::EncryptionStrength::kMedium;
+// constexpr peanutbutter::EncryptionStrength kDefaultBundleEncryptionStrength =
+//     peanutbutter::EncryptionStrength::kLow;
+
+struct LayerCakeCipherCounts {
+  std::size_t mLayer1 = 0u;
+  std::size_t mLayer2 = 0u;
+  std::size_t mLayer3 = 0u;
+};
+
+void LogCryptGenerationStatus(const peanutbutter::CryptGeneratorRequest& pRequest,
+                              const std::string& pMessage) {
+  if (pRequest.mLogStatus) {
+    pRequest.mLogStatus(pMessage);
+  }
+}
+
+void ReportCryptGenerationProgress(const peanutbutter::CryptGeneratorRequest& pRequest,
+                                   peanutbutter::CryptGenerationStage pStage,
+                                   double pStageFraction) {
+  if (pRequest.mReportProgress) {
+    pRequest.mReportProgress(pStage, pStageFraction);
+  }
+}
+
+LayerCakeCipherCounts GetLayerCakeCipherCounts(peanutbutter::EncryptionStrength pStrength) {
+  switch (pStrength) {
+    case peanutbutter::EncryptionStrength::kHigh:
+      return {10u, 8u, 6u};
+    case peanutbutter::EncryptionStrength::kMedium:
+      return {8u, 6u, 4u};
+    case peanutbutter::EncryptionStrength::kLow:
+      return {6u, 4u, 2u};
+  }
+  return {};
+}
+
+std::string FormatLayerCakeCipherCounts(const LayerCakeCipherCounts& pCounts) {
+  return std::to_string(pCounts.mLayer1) + "|" +
+         std::to_string(pCounts.mLayer2) + "|" +
+         std::to_string(pCounts.mLayer3);
+}
+
+peanutbutter::CryptGenerator MakePresetCryptGenerator() {
+  return [](const peanutbutter::CryptGeneratorRequest& pRequest,
+            std::string* pErrorMessage) -> std::unique_ptr<peanutbutter::Crypt> {
+    ReportCryptGenerationProgress(pRequest, peanutbutter::CryptGenerationStage::kExpansion, 0.0);
+    LogCryptGenerationStatus(pRequest, "[Expansion] Generating tables...");
+    ReportCryptGenerationProgress(pRequest, peanutbutter::CryptGenerationStage::kExpansion, 1.0);
+    LogCryptGenerationStatus(pRequest, "[Expansion] Generating tables has finished.");
+
+    ReportCryptGenerationProgress(pRequest, peanutbutter::CryptGenerationStage::kLayerCake, 0.0);
+    LogCryptGenerationStatus(pRequest, "[LayerCake] Creating three layer crypt stack...");
+
+    std::unique_ptr<peanutbutter::Crypt> aCrypt;
+    const LayerCakeCipherCounts aCounts = GetLayerCakeCipherCounts(pRequest.mEncryptionStrength);
+    switch (pRequest.mEncryptionStrength) {
+      case peanutbutter::EncryptionStrength::kHigh:
+        aCrypt = std::make_unique<peanutbutter::HighCrypt>();
+        break;
+      case peanutbutter::EncryptionStrength::kMedium:
+        aCrypt = std::make_unique<peanutbutter::MediumCrypt>();
+        break;
+      case peanutbutter::EncryptionStrength::kLow:
+        aCrypt = std::make_unique<peanutbutter::LowCrypt>();
+        break;
+    }
+    if (aCrypt != nullptr) {
+      ReportCryptGenerationProgress(pRequest, peanutbutter::CryptGenerationStage::kLayerCake, 1.0);
+      LogCryptGenerationStatus(
+          pRequest,
+          "[LayerCake] Crypt created with " + FormatLayerCakeCipherCounts(aCounts) + " ciphers.");
+      return aCrypt;
+    }
+
+    if (pErrorMessage != nullptr) {
+      *pErrorMessage = "unsupported encryption strength.";
+    }
+    return {};
+  };
+}
 
 QString ClampDebugLogMessage(const QString& pMessage) {
   const std::size_t aLimit = peanutbutter::kDebugLogLineCharacterLimit;
@@ -86,15 +170,26 @@ struct ArchiveSizeOption {
   std::uint32_t mBlocks = 0;
 };
 
+struct EncryptionStrengthOption {
+  const char* mLabel = "";
+  peanutbutter::EncryptionStrength mStrength = peanutbutter::EncryptionStrength::kHigh;
+};
+
 const std::array<ArchiveSizeOption, 8> archive_size_options = {{
-    {"1 Block", 1},
-    {"5 Blocks", 5},
     {"10 Blocks", 10},
-    {"20 Blocks", 20},
+    {"25 Blocks", 25},
     {"50 Blocks", 50},
     {"100 Blocks", 100},
-    {"200 Blocks", 200},
-    {"400 Blocks", 400},
+    {"250 Blocks", 250},
+    {"500 Blocks", 500},
+    {"1000 Blocks", 1000},
+    {"2000 Blocks", 2000},
+}};
+
+const std::array<EncryptionStrengthOption, 3> encryption_strength_options = {{
+    {"High", peanutbutter::EncryptionStrength::kLow},
+    {"Extra High", peanutbutter::EncryptionStrength::kMedium},
+    {"Extra Extra High", peanutbutter::EncryptionStrength::kHigh},
 }};
 
 std::string inferredBaseDirectory(const peanutbutter::FileSystem& pFileSystem) {
@@ -246,6 +341,50 @@ std::uint32_t configArchiveBlockCountValue(const QJsonObject& pObject, std::uint
 bool nativeFileDialogsAvailable() {
   const QString aPlatformName = QGuiApplication::platformName().toLower();
   return aPlatformName != "offscreen" && aPlatformName != "minimal" && aPlatformName != "minimalegl";
+}
+
+bool IsHiddenRelativePath(const std::string& pRelativePath) {
+  if (pRelativePath.empty()) {
+    return false;
+  }
+  std::size_t aStart = 0u;
+  while (aStart < pRelativePath.size()) {
+    const std::size_t aEnd = pRelativePath.find('/', aStart);
+    const std::size_t aSegmentEnd = (aEnd == std::string::npos) ? pRelativePath.size() : aEnd;
+    if (aSegmentEnd > aStart && pRelativePath[aStart] == '.') {
+      return true;
+    }
+    if (aEnd == std::string::npos) {
+      break;
+    }
+    aStart = aEnd + 1u;
+  }
+  return false;
+}
+
+bool DirectoryHasVisibleEntries(const peanutbutter::FileSystem& pFileSystem, const std::string& pPath) {
+  if (!pFileSystem.IsDirectory(pPath)) {
+    return false;
+  }
+
+  const std::vector<peanutbutter::DirectoryEntry> aFiles = pFileSystem.ListFilesRecursive(pPath);
+  for (const peanutbutter::DirectoryEntry& aEntry : aFiles) {
+    if (!IsHiddenRelativePath(aEntry.mRelativePath)) {
+      return true;
+    }
+  }
+
+  const std::vector<peanutbutter::DirectoryEntry> aDirectories = pFileSystem.ListDirectoriesRecursive(pPath);
+  for (const peanutbutter::DirectoryEntry& aEntry : aDirectories) {
+    if (aEntry.mRelativePath.empty()) {
+      continue;
+    }
+    if (!IsHiddenRelativePath(aEntry.mRelativePath)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 QString pickFile(QWidget* pParent, const QString& pWhat) {
@@ -408,17 +547,16 @@ struct PBBundleRequest {
   std::string mSourcePath;
   std::string mDestinationPath;
   std::string mArchivePrefix;
-  std::string mPasswordOne;
-  std::string mPasswordTwo;
-  std::size_t mArchiveBlockCount = 1;
+  std::string mPassword;
+  std::size_t mArchiveBlockCount = 10;
+  peanutbutter::EncryptionStrength mEncryptionStrength = kDefaultBundleEncryptionStrength;
   bool mUseEncryption = false;
 };
 
 struct PBDecodeRequest {
   std::string mSourcePath;
   std::string mDestinationPath;
-  std::string mPasswordOne;
-  std::string mPasswordTwo;
+  std::string mPassword;
   bool mUseEncryption = false;
   bool mRecoveryMode = false;
 };
@@ -451,9 +589,12 @@ PBSanityRequest ResolveRequestPaths(const peanutbutter::FileSystem& pFileSystem,
 
 class PBLogSession final {
  public:
-  PBLogSession(peanutbutter::FileSystem& pFileSystem, std::function<void(const std::string&, bool)> pSink)
+  PBLogSession(peanutbutter::FileSystem& pFileSystem,
+               std::function<void(const std::string&, bool)> pSink,
+               std::function<void(const peanutbutter::ProgressInfo&)> pProgressSink = {})
       : mFileSystem(pFileSystem),
-        mSink(std::move(pSink)) {}
+        mSink(std::move(pSink)),
+        mProgressSink(std::move(pProgressSink)) {}
 
   void BeginSession(const std::string& pPrimaryFilePath, const std::string& pMirrorFilePath) {
     {
@@ -475,6 +616,17 @@ class PBLogSession final {
 
   void LogError(const std::string& pMessage) {
     LogLine(pMessage, true);
+  }
+
+  void LogProgress(const peanutbutter::ProgressInfo& pProgress) {
+    std::function<void(const peanutbutter::ProgressInfo&)> aProgressSink;
+    {
+      std::lock_guard<std::mutex> aLock(mMutex);
+      aProgressSink = mProgressSink;
+    }
+    if (aProgressSink) {
+      aProgressSink(pProgress);
+    }
   }
 
  private:
@@ -502,6 +654,7 @@ class PBLogSession final {
 
   peanutbutter::FileSystem& mFileSystem;
   std::function<void(const std::string&, bool)> mSink;
+  std::function<void(const peanutbutter::ProgressInfo&)> mProgressSink;
   std::string mPrimaryFilePath;
   std::string mMirrorFilePath;
   std::mutex mMutex;
@@ -513,6 +666,7 @@ class PBQtShell final {
     QStackedLayout* mStack = nullptr;
     QWidget* mContentWidget = nullptr;
     QWidget* mLoadingWidget = nullptr;
+    QProgressBar* mLoadingIndicator = nullptr;
     QLabel* mLoadingTitle = nullptr;
     QLabel* mLoadingDetail = nullptr;
     QPushButton* mLoadingCancelButton = nullptr;
@@ -555,6 +709,10 @@ class PBQtShell final {
   void SetLoading(bool pEnabled, const QString& pTitle = QString(), const QString& pDetail = QString()) {
     mLoadingEnabled = pEnabled;
     for (TabLoadingView& aView : mTabLoadingViews) {
+      if (aView.mLoadingIndicator != nullptr) {
+        aView.mLoadingIndicator->setRange(0, 1000);
+        aView.mLoadingIndicator->setValue(0);
+      }
       if (aView.mLoadingTitle != nullptr) {
         aView.mLoadingTitle->setText(pTitle);
       }
@@ -569,6 +727,39 @@ class PBQtShell final {
     if (!mLoadingEnabled) {
       SchedulePendingErrorDrain();
     }
+  }
+
+  void UpdateLoadingProgress(const peanutbutter::ProgressInfo& pProgress) {
+    if (mWindow == nullptr) {
+      return;
+    }
+
+    const double aClampedFraction = peanutbutter::ClampProgressFraction(pProgress.mOverallFraction);
+    const int aValue = static_cast<int>(aClampedFraction * 1000.0 + 0.5);
+    const QString aPhase = QString::fromUtf8(peanutbutter::ProgressPhaseToString(pProgress.mPhase));
+    const QString aPercent = QString::number(aClampedFraction * 100.0, 'f', 1) + "%";
+    const QString aDetail = pProgress.mDetail.empty()
+                                ? (aPhase + " " + aPercent)
+                                : (QString::fromStdString(pProgress.mDetail) + "\n" + aPhase + " " + aPercent);
+
+    QPointer<QWidget> aWindow = mWindow;
+    QMetaObject::invokeMethod(
+        mWindow,
+        [this, aWindow, aValue, aDetail]() {
+          if (aWindow == nullptr) {
+            return;
+          }
+          for (TabLoadingView& aView : mTabLoadingViews) {
+            if (aView.mLoadingIndicator != nullptr) {
+              aView.mLoadingIndicator->setRange(0, 1000);
+              aView.mLoadingIndicator->setValue(std::max(0, std::min(1000, aValue)));
+            }
+            if (aView.mLoadingDetail != nullptr) {
+              aView.mLoadingDetail->setText(aDetail);
+            }
+          }
+        },
+        Qt::QueuedConnection);
   }
 
   void ShowError(const std::string& pTitle, const std::string& pMessage) {
@@ -742,10 +933,10 @@ class PBQtShell final {
 class PBMockEngine final {
  public:
   PBMockEngine(peanutbutter::FileSystem& pFileSystem,
-               const peanutbutter::Crypt& pCrypt,
+               peanutbutter::CryptGenerator pCryptGenerator,
                PBLogSession& pLogger)
       : mFileSystem(pFileSystem),
-        mCrypt(pCrypt),
+        mCryptGenerator(std::move(pCryptGenerator)),
         mLogger(pLogger) {}
 
   PBPreflightResult CheckBundle(const PBBundleRequest& pRequest) const {
@@ -759,7 +950,8 @@ class PBMockEngine final {
     if (mFileSystem.Exists(pRequest.mDestinationPath) && !mFileSystem.IsDirectory(pRequest.mDestinationPath)) {
       return {PBPreflightSignal::RedLight, "Bundle blocked", "Bundle destination must be a folder path."};
     }
-    if (mFileSystem.Exists(pRequest.mDestinationPath) && mFileSystem.DirectoryHasEntries(pRequest.mDestinationPath)) {
+    if (mFileSystem.Exists(pRequest.mDestinationPath) &&
+        DirectoryHasVisibleEntries(mFileSystem, pRequest.mDestinationPath)) {
       return {PBPreflightSignal::YellowLight, "Bundle destination prompt", "Destination has existing files."};
     }
     return {PBPreflightSignal::GreenLight, "Bundle ready", "Bundle can proceed."};
@@ -776,8 +968,8 @@ class PBMockEngine final {
     if (mFileSystem.Exists(pRequest.mDestinationPath) && !mFileSystem.IsDirectory(pRequest.mDestinationPath)) {
       return {PBPreflightSignal::RedLight, "Decode blocked", "Decode destination must be a folder path."};
     }
-    if (pIntent == PBDecodeIntent::Recover ||
-        (mFileSystem.Exists(pRequest.mDestinationPath) && mFileSystem.DirectoryHasEntries(pRequest.mDestinationPath))) {
+    if (mFileSystem.Exists(pRequest.mDestinationPath) &&
+        DirectoryHasVisibleEntries(mFileSystem, pRequest.mDestinationPath)) {
       return {PBPreflightSignal::YellowLight, "Decode destination prompt", "Destination has existing files."};
     }
     return {PBPreflightSignal::GreenLight, "Decode ready", "Decode can proceed without a destination prompt."};
@@ -821,16 +1013,18 @@ class PBMockEngine final {
     aCoreRequest.mSourceStem = ResolveBundleSourceStem(pRequest.mSourcePath);
     aCoreRequest.mArchivePrefix = pRequest.mArchivePrefix.empty() ? "bundle_" : pRequest.mArchivePrefix;
     aCoreRequest.mArchiveSuffix = kDefaultArchiveExtension;
-    aCoreRequest.mPasswordOne = pRequest.mPasswordOne;
-    aCoreRequest.mPasswordTwo = pRequest.mPasswordTwo;
+    aCoreRequest.mPasswordOne = pRequest.mPassword;
+    aCoreRequest.mPasswordTwo = pRequest.mPassword;
     aCoreRequest.mArchiveBlockCount = static_cast<std::uint32_t>(
         std::min<std::size_t>(
             std::max<std::size_t>(1u, pRequest.mArchiveBlockCount),
             static_cast<std::size_t>(peanutbutter::kMaxBlocksPerArchive)));
     aCoreRequest.mUseEncryption = pRequest.mUseEncryption;
+    aCoreRequest.mEncryptionStrength = pRequest.mEncryptionStrength;
+    aCoreRequest.mCryptGenerator = mCryptGenerator;
 
     const peanutbutter::OperationResult aCoreResult =
-        peanutbutter::Bundle(aCoreRequest, aSourceEntries, mFileSystem, mCrypt, aEngineLogger, &aCancelCoordinator);
+        peanutbutter::Bundle(aCoreRequest, aSourceEntries, mFileSystem, aEngineLogger, &aCancelCoordinator);
     return MapCoreResult("Bundle", aCoreResult, &aCancelCoordinator);
   }
 
@@ -855,34 +1049,35 @@ class PBMockEngine final {
 
     std::vector<std::string> aArchiveFiles;
     std::string aCollectError;
+    mLogger.LogStatus(aDiscoveryPrefix + " Collecting archive file candidates...");
     if (!CollectArchiveFileList(pRequest.mSourcePath, aArchiveFiles, aCollectError)) {
       mLogger.LogError(aCollectError);
       return {false, false, aModeName + " failed", aCollectError};
     }
+    mLogger.LogStatus(aDiscoveryPrefix + " Collected " + std::to_string(aArchiveFiles.size()) + " archive file candidates.");
     if (aArchiveFiles.empty()) {
       return {false, false, aModeName + " failed", "No archive files were found in the selected source."};
     }
 
     peanutbutter::UnbundleRequest aCoreRequest;
     aCoreRequest.mDestinationDirectory = pRequest.mDestinationPath;
-    aCoreRequest.mPasswordOne = pRequest.mPasswordOne;
-    aCoreRequest.mPasswordTwo = pRequest.mPasswordTwo;
+    aCoreRequest.mPasswordOne = pRequest.mPassword;
+    aCoreRequest.mPasswordTwo = pRequest.mPassword;
     aCoreRequest.mUseEncryption = pRequest.mUseEncryption;
     aCoreRequest.mRecoverMode = (pIntent == PBDecodeIntent::Recover);
+    aCoreRequest.mCryptGenerator = mCryptGenerator;
 
     peanutbutter::OperationResult aCoreResult;
     if (pIntent == PBDecodeIntent::Recover) {
       aCoreResult = peanutbutter::Recover(aCoreRequest,
                                           aArchiveFiles,
                                           mFileSystem,
-                                          mCrypt,
                                           aEngineLogger,
                                           &aCancelCoordinator);
     } else {
       aCoreResult = peanutbutter::Unbundle(aCoreRequest,
                                            aArchiveFiles,
                                            mFileSystem,
-                                           mCrypt,
                                            aEngineLogger,
                                            &aCancelCoordinator);
     }
@@ -938,6 +1133,9 @@ class PBMockEngine final {
     }
     void LogError(const std::string& pMessage) override {
       mSession.LogError(pMessage);
+    }
+    void LogProgress(const peanutbutter::ProgressInfo& pProgress) override {
+      mSession.LogProgress(pProgress);
     }
 
    private:
@@ -1085,7 +1283,23 @@ class PBMockEngine final {
       return false;
     }
 
-    std::vector<peanutbutter::DirectoryEntry> aFiles = mFileSystem.ListFilesRecursive(pSourcePath);
+    std::vector<peanutbutter::DirectoryEntry> aFiles = mFileSystem.ListFiles(pSourcePath);
+    if (aFiles.empty()) {
+      mLogger.LogStatus("[Decode][Discovery] No top-level files found; falling back to recursive scan.");
+      std::size_t aLastProgressLogCount = 0u;
+      aFiles = mFileSystem.ListFilesRecursive(
+          pSourcePath,
+          [this, &aLastProgressLogCount](std::size_t pCount) {
+            const std::size_t aLogInterval =
+                static_cast<std::size_t>(std::max<std::uint32_t>(1u, peanutbutter::kProgressCountLogIntervalDefault));
+            if (pCount >= aLastProgressLogCount + aLogInterval) {
+              mLogger.LogStatus("[Decode][Discovery] Recursive scan discovered " +
+                                std::to_string(pCount) + " files so far.");
+              aLastProgressLogCount = pCount;
+            }
+            return true;
+          });
+    }
     for (const peanutbutter::DirectoryEntry& aEntry : aFiles) {
       if (!aEntry.mIsDirectory) {
         pArchiveFiles.push_back(aEntry.mPath);
@@ -1096,7 +1310,7 @@ class PBMockEngine final {
   }
 
   peanutbutter::FileSystem& mFileSystem;
-  const peanutbutter::Crypt& mCrypt;
+  peanutbutter::CryptGenerator mCryptGenerator;
   PBLogSession& mLogger;
   bool mLoggedBuildConstants = false;
 };
@@ -1340,17 +1554,16 @@ int main(int argc, char* argv[]) {
   auto* make_archive_source_folder_button = new QPushButton("Folder...", &window);
   auto* make_archive_destination_folder_button = new QPushButton("Folder...", &window);
   auto* make_archive_file_prefix_edit = new QLineEdit(&window);
-  auto* make_archive_password1_edit = new QLineEdit(&window);
-  auto* make_archive_password2_edit = new QLineEdit(&window);
+  auto* make_archive_password_edit = new QLineEdit(&window);
   auto* archive_size_combo = new QComboBox(&window);
+  auto* encryption_strength_combo = new QComboBox(&window);
   auto* bundle_button = new QPushButton("Bundle", &window);
   auto* open_archive_source_edit = new QLineEdit(&window);
   auto* open_archive_destination_edit = new QLineEdit(&window);
   auto* open_archive_source_file_button = new QPushButton("File...", &window);
   auto* open_archive_source_folder_button = new QPushButton("Folder...", &window);
   auto* open_archive_destination_folder_button = new QPushButton("Folder...", &window);
-  auto* open_archive_password1_edit = new QLineEdit(&window);
-  auto* open_archive_password2_edit = new QLineEdit(&window);
+  auto* open_archive_password_edit = new QLineEdit(&window);
   auto* recovery_mode_checkbox = new QCheckBox("Recovery Mode", &window);
   auto* unbundle_button = new QPushButton("Unbundle", &window);
   auto* compare_left_edit = new QLineEdit(&window);
@@ -1416,15 +1629,12 @@ int main(int argc, char* argv[]) {
   compare_left_edit->setPlaceholderText("Left Directory");
   compare_right_edit->setPlaceholderText("Right Directory");
   make_archive_file_prefix_edit->setPlaceholderText("Archive File Prefix");
-  make_archive_password1_edit->setPlaceholderText("Password1");
-  make_archive_password2_edit->setPlaceholderText("Password2");
-  open_archive_password1_edit->setPlaceholderText("Password1");
-  open_archive_password2_edit->setPlaceholderText("Password2");
-  make_archive_password1_edit->setEchoMode(QLineEdit::Password);
-  make_archive_password2_edit->setEchoMode(QLineEdit::Password);
-  open_archive_password1_edit->setEchoMode(QLineEdit::Password);
-  open_archive_password2_edit->setEchoMode(QLineEdit::Password);
+  make_archive_password_edit->setPlaceholderText("Password");
+  open_archive_password_edit->setPlaceholderText("Password");
+  make_archive_password_edit->setEchoMode(QLineEdit::Password);
+  open_archive_password_edit->setEchoMode(QLineEdit::Password);
   archive_size_combo->setToolTip("Select archive size in L3 blocks");
+  encryption_strength_combo->setToolTip("Select encryption strength");
   debug_console->setReadOnly(true);
   debug_console->setPlaceholderText("Debug console");
   debug_console->setStyleSheet(
@@ -1459,10 +1669,8 @@ int main(int argc, char* argv[]) {
                            compare_left_edit,
                            compare_right_edit,
                            make_archive_file_prefix_edit,
-                           make_archive_password1_edit,
-                           make_archive_password2_edit,
-                           open_archive_password1_edit,
-                           open_archive_password2_edit}) {
+                           make_archive_password_edit,
+                           open_archive_password_edit}) {
     aEdit->setFixedHeight(kElementHeight);
     aEdit->setTextMargins(0, 0, 0, 0);
     aEdit->setStyleSheet(
@@ -1534,42 +1742,130 @@ int main(int argc, char* argv[]) {
         "}");
   }
 
-  clear_logs_button->setFixedHeight(32);
+  bundle_button->setStyleSheet(
+      "QPushButton {"
+      "  background-color: #173e22;"
+      "  color: #f7fff8;"
+      "  border: 1px solid #3b8f54;"
+      "  border-radius: 8px;"
+      "  padding: 0 12px;"
+      "}"
+      "QPushButton:hover {"
+      "  background-color: #1d4c2a;"
+      "}"
+      "QPushButton:pressed {"
+      "  background-color: #14361e;"
+      "}"
+      "QPushButton:disabled {"
+      "  color: palette(mid);"
+      "}");
+  unbundle_button->setStyleSheet(
+      "QPushButton {"
+      "  background-color: #162c46;"
+      "  color: #f4f9ff;"
+      "  border: 1px solid #447fbc;"
+      "  border-radius: 8px;"
+      "  padding: 0 12px;"
+      "}"
+      "QPushButton:hover {"
+      "  background-color: #1b395a;"
+      "}"
+      "QPushButton:pressed {"
+      "  background-color: #132438;"
+      "}"
+      "QPushButton:disabled {"
+      "  color: palette(mid);"
+      "}");
+  compare_button->setStyleSheet(
+      "QPushButton {"
+      "  background-color: #4a3215;"
+      "  color: #fffaf2;"
+      "  border: 1px solid #c28b3b;"
+      "  border-radius: 8px;"
+      "  padding: 0 12px;"
+      "}"
+      "QPushButton:hover {"
+      "  background-color: #5b3d18;"
+      "}"
+      "QPushButton:pressed {"
+      "  background-color: #3c2811;"
+      "}"
+      "QPushButton:disabled {"
+      "  color: palette(mid);"
+      "}");
+
+  clear_logs_button->setFixedHeight(24);
   clear_logs_button->setFixedWidth(120);
-  scroll_to_bottom_button->setFixedHeight(32);
+  clear_logs_button->setStyleSheet(
+      "QPushButton {"
+      "  background-color: #000000;"
+      "  color: #f0f0f0;"
+      "  border: 1px solid #2a2a2a;"
+      "  border-radius: 8px;"
+      "  padding: 0 10px;"
+      "}"
+      "QPushButton:hover {"
+      "  background-color: #111111;"
+      "}"
+      "QPushButton:pressed {"
+      "  background-color: #1a1a1a;"
+      "}"
+      "QPushButton:disabled {"
+      "  color: palette(mid);"
+      "}");
+  scroll_to_bottom_button->setFixedHeight(24);
   scroll_to_bottom_button->setFixedWidth(140);
   scroll_to_bottom_button->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-
-  archive_size_combo->setFixedHeight(kElementHeight - 6);
-  archive_size_combo->setMinimumHeight(kElementHeight - 6);
-  archive_size_combo->setMaximumHeight(kElementHeight - 6);
-  archive_size_combo->setFixedWidth(kButtonGroupWidth);
-  archive_size_combo->setStyle(QStyleFactory::create("Fusion"));
-  archive_size_combo->setStyleSheet(
-      "QComboBox {"
-      "  min-height: 50px;"
-      "  max-height: 50px;"
-      "  height: 50px;"
-      "  padding: 2px 12px;"
-      "  border: 1px solid palette(mid);"
-      "  border-radius: 8px;"
-      "  background: #000000;"
+  scroll_to_bottom_button->setStyleSheet(
+      "QPushButton {"
+      "  background-color: #000000;"
       "  color: #f0f0f0;"
+      "  border: 1px solid #2a2a2a;"
+      "  border-radius: 8px;"
+      "  padding: 0 10px;"
       "}"
-      "QComboBox::drop-down {"
-      "  subcontrol-origin: padding;"
-      "  subcontrol-position: top right;"
-      "  width: 28px;"
-      "  border-left: 1px solid palette(mid);"
-      "  border-top: 0px;"
-      "  border-right: 0px;"
-      "  border-bottom: 0px;"
+      "QPushButton:hover {"
+      "  background-color: #111111;"
       "}"
-      "QComboBox::down-arrow {"
-      "  width: 12px;"
-      "  height: 12px;"
+      "QPushButton:pressed {"
+      "  background-color: #1a1a1a;"
+      "}"
+      "QPushButton:disabled {"
+      "  color: palette(mid);"
       "}");
-  archive_size_combo->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+  for (QComboBox* aComboBox : {archive_size_combo, encryption_strength_combo}) {
+    aComboBox->setFixedHeight(kElementHeight - 6);
+    aComboBox->setMinimumHeight(kElementHeight - 6);
+    aComboBox->setMaximumHeight(kElementHeight - 6);
+    aComboBox->setFixedWidth(kButtonGroupWidth);
+    aComboBox->setStyle(QStyleFactory::create("Fusion"));
+    aComboBox->setStyleSheet(
+        "QComboBox {"
+        "  min-height: 50px;"
+        "  max-height: 50px;"
+        "  height: 50px;"
+        "  padding: 2px 12px;"
+        "  border: 1px solid palette(mid);"
+        "  border-radius: 8px;"
+        "  background: #000000;"
+        "  color: #f0f0f0;"
+        "}"
+        "QComboBox::drop-down {"
+        "  subcontrol-origin: padding;"
+        "  subcontrol-position: top right;"
+        "  width: 28px;"
+        "  border-left: 1px solid palette(mid);"
+        "  border-top: 0px;"
+        "  border-right: 0px;"
+        "  border-bottom: 0px;"
+        "}"
+        "QComboBox::down-arrow {"
+        "  width: 12px;"
+        "  height: 12px;"
+        "}");
+    aComboBox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  }
 
   recovery_mode_checkbox->setFixedHeight(kElementHeight);
   recovery_mode_checkbox->setFixedWidth(kButtonGroupWidth);
@@ -1587,32 +1883,31 @@ int main(int argc, char* argv[]) {
   make_archive_options_layout->addWidget(make_archive_options_label);
   make_archive_options_layout->addWidget(make_archive_file_prefix_edit, 1);
   make_archive_options_layout->addWidget(archive_size_combo, 0, Qt::AlignRight);
+  make_archive_options_layout->addWidget(encryption_strength_combo, 0, Qt::AlignRight);
 
   auto* make_archive_footer_host = new QWidget(make_archive_tab);
   auto* make_archive_footer_layout = new QHBoxLayout(make_archive_footer_host);
-  auto* make_archive_passwords_label = new QLabel("Passwords", make_archive_footer_host);
+  auto* make_archive_password_label = new QLabel("Password", make_archive_footer_host);
   make_archive_footer_layout->setContentsMargins(0, 0, 0, 0);
   make_archive_footer_layout->setSpacing(8);
-  make_archive_passwords_label->setMinimumWidth(140);
-  make_archive_passwords_label->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
-  make_archive_footer_layout->addWidget(make_archive_passwords_label);
-  make_archive_footer_layout->addWidget(make_archive_password1_edit, 1);
-  make_archive_footer_layout->addWidget(make_archive_password2_edit, 1);
+  make_archive_password_label->setMinimumWidth(140);
+  make_archive_password_label->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
+  make_archive_footer_layout->addWidget(make_archive_password_label);
+  make_archive_footer_layout->addWidget(make_archive_password_edit, 1);
   make_archive_footer_layout->addWidget(bundle_button, 0, Qt::AlignRight);
 
   auto* open_archive_footer_host = new QWidget(open_archive_tab);
   auto* open_archive_footer_layout = new QHBoxLayout(open_archive_footer_host);
-  auto* open_archive_passwords_label = new QLabel("Passwords", open_archive_footer_host);
+  auto* open_archive_password_label = new QLabel("Password", open_archive_footer_host);
   auto* open_archive_checkbox_host = new QWidget(open_archive_tab);
   auto* open_archive_checkbox_layout = new QHBoxLayout(open_archive_checkbox_host);
   auto* open_archive_checkbox_spacer = new QLabel("", open_archive_checkbox_host);
   open_archive_footer_layout->setContentsMargins(0, 0, 0, 0);
   open_archive_footer_layout->setSpacing(8);
-  open_archive_passwords_label->setMinimumWidth(140);
-  open_archive_passwords_label->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
-  open_archive_footer_layout->addWidget(open_archive_passwords_label);
-  open_archive_footer_layout->addWidget(open_archive_password1_edit, 1);
-  open_archive_footer_layout->addWidget(open_archive_password2_edit, 1);
+  open_archive_password_label->setMinimumWidth(140);
+  open_archive_password_label->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
+  open_archive_footer_layout->addWidget(open_archive_password_label);
+  open_archive_footer_layout->addWidget(open_archive_password_edit, 1);
   open_archive_footer_layout->addWidget(unbundle_button, 0, Qt::AlignRight);
 
   open_archive_checkbox_layout->setContentsMargins(0, 0, 0, 0);
@@ -1630,8 +1925,10 @@ int main(int argc, char* argv[]) {
   compare_footer_layout->addWidget(compare_button, 0, Qt::AlignRight);
 
   for (QProgressBar* aIndicator : {make_archive_loading_indicator, open_archive_loading_indicator, compare_loading_indicator}) {
-    aIndicator->setRange(0, 0);
-    aIndicator->setTextVisible(false);
+    aIndicator->setRange(0, 1000);
+    aIndicator->setValue(0);
+    aIndicator->setTextVisible(true);
+    aIndicator->setFormat("%p%");
     aIndicator->setFixedHeight(kElementHeight);
     aIndicator->setFixedWidth(kButtonGroupWidth);
   }
@@ -1640,7 +1937,7 @@ int main(int argc, char* argv[]) {
     aButton->setFixedWidth(kButtonGroupWidth);
   }
   for (auto* aLayout : {make_archive_loading_layout, open_archive_loading_layout, compare_loading_layout}) {
-    aLayout->setContentsMargins(0, 0, 0, 0);
+    aLayout->setContentsMargins(0, 0, 0, 8);
     aLayout->addStretch(1);
   }
   make_archive_loading_layout->addWidget(make_archive_loading_title, 0, Qt::AlignHCenter);
@@ -1679,17 +1976,17 @@ int main(int argc, char* argv[]) {
   compare_left_edit->setText(aDefaultBundleSource);
   compare_right_edit->setText(aDefaultUnarchivePath);
   make_archive_file_prefix_edit->setText(configStringValue(aConfigDefaults, "default_file_prefix", "bundle_"));
-  const QString aDefaultPassword1 = configStringValue(aConfigDefaults, "default_password_1", "");
-  const QString aDefaultPassword2 = configStringValue(aConfigDefaults, "default_password_2", "");
-  make_archive_password1_edit->setText(aDefaultPassword1);
-  make_archive_password2_edit->setText(aDefaultPassword2);
-  open_archive_password1_edit->setText(aDefaultPassword1);
-  open_archive_password2_edit->setText(aDefaultPassword2);
+  const QString aDefaultPassword = configStringValue(
+      aConfigDefaults,
+      "default_password",
+      configStringValue(aConfigDefaults, "default_password_1", ""));
+  make_archive_password_edit->setText(aDefaultPassword);
+  open_archive_password_edit->setText(aDefaultPassword);
   recovery_mode_checkbox->setChecked(configBoolValue(aConfigDefaults, "default_recovery_mode", false));
 
   const std::uint32_t aConfiguredArchiveBlocks =
       configArchiveBlockCountValue(aConfigDefaults, archive_size_options[0].mBlocks);
-  int aDefaultArchiveIndex = 0;
+  int aDefaultArchiveIndex = 4;
   for (std::size_t aIndex = 0; aIndex < archive_size_options.size(); ++aIndex) {
     const ArchiveSizeOption& aOption = archive_size_options[aIndex];
     archive_size_combo->addItem(QString::fromUtf8(aOption.mLabel) +
@@ -1702,6 +1999,18 @@ int main(int argc, char* argv[]) {
     }
   }
   archive_size_combo->setCurrentIndex(aDefaultArchiveIndex);
+
+  int aDefaultEncryptionStrengthIndex = 0;
+  for (std::size_t aIndex = 0; aIndex < encryption_strength_options.size(); ++aIndex) {
+    const EncryptionStrengthOption& aOption = encryption_strength_options[aIndex];
+    encryption_strength_combo->addItem(
+        QString::fromUtf8(aOption.mLabel),
+        QVariant::fromValue(static_cast<int>(static_cast<std::uint8_t>(aOption.mStrength))));
+    if (aOption.mStrength == kDefaultBundleEncryptionStrength) {
+      aDefaultEncryptionStrengthIndex = static_cast<int>(aIndex);
+    }
+  }
+  encryption_strength_combo->setCurrentIndex(aDefaultEncryptionStrengthIndex);
 
   for (QLineEdit* aEdit : {make_archive_source_edit,
                            make_archive_destination_edit,
@@ -1806,7 +2115,7 @@ int main(int argc, char* argv[]) {
   layout->addWidget(workflow_tabs, 1);
   logs_row_layout->setContentsMargins(0, 0, 0, 0);
   logs_row_layout->setSpacing(8);
-  logs_row_host->setFixedHeight(32);
+  logs_row_host->setFixedHeight(24);
   logs_row_layout->addWidget(clear_logs_button, 0, Qt::AlignLeft);
   logs_row_layout->addWidget(scroll_to_bottom_button, 0, Qt::AlignLeft);
   logs_row_layout->addStretch(1);
@@ -1822,28 +2131,37 @@ int main(int argc, char* argv[]) {
                        {make_archive_stack,
                         make_archive_content,
                         make_archive_loading,
+                        make_archive_loading_indicator,
                         make_archive_loading_title,
                         make_archive_loading_detail,
                         make_archive_loading_cancel_button},
                        {open_archive_stack,
                         open_archive_content,
                         open_archive_loading,
+                        open_archive_loading_indicator,
                         open_archive_loading_title,
                         open_archive_loading_detail,
                         open_archive_loading_cancel_button},
                        {compare_stack,
                         compare_content,
                         compare_loading,
+                        compare_loading_indicator,
                         compare_loading_title,
                         compare_loading_detail,
                         compare_loading_cancel_button},
                    },
                    debug_console);
-  PBLogSession aLogger(aFileSystem, [&aShell](const std::string& pMessage, bool pIsError) {
-    aShell.AppendLog(QString::fromStdString(pIsError ? "[error] " + pMessage : pMessage));
-  });
-  peanutbutter::RotateMaskBlockCipher aCrypt(0xAA, 7);
-  PBMockEngine aEngine(aFileSystem, aCrypt, aLogger);
+  PBLogSession aLogger(
+      aFileSystem,
+      [&aShell](const std::string& pMessage, bool pIsError) {
+        aShell.AppendLog(QString::fromStdString(pIsError ? "[error] " + pMessage : pMessage));
+      },
+      [&aShell](const peanutbutter::ProgressInfo& pProgress) {
+        aShell.UpdateLoadingProgress(pProgress);
+      });
+  peanutbutter::CryptGenerator aCryptGenerator = MakePresetCryptGenerator();
+
+  PBMockEngine aEngine(aFileSystem, std::move(aCryptGenerator), aLogger);
   PBQtController aEntryPoint(aShell, aEngine, aFileSystem, &window);
 
   const auto beginLogSession = [&](const char* pPrimaryFileName, bool pMirrorShared) {
@@ -1921,13 +2239,15 @@ int main(int argc, char* argv[]) {
         archive_size_combo->currentData().value<qulonglong>() > 0
             ? static_cast<std::size_t>(archive_size_combo->currentData().value<qulonglong>())
             : 1;
+    const int aStrengthValue = encryption_strength_combo->currentData().toInt();
     PBBundleRequest aRequest;
     aRequest.mSourcePath = make_archive_source_edit->text().toStdString();
     aRequest.mDestinationPath = make_archive_destination_edit->text().toStdString();
     aRequest.mArchivePrefix = make_archive_file_prefix_edit->text().toStdString();
-    aRequest.mPasswordOne = make_archive_password1_edit->text().toStdString();
-    aRequest.mPasswordTwo = make_archive_password2_edit->text().toStdString();
+    aRequest.mPassword = make_archive_password_edit->text().toStdString();
     aRequest.mArchiveBlockCount = aSelectedBlocks;
+    aRequest.mEncryptionStrength =
+        static_cast<peanutbutter::EncryptionStrength>(static_cast<std::uint8_t>(aStrengthValue));
     aRequest.mUseEncryption = true;
     aEntryPoint.TriggerBundleFlow(aRequest);
   });
@@ -1936,8 +2256,7 @@ int main(int argc, char* argv[]) {
     PBDecodeRequest aRequest;
     aRequest.mSourcePath = open_archive_source_edit->text().toStdString();
     aRequest.mDestinationPath = open_archive_destination_edit->text().toStdString();
-    aRequest.mPasswordOne = open_archive_password1_edit->text().toStdString();
-    aRequest.mPasswordTwo = open_archive_password2_edit->text().toStdString();
+    aRequest.mPassword = open_archive_password_edit->text().toStdString();
     aRequest.mUseEncryption = true;
     aRequest.mRecoveryMode = recovery_mode_checkbox->isChecked();
     if (aRequest.mRecoveryMode) {

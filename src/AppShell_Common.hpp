@@ -13,8 +13,61 @@ namespace peanutbutter {
 
 class Logger;
 
+enum class ProgressPhase : std::uint8_t {
+  kPreflight = 0u,
+  kDiscovery = 1u,
+  kExpansion = 2u,
+  kLayerCake = 3u,
+  kFlight = 4u,
+};
+
+struct ProgressInfo {
+  std::string mModeName;
+  ProgressPhase mPhase = ProgressPhase::kPreflight;
+  double mOverallFraction = 0.0;
+  std::string mDetail;
+};
+
+const char* ProgressPhaseToString(ProgressPhase pPhase);
+
+inline constexpr double kBundleProgressFactorPreflight = 0.05;
+inline constexpr double kBundleProgressFactorDiscovery = 0.05;
+inline constexpr double kBundleProgressFactorExpansion = 0.05;
+inline constexpr double kBundleProgressFactorLayerCake = 0.05;
+inline constexpr double kBundleProgressFactorFlight =
+    1.0 - (kBundleProgressFactorPreflight +
+           kBundleProgressFactorDiscovery +
+           kBundleProgressFactorExpansion +
+           kBundleProgressFactorLayerCake);
+
+inline constexpr double kUnbundleProgressFactorPreflight = 0.05;
+inline constexpr double kUnbundleProgressFactorDiscovery = 0.05;
+inline constexpr double kUnbundleProgressFactorExpansion = 0.05;
+inline constexpr double kUnbundleProgressFactorLayerCake = 0.05;
+inline constexpr double kUnbundleProgressFactorFlight =
+    1.0 - (kUnbundleProgressFactorPreflight +
+           kUnbundleProgressFactorDiscovery +
+           kUnbundleProgressFactorExpansion +
+           kUnbundleProgressFactorLayerCake);
+
+enum class ProgressProfileKind : std::uint8_t {
+  kBundle = 0u,
+  kUnbundle = 1u,
+};
+
 std::string FormatHumanDurationSeconds(std::uint64_t pTotalSeconds);
 std::string FormatHumanBytes(std::uint64_t pBytes);
+std::string FormatPercent(std::uint64_t pCurrent, std::uint64_t pTotal);
+double ClampProgressFraction(double pValue);
+double ComputeOverallProgress(ProgressProfileKind pProfile,
+                              ProgressPhase pPhase,
+                              double pPhaseFraction);
+void ReportProgress(Logger& pLogger,
+                    const std::string& pModeName,
+                    ProgressProfileKind pProfile,
+                    ProgressPhase pPhase,
+                    double pPhaseFraction,
+                    const std::string& pDetail = std::string());
 
 class ElapsedTimeLogGate final {
  public:

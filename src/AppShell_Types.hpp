@@ -6,6 +6,9 @@
 #include <string>
 #include <vector>
 
+#include "AppShell_Common.hpp"
+#include "Encryption/Crypt.hpp"
+
 namespace peanutbutter {
 
 class Logger {
@@ -13,6 +16,7 @@ class Logger {
   virtual ~Logger() = default;
   virtual void LogStatus(const std::string& pMessage) = 0;
   virtual void LogError(const std::string& pMessage) = 0;
+  virtual void LogProgress(const ProgressInfo&) {}
 };
 
 class NullLogger final : public Logger {
@@ -25,13 +29,16 @@ class CapturingLogger final : public Logger {
  public:
   void LogStatus(const std::string& pMessage) override;
   void LogError(const std::string& pMessage) override;
+  void LogProgress(const ProgressInfo& pProgress) override;
 
- const std::vector<std::string>& StatusMessages() const;
+  const std::vector<std::string>& StatusMessages() const;
   const std::vector<std::string>& ErrorMessages() const;
+  const std::vector<ProgressInfo>& ProgressEvents() const;
 
  private:
   std::vector<std::string> mStatusMessages;
   std::vector<std::string> mErrorMessages;
+  std::vector<ProgressInfo> mProgressEvents;
 };
 
 enum class ErrorCode : std::uint32_t {
@@ -67,6 +74,8 @@ struct BundleRequest {
   std::string mPasswordTwo;
   std::uint32_t mArchiveBlockCount = 1;
   bool mUseEncryption = false;
+  EncryptionStrength mEncryptionStrength = EncryptionStrength::kHigh;
+  CryptGenerator mCryptGenerator;
 };
 
 struct UnbundleRequest {
@@ -75,6 +84,7 @@ struct UnbundleRequest {
   std::string mPasswordTwo;
   bool mUseEncryption = false;
   bool mRecoverMode = false;
+  CryptGenerator mCryptGenerator;
 };
 
 struct ValidateRequest {
@@ -110,6 +120,7 @@ struct BundleDiscovery {
   std::vector<SourceEntry> mResolvedEntries;
   std::vector<BundleArchivePlan> mArchives;
   std::vector<std::uint64_t> mRecordStartLogicalOffsets;
+  std::uint64_t mArchiveFamilyId = 0;
   std::uint64_t mTotalLogicalBytes = 0;
   std::uint64_t mTotalFileBytes = 0;
   std::size_t mFileCount = 0;

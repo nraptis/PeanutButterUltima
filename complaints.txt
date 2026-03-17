@@ -1,0 +1,5 @@
+1.) It is very weird with no progress bar. We should easily be able to compute % complete for each of these flows.
+2.) The "unbundle" flow is brittle. What I wanted it to do: naively march forward, even when it would encounter an error down the line. I can delete the last archive of 50000 and it will immediately quit the "unpack" flow. The recover flow works great, it seems like.
+3.) We don't have a good plan to start migrating bits of this code into 'gold standard' code. We want to isolate the bits that are strongly verified.
+4.) Cancel button needs 8 bottom padding.
+5.) "Clear Logs" and "Scroll to bottom" can have less padding on top/bottom, these are little helper buttons.

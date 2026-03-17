@@ -6,7 +6,6 @@
 
 #include "AppShell_Common.hpp"
 #include "AppShell_Types.hpp"
-#include "Encryption/Crypt.hpp"
 #include "IO/FileSystem.hpp"
 
 namespace peanutbutter {
@@ -14,14 +13,12 @@ namespace peanutbutter {
 OperationResult Unbundle(const UnbundleRequest& pRequest,
                          const std::vector<std::string>& pArchiveFileList,
                          FileSystem& pFileSystem,
-                         const Crypt& pCrypt,
                          Logger& pLogger,
                          CancelCoordinator* pCancelCoordinator = nullptr);
 
 OperationResult Recover(const UnbundleRequest& pRequest,
                         const std::vector<std::string>& pArchiveFileList,
                         FileSystem& pFileSystem,
-                        const Crypt& pCrypt,
                         Logger& pLogger,
                         CancelCoordinator* pCancelCoordinator = nullptr);
 

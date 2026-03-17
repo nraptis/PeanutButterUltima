@@ -10,12 +10,20 @@ void CapturingLogger::LogError(const std::string& pMessage) {
   mErrorMessages.push_back(pMessage);
 }
 
+void CapturingLogger::LogProgress(const ProgressInfo& pProgress) {
+  mProgressEvents.push_back(pProgress);
+}
+
 const std::vector<std::string>& CapturingLogger::StatusMessages() const {
   return mStatusMessages;
 }
 
 const std::vector<std::string>& CapturingLogger::ErrorMessages() const {
   return mErrorMessages;
+}
+
+const std::vector<ProgressInfo>& CapturingLogger::ProgressEvents() const {
+  return mProgressEvents;
 }
 
 const char* ErrorCodeToString(ErrorCode pCode) {

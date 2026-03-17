@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_PeanutButterUltima_FILE /Users/magneto/Desktop/Codex Playground/PeanutButterUltima/build-debug/PeanutButterUltima.app/Contents/MacOS/PeanutButterUltima)
+set(__QT_DEPLOY_TARGET_PeanutButterUltima_TYPE EXECUTABLE)

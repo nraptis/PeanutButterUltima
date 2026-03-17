@@ -77,6 +77,21 @@ inline void WriteLe64(unsigned char* pBuffer, std::size_t pOffset, std::uint64_t
   }
 }
 
+void WriteArchiveHeaderPrefixBytes(const ArchiveHeader& pHeader, unsigned char* pBuffer) {
+  WriteLe32(pBuffer, 0, pHeader.mMagic);
+  WriteLe16(pBuffer, 4, pHeader.mVersionMajor);
+  WriteLe16(pBuffer, 6, pHeader.mVersionMinor);
+  WriteLe32(pBuffer, 8, pHeader.mArchiveIndex);
+  WriteLe32(pBuffer, 12, pHeader.mArchiveCount);
+  WriteLe32(pBuffer, 16, pHeader.mPayloadLength);
+  pBuffer[20] = pHeader.mRecordCountMod256;
+  pBuffer[21] = pHeader.mFolderCountMod256;
+  pBuffer[22] = static_cast<std::uint8_t>(pHeader.mEncryptionStrength);
+  pBuffer[23] = pHeader.mReserved8;
+  WriteLe64(pBuffer, 24, pHeader.mReservedA);
+  WriteLe64(pBuffer, 32, pHeader.mReservedB);
+}
+
 }  // namespace
 
 Checksum ComputeRecoveryChecksum(const unsigned char* pPlainBlockData,
@@ -93,6 +108,7 @@ Checksum ComputeRecoveryChecksum(const unsigned char* pPlainBlockData,
   std::uint64_t aState2 = kFnvOffsetBasis64 ^ 0x8877665544332211ULL;
   std::uint64_t aState3 = kFnvOffsetBasis64 ^ 0xA5A5A5A5A5A5A5A5ULL;
   std::uint64_t aState4 = kFnvOffsetBasis64 ^ 0x5A5A5A5A5A5A5A5AULL;
+  std::uint64_t aState5 = kFnvOffsetBasis64 ^ 0x13579BDF2468ACE0ULL;
 
   for (std::size_t aIndex = 0; aIndex < aPayloadLength; ++aIndex) {
     const unsigned char aByte = aPayload[aIndex];
@@ -100,6 +116,8 @@ Checksum ComputeRecoveryChecksum(const unsigned char* pPlainBlockData,
     aState2 = Fnv1aUpdate(aState2, static_cast<unsigned char>(aByte ^ 0x5Au));
     aState3 = Fnv1aUpdate(aState3, static_cast<unsigned char>(aByte + static_cast<unsigned char>(aIndex & 0xFFu)));
     aState4 = Fnv1aUpdate(aState4, static_cast<unsigned char>(aByte ^ static_cast<unsigned char>((aIndex * 131u) & 0xFFu)));
+    aState5 = Fnv1aUpdate(aState5,
+                          static_cast<unsigned char>(aByte + static_cast<unsigned char>(((aPayloadLength - 1u - aIndex) * 17u) & 0xFFu)));
   }
 
   unsigned char aSkipBytes[8] = {};
@@ -119,11 +137,14 @@ Checksum ComputeRecoveryChecksum(const unsigned char* pPlainBlockData,
   aState3 = HashBytes(aTaggedSkip, sizeof(aTaggedSkip), aState3);
   aTaggedSkip[8] = 4u;
   aState4 = HashBytes(aTaggedSkip, sizeof(aTaggedSkip), aState4);
+  aTaggedSkip[8] = 5u;
+  aState5 = HashBytes(aTaggedSkip, sizeof(aTaggedSkip), aState5);
 
   aOut.mWord1 = MixU64(aState1);
   aOut.mWord2 = MixU64(aState2);
   aOut.mWord3 = MixU64(aState3);
   aOut.mWord4 = MixU64(aState4);
+  aOut.mWord5 = MixU64(aState5);
   return aOut;
 }
 
@@ -131,7 +152,8 @@ bool ChecksumsEqual(const Checksum& pLeft, const Checksum& pRight) {
   return pLeft.mWord1 == pRight.mWord1 &&
          pLeft.mWord2 == pRight.mWord2 &&
          pLeft.mWord3 == pRight.mWord3 &&
-         pLeft.mWord4 == pRight.mWord4;
+         pLeft.mWord4 == pRight.mWord4 &&
+         pLeft.mWord5 == pRight.mWord5;
 }
 
 bool ReadArchiveHeaderBytes(const unsigned char* pBuffer,
@@ -150,9 +172,12 @@ bool ReadArchiveHeaderBytes(const unsigned char* pBuffer,
   pOutHeader.mPayloadLength = ReadLe32(pBuffer, 16);
   pOutHeader.mRecordCountMod256 = pBuffer[20];
   pOutHeader.mFolderCountMod256 = pBuffer[21];
-  pOutHeader.mReserved16 = ReadLe16(pBuffer, 22);
+  pOutHeader.mEncryptionStrength =
+      static_cast<EncryptionStrength>(pBuffer[22]);
+  pOutHeader.mReserved8 = pBuffer[23];
   pOutHeader.mReservedA = ReadLe64(pBuffer, 24);
   pOutHeader.mReservedB = ReadLe64(pBuffer, 32);
+  pOutHeader.mArchiveFamilyId = ReadLe64(pBuffer, 40);
 
   if (pOutHeader.mMagic != kMagicHeaderBytes) {
     return false;
@@ -162,6 +187,14 @@ bool ReadArchiveHeaderBytes(const unsigned char* pBuffer,
   }
   if (pOutHeader.mVersionMinor != static_cast<std::uint16_t>(kMinorVersion & 0xFFFFu)) {
     return false;
+  }
+  switch (pOutHeader.mEncryptionStrength) {
+    case EncryptionStrength::kHigh:
+    case EncryptionStrength::kMedium:
+    case EncryptionStrength::kLow:
+      break;
+    default:
+      return false;
   }
   return true;
 }
@@ -173,17 +206,8 @@ bool WriteArchiveHeaderBytes(const ArchiveHeader& pHeader,
     return false;
   }
 
-  WriteLe32(pBuffer, 0, pHeader.mMagic);
-  WriteLe16(pBuffer, 4, pHeader.mVersionMajor);
-  WriteLe16(pBuffer, 6, pHeader.mVersionMinor);
-  WriteLe32(pBuffer, 8, pHeader.mArchiveIndex);
-  WriteLe32(pBuffer, 12, pHeader.mArchiveCount);
-  WriteLe32(pBuffer, 16, pHeader.mPayloadLength);
-  pBuffer[20] = pHeader.mRecordCountMod256;
-  pBuffer[21] = pHeader.mFolderCountMod256;
-  WriteLe16(pBuffer, 22, pHeader.mReserved16);
-  WriteLe64(pBuffer, 24, pHeader.mReservedA);
-  WriteLe64(pBuffer, 32, pHeader.mReservedB);
+  WriteArchiveHeaderPrefixBytes(pHeader, pBuffer);
+  WriteLe64(pBuffer, 40, pHeader.mArchiveFamilyId);
   return true;
 }
 
@@ -198,9 +222,10 @@ bool ReadRecoveryHeaderBytes(const unsigned char* pBuffer,
   pOutHeader.mChecksum.mWord2 = ReadLe64(pBuffer, 8);
   pOutHeader.mChecksum.mWord3 = ReadLe64(pBuffer, 16);
   pOutHeader.mChecksum.mWord4 = ReadLe64(pBuffer, 24);
-  pOutHeader.mSkip.mArchiveDistance = ReadLe16(pBuffer, 32);
-  pOutHeader.mSkip.mBlockDistance = ReadLe16(pBuffer, 34);
-  pOutHeader.mSkip.mByteDistance = ReadLe32(pBuffer, 36);
+  pOutHeader.mChecksum.mWord5 = ReadLe64(pBuffer, 32);
+  pOutHeader.mSkip.mArchiveDistance = ReadLe16(pBuffer, 40);
+  pOutHeader.mSkip.mBlockDistance = ReadLe16(pBuffer, 42);
+  pOutHeader.mSkip.mByteDistance = ReadLe32(pBuffer, 44);
   return true;
 }
 
@@ -214,9 +239,10 @@ bool WriteRecoveryHeaderBytes(const RecoveryHeader& pHeader,
   WriteLe64(pBuffer, 8, pHeader.mChecksum.mWord2);
   WriteLe64(pBuffer, 16, pHeader.mChecksum.mWord3);
   WriteLe64(pBuffer, 24, pHeader.mChecksum.mWord4);
-  WriteLe16(pBuffer, 32, pHeader.mSkip.mArchiveDistance);
-  WriteLe16(pBuffer, 34, pHeader.mSkip.mBlockDistance);
-  WriteLe32(pBuffer, 36, pHeader.mSkip.mByteDistance);
+  WriteLe64(pBuffer, 32, pHeader.mChecksum.mWord5);
+  WriteLe16(pBuffer, 40, pHeader.mSkip.mArchiveDistance);
+  WriteLe16(pBuffer, 42, pHeader.mSkip.mBlockDistance);
+  WriteLe32(pBuffer, 44, pHeader.mSkip.mByteDistance);
   return true;
 }
 

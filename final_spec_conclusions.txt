@@ -1,61 +1,56 @@
-Final Specification Conclusions
-==============================
+Final Archive Process Conclusions
+=================================
 
-Project conclusion
-- The core engine direction is now stable: stream-based bundle/unbundle/recover, fixed archive format, strong block integrity checks, and practical recovery behavior for real-world disk damage.
+Current conclusions
+- The current format is a fixed-size block archive family, not a manifest-plus-data format.
+- Each archive file starts with one archive header and then stores a fixed number of L3 blocks.
+- Each L3 block carries its own recovery header, checksum, and recovery stride.
+- The logical payload stream is simple:
+  - path length
+  - path
+  - content length
+  - content bytes
+  - terminator
 
-Decision history (what we tried, what we learned)
+Current operational model
+- Archive is deterministic from sorted relative paths.
+- Strict unbundle trusts only blocks that:
+  - can be read
+  - can be unsealed (decrypted)
+  - expose a valid recovery header
+  - match the stored checksum
+  - parse into valid records
+- Recover is intentionally less strict:
+  - it drops damaged regions
+  - it resets parser state after damage
+  - it can jump forward using the stored recovery stride after record-parse failures
 
-Recovery header placement
-- We tried recovery headers in L1 blocks.
-- We moved recovery headers to L3 blocks.
-- Final decision: L3 placement gave cleaner block-level recovery semantics and better alignment with streaming decode/recover behavior.
+Directory model
+- Only empty directories are stored as standalone records.
+- Non-empty directories are recreated implicitly from file paths.
 
-Archive discovery and ordering
-- We tried archive-index header-flag based file sorting.
-- We tried several by-file-name sorting flavors.
-- Final decision: filename-template discovery with numeric index ordering and gap-aware archive boxes is the most practical and resilient for damaged/missing archive sets.
+Padding and sizing model
+- Unused payload space inside a block is zero-padded before the block is sealed.
+- The checksum therefore protects:
+  - record bytes
+  - terminator bytes
+  - any remaining zero padding
 
-Checksum models
-- We tried runs without checksums.
-- We tried payload-only checksums.
-- We tried payload + recovery-stride checksums.
-- Final decision: strong checksum including payload + full recovery stride fields is the best model for corruption detection and recovery control.
+Discovery model
+- Decode discovery is part of the current format contract.
+- The reader depends on:
+  - filename parsing for numeric archive indices
+  - header family id when readable headers are available
+  - dense gap-aware archive-box construction
 
-Recovery stride model
-- We tried more than 10 recovery stride variants.
-- Final decision: validated stride semantics integrated with checksum verification produced the most reliable recovery behavior.
+Practical summary
+- The current implementation prioritizes:
+  - deterministic write order
+  - block integrity checks
+  - gap detection in strict mode
+  - survivable best-effort recovery in recover mode
 
-Record framing picks
-- File content length field size (6-byte concept phase): final framing choice converged correctly on first decisive attempt.
-- Path length field size (2-byte): chosen correctly on first attempt.
-- Final structure remains straightforward and durable for streaming parse.
-
-Metadata/layout variants
-- We tried a files + manifest model with a separator flag.
-- We tried a model where files and folders shared naming space.
-- Final decision: direct record stream (path-length, path, content-length, content) with directory marker was simpler and more robust.
-
-Fence/error experimentation
-- We ran many fence/error-trial variants and simplifications.
-- Final decision: reduce branchy flag complexity, keep trap-able error codes, and preserve recover-vs-strict behavioral separation.
-
-Largest challenge
-- The hardest problem was archive recovery under realistic corruption and missing-archive conditions.
-- Final conclusion: the strong-checksum + recovery-stride model works excellently for archive recovery in the current design.
-
-Future work
-- Add dedicated recovery records (data sections packaged specifically for recovery) to make archives safer and improve recovery confidence under multi-region damage.
-
-Philosophy manifesto
-- Traditional archive tools were built for an era where saving bytes was the top priority.
-- Real user pain now is often catastrophic failure modes: hard-drive failures, sector damage, and single-byte corruption causing full archive loss.
-- Compression is no longer always the primary need.
-- The stronger need is chunked archival systems that:
-  a.) do not take forever to index, even with very large file sets,
-  b.) fit practical filesystem constraints (including exFAT and FAT32 transfer workflows),
-  c.) support strong layer-cake encryption,
-  d.) provide strong recovery paths so total data loss is rare.
-
-Final statement
-- This project’s final direction prioritizes survivability, operational clarity, and recoverability over legacy assumptions.
+Companion notes
+- `file_format.txt` contains the clearest binary-layout diagrams.
+- `README.md` explains the archive, unarchive, and recover process in workflow terms.
+- `inconsistencies.txt` lists the remaining oddities in the current implementation.

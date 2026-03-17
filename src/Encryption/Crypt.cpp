@@ -1,9 +1,8 @@
-#include "Encryption/Crypt.hpp"
+#include "Crypt.hpp"
 
-#include <algorithm>
 #include <cstring>
 
-#include "PeanutButter.hpp"
+#include "../PeanutButter.hpp"
 
 namespace peanutbutter {
 
@@ -26,19 +25,6 @@ bool HasUsableBuffers(const unsigned char* pSource,
   return pSource != nullptr && pDestination != nullptr;
 }
 
-void CopyWithFixedL3Blocks(const unsigned char* pSource,
-                           unsigned char* pDestination,
-                           std::size_t pLength) {
-  std::size_t aOffset = 0;
-  while (aOffset < pLength) {
-    const std::size_t aChunkLength = std::min(kBlockSizeL3, pLength - aOffset);
-    L3BlockBuffer aBlock{};
-    std::memcpy(aBlock.Data(), pSource + aOffset, aChunkLength);
-    std::memcpy(pDestination + aOffset, aBlock.Data(), aChunkLength);
-    aOffset += aChunkLength;
-  }
-}
-
 }  // namespace
 
 bool PassthroughCrypt::SealData(const unsigned char* pSource,
@@ -51,7 +37,9 @@ bool PassthroughCrypt::SealData(const unsigned char* pSource,
   if (!HasUsableBuffers(pSource, pWorker, pDestination, pLength)) {
     return Fail("encrypt failed: invalid source or destination buffer.", pErrorMessage);
   }
-  CopyWithFixedL3Blocks(pSource, pDestination, pLength);
+  if (pLength != 0 && pSource != pDestination) {
+    std::memcpy(pDestination, pSource, pLength);
+  }
   return true;
 }
 
@@ -65,7 +53,9 @@ bool PassthroughCrypt::UnsealData(const unsigned char* pSource,
   if (!HasUsableBuffers(pSource, pWorker, pDestination, pLength)) {
     return Fail("decrypt failed: invalid source or destination buffer.", pErrorMessage);
   }
-  CopyWithFixedL3Blocks(pSource, pDestination, pLength);
+  if (pLength != 0 && pSource != pDestination) {
+    std::memcpy(pDestination, pSource, pLength);
+  }
   return true;
 }
 

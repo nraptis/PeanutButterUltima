@@ -39,6 +39,9 @@ if(PEANUT_BUTTER_ULTIMA_BUILD_TESTS)
       src/AppShell_Sanity.cpp
       src/AppShell_Types.cpp
       src/AppShell_Unbundle.cpp
+      src/Encryption/Crypt.cpp
+      src/Encryption/EncryptionLayer.cpp
+      src/Encryption/LayeredCrypt.cpp
       src/IO/FileSystem.cpp
   )
 
@@ -87,6 +90,8 @@ if(PEANUT_BUTTER_ULTIMA_BUILD_APP)
       src/AppShell_Types.cpp
       src/AppShell_Unbundle.cpp
       src/Encryption/Crypt.cpp
+      src/Encryption/EncryptionLayer.cpp
+      src/Encryption/LayeredCrypt.cpp
       src/IO/FileSystem.cpp
       src/IO/LocalFileSystem.cpp
       ${PB_WINDOWS_RC_SOURCE}

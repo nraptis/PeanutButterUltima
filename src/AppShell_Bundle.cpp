@@ -14,6 +14,115 @@
 namespace peanutbutter {
 namespace {
 
+constexpr std::uint64_t kFnvOffsetBasis64 = 1469598103934665603ULL;
+constexpr std::uint64_t kFnvPrime64 = 1099511628211ULL;
+
+std::uint64_t Fnv1aUpdate(std::uint64_t pState, unsigned char pByte) {
+  pState ^= static_cast<std::uint64_t>(pByte);
+  pState *= kFnvPrime64;
+  return pState;
+}
+
+std::uint64_t HashBytes(std::uint64_t pState, const unsigned char* pData, std::size_t pLength) {
+  if (pData == nullptr) {
+    return pState;
+  }
+  for (std::size_t aIndex = 0; aIndex < pLength; ++aIndex) {
+    pState = Fnv1aUpdate(pState, pData[aIndex]);
+  }
+  return pState;
+}
+
+std::uint64_t HashString(std::uint64_t pState, const std::string& pValue) {
+  return HashBytes(pState,
+                   reinterpret_cast<const unsigned char*>(pValue.data()),
+                   pValue.size());
+}
+
+std::uint64_t MixU64(std::uint64_t pValue) {
+  pValue ^= (pValue >> 33);
+  pValue *= 0xff51afd7ed558ccdULL;
+  pValue ^= (pValue >> 33);
+  pValue *= 0xc4ceb9fe1a85ec53ULL;
+  pValue ^= (pValue >> 33);
+  return pValue;
+}
+
+std::uint64_t ComputeArchiveFamilyId(const BundleRequest& pRequest,
+                                     const BundleDiscovery& pDiscovery) {
+  std::uint64_t aState = kFnvOffsetBasis64 ^ 0x9E3779B97F4A7C15ULL;
+  aState = HashString(aState, pRequest.mArchivePrefix);
+  aState = HashString(aState, pRequest.mSourceStem);
+  aState = HashString(aState, pRequest.mArchiveSuffix);
+  aState = HashString(aState, pRequest.mDestinationDirectory);
+
+  const std::uint64_t aMeta[] = {
+      static_cast<std::uint64_t>(pDiscovery.mArchives.size()),
+      static_cast<std::uint64_t>(pDiscovery.mTotalLogicalBytes),
+      static_cast<std::uint64_t>(pDiscovery.mTotalFileBytes),
+      static_cast<std::uint64_t>(pDiscovery.mFileCount),
+      static_cast<std::uint64_t>(pDiscovery.mFolderCount),
+      static_cast<std::uint64_t>(pRequest.mArchiveBlockCount),
+      pRequest.mUseEncryption ? 1ull : 0ull,
+      static_cast<std::uint64_t>(static_cast<std::uint8_t>(pRequest.mEncryptionStrength)),
+  };
+  aState = HashBytes(aState,
+                     reinterpret_cast<const unsigned char*>(aMeta),
+                     sizeof(aMeta));
+  return MixU64(aState);
+}
+
+std::unique_ptr<Crypt> CreateRequestedCrypt(const CryptGenerator& pGenerator,
+                                            const CryptGeneratorRequest& pRequest,
+                                            std::string* pErrorMessage) {
+  if (!pGenerator) {
+    if (pErrorMessage != nullptr) {
+      *pErrorMessage = "crypt generator is not configured.";
+    }
+    return {};
+  }
+  std::unique_ptr<Crypt> aCrypt = pGenerator(pRequest, pErrorMessage);
+  if (aCrypt == nullptr && pErrorMessage != nullptr && pErrorMessage->empty()) {
+    *pErrorMessage = "crypt generator returned no crypt.";
+  }
+  return aCrypt;
+}
+
+void ReportBundleCryptStageProgress(Logger& pLogger,
+                                    CryptGenerationStage pStage,
+                                    double pStageFraction) {
+  switch (pStage) {
+    case CryptGenerationStage::kExpansion:
+      ReportProgress(pLogger,
+                     "Bundle",
+                     ProgressProfileKind::kBundle,
+                     ProgressPhase::kExpansion,
+                     pStageFraction,
+                     "Expanding crypt tables.");
+      break;
+    case CryptGenerationStage::kLayerCake:
+      ReportProgress(pLogger,
+                     "Bundle",
+                     ProgressProfileKind::kBundle,
+                     ProgressPhase::kLayerCake,
+                     pStageFraction,
+                     "Building layer cake.");
+      break;
+  }
+}
+
+std::string AppendWriteStreamError(const std::string& pBaseMessage,
+                                   const FileWriteStream* pWriteStream) {
+  if (pWriteStream == nullptr) {
+    return pBaseMessage;
+  }
+  const std::string aDetail = pWriteStream->LastErrorMessage();
+  if (aDetail.empty()) {
+    return pBaseMessage;
+  }
+  return pBaseMessage + " (" + aDetail + ")";
+}
+
 struct RecordInfo {
   std::string mSourcePath;
   std::string mRelativePath;
@@ -231,6 +340,10 @@ class BundleLogicalStream final {
     return mReachedStopBoundary;
   }
 
+  std::size_t PackedItemCount() const {
+    return mRecordIndex;
+  }
+
  private:
   enum class Stage {
     kPathLength,
@@ -274,7 +387,7 @@ class BundleLogicalStream final {
 
     mCurrentRecordDisplayName = RecordDisplayName(mFileSystem, mCurrentRecordRelativePath);
     if (!mCurrentRecordIsDirectory) {
-      mLogger.LogStatus("[Bundle][Flight] Writing file: [[ " + mCurrentRecordDisplayName + " ]].");
+      // mLogger.LogStatus("[Bundle][Flight] Writing file: [[ " + mCurrentRecordDisplayName + " ]].");
       mCurrentRead = mFileSystem.OpenReadStream(aRecord.mSourcePath);
     }
 
@@ -283,7 +396,7 @@ class BundleLogicalStream final {
 
   void FinishRecord() {
     if (!mCurrentRecordIsDirectory) {
-      mLogger.LogStatus("[Bundle][Flight] File packed: [[ " + mCurrentRecordDisplayName + " ]].");
+      //mLogger.LogStatus("[Bundle][Flight] File packed: [[ " + mCurrentRecordDisplayName + " ]].");
       if (mStopAfterCurrentFileRequested) {
         mReachedStopBoundary = true;
         mDone = true;
@@ -332,6 +445,12 @@ OperationResult DiscoverBundlePlan(const BundleRequest& pRequest,
                                    BundleDiscovery& pOutDiscovery,
                                    CancelCoordinator* pCancelCoordinator) {
   pOutDiscovery = BundleDiscovery{};
+  ReportProgress(pLogger,
+                 "Bundle",
+                 ProgressProfileKind::kBundle,
+                 ProgressPhase::kDiscovery,
+                 0.0,
+                 "Scanning source entries.");
 
   if (pRequest.mDestinationDirectory.empty()) {
     return MakeFailure(ErrorCode::kInvalidRequest, "destination directory is required.", pLogger);
@@ -385,6 +504,17 @@ OperationResult DiscoverBundlePlan(const BundleRequest& pRequest,
 
     if ((aIndex + 1u) % static_cast<std::size_t>(std::max<std::uint32_t>(1u, kProgressCountLogIntervalDefault)) == 0u) {
       pLogger.LogStatus("[Bundle][Discovery] Scanned " + std::to_string(aIndex + 1u) + " source entries.");
+    }
+    if (((aIndex + 1u) % 128u) == 0u || (aIndex + 1u) == pOutDiscovery.mResolvedEntries.size()) {
+      ReportProgress(pLogger,
+                     "Bundle",
+                     ProgressProfileKind::kBundle,
+                     ProgressPhase::kDiscovery,
+                     pOutDiscovery.mResolvedEntries.empty()
+                         ? 1.0
+                         : (static_cast<double>(aIndex + 1u) /
+                            static_cast<double>(pOutDiscovery.mResolvedEntries.size())),
+                     "Scanning source entries.");
     }
   }
 
@@ -471,6 +601,7 @@ OperationResult DiscoverBundlePlan(const BundleRequest& pRequest,
   pOutDiscovery.mTotalFileBytes = aTotalFileBytes;
   pOutDiscovery.mFileCount = aFileCount;
   pOutDiscovery.mFolderCount = aFolderCount;
+  pOutDiscovery.mArchiveFamilyId = ComputeArchiveFamilyId(pRequest, pOutDiscovery);
 
   pLogger.LogStatus("[Bundle][Discovery] Found " + std::to_string(aFileCount) +
                     " files and " + std::to_string(aFolderCount) + " empty folders.");
@@ -478,13 +609,18 @@ OperationResult DiscoverBundlePlan(const BundleRequest& pRequest,
   pLogger.LogStatus("[Bundle][Discovery] Planned " + std::to_string(aArchiveCount) +
                     " archives, " + std::to_string(pOutDiscovery.mResolvedEntries.size() + 1u) +
                     " records, payload " + FormatHumanBytes(aTotalFileBytes) + " DONE.");
+  ReportProgress(pLogger,
+                 "Bundle",
+                 ProgressProfileKind::kBundle,
+                 ProgressPhase::kDiscovery,
+                 1.0,
+                 "Bundle discovery complete.");
   return MakeSuccess();
 }
 
 OperationResult PerformBundleFlight(const BundleRequest& pRequest,
                                     const BundleDiscovery& pDiscovery,
                                     FileSystem& pFileSystem,
-                                    const Crypt& pCrypt,
                                     Logger& pLogger,
                                     CancelCoordinator* pCancelCoordinator) {
   if (pDiscovery.mArchives.empty()) {
@@ -497,6 +633,41 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
 
   pLogger.LogStatus("[Bundle][Flight] Writing " + std::to_string(pDiscovery.mArchives.size()) +
                     " archives to '" + pRequest.mDestinationDirectory + "' START.");
+
+  std::unique_ptr<Crypt> aGeneratedCrypt;
+  if (pRequest.mUseEncryption) {
+    CryptGeneratorRequest aCryptRequest;
+    aCryptRequest.mEncryptionStrength = pRequest.mEncryptionStrength;
+    aCryptRequest.mPasswordOne = pRequest.mPasswordOne;
+    aCryptRequest.mPasswordTwo = pRequest.mPasswordTwo;
+    aCryptRequest.mUseEncryption = pRequest.mUseEncryption;
+    aCryptRequest.mLogStatus = [&pLogger](const std::string& pMessage) {
+      pLogger.LogStatus(pMessage);
+    };
+    aCryptRequest.mReportProgress = [&pLogger](CryptGenerationStage pStage, double pStageFraction) {
+      ReportBundleCryptStageProgress(pLogger, pStage, pStageFraction);
+    };
+    std::string aCryptError;
+    aGeneratedCrypt = CreateRequestedCrypt(pRequest.mCryptGenerator, aCryptRequest, &aCryptError);
+    if (aGeneratedCrypt == nullptr) {
+      return MakeFailure(ErrorCode::kCrypt,
+                         aCryptError.empty() ? "failed creating bundle crypt." : aCryptError,
+                         pLogger);
+    }
+  } else {
+    ReportProgress(pLogger,
+                   "Bundle",
+                   ProgressProfileKind::kBundle,
+                   ProgressPhase::kExpansion,
+                   1.0,
+                   "Encryption disabled.");
+    ReportProgress(pLogger,
+                   "Bundle",
+                   ProgressProfileKind::kBundle,
+                   ProgressPhase::kLayerCake,
+                   1.0,
+                   "Encryption disabled.");
+  }
 
   std::vector<RecordInfo> aRecords;
   aRecords.reserve(pDiscovery.mResolvedEntries.size());
@@ -513,9 +684,9 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
   }
 
   BundleLogicalStream aStream(aRecords, pFileSystem, pLogger);
-  L3BlockBuffer aPlainBlock{};
-  L3BlockBuffer aEncryptedBlock{};
-  L3BlockBuffer aWorkerBlock{};
+  BlockBuffer aPlainBlock;
+  BlockBuffer aEncryptedBlock;
+  BlockBuffer aWorkerBlock;
 
   std::uint64_t aLogicalBytesWritten = 0u;
   std::uint64_t aFileBytesWritten = 0u;
@@ -523,6 +694,12 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
   std::size_t aArchivesWritten = 0u;
   bool aLoggedCancelFinishFile = false;
   bool aLoggedCancelBoundary = false;
+  ReportProgress(pLogger,
+                 "Bundle",
+                 ProgressProfileKind::kBundle,
+                 ProgressPhase::kFlight,
+                 0.0,
+                 "Writing archive payloads.");
 
   for (const BundleArchivePlan& aArchive : pDiscovery.mArchives) {
     if (pCancelCoordinator != nullptr && pCancelCoordinator->IsCancelRequested() && !aStream.IsInsideFile()) {
@@ -536,8 +713,12 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
     std::unique_ptr<FileWriteStream> aWrite = pFileSystem.OpenWriteStream(aArchive.mArchivePath);
     if (aWrite == nullptr || !aWrite->IsReady()) {
       return MakeFailure(ErrorCode::kFileSystem,
-                         "failed creating archive file: " + aArchive.mArchivePath,
+                         AppendWriteStreamError("failed creating archive file: " + aArchive.mArchivePath,
+                                                aWrite.get()),
                          pLogger);
+    }
+    if (pCancelCoordinator != nullptr) {
+      pCancelCoordinator->SetWritingPath(aArchive.mArchivePath);
     }
 
     ArchiveHeader aHeader{};
@@ -549,9 +730,11 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
     aHeader.mPayloadLength = aArchive.mPayloadBytes;
     aHeader.mRecordCountMod256 = aArchive.mRecordCountMod256;
     aHeader.mFolderCountMod256 = aArchive.mFolderCountMod256;
-    aHeader.mReserved16 = 0u;
+    aHeader.mEncryptionStrength = pRequest.mEncryptionStrength;
+    aHeader.mReserved8 = 0u;
     aHeader.mReservedA = 0u;
     aHeader.mReservedB = 0u;
+    aHeader.mArchiveFamilyId = pDiscovery.mArchiveFamilyId;
 
     unsigned char aHeaderBytes[kArchiveHeaderLength] = {};
     if (!WriteArchiveHeaderBytes(aHeader, aHeaderBytes, sizeof(aHeaderBytes))) {
@@ -559,7 +742,8 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
     }
     if (!aWrite->Write(aHeaderBytes, sizeof(aHeaderBytes))) {
       return MakeFailure(ErrorCode::kFileSystem,
-                         "failed writing archive header: " + aArchive.mArchivePath,
+                         AppendWriteStreamError("failed writing archive header: " + aArchive.mArchivePath,
+                                                aWrite.get()),
                          pLogger);
     }
 
@@ -591,8 +775,11 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
       aFileBytesWritten += aFileBytesInBlock;
 
       while (aFileBytesWritten >= aNextByteLog) {
-        pLogger.LogStatus("[Bundle][Flight] Processed " + FormatHumanBytes(aFileBytesWritten) +
-                          " across " + std::to_string(aArchivesWritten) + " archives.");
+        pLogger.LogStatus("[Bundle][Flight] Packed " + FormatHumanBytes(aFileBytesWritten) +
+                          " from " + std::to_string(aStream.PackedItemCount()) +
+                          " items into " + std::to_string(aArchive.mArchiveOrdinal + 1u) +
+                          " archives (" +
+                          FormatPercent(aFileBytesWritten, pDiscovery.mTotalFileBytes) + "%).");
         aNextByteLog += std::max<std::uint64_t>(1u, kProgressByteLogIntervalDefault);
       }
 
@@ -617,12 +804,12 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
 
       if (pRequest.mUseEncryption) {
         std::string aCryptError;
-        if (!pCrypt.SealData(aPlainBlock.Data(),
-                             aWorkerBlock.Data(),
-                             aEncryptedBlock.Data(),
-                             kBlockSizeL3,
-                             &aCryptError,
-                             CryptMode::kNormal)) {
+        if (!aGeneratedCrypt->SealData(aPlainBlock.Data(),
+                                       aWorkerBlock.Data(),
+                                       aEncryptedBlock.Data(),
+                                       kBlockSizeL3,
+                                       &aCryptError,
+                                       CryptMode::kNormal)) {
           return MakeFailure(ErrorCode::kCrypt,
                              aCryptError.empty() ? "encryption failed." : aCryptError,
                              pLogger);
@@ -633,15 +820,31 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
 
       if (!aWrite->Write(aEncryptedBlock.Data(), kBlockSizeL3)) {
         return MakeFailure(ErrorCode::kFileSystem,
-                           "failed writing archive block: " + aArchive.mArchivePath,
+                           AppendWriteStreamError("failed writing archive block: " + aArchive.mArchivePath,
+                                                  aWrite.get()),
                            pLogger);
       }
+
+      ReportProgress(pLogger,
+                     "Bundle",
+                     ProgressProfileKind::kBundle,
+                     ProgressPhase::kFlight,
+                     pDiscovery.mTotalFileBytes == 0u
+                         ? 1.0
+                         : (static_cast<double>(aFileBytesWritten) /
+                            static_cast<double>(pDiscovery.mTotalFileBytes)),
+                     "Writing archive payloads.");
     }
 
     if (!aWrite->Close()) {
       return MakeFailure(ErrorCode::kFileSystem,
-                         "failed closing archive file: " + aArchive.mArchivePath,
+                         AppendWriteStreamError("failed closing archive file: " + aArchive.mArchivePath,
+                                                aWrite.get()),
                          pLogger);
+    }
+    if (pCancelCoordinator != nullptr) {
+      pCancelCoordinator->NoteFinishedWriting(aArchive.mArchivePath);
+      pCancelCoordinator->ClearActivity();
     }
 
     ++aArchivesWritten;
@@ -649,7 +852,8 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
         aArchivesWritten == pDiscovery.mArchives.size()) {
       pLogger.LogStatus("[Bundle][Flight] Wrote " + std::to_string(aArchivesWritten) + "/" +
                         std::to_string(pDiscovery.mArchives.size()) + " archives (" +
-                        FormatHumanBytes(aFileBytesWritten) + ").");
+                        FormatHumanBytes(aFileBytesWritten) + ", " +
+                        FormatPercent(aFileBytesWritten, pDiscovery.mTotalFileBytes) + "%).");
     }
 
     if (aStream.ReachedStopBoundary()) {
@@ -672,17 +876,30 @@ OperationResult PerformBundleFlight(const BundleRequest& pRequest,
   }
 
   pLogger.LogStatus("[Bundle][Flight] Writing archives DONE.");
-  pLogger.LogStatus("[Bundle][Summary] Wrote " + std::to_string(aArchivesWritten) +
-                    " archives and " + FormatHumanBytes(aFileBytesWritten) + ".");
+  pLogger.LogStatus("[Bundle][Summary] Packed " + std::to_string(pDiscovery.mFileCount) +
+                    " files and " + std::to_string(pDiscovery.mFolderCount) +
+                    " folders into " + std::to_string(aArchivesWritten) +
+                    " archives (" + FormatHumanBytes(aFileBytesWritten) + ").");
+  ReportProgress(pLogger,
+                 "Bundle",
+                 ProgressProfileKind::kBundle,
+                 ProgressPhase::kFlight,
+                 1.0,
+                 "Bundle complete.");
   return MakeSuccess();
 }
 
 OperationResult Bundle(const BundleRequest& pRequest,
                        const std::vector<SourceEntry>& pSourceEntries,
                        FileSystem& pFileSystem,
-                       const Crypt& pCrypt,
                        Logger& pLogger,
                        CancelCoordinator* pCancelCoordinator) {
+  ReportProgress(pLogger,
+                 "Bundle",
+                 ProgressProfileKind::kBundle,
+                 ProgressPhase::kPreflight,
+                 1.0,
+                 "Bundle preflight complete.");
   BundleDiscovery aDiscovery;
   OperationResult aResult = DiscoverBundlePlan(pRequest,
                                                 pSourceEntries,
@@ -696,7 +913,6 @@ OperationResult Bundle(const BundleRequest& pRequest,
   return PerformBundleFlight(pRequest,
                              aDiscovery,
                              pFileSystem,
-                             pCrypt,
                              pLogger,
                              pCancelCoordinator);
 }

@@ -2,94 +2,162 @@ Final File Format Specification
 ===============================
 
 Scope
-- Defines PBTR archive binary format for the current engine version.
-- Legacy versions are not supported by current parser checks.
+- This file describes the current on-disk archive format used by the checked-in bundle, unbundle, and recover code.
+- Encryption is treated as a black box. The writer seals (encrypts) each L3 block; the reader unseals (decrypts) each L3 block.
 
-Versioning and constants
+Current constants
 - Header magic: `0xDECAFBAD`
-- Footer magic constant exists in code (`0xF01DAB1E`) but is not serialized in archive files.
-- Version required at decode: major `1`, minor `2`
-- `ARCHIVE_HEADER_LENGTH = 40` bytes
-- `RECOVERY_HEADER_LENGTH = 40` bytes
+- Footer magic constant exists in code (`0xF01DAB1E`) but is not written into archive files.
+- Required version at decode: major `1`, minor `7`
+- `ARCHIVE_HEADER_LENGTH = 48` bytes
+- `RECOVERY_HEADER_LENGTH = 48` bytes
+- `BLOCK_SIZE_L3 = 1000704` bytes
+- Payload bytes per L3 block: `1000656`
+- `MAX_VALID_FILE_PATH_LENGTH = 2048`
 - `MAX_ARCHIVE_COUNT = 65535`
 - `MAX_BLOCKS_PER_ARCHIVE = 2048`
-- Release build default:
-  - `BLOCK_SIZE_L3 = 144040`
-  - payload bytes per block = `144000`
 
 Byte order
 - All integer fields are little-endian.
 
 Archive file layout
-1. Archive header (40 bytes)
-2. `N` fixed-size L3 blocks (each `kBlockSizeL3` bytes)
+1. Archive header (`48` bytes)
+2. `N` L3 blocks (`N = configured blocks per archive`)
 
-Archive header layout (40 bytes)
+Archive header layout (`48` bytes)
 Offset  Size  Field
-0       4     `mMagic` (`0xDECAFBAD`)
+0       4     `mMagic`
 4       2     `mVersionMajor`
 6       2     `mVersionMinor`
 8       4     `mArchiveIndex`
 12      4     `mArchiveCount`
-16      4     `mPayloadLength` (bytes in this archive payload)
+16      4     `mPayloadLength`
 20      1     `mRecordCountMod256`
 21      1     `mFolderCountMod256`
-22      2     `mReserved16`
+22      1     `mEncryptionStrength`
+23      1     `mReserved8`
 24      8     `mReservedA`
 32      8     `mReservedB`
+40      8     `mArchiveFamilyId`
+
+Archive header semantics
+- `mArchiveIndex` is the zero-based numeric archive index.
+- `mArchiveCount` is the total number of archives in the family.
+- `mPayloadLength` is the serialized block region length after the archive header:
+  - current writer value = `block_count * BLOCK_SIZE_L3`
+  - it is not the logical record-stream length
+- `mRecordCountMod256` is the number of non-terminator records whose starts land inside this archive's logical payload window, modulo 256.
+- `mFolderCountMod256` is the number of empty-directory records whose starts land inside this archive's logical payload window, modulo 256.
+- `mEncryptionStrength` values:
+  - `1` = high
+  - `2` = medium
+  - `3` = low
+- `mArchiveFamilyId` is a 64-bit family identifier derived during bundle planning and later used during decode-family selection.
 
 L3 block layout
-1. Recovery header (40 bytes)
-2. Payload (`kPayloadBytesPerL3` bytes)
+1. Recovery header (`48` bytes)
+2. Payload region (`1000656` bytes)
 
-Recovery header layout (40 bytes)
+Recovery header layout (`48` bytes)
 Offset  Size  Field
 0       8     `checksum.word1`
 8       8     `checksum.word2`
 16      8     `checksum.word3`
 24      8     `checksum.word4`
-32      2     `skip.archive_distance` (u16)
-34      2     `skip.block_distance` (u16)
-36      4     `skip.byte_distance` (u32)
+32      8     `checksum.word5`
+40      2     `skip.archive_distance`
+42      2     `skip.block_distance`
+44      4     `skip.byte_distance`
 
-SkipRecord semantics
-- Encodes forward logical distance to next record boundary in payload space.
-- Interpreted relative to current block position using known `blocks_per_archive`.
-- Zero-distance skip is considered non-actionable for stride-jump recovery logic.
+Recovery header semantics
+- The checksum covers:
+  - the entire payload region of the plain L3 block
+  - the full 8-byte skip record
+- The checksum does not cover the recovery header bytes themselves.
+- Because the block buffer is zeroed before payload bytes are filled, the checksum includes any zero padding that remains after the logical stream data ends.
+- The skip record points from the current block's logical payload start to the next record start known during bundle time.
 
-Checksum semantics
-- Checksum is computed from:
-  1) payload bytes only (not header bytes), and
-  2) entire `SkipRecord` (all 8 skip bytes) with per-word tag mixing.
-- Four 64-bit checksum words are stored.
-- Decode requires exact checksum match to accept block as healthy.
+Skip record semantics
+- Let:
+  - `blocks_per_archive = configured L3 blocks per archive`
+  - `payload_bytes_per_archive = blocks_per_archive * 1000656`
+- The bundle code converts a forward logical byte distance into:
+  - `archive_distance = distance / payload_bytes_per_archive`
+  - `block_distance = (distance % payload_bytes_per_archive) / 1000656`
+  - `byte_distance = (distance % payload_bytes_per_archive) % 1000656`
+- Recover uses the skip record only after a record-parse failure in an otherwise readable block.
+- Recover rejects a stride jump when:
+  - the encoded distance is all zeros
+  - `block_distance >= blocks_per_archive`
+  - `byte_distance >= 1000656`
+  - the target archive is missing
+  - the target block is outside the target archive's readable block count
 
-Logical record grammar (payload stream)
-- `u16 path_length`
-- `path_length` bytes of path (relative path string bytes)
-- `u64 content_length`
-- `content_length` bytes of file content (if file record)
+Logical record grammar
+- Records are streamed back-to-back through the payload regions of the archive family.
+- Record format:
+  1. `u16 path_length`
+  2. `path_length` raw path bytes
+  3. `u64 content_length`
+  4. `content_length` raw file bytes for file records
 
 Special values
-- `path_length == 0` => logical terminator record
-- `content_length == 0xFFFFFFFFFFFFFFFF` => directory record marker (no content bytes)
+- `path_length == 0`:
+  - terminator record
+  - ends the logical stream
+- `content_length == 0xFFFFFFFFFFFFFFFF`:
+  - empty-directory record
+  - no content bytes follow
 
-Path and content constraints
-- Path length must be `1..kMaxPathLength` for non-terminator records.
-- Paths must be safe relative paths (no absolute prefixes, no `.`/`..`, no control bytes).
-- Content length above parser plausibility threshold (`1 << 40`) is rejected.
+Path rules at decode time
+- Non-terminator paths must be:
+  - non-empty
+  - no longer than `2048` bytes
+  - relative, not absolute
+  - free of `.` and `..` path segments
+  - free of control bytes
+
+Directory semantics
+- Only empty directories are written as explicit directory records.
+- Non-empty directories are recreated implicitly from file paths when files are unbundled or recovered.
 
 Archive naming format
-- Name writer: `prefix + source_stem + "_" + zero_padded_ordinal + suffix`
-- Zero padding width equals digits in `(archive_count - 1)`.
-- Parser extracts template from trailing numeric run in basename.
+- Writer format:
+  - `prefix + source_stem + "_" + zero_padded_ordinal + suffix`
+- Zero-padding width:
+  - number of digits in `archive_count - 1`
+  - minimum width `1`
+- If the supplied suffix has no leading dot, the writer inserts one.
+- Current GUI default suffix is `.PBTR`.
 
-Discovery model for decode/recover
-- Input is a filename list; parser groups by anchor template (prefix+suffix).
-- Sorted numeric indices define sequence.
-- Missing indices become empty `ArchiveFileBox` entries.
-- Empty boxes are fatal in unbundle and recoverable damage in recover.
+Archive discovery format rules
+- Decode parses the numeric archive index from the trailing digit run before the file extension.
+- The parser does not require an underscore before the digits.
+- Decode sorts candidate filenames, chooses the first parsed filename as the template anchor, and then keeps only candidates with the same parsed prefix and suffix.
 
-Corruption and gap behavior at format level
-- Header parse failure, short reads, checksum mismatch, and parse errors all represent malformed/corrupt archive content.
-- Recover mode may continue across such regions; strict unbundle does not.
+Strict decode behavior
+- Unbundle requires:
+  - readable candidate discovery
+  - no missing archive box in the selected index window
+  - readable block bytes
+  - successful unseal (decrypt)
+  - valid recovery header parse
+  - exact checksum match
+  - successful logical record parsing
+  - eventual terminator record
+
+Recover behavior
+- Recover tolerates:
+  - missing archive slots
+  - unreadable archive files
+  - short archive files
+  - unseal failures
+  - checksum failures
+  - record-parse failures
+- Recover succeeds when:
+  - it reaches the terminator, or
+  - it exhausts the archive span after recovering at least one file
+
+Companion docs
+- See `file_format.txt` for ASCII diagrams and a worked example.
+- See `README.md` for the operational archive, unarchive, and recover process.

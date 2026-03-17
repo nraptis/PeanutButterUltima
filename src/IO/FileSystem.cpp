@@ -30,9 +30,9 @@ bool FileSystem::ReadTextFile(const std::string& pPath, std::string& pContents) 
   const std::size_t aLength = aStream->GetLength();
   pContents.reserve(aLength);
 
+  BlockBuffer aBuffer;
   std::size_t aOffset = 0;
   while (aOffset < aLength) {
-    L3BlockBuffer aBuffer{};
     const std::size_t aChunkLength = std::min(kBlockSizeL3, aLength - aOffset);
     if (!aStream->Read(aOffset, aBuffer.Data(), aChunkLength)) {
       pContents.clear();

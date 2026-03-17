@@ -1,8 +1,12 @@
 #include "IO/LocalFileSystem.hpp"
 
+#include <cerrno>
+#include <cstdio>
+#include <cstring>
 #include <filesystem>
 #include <fstream>
 #include <memory>
+#include <string>
 #include <utility>
 
 namespace peanutbutter {
@@ -38,6 +42,17 @@ std::string LocalStemName(const std::string& pPath) {
 
 std::string LocalExtension(const std::string& pPath) {
   return std::filesystem::path(pPath).extension().generic_string();
+}
+
+std::string FormatErrnoMessage(int pErrnoValue) {
+  if (pErrnoValue == 0) {
+    return {};
+  }
+  const char* aText = std::strerror(pErrnoValue);
+  if (aText == nullptr || aText[0] == '\0') {
+    return "errno " + std::to_string(pErrnoValue);
+  }
+  return std::string(aText) + " (errno " + std::to_string(pErrnoValue) + ")";
 }
 
 class LocalFileReadStream final : public FileReadStream {
@@ -113,27 +128,44 @@ class LocalFileReadStream final : public FileReadStream {
 class LocalFileWriteStream final : public FileWriteStream {
  public:
   explicit LocalFileWriteStream(std::string pPath)
-      : mOutput(std::filesystem::path(std::move(pPath)), std::ios::binary | std::ios::trunc) {}
+      : mPath(std::move(pPath)) {
+    errno = 0;
+    mOutput = std::fopen(mPath.c_str(), "wb");
+    if (mOutput == nullptr) {
+      mLastErrorMessage = FormatErrnoMessage(errno);
+    }
+  }
+
+  LocalFileWriteStream(std::string pPath, std::string pInitialError)
+      : mPath(std::move(pPath)),
+        mLastErrorMessage(std::move(pInitialError)) {}
 
   bool IsReady() const override {
-    return mOutput.is_open();
+    return mOutput != nullptr;
   }
 
   bool Write(const unsigned char* pData, std::size_t pLength) override {
-    if (!mOutput.is_open()) {
+    if (mOutput == nullptr) {
       return false;
     }
     if (pLength == 0) {
       return true;
     }
     if (pData == nullptr) {
+      mLastErrorMessage = "null write buffer";
       return false;
     }
-    mOutput.write(reinterpret_cast<const char*>(pData), static_cast<std::streamsize>(pLength));
-    if (!mOutput.good()) {
+    errno = 0;
+    const std::size_t aWritten = std::fwrite(pData, 1u, pLength, mOutput);
+    if (aWritten != pLength) {
+      mLastErrorMessage = FormatErrnoMessage(errno);
+      if (mLastErrorMessage.empty()) {
+        mLastErrorMessage = "short write";
+      }
       return false;
     }
     mBytesWritten += pLength;
+    mLastErrorMessage.clear();
     return true;
   }
 
@@ -142,16 +174,32 @@ class LocalFileWriteStream final : public FileWriteStream {
   }
 
   bool Close() override {
-    if (!mOutput.is_open()) {
+    if (mOutput == nullptr) {
       return true;
     }
-    mOutput.close();
+    errno = 0;
+    if (std::fclose(mOutput) != 0) {
+      mOutput = nullptr;
+      mLastErrorMessage = FormatErrnoMessage(errno);
+      if (mLastErrorMessage.empty()) {
+        mLastErrorMessage = "close failed";
+      }
+      return false;
+    }
+    mOutput = nullptr;
+    mLastErrorMessage.clear();
     return true;
   }
 
+  std::string LastErrorMessage() const override {
+    return mLastErrorMessage;
+  }
+
  private:
-  std::ofstream mOutput;
+  std::string mPath;
+  std::FILE* mOutput = nullptr;
   std::size_t mBytesWritten = 0;
+  std::string mLastErrorMessage;
 };
 
 }  // namespace
@@ -202,7 +250,9 @@ std::vector<DirectoryEntry> LocalFileSystem::ListFilesRecursive(
   if (!std::filesystem::is_directory(aRoot)) {
     return aEntries;
   }
-  for (const auto& aEntry : std::filesystem::recursive_directory_iterator(aRoot)) {
+  for (const auto& aEntry : std::filesystem::recursive_directory_iterator(
+           aRoot,
+           std::filesystem::directory_options::skip_permission_denied)) {
     if (!aEntry.is_regular_file()) {
       continue;
     }
@@ -223,7 +273,9 @@ std::vector<DirectoryEntry> LocalFileSystem::ListDirectoriesRecursive(
   if (!std::filesystem::is_directory(aRoot)) {
     return aEntries;
   }
-  for (const auto& aEntry : std::filesystem::recursive_directory_iterator(aRoot)) {
+  for (const auto& aEntry : std::filesystem::recursive_directory_iterator(
+           aRoot,
+           std::filesystem::directory_options::skip_permission_denied)) {
     if (!aEntry.is_directory()) {
       continue;
     }
@@ -258,7 +310,8 @@ std::unique_ptr<FileReadStream> LocalFileSystem::OpenReadStream(const std::strin
 std::unique_ptr<FileWriteStream> LocalFileSystem::OpenWriteStream(const std::string& pPath) {
   const std::string aParent = ParentLocalPath(pPath);
   if (!aParent.empty() && !EnsureDirectory(aParent)) {
-    return {};
+    return std::make_unique<LocalFileWriteStream>(
+        pPath, "failed creating parent directory for write stream");
   }
   return std::make_unique<LocalFileWriteStream>(pPath);
 }

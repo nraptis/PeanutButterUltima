@@ -1,74 +1,74 @@
-Final Algorithm Specification (High Level)
-==========================================
+Final Archive / Unarchive / Recover Specification (High Level)
+==============================================================
 
 Scope
-- Describes active high-level behavior for Bundle, BundleWithMutations, Unbundle, Recover, and Validate.
-- This is intentionally medium-detail and implementation-aligned.
+- This file summarizes the current archive, unarchive, and recover flow.
+- Encryption is treated as a black box. The archive path seals (encrypts) L3 blocks, and the decode path unseals (decrypts) L3 blocks.
 
-Global principles
-- Streaming I/O only (no whole-file payload loads).
-- Deterministic archive planning from sorted source entries.
-- Cooperative cancellation in long-running loops.
-- Progress logging by processed bytes and/or processed items.
-- Error outcomes are trap-able via stable error codes.
+Global rules
+- Source entries are processed in sorted relative-path order.
+- The logical record stream is written across fixed-size L3 blocks.
+- Every L3 block has its own recovery header.
+- Strict unbundle is fail-fast.
+- Recover is best-effort and block-oriented.
 
-Bundle
-1. Validate request and archive block count.
-2. Discovery phase:
-  - sort source entries by relative path
-  - resolve file lengths
-  - build logical record stream length
-  - compute archive plan (count, names, record/folder counters)
-3. Flight phase:
-  - for each archive, write archive header
-  - for each block, stream payload bytes from logical records
-  - compute recovery skip + checksum
-  - write recovery header
-  - optionally encrypt block
-  - append block to archive
-4. Emit summary and return success.
+Archive
+1. Collect source entries.
+  - Single file input becomes one file record under its basename.
+  - Directory input contributes all files recursively.
+  - Empty directories become explicit directory records.
+2. Sort entries by relative path.
+3. Build the logical record stream:
+  - `u16 path_length`
+  - path bytes
+  - `u64 content_length`
+  - file bytes for file records
+  - empty-directory marker for empty folders
+  - final terminator record with `path_length = 0`
+4. Compute archive count from total logical bytes and configured blocks per archive.
+5. For each archive file:
+  - write the archive header
+  - for each L3 block:
+    - zero the block
+    - fill payload bytes from the logical stream
+    - compute recovery stride to the next record start
+    - compute checksum
+    - write the recovery header
+    - seal (encrypt) the full L3 block
+    - append the block to the archive file
 
-BundleWithMutations
-1. Apply file mutations (create/delete entries).
-2. Run discovery on mutated entry set.
-3. Validate data mutation ranges.
-4. Bundle flight:
-  - stream payload bytes
-  - apply data mutations to payload before checksum
-  - write checksum/skip/encryption exactly like normal bundle
-
-Unbundle (strict decode)
-1. Validate request and destination.
-2. Discovery by filename template + numeric index selection.
-3. Build archive box list (including empty boxes for missing indices).
+Unarchive
+1. Collect candidate files from the chosen file or folder.
+2. Select one archive family by filename template and, when possible, header family id.
+3. Build a dense archive index window, including empty boxes for missing indices.
 4. Decode block-by-block in strict mode:
-  - read/decrypt block
-  - validate checksum
-  - parse records and write files/folders
-5. Stop only at logical terminator or terminal error.
+  - read block
+  - unseal (decrypt) block
+  - parse recovery header
+  - verify checksum
+  - parse records
+  - create folders and write files
+5. Succeed only after the terminator record is reached.
 
-Recover (best effort decode)
-1. Same discovery pipeline as unbundle.
-2. Decode block-by-block in recover mode:
-  - tolerate missing/corrupt blocks
-  - reset parser on damage
-  - count failed blocks
-  - on parse failures, optionally jump via validated recovery stride
-3. Return success if terminator is reached or if files were recovered before exhaustion.
-4. Emit recover summary (files/bytes/failed blocks/time/output path).
+Recover
+1. Use the same candidate-discovery pipeline as unarchive.
+2. Decode block-by-block in recover mode.
+3. On missing or damaged blocks:
+  - count the block as failed
+  - abort any partial output file from the damaged region
+  - reset the parser
+  - continue
+4. On record-parse failure inside an otherwise healthy block:
+  - abort any partial output file
+  - reset the parser
+  - try the recovery stride stored in that block
+  - if the stride is invalid, continue with the next block
+5. Succeed when:
+  - the terminator record is reached, or
+  - archive space is exhausted after at least one file was recovered
 
-Validate
-1. Validate left/right directories.
-2. Discovery logging:
-  - enumerate files and directories recursively for both sides
-  - report scanned item counts and discovered file counts
-3. Compare phase:
-  - match by relative path
-  - compare bytes in 64KB chunks
-  - classify hidden vs normal mismatches
-4. Emit capped mismatch detail lines and summary.
-
-Cancellation model
-- Cancel checks are placed in discovery, archive loops, and parse/write loops.
-- If currently inside a file write/read unit, operation attempts to finish the current file within grace period.
-- On boundary/timeout, operation exits with `CANCELED`.
+Important current behaviors
+- Only empty directories are stored as directory records.
+- Non-empty directories are recreated from file paths during decode.
+- Strict unbundle stops on the first gap, short block, unseal failure, checksum failure, or record-parse failure.
+- Recover can skip past damage, but it does not guarantee a complete reconstruction.

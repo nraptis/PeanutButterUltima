@@ -6,7 +6,6 @@
 #include "AppShell_Common.hpp"
 #include "AppShell_Extended_Types.hpp"
 #include "AppShell_Types.hpp"
-#include "Encryption/Crypt.hpp"
 #include "IO/FileSystem.hpp"
 
 namespace peanutbutter {
@@ -25,7 +24,6 @@ OperationResult PerformBundleFlightWithMutations(
     const BundleDiscovery& pDiscovery,
     const std::vector<DataMutation>& pDataMutations,
     FileSystem& pFileSystem,
-    const Crypt& pCrypt,
     CancelCoordinator* pCancelCoordinator = nullptr);
 
 OperationResult BundleWithMutations(
@@ -35,7 +33,6 @@ OperationResult BundleWithMutations(
     const std::vector<CreateFileMutation>& pCreateMutations,
     const std::vector<DeleteFileMutation>& pDeleteMutations,
     FileSystem& pFileSystem,
-    const Crypt& pCrypt,
     CancelCoordinator* pCancelCoordinator = nullptr);
 
 }  // namespace peanutbutter
