@@ -81,14 +81,18 @@ void WriteArchiveHeaderPrefixBytes(const ArchiveHeader& pHeader, unsigned char* 
   WriteLe32(pBuffer, 0, pHeader.mMagic);
   WriteLe16(pBuffer, 4, pHeader.mVersionMajor);
   WriteLe16(pBuffer, 6, pHeader.mVersionMinor);
-  WriteLe32(pBuffer, 8, pHeader.mArchiveIndex);
-  WriteLe32(pBuffer, 12, pHeader.mArchiveCount);
-  WriteLe32(pBuffer, 16, pHeader.mPayloadLength);
-  pBuffer[20] = pHeader.mRecordCountMod256;
-  pBuffer[21] = pHeader.mFolderCountMod256;
-  pBuffer[22] = static_cast<std::uint8_t>(pHeader.mEncryptionStrength);
-  pBuffer[23] = pHeader.mReserved8;
-  WriteLe64(pBuffer, 24, pHeader.mReservedA);
+  pBuffer[8] = pHeader.mArchiverVersion;
+  pBuffer[9] = pHeader.mPasswordExpanderVersion;
+  pBuffer[10] = pHeader.mCipherStackVersion;
+  pBuffer[11] = static_cast<std::uint8_t>(pHeader.mEncryptionStrength);
+  pBuffer[12] = static_cast<std::uint8_t>(pHeader.mExpansionStrength);
+  pBuffer[13] = pHeader.mRecordCountMod256;
+  pBuffer[14] = pHeader.mFolderCountMod256;
+  pBuffer[15] = static_cast<std::uint8_t>(pHeader.mDirtyType);
+  WriteLe32(pBuffer, 16, pHeader.mArchiveIndex);
+  WriteLe32(pBuffer, 20, pHeader.mArchiveCount);
+  WriteLe32(pBuffer, 24, pHeader.mPayloadLength);
+  WriteLe32(pBuffer, 28, pHeader.mReserved32);
   WriteLe64(pBuffer, 32, pHeader.mReservedB);
 }
 
@@ -167,15 +171,20 @@ bool ReadArchiveHeaderBytes(const unsigned char* pBuffer,
   pOutHeader.mMagic = ReadLe32(pBuffer, 0);
   pOutHeader.mVersionMajor = ReadLe16(pBuffer, 4);
   pOutHeader.mVersionMinor = ReadLe16(pBuffer, 6);
-  pOutHeader.mArchiveIndex = ReadLe32(pBuffer, 8);
-  pOutHeader.mArchiveCount = ReadLe32(pBuffer, 12);
-  pOutHeader.mPayloadLength = ReadLe32(pBuffer, 16);
-  pOutHeader.mRecordCountMod256 = pBuffer[20];
-  pOutHeader.mFolderCountMod256 = pBuffer[21];
+  pOutHeader.mArchiverVersion = pBuffer[8];
+  pOutHeader.mPasswordExpanderVersion = pBuffer[9];
+  pOutHeader.mCipherStackVersion = pBuffer[10];
   pOutHeader.mEncryptionStrength =
-      static_cast<EncryptionStrength>(pBuffer[22]);
-  pOutHeader.mReserved8 = pBuffer[23];
-  pOutHeader.mReservedA = ReadLe64(pBuffer, 24);
+      static_cast<EncryptionStrength>(pBuffer[11]);
+  pOutHeader.mExpansionStrength =
+      static_cast<ExpansionStrength>(pBuffer[12]);
+  pOutHeader.mRecordCountMod256 = pBuffer[13];
+  pOutHeader.mFolderCountMod256 = pBuffer[14];
+  pOutHeader.mDirtyType = static_cast<DirtyType>(pBuffer[15]);
+  pOutHeader.mArchiveIndex = ReadLe32(pBuffer, 16);
+  pOutHeader.mArchiveCount = ReadLe32(pBuffer, 20);
+  pOutHeader.mPayloadLength = ReadLe32(pBuffer, 24);
+  pOutHeader.mReserved32 = ReadLe32(pBuffer, 28);
   pOutHeader.mReservedB = ReadLe64(pBuffer, 32);
   pOutHeader.mArchiveFamilyId = ReadLe64(pBuffer, 40);
 
@@ -192,6 +201,24 @@ bool ReadArchiveHeaderBytes(const unsigned char* pBuffer,
     case EncryptionStrength::kHigh:
     case EncryptionStrength::kMedium:
     case EncryptionStrength::kLow:
+      break;
+    default:
+      return false;
+  }
+  switch (pOutHeader.mExpansionStrength) {
+    case ExpansionStrength::kHigh:
+    case ExpansionStrength::kMedium:
+    case ExpansionStrength::kLow:
+      break;
+    default:
+      return false;
+  }
+  switch (pOutHeader.mDirtyType) {
+    case DirtyType::kInvalid:
+    case DirtyType::kFinishedWithCancel:
+    case DirtyType::kFinishedWithError:
+    case DirtyType::kFinishedWithCancelAndError:
+    case DirtyType::kFinished:
       break;
     default:
       return false;

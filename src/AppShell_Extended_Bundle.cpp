@@ -11,6 +11,9 @@
 
 #include "AppShell_ArchiveFormat.hpp"
 #include "AppShell_Bundle.hpp"
+#include "Archive/ArchiveFinalize.hpp"
+#include "Archive/ArchiveSkip.hpp"
+#include "Bundle/LogicalRecordEncoder.hpp"
 
 namespace peanutbutter {
 namespace {
@@ -85,6 +88,16 @@ std::uint64_t NextRecordDistance(const std::vector<std::uint64_t>& pRecordStarts
     return 0;
   }
   return (*aIt >= pBlockLogicalStart) ? (*aIt - pBlockLogicalStart) : 0;
+}
+
+std::uint64_t FirstBlockSpoofDistance(const std::vector<std::uint64_t>& pRecordStarts,
+                                      std::uint64_t pFallbackDistance) {
+  for (const std::uint64_t aRecordStart : pRecordStarts) {
+    if (aRecordStart > 0u) {
+      return aRecordStart;
+    }
+  }
+  return pFallbackDistance;
 }
 
 bool TryBuildSkipRecord(std::uint64_t pDistanceBytes,
@@ -434,11 +447,11 @@ OperationResult PerformBundleFlightWithMutations(
     }
   }
 
-  std::vector<RecordInfo> aRecords;
+  std::vector<bundle_internal::BundleRecordInfo> aRecords;
   aRecords.reserve(pDiscovery.mResolvedEntries.size());
   for (std::size_t aIndex = 0u; aIndex < pDiscovery.mResolvedEntries.size(); ++aIndex) {
     const SourceEntry& aEntry = pDiscovery.mResolvedEntries[aIndex];
-    RecordInfo aRecord;
+    bundle_internal::BundleRecordInfo aRecord;
     aRecord.mSourcePath = aEntry.mSourcePath;
     aRecord.mRelativePath = aEntry.mRelativePath;
     aRecord.mIsDirectory = aEntry.mIsDirectory;
@@ -448,53 +461,85 @@ OperationResult PerformBundleFlightWithMutations(
     aRecords.push_back(std::move(aRecord));
   }
 
-  BundleLogicalStream aStream(aRecords, pFileSystem);
+  bundle_internal::LogicalRecordEncoder aStream(aRecords, pFileSystem);
   BlockBuffer aPlainBlock;
   BlockBuffer aEncryptedBlock;
   BlockBuffer aWorkerBlock;
   std::uint64_t aCurrentBlockLogicalStart = 0u;
+  std::size_t aArchivesExisting = 0u;
+  bool aHadCancel = false;
+  bool aHadError = false;
+  ErrorCode aFinalErrorCode = ErrorCode::kNone;
+  std::string aFinalFailureMessage;
+
+  const auto aRecordFailure = [&](ErrorCode pCode, const std::string& pMessage) {
+    aHadError = true;
+    aFinalErrorCode = pCode;
+    aFinalFailureMessage = pMessage;
+  };
+  const auto aBuildInitialHeader =
+      [&](const BundleArchivePlan& pArchive) -> ArchiveHeader {
+    return BuildArchiveHeaderForPlan(
+        pRequest,
+        pDiscovery,
+        pArchive,
+        static_cast<std::uint32_t>(pDiscovery.mArchives.size()),
+        pArchive.mPayloadBytes,
+        DirtyType::kInvalid);
+  };
 
   for (const BundleArchivePlan& aArchive : pDiscovery.mArchives) {
     if (pCancelCoordinator != nullptr && pCancelCoordinator->IsCancelRequested() && !aStream.IsInsideFile()) {
       if (pCancelCoordinator->ShouldCancelNow()) {
-        return MakeCanceled();
+        aHadCancel = true;
+        break;
       }
     }
 
     std::unique_ptr<FileWriteStream> aWrite = pFileSystem.OpenWriteStream(aArchive.mArchivePath);
     if (aWrite == nullptr || !aWrite->IsReady()) {
-      return MakeFailure(ErrorCode::kFileSystem,
-                         AppendWriteStreamError("failed creating archive file: " + aArchive.mArchivePath,
-                                                aWrite.get()));
+      aRecordFailure(ErrorCode::kFileSystem,
+                     AppendWriteStreamError("failed creating archive file: " + aArchive.mArchivePath,
+                                            aWrite.get()));
+      break;
+    }
+    aArchivesExisting = std::max<std::size_t>(aArchivesExisting,
+                                              aArchive.mArchiveOrdinal + 1u);
+    if (pCancelCoordinator != nullptr) {
+      pCancelCoordinator->SetWritingPath(aArchive.mArchivePath);
     }
 
-    ArchiveHeader aHeader{};
-    aHeader.mMagic = kMagicHeaderBytes;
-    aHeader.mVersionMajor = static_cast<std::uint16_t>(kMajorVersion & 0xFFFFu);
-    aHeader.mVersionMinor = static_cast<std::uint16_t>(kMinorVersion & 0xFFFFu);
-    aHeader.mArchiveIndex = aArchive.mArchiveIndex;
-    aHeader.mArchiveCount = static_cast<std::uint32_t>(pDiscovery.mArchives.size());
-    aHeader.mPayloadLength = aArchive.mPayloadBytes;
-    aHeader.mRecordCountMod256 = aArchive.mRecordCountMod256;
-    aHeader.mFolderCountMod256 = aArchive.mFolderCountMod256;
-    aHeader.mEncryptionStrength = pRequest.mEncryptionStrength;
-    aHeader.mReserved8 = 0u;
-    aHeader.mReservedA = 0u;
-    aHeader.mReservedB = 0u;
-
+    const ArchiveHeader aHeader = aBuildInitialHeader(aArchive);
     unsigned char aHeaderBytes[kArchiveHeaderLength] = {};
     if (!WriteArchiveHeaderBytes(aHeader, aHeaderBytes, sizeof(aHeaderBytes))) {
-      return MakeFailure(ErrorCode::kInternal, "failed serializing archive header.");
+      aRecordFailure(ErrorCode::kInternal, "failed serializing archive header.");
+      (void)aWrite->Close();
+      if (pCancelCoordinator != nullptr) {
+        pCancelCoordinator->ClearActivity();
+      }
+      break;
     }
     if (!aWrite->Write(aHeaderBytes, sizeof(aHeaderBytes))) {
-      return MakeFailure(ErrorCode::kFileSystem,
-                         AppendWriteStreamError("failed writing archive header: " + aArchive.mArchivePath,
-                                                aWrite.get()));
+      aRecordFailure(ErrorCode::kFileSystem,
+                     AppendWriteStreamError("failed writing archive header: " + aArchive.mArchivePath,
+                                            aWrite.get()));
+      (void)aWrite->Close();
+      if (pCancelCoordinator != nullptr) {
+        pCancelCoordinator->ClearActivity();
+      }
+      break;
     }
 
+    bool aFinalizeArchiveAfterCancel = false;
+    bool aArchiveHadError = false;
     for (std::uint32_t aBlockIndex = 0u; aBlockIndex < aArchive.mBlockCount; ++aBlockIndex) {
       if (pCancelCoordinator != nullptr && pCancelCoordinator->IsCancelRequested() && aStream.IsInsideFile()) {
+        aHadCancel = true;
         aStream.RequestStopAfterCurrentFile();
+        if (pCancelCoordinator->ShouldCancelNow()) {
+          aStream.RequestStopImmediately();
+          aFinalizeArchiveAfterCancel = true;
+        }
       }
 
       std::memset(aPlainBlock.Data(), 0, kBlockSizeL3);
@@ -509,7 +554,13 @@ OperationResult PerformBundleFlightWithMutations(
                         aLogicalBytesInBlock,
                         aFileBytesInBlock,
                         aFailure)) {
-        return MakeFailure(ErrorCode::kFileSystem, aFailure);
+        aRecordFailure(ErrorCode::kFileSystem, aFailure);
+        aArchiveHadError = true;
+        break;
+      }
+      if (aStream.ReachedStopBoundary()) {
+        aHadCancel = true;
+        aFinalizeArchiveAfterCancel = true;
       }
 
       (void)aLogicalBytesInBlock;
@@ -522,16 +573,28 @@ OperationResult PerformBundleFlightWithMutations(
 
       const std::uint64_t aDistanceToNextRecord =
           NextRecordDistance(pDiscovery.mRecordStartLogicalOffsets, aCurrentBlockLogicalStart);
+      const std::uint64_t aStoredDistance =
+          aFinalizeArchiveAfterCancel
+              ? 0u
+              : ((aArchive.mArchiveOrdinal == 0u && aBlockIndex == 0u)
+              ? FirstBlockSpoofDistance(pDiscovery.mRecordStartLogicalOffsets, aDistanceToNextRecord)
+              : aDistanceToNextRecord);
       aCurrentBlockLogicalStart += static_cast<std::uint64_t>(kPayloadBytesPerL3);
 
       RecoveryHeader aRecoveryHeader{};
-      if (!TryBuildSkipRecord(aDistanceToNextRecord, aArchive.mBlockCount, aRecoveryHeader.mSkip)) {
-        return MakeFailure(ErrorCode::kInternal,
-                           "failed converting record skip into fixed-size skip record.");
+      if (!peanutbutter::TryBuildSkipRecord(aStoredDistance,
+                                            aArchive.mBlockCount,
+                                            aRecoveryHeader.mSkip)) {
+        aRecordFailure(ErrorCode::kInternal,
+                       "failed converting record skip into fixed-size skip record.");
+        aArchiveHadError = true;
+        break;
       }
       aRecoveryHeader.mChecksum = ComputeRecoveryChecksum(aPlainBlock.Data(), aRecoveryHeader.mSkip);
       if (!WriteRecoveryHeaderBytes(aRecoveryHeader, aPlainBlock.Data(), kRecoveryHeaderLength)) {
-        return MakeFailure(ErrorCode::kInternal, "failed serializing recovery header.");
+        aRecordFailure(ErrorCode::kInternal, "failed serializing recovery header.");
+        aArchiveHadError = true;
+        break;
       }
 
       if (pRequest.mUseEncryption) {
@@ -542,34 +605,88 @@ OperationResult PerformBundleFlightWithMutations(
                                        kBlockSizeL3,
                                        &aCryptError,
                                        CryptMode::kNormal)) {
-          return MakeFailure(ErrorCode::kCrypt,
-                             aCryptError.empty() ? "encryption failed." : aCryptError);
+          aRecordFailure(ErrorCode::kCrypt,
+                         aCryptError.empty() ? "encryption failed." : aCryptError);
+          aArchiveHadError = true;
+          break;
         }
       } else {
         std::memcpy(aEncryptedBlock.Data(), aPlainBlock.Data(), kBlockSizeL3);
       }
 
       if (!aWrite->Write(aEncryptedBlock.Data(), kBlockSizeL3)) {
-        return MakeFailure(ErrorCode::kFileSystem,
-                           AppendWriteStreamError("failed writing archive block: " + aArchive.mArchivePath,
-                                                  aWrite.get()));
+        aRecordFailure(ErrorCode::kFileSystem,
+                       AppendWriteStreamError("failed writing archive block: " + aArchive.mArchivePath,
+                                              aWrite.get()));
+        aArchiveHadError = true;
+        break;
       }
     }
 
+    if (aArchiveHadError) {
+      (void)aWrite->Close();
+      if (pCancelCoordinator != nullptr) {
+        pCancelCoordinator->ClearActivity();
+      }
+      break;
+    }
+
     if (!aWrite->Close()) {
-      return MakeFailure(ErrorCode::kFileSystem,
-                         AppendWriteStreamError("failed closing archive file: " + aArchive.mArchivePath,
-                                                aWrite.get()));
+      aRecordFailure(ErrorCode::kFileSystem,
+                     AppendWriteStreamError("failed closing archive file: " + aArchive.mArchivePath,
+                                            aWrite.get()));
+      if (pCancelCoordinator != nullptr) {
+        pCancelCoordinator->ClearActivity();
+      }
+      break;
+    }
+    if (pCancelCoordinator != nullptr) {
+      pCancelCoordinator->NoteFinishedWriting(aArchive.mArchivePath);
+      pCancelCoordinator->ClearActivity();
     }
 
     if (aStream.ReachedStopBoundary()) {
-      return MakeCanceled();
+      break;
     }
   }
 
-  if (!aStream.IsDone()) {
-    return MakeFailure(ErrorCode::kInternal,
-                       "bundle finished archives before logical stream terminated.");
+  if (!aHadError && !aHadCancel && !aStream.IsDone()) {
+    aRecordFailure(ErrorCode::kInternal,
+                   "bundle finished archives before logical stream terminated.");
+  }
+
+  if (aArchivesExisting > 0u) {
+    DirtyType aDirtyType = DirtyType::kFinished;
+    if (aHadCancel && aHadError) {
+      aDirtyType = DirtyType::kFinishedWithCancelAndError;
+    } else if (aHadCancel) {
+      aDirtyType = DirtyType::kFinishedWithCancel;
+    } else if (aHadError) {
+      aDirtyType = DirtyType::kFinishedWithError;
+    }
+
+    OperationResult aFinalizationResult = FinalizeArchiveHeaders(
+        pDiscovery,
+        aArchivesExisting,
+        aDirtyType,
+        pFileSystem,
+        nullptr,
+        pCancelCoordinator);
+    if (!aFinalizationResult.mSucceeded) {
+      return aFinalizationResult;
+    }
+  }
+
+  if (aHadCancel) {
+    if (pCancelCoordinator != nullptr) {
+      pCancelCoordinator->LogEndingJob();
+      pCancelCoordinator->LogModeCancelled("Bundle");
+    }
+    return MakeCanceled();
+  }
+
+  if (aHadError) {
+    return MakeFailure(aFinalErrorCode, aFinalFailureMessage);
   }
   return MakeSuccess();
 }

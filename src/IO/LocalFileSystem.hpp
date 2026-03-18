@@ -24,6 +24,10 @@ class LocalFileSystem final : public FileSystem {
   std::unique_ptr<FileReadStream> OpenReadStream(const std::string& pPath) const override;
   std::unique_ptr<FileWriteStream> OpenWriteStream(const std::string& pPath) override;
   bool AppendFile(const std::string& pPath, const unsigned char* pContents, std::size_t pLength) override;
+  bool OverwriteFileRegion(const std::string& pPath,
+                           std::size_t pOffset,
+                           const unsigned char* pContents,
+                           std::size_t pLength) override;
   std::string JoinPath(const std::string& pLeft, const std::string& pRight) const override;
   std::string ParentPath(const std::string& pPath) const override;
   std::string FileName(const std::string& pPath) const override;

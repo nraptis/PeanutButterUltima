@@ -28,6 +28,9 @@ inline constexpr std::uint32_t kMagicHeaderBytes = 0xDECAFBADu;
 inline constexpr std::uint32_t kMagicFooterBytes = 0xF01DAB1Eu;
 inline constexpr std::uint32_t kMajorVersion = 1u;
 inline constexpr std::uint32_t kMinorVersion = 7u;
+inline constexpr std::uint32_t kArchiverVersion = 1u;
+inline constexpr std::uint32_t kPasswordExpanderVersion = 1u;
+inline constexpr std::uint32_t kCipherStackVersion = 1u;
 
 // Logging controls.
 inline constexpr std::uint32_t kElapsedTimeLogIntervalSeconds = 300u;          // 5 minutes
@@ -75,18 +78,37 @@ enum class EncryptionStrength : std::uint8_t {
   kLow = 3u,
 };
 
+enum class ExpansionStrength : std::uint8_t {
+  kHigh = 1u,
+  kMedium = 2u,
+  kLow = 3u,
+};
+
+enum class DirtyType : std::uint8_t {
+  kInvalid = 0u,
+  kFinishedWithCancel = 1u,
+  kFinishedWithError = 2u,
+  kFinishedWithCancelAndError = 3u,
+  kFinished = 4u,
+};
+
 struct ArchiveHeader {
   std::uint32_t mMagic = kMagicHeaderBytes;
   std::uint16_t mVersionMajor = static_cast<std::uint16_t>(kMajorVersion & 0xFFFFu);
   std::uint16_t mVersionMinor = static_cast<std::uint16_t>(kMinorVersion & 0xFFFFu);
+  std::uint8_t mArchiverVersion = static_cast<std::uint8_t>(kArchiverVersion & 0xFFu);
+  std::uint8_t mPasswordExpanderVersion =
+      static_cast<std::uint8_t>(kPasswordExpanderVersion & 0xFFu);
+  std::uint8_t mCipherStackVersion = static_cast<std::uint8_t>(kCipherStackVersion & 0xFFu);
+  EncryptionStrength mEncryptionStrength = EncryptionStrength::kHigh;
+  ExpansionStrength mExpansionStrength = ExpansionStrength::kHigh;
+  std::uint8_t mRecordCountMod256 = 0;
+  std::uint8_t mFolderCountMod256 = 0;
+  DirtyType mDirtyType = DirtyType::kInvalid;
   std::uint32_t mArchiveIndex = 0;
   std::uint32_t mArchiveCount = 0;
   std::uint32_t mPayloadLength = 0;
-  std::uint8_t mRecordCountMod256 = 0;
-  std::uint8_t mFolderCountMod256 = 0;
-  EncryptionStrength mEncryptionStrength = EncryptionStrength::kHigh;
-  std::uint8_t mReserved8 = 0;
-  std::uint64_t mReservedA = 0;
+  std::uint32_t mReserved32 = 0;
   std::uint64_t mReservedB = 0;
   std::uint64_t mArchiveFamilyId = 0;
 };

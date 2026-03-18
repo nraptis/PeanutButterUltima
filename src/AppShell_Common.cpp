@@ -44,6 +44,8 @@ const char* ProgressPhaseToString(ProgressPhase pPhase) {
       return "LayerCake";
     case ProgressPhase::kFlight:
       return "Flight";
+    case ProgressPhase::kFinalizing:
+      return "Finalizing";
   }
   return "Progress";
 }
@@ -105,12 +107,14 @@ double ComputeOverallProgress(ProgressProfileKind pProfile,
   double aDiscoveryWeight = kBundleProgressFactorDiscovery;
   double aExpansionWeight = kBundleProgressFactorExpansion;
   double aLayerCakeWeight = kBundleProgressFactorLayerCake;
+  double aFinalizingWeight = kBundleProgressFactorFinalizing;
   double aFlightWeight = kBundleProgressFactorFlight;
   if (pProfile == ProgressProfileKind::kUnbundle) {
     aPreflightWeight = kUnbundleProgressFactorPreflight;
     aDiscoveryWeight = kUnbundleProgressFactorDiscovery;
     aExpansionWeight = kUnbundleProgressFactorExpansion;
     aLayerCakeWeight = kUnbundleProgressFactorLayerCake;
+    aFinalizingWeight = kUnbundleProgressFactorFinalizing;
     aFlightWeight = kUnbundleProgressFactorFlight;
   }
 
@@ -136,6 +140,11 @@ double ComputeOverallProgress(ProgressProfileKind pProfile,
     case ProgressPhase::kFlight:
       aBase = aPreflightWeight + aDiscoveryWeight + aExpansionWeight + aLayerCakeWeight;
       aWeight = aFlightWeight;
+      break;
+    case ProgressPhase::kFinalizing:
+      aBase = aPreflightWeight + aDiscoveryWeight + aExpansionWeight +
+              aLayerCakeWeight + aFlightWeight;
+      aWeight = aFinalizingWeight;
       break;
   }
   return ClampProgressFraction(aBase + (aWeight * aClampedPhaseFraction));
@@ -220,9 +229,6 @@ void CancelCoordinator::ClearActivity() {
 void CancelCoordinator::NoteFinishedWriting(const std::string& pPath) {
   if (!pPath.empty()) {
     mMostRecentPath = pPath;
-  }
-  if (mSawCancel && mLogger != nullptr && !pPath.empty()) {
-    mLogger->LogStatus("[Cancel] Finished writing: " + PathLabel(pPath) + ".");
   }
 }
 

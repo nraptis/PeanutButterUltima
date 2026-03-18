@@ -1,2 +1,0 @@
-run_brew_tests_detailed_logs.txt
-Build configure failed with exit code 1.

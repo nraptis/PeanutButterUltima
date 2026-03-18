@@ -19,6 +19,7 @@ enum class ProgressPhase : std::uint8_t {
   kExpansion = 2u,
   kLayerCake = 3u,
   kFlight = 4u,
+  kFinalizing = 5u,
 };
 
 struct ProgressInfo {
@@ -34,21 +35,25 @@ inline constexpr double kBundleProgressFactorPreflight = 0.05;
 inline constexpr double kBundleProgressFactorDiscovery = 0.05;
 inline constexpr double kBundleProgressFactorExpansion = 0.05;
 inline constexpr double kBundleProgressFactorLayerCake = 0.05;
+inline constexpr double kBundleProgressFactorFinalizing = 0.05;
 inline constexpr double kBundleProgressFactorFlight =
     1.0 - (kBundleProgressFactorPreflight +
            kBundleProgressFactorDiscovery +
            kBundleProgressFactorExpansion +
-           kBundleProgressFactorLayerCake);
+           kBundleProgressFactorLayerCake +
+           kBundleProgressFactorFinalizing);
 
 inline constexpr double kUnbundleProgressFactorPreflight = 0.05;
 inline constexpr double kUnbundleProgressFactorDiscovery = 0.05;
 inline constexpr double kUnbundleProgressFactorExpansion = 0.05;
 inline constexpr double kUnbundleProgressFactorLayerCake = 0.05;
+inline constexpr double kUnbundleProgressFactorFinalizing = 0.0;
 inline constexpr double kUnbundleProgressFactorFlight =
     1.0 - (kUnbundleProgressFactorPreflight +
            kUnbundleProgressFactorDiscovery +
            kUnbundleProgressFactorExpansion +
-           kUnbundleProgressFactorLayerCake);
+           kUnbundleProgressFactorLayerCake +
+           kUnbundleProgressFactorFinalizing);
 
 enum class ProgressProfileKind : std::uint8_t {
   kBundle = 0u,

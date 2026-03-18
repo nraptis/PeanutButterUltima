@@ -22,15 +22,8 @@ endif()
 if(PEANUT_BUTTER_ULTIMA_BUILD_TESTS)
   set(PB_TEST_SOURCES
       tests/TestMain.cpp
-      tests/common/BlindTestFixtures.cpp
-      tests/happy_path/HappyPathSuite.cpp
-      tests/augment_data/AugmentDataSuite.cpp
-      tests/augment_disk/AugmentDiskSuite.cpp
-      test_starter_kit/src/MockHardDrive.cpp
-      test_starter_kit/src/MockFileSystem.cpp
-      test_starter_kit/src/EmptyTestCrypt.cpp
-      test_starter_kit/src/StarterKitHelpers.cpp
-      test_starter_kit/src/TestScenarioHelpers.cpp
+      src/Archive/ArchiveFinalize.cpp
+      src/Archive/ArchiveSkip.cpp
       src/AppShell_ArchiveFormat.cpp
       src/AppShell_Bundle.cpp
       src/AppShell_Common.cpp
@@ -39,10 +32,17 @@ if(PEANUT_BUTTER_ULTIMA_BUILD_TESTS)
       src/AppShell_Sanity.cpp
       src/AppShell_Types.cpp
       src/AppShell_Unbundle.cpp
+      src/Bundle/BundleDiscovery.cpp
+      src/Bundle/BundleFlight.cpp
+      src/Bundle/LogicalRecordEncoder.cpp
+      src/Decode/DecodeDiscovery.cpp
+      src/Decode/DecodeFlight.cpp
+      src/Decode/LogicalRecordDecoder.cpp
       src/Encryption/Crypt.cpp
       src/Encryption/EncryptionLayer.cpp
       src/Encryption/LayeredCrypt.cpp
       src/IO/FileSystem.cpp
+      src/IO/LocalFileSystem.cpp
   )
 
   add_executable(PeanutButterCodexTests ${PB_TEST_SOURCES} ${PB_WINDOWS_RC_SOURCE})
@@ -51,7 +51,6 @@ if(PEANUT_BUTTER_ULTIMA_BUILD_TESTS)
       PRIVATE
         src
         .
-        test_starter_kit/include
   )
   target_compile_definitions(
       PeanutButterCodexTests
@@ -60,6 +59,8 @@ if(PEANUT_BUTTER_ULTIMA_BUILD_TESTS)
         $<$<CONFIG:Debug>:PEANUT_BUTTER_ULTIMA_DEBUG_BUILD>
         $<$<CONFIG:Release>:PEANUT_BUTTER_ULTIMA_RELEASE_BUILD>
   )
+  enable_testing()
+  add_test(NAME PeanutButterCodexTests COMMAND PeanutButterCodexTests)
 endif()
 
 set(PB_WINDOWS_RC_SOURCE "")
@@ -81,6 +82,8 @@ endif()
 if(PEANUT_BUTTER_ULTIMA_BUILD_APP)
   set(PB_SOURCES
       src/main_qt.cpp
+      src/Archive/ArchiveFinalize.cpp
+      src/Archive/ArchiveSkip.cpp
       src/AppShell_ArchiveFormat.cpp
       src/AppShell_Bundle.cpp
       src/AppShell_Common.cpp
@@ -89,6 +92,12 @@ if(PEANUT_BUTTER_ULTIMA_BUILD_APP)
       src/AppShell_Sanity.cpp
       src/AppShell_Types.cpp
       src/AppShell_Unbundle.cpp
+      src/Bundle/BundleDiscovery.cpp
+      src/Bundle/BundleFlight.cpp
+      src/Bundle/LogicalRecordEncoder.cpp
+      src/Decode/DecodeDiscovery.cpp
+      src/Decode/DecodeFlight.cpp
+      src/Decode/LogicalRecordDecoder.cpp
       src/Encryption/Crypt.cpp
       src/Encryption/EncryptionLayer.cpp
       src/Encryption/LayeredCrypt.cpp

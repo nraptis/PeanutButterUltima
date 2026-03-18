@@ -88,6 +88,10 @@ class FileSystem {
   virtual std::unique_ptr<FileReadStream> OpenReadStream(const std::string& pPath) const = 0;
   virtual std::unique_ptr<FileWriteStream> OpenWriteStream(const std::string& pPath) = 0;
   virtual bool AppendFile(const std::string& pPath, const unsigned char* pContents, std::size_t pLength) = 0;
+  virtual bool OverwriteFileRegion(const std::string& pPath,
+                                   std::size_t pOffset,
+                                   const unsigned char* pContents,
+                                   std::size_t pLength) = 0;
   virtual std::string JoinPath(const std::string& pLeft, const std::string& pRight) const = 0;
   virtual std::string ParentPath(const std::string& pPath) const = 0;
   virtual std::string FileName(const std::string& pPath) const = 0;

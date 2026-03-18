@@ -336,6 +336,38 @@ bool LocalFileSystem::AppendFile(const std::string& pPath, const unsigned char* 
   return aOutput.good();
 }
 
+bool LocalFileSystem::OverwriteFileRegion(const std::string& pPath,
+                                          std::size_t pOffset,
+                                          const unsigned char* pContents,
+                                          std::size_t pLength) {
+  if (pLength == 0u) {
+    return true;
+  }
+  if (pContents == nullptr) {
+    return false;
+  }
+
+  errno = 0;
+  std::FILE* aFile = std::fopen(pPath.c_str(), "r+b");
+  if (aFile == nullptr) {
+    return false;
+  }
+  if (std::fseek(aFile, static_cast<long>(pOffset), SEEK_SET) != 0) {
+    (void)std::fclose(aFile);
+    return false;
+  }
+  const std::size_t aWritten = std::fwrite(pContents, 1u, pLength, aFile);
+  if (aWritten != pLength) {
+    (void)std::fclose(aFile);
+    return false;
+  }
+  if (std::fflush(aFile) != 0) {
+    (void)std::fclose(aFile);
+    return false;
+  }
+  return std::fclose(aFile) == 0;
+}
+
 std::string LocalFileSystem::JoinPath(const std::string& pLeft, const std::string& pRight) const {
   return JoinLocalPath(pLeft, pRight);
 }
