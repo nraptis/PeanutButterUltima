@@ -261,8 +261,7 @@ What it does:
 | `mSourceStem` | `std::string` | Base filename stem used in generated archive names. Default: `"archive_data"`. |
 | `mArchivePrefix` | `std::string` | Prepended before `mSourceStem` when naming archive files. |
 | `mArchiveSuffix` | `std::string` | Filename suffix or extension. If it has no leading dot, the writer adds one. |
-| `mPasswordOne` | `std::string` | First password string, only meaningful when encryption is enabled. |
-| `mPasswordTwo` | `std::string` | Second password string, only meaningful when encryption is enabled. |
+| `mPassword` | `std::string` | Password string, only meaningful when encryption is enabled. |
 | `mArchiveBlockCount` | `std::uint32_t` | Number of L3 blocks per archive file. Must be `1..2048`. |
 | `mUseEncryption` | `bool` | If `true`, the writer asks `mCryptGenerator` to create a crypt engine. |
 | `mEncryptionStrength` | `EncryptionStrength` | Strength enum stored into the archive header and passed into the crypt generator. |
@@ -270,7 +269,7 @@ What it does:
 
 Important notes:
 
-- One archive file size is `48 + (mArchiveBlockCount * 1000704)` bytes.
+- One archive file size is `48 + (mArchiveBlockCount * 1044480)` bytes.
 - The current writer mirrors `mEncryptionStrength` into the archive header's `mExpansionStrength`.
 
 #### `UnbundleRequest`
@@ -278,8 +277,7 @@ Important notes:
 | Field | Type | Meaning |
 | --- | --- | --- |
 | `mDestinationDirectory` | `std::string` | Folder that will receive recovered or unbundled output. Required. |
-| `mPasswordOne` | `std::string` | First password string, only meaningful when encryption is enabled. |
-| `mPasswordTwo` | `std::string` | Second password string, only meaningful when encryption is enabled. |
+| `mPassword` | `std::string` | Password string, only meaningful when encryption is enabled. |
 | `mUseEncryption` | `bool` | If `true`, decode creates a crypt engine and unseals each block. |
 | `mRecoverMode` | `bool` | Present on the struct, but the public mode selector is the function you call: `Unbundle(...)` vs `Recover(...)`. |
 | `mCryptGenerator` | `CryptGenerator` | Factory for the opaque crypt engine. Required only when `mUseEncryption == true`. |
@@ -300,7 +298,7 @@ Important notes:
 | `mArchiveOrdinal` | `std::size_t` | Zero-based ordinal in the planned output list. |
 | `mArchiveIndex` | `std::uint32_t` | Numeric archive index stored in the archive header and filename. |
 | `mBlockCount` | `std::uint32_t` | L3 blocks in this archive file. |
-| `mPayloadBytes` | `std::uint32_t` | Serialized block-region length after the archive header. Current value: `mBlockCount * 1000704`. |
+| `mPayloadBytes` | `std::uint32_t` | Serialized block-region length after the archive header. Current value: `mBlockCount * 1044480`. |
 | `mRecordCountMod256` | `std::uint8_t` | Count of non-terminator records whose starts land inside this archive's logical payload window, modulo 256. |
 | `mFolderCountMod256` | `std::uint8_t` | Count of empty-directory records whose starts land inside this archive's logical payload window, modulo 256. |
 | `mArchivePath` | `std::string` | Full output path of the archive file. |
@@ -383,7 +381,7 @@ What the archiver expects from it:
 
 - bundle calls `SealData(...)`
 - decode calls `UnsealData(...)`
-- the generator receives passwords, strength, recover-mode flag, and progress/status callbacks
+- the generator receives the password, strength, recover-mode flag, and progress/status callbacks
 
 No more encryption details belong in this README.
 
@@ -548,10 +546,10 @@ Recover succeeds when either of these is true:
 | version | `1.7` |
 | archive header length | `48` bytes |
 | recovery header length | `48` bytes |
-| L1 block size | `250176` bytes |
-| L2 block size | `500352` bytes |
-| L3 block size | `1000704` bytes |
-| payload bytes per L3 block | `1000656` bytes |
+| L1 block size | `261120` bytes |
+| L2 block size | `522240` bytes |
+| L3 block size | `1044480` bytes |
+| payload bytes per L3 block | `1044432` bytes |
 | max stored path length | `2048` bytes |
 | max archive count | `65535` |
 | max blocks per archive | `2048` |
@@ -570,18 +568,18 @@ One archive file looks like this:
 +--------------------------------------------------------------+
 | Archive Header (48)                                          |
 +--------------------------------------------------------------+
-| L3 Block 0 (1000704)                                         |
+| L3 Block 0 (1044480)                                         |
 |  +--------------------------------------------------------+  |
 |  | Recovery Header (48)                                   |  |
 |  +--------------------------------------------------------+  |
-|  | Payload (1000656)                                      |  |
+|  | Payload (1044432)                                      |  |
 |  +--------------------------------------------------------+  |
 +--------------------------------------------------------------+
-| L3 Block 1 (1000704)                                       |
+| L3 Block 1 (1044480)                                       |
 |  +--------------------------------------------------------+  |
 |  | Recovery Header (48)                                   |  |
 |  +--------------------------------------------------------+  |
-|  | Payload (1000656)                                      |  |
+|  | Payload (1044432)                                      |  |
 |  +--------------------------------------------------------+  |
 +--------------------------------------------------------------+
 | ...                                                          |
@@ -759,8 +757,8 @@ Logical payload used:
 Archive size:
 
 - archive header: `48`
-- one L3 block: `1000704`
-- total file size: `1000752`
+- one L3 block: `1044480`
+- total file size: `1044528`
 
 Absolute file layout:
 
@@ -768,7 +766,7 @@ Absolute file layout:
 0        .. 47       Archive Header
 48       .. 95       Recovery Header for Block 0
 96       .. 120      Logical payload bytes actually used
-121      .. 1000751  Zero padding
+121      .. 1044527  Zero padding
 ```
 
 ### Example A Archive Header Bytes
@@ -800,7 +798,7 @@ Absolute file layout:
 | `22` | `00` | `.` | `mArchiveCount` byte 2 |
 | `23` | `00` | `.` | `mArchiveCount` byte 3 |
 | `24` | `00` | `.` | `mPayloadLength` byte 0 |
-| `25` | `45` | `E` | `mPayloadLength` byte 1 |
+| `25` | `F0` | `.` | `mPayloadLength` byte 1 |
 | `26` | `0F` | `.` | `mPayloadLength` byte 2 |
 | `27` | `00` | `.` | `mPayloadLength` byte 3 |
 | `28` | `00` | `.` | `mReserved32` byte 0 |
@@ -906,7 +904,7 @@ Absolute file layout:
 | `118` | `FF` | `.` | empty-dir record: marker byte 7 |
 | `119` | `00` | `.` | terminator: `path_length` byte 0 |
 | `120` | `00` | `.` | terminator: `path_length` byte 1 |
-| `121 .. 1000751` | `00 ... 00` | `.` | zero padding to the end of the L3 block |
+| `121 .. 1044527` | `00 ... 00` | `.` | zero padding to the end of the L3 block |
 
 ## Worked Example B: One Archive, Two Blocks
 
@@ -933,8 +931,8 @@ Logical payload used:
 Archive size:
 
 - archive header: `48`
-- two L3 blocks: `2001408`
-- total file size: `2001456`
+- two L3 blocks: `2088960`
+- total file size: `2089008`
 
 Absolute file layout:
 
@@ -942,9 +940,9 @@ Absolute file layout:
 0          .. 47        Archive Header
 48         .. 95        Block 0 Recovery Header
 96         .. 121       Block 0 Used Payload
-122        .. 1000751   Block 0 Zero Padding
-1000752    .. 1000799   Block 1 Recovery Header
-1000800    .. 2001455   Block 1 Payload (all zero in this example)
+122        .. 1044527   Block 0 Zero Padding
+1044528    .. 1044575   Block 1 Recovery Header
+1044576    .. 2089007   Block 1 Payload (all zero in this example)
 ```
 
 Why this example matters:
@@ -983,8 +981,8 @@ Why this example matters:
 | `22` | `00` | `.` | `mArchiveCount` byte 2 |
 | `23` | `00` | `.` | `mArchiveCount` byte 3 |
 | `24` | `00` | `.` | `mPayloadLength` byte 0 |
-| `25` | `8A` | `.` | `mPayloadLength` byte 1 |
-| `26` | `1E` | `.` | `mPayloadLength` byte 2 |
+| `25` | `E0` | `.` | `mPayloadLength` byte 1 |
+| `26` | `1F` | `.` | `mPayloadLength` byte 2 |
 | `27` | `00` | `.` | `mPayloadLength` byte 3 |
 | `28` | `00` | `.` | `mReserved32` byte 0 |
 | `29` | `00` | `.` | `mReserved32` byte 1 |
@@ -1090,66 +1088,66 @@ Why this example matters:
 | `119` | `59` | `Y` | file record 2: content byte 0 |
 | `120` | `00` | `.` | terminator: `path_length` byte 0 |
 | `121` | `00` | `.` | terminator: `path_length` byte 1 |
-| `122 .. 1000751` | `00 ... 00` | `.` | zero padding to the end of block 0 |
+| `122 .. 1044527` | `00 ... 00` | `.` | zero padding to the end of block 0 |
 
 ### Example B Block 1 Recovery Header Bytes
 
 | File Offset | Hex | ASCII | Meaning |
 | --- | --- | --- | --- |
-| `1000752` | `AB` | `.` | `checksum.word1` byte 0 |
-| `1000753` | `AB` | `.` | `checksum.word1` byte 1 |
-| `1000754` | `AB` | `.` | `checksum.word1` byte 2 |
-| `1000755` | `AB` | `.` | `checksum.word1` byte 3 |
-| `1000756` | `AB` | `.` | `checksum.word1` byte 4 |
-| `1000757` | `AB` | `.` | `checksum.word1` byte 5 |
-| `1000758` | `AB` | `.` | `checksum.word1` byte 6 |
-| `1000759` | `AB` | `.` | `checksum.word1` byte 7 |
-| `1000760` | `CD` | `.` | `checksum.word2` byte 0 |
-| `1000761` | `CD` | `.` | `checksum.word2` byte 1 |
-| `1000762` | `CD` | `.` | `checksum.word2` byte 2 |
-| `1000763` | `CD` | `.` | `checksum.word2` byte 3 |
-| `1000764` | `CD` | `.` | `checksum.word2` byte 4 |
-| `1000765` | `CD` | `.` | `checksum.word2` byte 5 |
-| `1000766` | `CD` | `.` | `checksum.word2` byte 6 |
-| `1000767` | `CD` | `.` | `checksum.word2` byte 7 |
-| `1000768` | `EF` | `.` | `checksum.word3` byte 0 |
-| `1000769` | `EF` | `.` | `checksum.word3` byte 1 |
-| `1000770` | `EF` | `.` | `checksum.word3` byte 2 |
-| `1000771` | `EF` | `.` | `checksum.word3` byte 3 |
-| `1000772` | `EF` | `.` | `checksum.word3` byte 4 |
-| `1000773` | `EF` | `.` | `checksum.word3` byte 5 |
-| `1000774` | `EF` | `.` | `checksum.word3` byte 6 |
-| `1000775` | `EF` | `.` | `checksum.word3` byte 7 |
-| `1000776` | `12` | `.` | `checksum.word4` byte 0 |
-| `1000777` | `12` | `.` | `checksum.word4` byte 1 |
-| `1000778` | `12` | `.` | `checksum.word4` byte 2 |
-| `1000779` | `12` | `.` | `checksum.word4` byte 3 |
-| `1000780` | `12` | `.` | `checksum.word4` byte 4 |
-| `1000781` | `12` | `.` | `checksum.word4` byte 5 |
-| `1000782` | `12` | `.` | `checksum.word4` byte 6 |
-| `1000783` | `12` | `.` | `checksum.word4` byte 7 |
-| `1000784` | `34` | `4` | `checksum.word5` byte 0 |
-| `1000785` | `34` | `4` | `checksum.word5` byte 1 |
-| `1000786` | `34` | `4` | `checksum.word5` byte 2 |
-| `1000787` | `34` | `4` | `checksum.word5` byte 3 |
-| `1000788` | `34` | `4` | `checksum.word5` byte 4 |
-| `1000789` | `34` | `4` | `checksum.word5` byte 5 |
-| `1000790` | `34` | `4` | `checksum.word5` byte 6 |
-| `1000791` | `34` | `4` | `checksum.word5` byte 7 |
-| `1000792` | `00` | `.` | `skip.archive_distance` byte 0 |
-| `1000793` | `00` | `.` | `skip.archive_distance` byte 1 |
-| `1000794` | `00` | `.` | `skip.block_distance` byte 0 |
-| `1000795` | `00` | `.` | `skip.block_distance` byte 1 |
-| `1000796` | `00` | `.` | `skip.byte_distance` byte 0 |
-| `1000797` | `00` | `.` | `skip.byte_distance` byte 1 |
-| `1000798` | `00` | `.` | `skip.byte_distance` byte 2 |
-| `1000799` | `00` | `.` | `skip.byte_distance` byte 3 |
+| `1044528` | `AB` | `.` | `checksum.word1` byte 0 |
+| `1044529` | `AB` | `.` | `checksum.word1` byte 1 |
+| `1044530` | `AB` | `.` | `checksum.word1` byte 2 |
+| `1044531` | `AB` | `.` | `checksum.word1` byte 3 |
+| `1044532` | `AB` | `.` | `checksum.word1` byte 4 |
+| `1044533` | `AB` | `.` | `checksum.word1` byte 5 |
+| `1044534` | `AB` | `.` | `checksum.word1` byte 6 |
+| `1044535` | `AB` | `.` | `checksum.word1` byte 7 |
+| `1044536` | `CD` | `.` | `checksum.word2` byte 0 |
+| `1044537` | `CD` | `.` | `checksum.word2` byte 1 |
+| `1044538` | `CD` | `.` | `checksum.word2` byte 2 |
+| `1044539` | `CD` | `.` | `checksum.word2` byte 3 |
+| `1044540` | `CD` | `.` | `checksum.word2` byte 4 |
+| `1044541` | `CD` | `.` | `checksum.word2` byte 5 |
+| `1044542` | `CD` | `.` | `checksum.word2` byte 6 |
+| `1044543` | `CD` | `.` | `checksum.word2` byte 7 |
+| `1044544` | `EF` | `.` | `checksum.word3` byte 0 |
+| `1044545` | `EF` | `.` | `checksum.word3` byte 1 |
+| `1044546` | `EF` | `.` | `checksum.word3` byte 2 |
+| `1044547` | `EF` | `.` | `checksum.word3` byte 3 |
+| `1044548` | `EF` | `.` | `checksum.word3` byte 4 |
+| `1044549` | `EF` | `.` | `checksum.word3` byte 5 |
+| `1044550` | `EF` | `.` | `checksum.word3` byte 6 |
+| `1044551` | `EF` | `.` | `checksum.word3` byte 7 |
+| `1044552` | `12` | `.` | `checksum.word4` byte 0 |
+| `1044553` | `12` | `.` | `checksum.word4` byte 1 |
+| `1044554` | `12` | `.` | `checksum.word4` byte 2 |
+| `1044555` | `12` | `.` | `checksum.word4` byte 3 |
+| `1044556` | `12` | `.` | `checksum.word4` byte 4 |
+| `1044557` | `12` | `.` | `checksum.word4` byte 5 |
+| `1044558` | `12` | `.` | `checksum.word4` byte 6 |
+| `1044559` | `12` | `.` | `checksum.word4` byte 7 |
+| `1044560` | `34` | `4` | `checksum.word5` byte 0 |
+| `1044561` | `34` | `4` | `checksum.word5` byte 1 |
+| `1044562` | `34` | `4` | `checksum.word5` byte 2 |
+| `1044563` | `34` | `4` | `checksum.word5` byte 3 |
+| `1044564` | `34` | `4` | `checksum.word5` byte 4 |
+| `1044565` | `34` | `4` | `checksum.word5` byte 5 |
+| `1044566` | `34` | `4` | `checksum.word5` byte 6 |
+| `1044567` | `34` | `4` | `checksum.word5` byte 7 |
+| `1044568` | `00` | `.` | `skip.archive_distance` byte 0 |
+| `1044569` | `00` | `.` | `skip.archive_distance` byte 1 |
+| `1044570` | `00` | `.` | `skip.block_distance` byte 0 |
+| `1044571` | `00` | `.` | `skip.block_distance` byte 1 |
+| `1044572` | `00` | `.` | `skip.byte_distance` byte 0 |
+| `1044573` | `00` | `.` | `skip.byte_distance` byte 1 |
+| `1044574` | `00` | `.` | `skip.byte_distance` byte 2 |
+| `1044575` | `00` | `.` | `skip.byte_distance` byte 3 |
 
 ### Example B Block 1 Payload Bytes
 
 | File Offset | Hex | ASCII | Meaning |
 | --- | --- | --- | --- |
-| `1000800 .. 2001455` | `00 ... 00` | `.` | entire payload is zero padding in this example |
+| `1044576 .. 2089007` | `00 ... 00` | `.` | entire payload is zero padding in this example |
 
 ## Practical Rules Worth Remembering
 

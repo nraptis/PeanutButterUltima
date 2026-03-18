@@ -70,8 +70,7 @@ struct BundleRequest {
   std::string mSourceStem = "archive_data";
   std::string mArchivePrefix = "";
   std::string mArchiveSuffix = ".PBTR";
-  std::string mPasswordOne;
-  std::string mPasswordTwo;
+  std::string mPassword;
   std::uint32_t mArchiveBlockCount = 1;
   bool mUseEncryption = false;
   EncryptionStrength mEncryptionStrength = EncryptionStrength::kHigh;
@@ -80,8 +79,7 @@ struct BundleRequest {
 
 struct UnbundleRequest {
   std::string mDestinationDirectory;
-  std::string mPasswordOne;
-  std::string mPasswordTwo;
+  std::string mPassword;
   bool mUseEncryption = false;
   bool mRecoverMode = false;
   CryptGenerator mCryptGenerator;

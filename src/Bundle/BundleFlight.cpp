@@ -147,8 +147,7 @@ OperationResult PerformBundleFlightCore(const BundleRequest& pRequest,
   if (pRequest.mUseEncryption) {
     CryptGeneratorRequest aCryptRequest;
     aCryptRequest.mEncryptionStrength = pRequest.mEncryptionStrength;
-    aCryptRequest.mPasswordOne = pRequest.mPasswordOne;
-    aCryptRequest.mPasswordTwo = pRequest.mPasswordTwo;
+    aCryptRequest.mPassword = pRequest.mPassword;
     aCryptRequest.mUseEncryption = pRequest.mUseEncryption;
     aCryptRequest.mLogStatus = [&pLogger](const std::string& pMessage) {
       pLogger.LogStatus(pMessage);

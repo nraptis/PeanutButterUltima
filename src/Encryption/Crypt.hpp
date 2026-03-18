@@ -34,8 +34,7 @@ enum class CryptGenerationStage : std::uint8_t {
 
 struct CryptGeneratorRequest {
   EncryptionStrength mEncryptionStrength = EncryptionStrength::kHigh;
-  std::string mPasswordOne;
-  std::string mPasswordTwo;
+  std::string mPassword;
   bool mUseEncryption = false;
   bool mRecoverMode = false;
   std::function<void(const std::string& pMessage)> mLogStatus;

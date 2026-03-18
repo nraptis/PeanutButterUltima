@@ -1013,8 +1013,7 @@ class PBMockEngine final {
     aCoreRequest.mSourceStem = ResolveBundleSourceStem(pRequest.mSourcePath);
     aCoreRequest.mArchivePrefix = pRequest.mArchivePrefix.empty() ? "bundle_" : pRequest.mArchivePrefix;
     aCoreRequest.mArchiveSuffix = kDefaultArchiveExtension;
-    aCoreRequest.mPasswordOne = pRequest.mPassword;
-    aCoreRequest.mPasswordTwo = pRequest.mPassword;
+    aCoreRequest.mPassword = pRequest.mPassword;
     aCoreRequest.mArchiveBlockCount = static_cast<std::uint32_t>(
         std::min<std::size_t>(
             std::max<std::size_t>(1u, pRequest.mArchiveBlockCount),
@@ -1061,8 +1060,7 @@ class PBMockEngine final {
 
     peanutbutter::UnbundleRequest aCoreRequest;
     aCoreRequest.mDestinationDirectory = pRequest.mDestinationPath;
-    aCoreRequest.mPasswordOne = pRequest.mPassword;
-    aCoreRequest.mPasswordTwo = pRequest.mPassword;
+    aCoreRequest.mPassword = pRequest.mPassword;
     aCoreRequest.mUseEncryption = pRequest.mUseEncryption;
     aCoreRequest.mRecoverMode = (pIntent == PBDecodeIntent::Recover);
     aCoreRequest.mCryptGenerator = mCryptGenerator;
@@ -1976,10 +1974,8 @@ int main(int argc, char* argv[]) {
   compare_left_edit->setText(aDefaultBundleSource);
   compare_right_edit->setText(aDefaultUnarchivePath);
   make_archive_file_prefix_edit->setText(configStringValue(aConfigDefaults, "default_file_prefix", "bundle_"));
-  const QString aDefaultPassword = configStringValue(
-      aConfigDefaults,
-      "default_password",
-      configStringValue(aConfigDefaults, "default_password_1", ""));
+  const QString aDefaultPassword =
+      configStringValue(aConfigDefaults, "default_password", "");
   make_archive_password_edit->setText(aDefaultPassword);
   open_archive_password_edit->setText(aDefaultPassword);
   recovery_mode_checkbox->setChecked(configBoolValue(aConfigDefaults, "default_recovery_mode", false));

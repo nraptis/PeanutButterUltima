@@ -232,8 +232,7 @@ OperationResult RunDecodeCore(const UnbundleRequest& pRequest,
     }
     CryptGeneratorRequest aCryptRequest;
     aCryptRequest.mEncryptionStrength = aEncryptionStrength;
-    aCryptRequest.mPasswordOne = pRequest.mPasswordOne;
-    aCryptRequest.mPasswordTwo = pRequest.mPasswordTwo;
+    aCryptRequest.mPassword = pRequest.mPassword;
     aCryptRequest.mUseEncryption = pRequest.mUseEncryption;
     aCryptRequest.mRecoverMode = pRecoverMode;
     aCryptRequest.mLogStatus = [&pLogger](const std::string& pMessage) {

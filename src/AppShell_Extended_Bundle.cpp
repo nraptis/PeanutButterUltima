@@ -435,8 +435,7 @@ OperationResult PerformBundleFlightWithMutations(
   if (pRequest.mUseEncryption) {
     CryptGeneratorRequest aCryptRequest;
     aCryptRequest.mEncryptionStrength = pRequest.mEncryptionStrength;
-    aCryptRequest.mPasswordOne = pRequest.mPasswordOne;
-    aCryptRequest.mPasswordTwo = pRequest.mPasswordTwo;
+    aCryptRequest.mPassword = pRequest.mPassword;
     aCryptRequest.mUseEncryption = pRequest.mUseEncryption;
     aCryptRequest.mLogStatus = [](const std::string&) {};
     std::string aCryptError;
